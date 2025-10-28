@@ -1,0 +1,7 @@
+# Requirements for Direct MT5 Integration
+# Install with: pip install -r requirements.txt
+
+telethon>=1.29.0
+requests>=2.31.0
+python-dotenv>=1.0.0
+MetaTrader5>=5.0.45
