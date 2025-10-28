@@ -1,7 +1,5 @@
-version: "3.8"
-
 services:
-  # Main MT5 Trading Bot
+  # MT5 Trading Bot - Optimized for Hostinger
   mt5-trading-bot:
     build:
       context: .
@@ -9,91 +7,45 @@ services:
     container_name: mt5-trading-bot
     restart: unless-stopped
 
-    # Environment variables (override with .env file)
+    # Environment variables
     environment:
-      - DISPLAY=:99
-      - WINEARCH=win64
-      - WINEPREFIX=/opt/.wine
+      - PYTHONUNBUFFERED=1
       - TZ=UTC
 
     # Mount volumes for persistence
     volumes:
-      - ./logs:/app/logs
-      - ./data:/app/data
-      - ./config:/app/config
-      - ./.env:/app/.env:ro # Read-only environment file
+      - trading-logs:/app/logs
+      - trading-data:/app/data
 
-    # Port mappings (optional - for VNC debugging)
-    ports:
-      - "5900:5900" # VNC server
-
-    # Resource limits (adjust based on your VPS)
+    # Resource limits for Hostinger VPS
     deploy:
       resources:
         limits:
-          memory: 2G
-          cpus: "1.0"
-        reservations:
-          memory: 512M
-          cpus: "0.25"
+          memory: 1G
+          cpus: "0.5"
 
-    # Health check configuration
+    # Health check
     healthcheck:
-      test: ["CMD", "/docker/healthcheck.sh"]
-      interval: 30s
+      test:
+        [
+          "CMD",
+          "python3",
+          "-c",
+          "import requests; requests.get('http://localhost:8000/health', timeout=5)",
+        ]
+      interval: 60s
       timeout: 10s
-      start_period: 60s
+      start_period: 120s
       retries: 3
 
     # Logging configuration
     logging:
       driver: "json-file"
       options:
-        max-size: "100m"
-        max-file: "5"
-
-    # Network configuration
-    networks:
-      - trading-network
-
-  # Optional: n8n webhook service (if you want to run locally)
-  # Uncomment if you want to run n8n in the same stack
-  # n8n:
-  #   image: n8nio/n8n:latest
-  #   container_name: n8n-webhooks
-  #   restart: unless-stopped
-  #   ports:
-  #     - "5678:5678"
-  #   environment:
-  #     - N8N_HOST=0.0.0.0
-  #     - N8N_PORT=5678
-  #     - WEBHOOK_URL=http://localhost:5678/
-  #   volumes:
-  #     - n8n_data:/home/node/.n8n
-  #   networks:
-  #     - trading-network
-
-  # Optional: Redis for caching (advanced usage)
-  # redis:
-  #   image: redis:7-alpine
-  #   container_name: trading-redis
-  #   restart: unless-stopped
-  #   volumes:
-  #     - redis_data:/data
-  #   networks:
-  #     - trading-network
+        max-size: "50m"
+        max-file: "3"
 
 # Named volumes for data persistence
 volumes:
-  # n8n_data:
-  # redis_data:
-  trading_logs:
-  trading_data:
-
-# Custom network for service communication
-networks:
-  trading-network:
-    driver: bridge
-    ipam:
-      config:
-        - subnet: 172.20.0.0/16
+  trading-logs:
+  trading-data:
