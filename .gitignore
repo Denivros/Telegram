@@ -1,0 +1,12 @@
+# Telegram Monitor - Ignore sensitive files
+.env
+*.session
+*.session-journal
+telegram_monitor.log
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+downloads/
+.venv/
