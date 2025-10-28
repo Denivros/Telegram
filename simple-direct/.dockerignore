@@ -1,0 +1,71 @@
+# Docker ignore file - excludes files from Docker build context
+
+# This makes builds faster and containers smaller
+
+# Git files
+
+.git/
+.gitignore
+
+# Python cache
+
+**pycache**/
+_.pyc
+_.pyo
+_.pyd
+.Python
+_.so
+.pytest_cache/
+
+# Virtual environments
+
+.venv/
+venv/
+env/
+
+# IDE files
+
+.vscode/
+.idea/
+_.swp
+_.swo
+
+# OS files
+
+.DS_Store
+Thumbs.db
+
+# Logs
+
+\*.log
+logs/
+
+# Documentation (we'll copy manually if needed)
+
+\*.md
+!DOCKER_SETUP.md
+
+# Backup files
+
+_.bak
+_.backup
+
+# Temporary files
+
+tmp/
+temp/
+
+# Session files (contain credentials)
+
+\*.session
+
+# Test files
+
+test\__.py
+_\_test.py
+
+# Docker files (avoid recursion)
+
+Dockerfile*
+docker-compose*.yml
+.dockerignore

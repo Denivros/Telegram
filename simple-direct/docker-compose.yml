@@ -1,0 +1,99 @@
+version: "3.8"
+
+services:
+  # Main MT5 Trading Bot
+  mt5-trading-bot:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: mt5-trading-bot
+    restart: unless-stopped
+
+    # Environment variables (override with .env file)
+    environment:
+      - DISPLAY=:99
+      - WINEARCH=win64
+      - WINEPREFIX=/opt/.wine
+      - TZ=UTC
+
+    # Mount volumes for persistence
+    volumes:
+      - ./logs:/app/logs
+      - ./data:/app/data
+      - ./config:/app/config
+      - ./.env:/app/.env:ro # Read-only environment file
+
+    # Port mappings (optional - for VNC debugging)
+    ports:
+      - "5900:5900" # VNC server
+
+    # Resource limits (adjust based on your VPS)
+    deploy:
+      resources:
+        limits:
+          memory: 2G
+          cpus: "1.0"
+        reservations:
+          memory: 512M
+          cpus: "0.25"
+
+    # Health check configuration
+    healthcheck:
+      test: ["CMD", "/docker/healthcheck.sh"]
+      interval: 30s
+      timeout: 10s
+      start_period: 60s
+      retries: 3
+
+    # Logging configuration
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "100m"
+        max-file: "5"
+
+    # Network configuration
+    networks:
+      - trading-network
+
+  # Optional: n8n webhook service (if you want to run locally)
+  # Uncomment if you want to run n8n in the same stack
+  # n8n:
+  #   image: n8nio/n8n:latest
+  #   container_name: n8n-webhooks
+  #   restart: unless-stopped
+  #   ports:
+  #     - "5678:5678"
+  #   environment:
+  #     - N8N_HOST=0.0.0.0
+  #     - N8N_PORT=5678
+  #     - WEBHOOK_URL=http://localhost:5678/
+  #   volumes:
+  #     - n8n_data:/home/node/.n8n
+  #   networks:
+  #     - trading-network
+
+  # Optional: Redis for caching (advanced usage)
+  # redis:
+  #   image: redis:7-alpine
+  #   container_name: trading-redis
+  #   restart: unless-stopped
+  #   volumes:
+  #     - redis_data:/data
+  #   networks:
+  #     - trading-network
+
+# Named volumes for data persistence
+volumes:
+  # n8n_data:
+  # redis_data:
+  trading_logs:
+  trading_data:
+
+# Custom network for service communication
+networks:
+  trading-network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.20.0.0/16
