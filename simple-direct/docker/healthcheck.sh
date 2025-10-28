@@ -1,12 +1,5 @@
 #!/bin/bash
-# Docker Health Check Script
-# This script is called by Docker to check if the container is healthy
-
-# Check if virtual display is running
-if ! pgrep -f "Xvfb :99" > /dev/null; then
-    echo "❌ Virtual display not running"
-    exit 1
-fi
+# Docker Health Check Script - Simplified for Remote MT5
 
 # Check if trading bot process is running
 if ! pgrep -f "direct_mt5_monitor.py" > /dev/null; then
@@ -14,10 +7,12 @@ if ! pgrep -f "direct_mt5_monitor.py" > /dev/null; then
     exit 1
 fi
 
-# Check if Wine is responsive
-if ! wine --version > /dev/null 2>&1; then
-    echo "❌ Wine not responsive"
-    exit 1
+# Check if health endpoint is responding
+if command -v curl > /dev/null; then
+    if ! curl -f http://localhost:8000/health > /dev/null 2>&1; then
+        echo "❌ Health endpoint not responding"
+        exit 1
+    fi
 fi
 
 # Check if log file exists and is being updated (within last 10 minutes)

@@ -7,10 +7,26 @@ services:
     container_name: mt5-trading-bot
     restart: unless-stopped
 
-    # Environment variables
+    # Environment variables (configure these in Hostinger)
     environment:
       - PYTHONUNBUFFERED=1
       - TZ=UTC
+      # Telegram API credentials
+      - TELEGRAM_API_ID=22159421
+      - TELEGRAM_API_HASH=0a383c450ac02bbc327fd975f32387c4
+      - TELEGRAM_PHONE=+32474071892
+      - TELEGRAM_GROUP_ID=4867740501
+      - SESSION_NAME=telegram_monitor
+      # MT5 VPS Connection
+      - MT5_LOGIN=700010991
+      - MT5_PASSWORD=!yo9q9E&
+      - MT5_SERVER=PUPrime-Demo
+      # Trading Configuration
+      - DEFAULT_VOLUME=0.01
+      - ENTRY_STRATEGY=adaptive
+      - MAGIC_NUMBER=123456
+      # N8N webhook URL
+      - N8N_LOG_WEBHOOK=https://n8n.srv881084.hstgr.cloud/webhook-test/trading-logs
 
     # Mount volumes for persistence
     volumes:

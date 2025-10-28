@@ -40,8 +40,10 @@ WORKDIR /app
 
 # Copy application files
 COPY direct_mt5_monitor.py /app/
-COPY .env /app/
 COPY docker/ /app/docker/
+
+# Create .env file from environment variables at runtime
+RUN echo '#!/bin/bash\necho "Creating .env from environment variables..."\ncat > /app/.env << EOF\nTELEGRAM_API_ID=${TELEGRAM_API_ID}\nTELEGRAM_API_HASH=${TELEGRAM_API_HASH}\nTELEGRAM_PHONE=${TELEGRAM_PHONE}\nTELEGRAM_GROUP_ID=${TELEGRAM_GROUP_ID}\nSESSION_NAME=${SESSION_NAME}\nMT5_LOGIN=${MT5_LOGIN}\nMT5_PASSWORD=${MT5_PASSWORD}\nMT5_SERVER=${MT5_SERVER}\nDEFAULT_VOLUME=${DEFAULT_VOLUME}\nENTRY_STRATEGY=${ENTRY_STRATEGY}\nMAGIC_NUMBER=${MAGIC_NUMBER}\nN8N_LOG_WEBHOOK=${N8N_LOG_WEBHOOK}\nEOF' > /app/create_env.sh && chmod +x /app/create_env.sh
 
 # Make scripts executable
 RUN chmod +x /app/docker/*.sh
