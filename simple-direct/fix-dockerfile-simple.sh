@@ -1,3 +1,9 @@
+#!/bin/bash
+
+# Create simplified Dockerfile without Wine for remote MT5 connection
+echo "🔧 Creating simplified Dockerfile for remote MT5..."
+
+cat > Dockerfile << 'EOF'
 # Simplified Docker build for remote MT5 Trading Bot
 FROM ubuntu:24.04
 
@@ -52,3 +58,12 @@ HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
 
 # Start script
 CMD ["/app/docker/start.sh"]
+EOF
+
+echo "✅ Simplified Dockerfile created (remote MT5 connection)"
+echo "📤 Uploading to VPS..."
+
+# Upload the simplified Dockerfile
+scp Dockerfile root@31.97.183.241:/root/telegram-bot/
+
+echo "🎉 Upload completed! This version will work with remote MT5 connection."
