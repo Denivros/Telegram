@@ -6,7 +6,7 @@ A comprehensive system for monitoring Telegram trading signals and automatically
 
 ```
 ├── telegram-monitor/          # Basic Telegram group monitoring
-│   ├── telegram_monitor.py    # Main monitoring script 
+│   ├── telegram_monitor.py    # Main monitoring script
 │   ├── list_groups.py         # Helper to find group IDs
 │   └── requirements.txt       # Dependencies
 │
@@ -14,7 +14,7 @@ A comprehensive system for monitoring Telegram trading signals and automatically
 │   └── telegram_direct_mt5.py # Direct MT5 trading system
 │
 ├── mt5-integration/           # MT5 API server and Expert Advisors
-│   ├── mt5_api_server.py      # HTTP API for MT5 
+│   ├── mt5_api_server.py      # HTTP API for MT5
 │   ├── mt5_expert_advisor.mq5 # Polling-based EA
 │   ├── simple_signal_ea.mq5   # File-based EA
 │   └── signal_file_writer.py  # File bridge service
@@ -33,18 +33,21 @@ A comprehensive system for monitoring Telegram trading signals and automatically
 ## 🎯 Features
 
 ### Signal Processing
+
 - **Real-time Telegram monitoring** - Monitor any Telegram group for trading signals
 - **Intelligent signal parsing** - Extract symbol, direction, range, SL, TP from messages
 - **Multiple entry strategies** - Adaptive, midpoint, range break, momentum strategies
 - **Single entry logic** - Avoid duplicate trades with smart entry calculations
 
 ### Trading Integration
+
 - **Direct MT5 connection** - Execute trades directly via MetaTrader5 Python API
 - **HTTP API server** - RESTful API for remote MT5 control
 - **Expert Advisors** - Native MQL5 solutions for polling and file-based integration
 - **Comprehensive logging** - Real-time trade notifications via Telegram
 
 ### Automation & Monitoring
+
 - **n8n workflows** - Store signals, manage APIs, send notifications
 - **Telegram logging** - Get trade updates directly in Telegram
 - **Error handling** - Robust error recovery and notification system
@@ -53,6 +56,7 @@ A comprehensive system for monitoring Telegram trading signals and automatically
 ## 🚀 Quick Start
 
 ### 1. Basic Telegram Monitor
+
 Monitor a Telegram group and send events to n8n:
 
 ```bash
@@ -65,6 +69,7 @@ python telegram_monitor.py
 ```
 
 ### 2. Direct MT5 Trading
+
 Monitor signals and trade directly with MT5:
 
 ```bash
@@ -74,6 +79,7 @@ python telegram_direct_mt5.py
 ```
 
 ### 3. MT5 API Server
+
 Run an HTTP API for remote MT5 control:
 
 ```bash
@@ -85,6 +91,7 @@ python mt5_api_server.py
 ## 🔧 Configuration
 
 ### Environment Variables
+
 Create `.env` files in each folder with:
 
 ```env
@@ -124,16 +131,19 @@ TP: 1.0920
 ## 🔄 Integration Options
 
 ### Option 1: Direct MT5 (Recommended)
+
 - `telegram_direct_mt5.py` → Direct MT5 execution
 - Real-time processing, minimal latency
 - Best for live trading
 
 ### Option 2: n8n + HTTP API
+
 - `telegram_monitor.py` → n8n → `mt5_api_server.py` → MT5
 - Flexible workflow automation
 - Great for complex logic and monitoring
 
 ### Option 3: Expert Advisor Polling
+
 - `telegram_monitor.py` → n8n → Database → `mt5_expert_advisor.mq5` → MT5
 - Native MT5 integration
 - Works with any broker
@@ -156,6 +166,7 @@ Get real-time trade notifications:
 ## 🖥️ VPS Deployment
 
 ### Hostinger VPS Setup
+
 ```bash
 # Install Python and dependencies
 sudo apt update && sudo apt install python3 python3-pip
@@ -174,6 +185,7 @@ cd telegram-monitor && python3 telegram_monitor.py
 ```
 
 ### With n8n
+
 If you already have n8n running, you can add the Telegram monitor alongside it:
 
 ```bash
@@ -185,12 +197,15 @@ screen -S telegram    # New Telegram monitor
 ## 🛠️ Development
 
 ### Adding New Strategies
+
 Add your strategy to `EntryStrategyCalculator.calculate_entry_price()` in the direct trading system.
 
 ### Custom Signal Parsing
+
 Modify `TradingSignalParser.parse_signal()` to support different signal formats.
 
 ### MT5 API Extensions
+
 Extend `mt5_api_server.py` with additional endpoints for account info, history, etc.
 
 ## 📋 Requirements

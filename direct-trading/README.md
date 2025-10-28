@@ -6,38 +6,41 @@ Enhanced Telegram monitor that connects directly to MetaTrader 5 for automated t
 
 - **Real-time signal processing** - Parse trading signals from Telegram messages
 - **Multiple entry strategies** - Adaptive, midpoint, range break, momentum
-- **Direct MT5 integration** - Execute trades directly via MetaTrader5 Python API  
+- **Direct MT5 integration** - Execute trades directly via MetaTrader5 Python API
 - **Telegram logging** - Get trade notifications sent back to Telegram via n8n
 - **Single entry logic** - Prevent duplicate trades with intelligent entry calculations
 
 ## Quick Start
 
 1. **Install dependencies:**
+
    ```bash
    pip install -r requirements.txt
    ```
 
 2. **Configure environment:**
+
    ```bash
    cp ../telegram-monitor/.env.example .env
    # Add MT5 and logging configuration to .env
    ```
 
 3. **Required environment variables:**
+
    ```env
    # Telegram API
    TELEGRAM_API_ID=your_api_id
    TELEGRAM_API_HASH=your_api_hash
    TELEGRAM_PHONE=+1234567890
    TELEGRAM_GROUP_ID=-1001234567890
-   
+
    # Trading Strategy
    ENTRY_STRATEGY=adaptive
    DEFAULT_VOLUME=0.01
-   
+
    # MT5 API (if using HTTP API instead of direct)
    MT5_API_URL=http://localhost:8080/trade
-   
+
    # Telegram Logging
    N8N_LOG_WEBHOOK=https://your-n8n.com/webhook/trading-logs
    ```
@@ -50,20 +53,26 @@ Enhanced Telegram monitor that connects directly to MetaTrader 5 for automated t
 ## Entry Strategies
 
 ### Adaptive (Recommended)
+
 Intelligent entry based on current market price vs signal range:
-- **Price above range**: Wait for pullback to range top  
+
+- **Price above range**: Wait for pullback to range top
 - **Price below range**: Enter immediately at market
 - **Price in range**: Enter at current market price
 
 ### Midpoint
+
 Simple entry at the middle of the signal range. Safe but may miss optimal entries.
 
-### Range Break  
+### Range Break
+
 Enter when price breaks into the signal range:
+
 - **Buy signals**: Enter at range top
 - **Sell signals**: Enter at range bottom
 
 ### Momentum
+
 Aggressive entry at the start of the range for maximum profit potential.
 
 ## Signal Processing
@@ -72,13 +81,14 @@ The system automatically parses signals in this format:
 
 ```
 EURUSD BUY RANGE: 1.0850 - 1.0880
-SL: 1.0820  
+SL: 1.0820
 TP: 1.0920
 ```
 
 Extracted data:
+
 - **Symbol**: EURUSD
-- **Direction**: BUY  
+- **Direction**: BUY
 - **Entry Range**: 1.0850 - 1.0880
 - **Stop Loss**: 1.0820
 - **Take Profit**: 1.0920
@@ -88,13 +98,15 @@ Extracted data:
 Get real-time notifications about:
 
 📊 **Signal Received**
+
 ```
 📊 NEW SIGNAL: EURUSD BUY
 Range: 1.0850-1.0880
 SL: 1.0820 | TP: 1.0920
 ```
 
-🎯 **Entry Calculated**  
+🎯 **Entry Calculated**
+
 ```
 🎯 ENTRY CALCULATED: EURUSD
 Strategy: adaptive
@@ -103,6 +115,7 @@ Order Type: limit
 ```
 
 ✅ **Trade Executed**
+
 ```
 ✅ TRADE EXECUTED: EURUSD
 Side: BUY
@@ -129,19 +142,22 @@ Order ID: 12345
 
 ## Troubleshooting
 
-**"MT5 initialize() failed"**: 
+**"MT5 initialize() failed"**:
+
 - Ensure MT5 is running and logged in
 - Check that algorithmic trading is enabled
 - Verify your account has trading permissions
 
 **"Could not parse signal"**:
+
 - Check signal format matches expected pattern
 - Look for typos in symbol names or numbers
 - Enable debug logging to see parsing attempts
 
 **"Failed to send to MT5"**:
+
 - Verify MT5 connection
-- Check symbol exists and market is open  
+- Check symbol exists and market is open
 - Ensure sufficient account balance
 - Verify stop loss and take profit levels are valid
 
@@ -167,6 +183,7 @@ For live trading:
 ## Integration with Other Systems
 
 This direct trading system can work alongside:
+
 - Basic Telegram monitor for data collection
 - n8n workflows for additional automation
 - MT5 Expert Advisors for hybrid approaches

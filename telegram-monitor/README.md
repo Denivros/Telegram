@@ -14,21 +14,25 @@ Monitor Telegram groups and send events to n8n webhooks for automated processing
 ## Quick Setup
 
 1. **Install dependencies:**
+
    ```bash
    pip install -r requirements.txt
    ```
 
 2. **Get Telegram API credentials:**
+
    - Go to https://my.telegram.org
    - Create an application and get your `API_ID` and `API_HASH`
 
 3. **Configure environment:**
+
    ```bash
    cp .env.example .env
    # Edit .env with your credentials
    ```
 
 4. **Find your target group:**
+
    ```bash
    python list_groups.py
    ```
@@ -44,7 +48,7 @@ Edit `.env` file with your settings:
 
 ```env
 TELEGRAM_API_ID=your_api_id
-TELEGRAM_API_HASH=your_api_hash  
+TELEGRAM_API_HASH=your_api_hash
 TELEGRAM_PHONE=+1234567890
 TELEGRAM_GROUP_ID=-1001234567890
 N8N_WEBHOOK_URL=https://your-n8n.domain.com/webhook/telegram
@@ -55,24 +59,29 @@ N8N_WEBHOOK_URL=https://your-n8n.domain.com/webhook/telegram
 The monitor sends different event types to your n8n webhook:
 
 ### New Messages
+
 - `event_type`: "new_message"
 - Message content, sender info, media details
 - Reply and forward information
 
-### Message Edits  
+### Message Edits
+
 - `event_type`: "message_edited"
 - Original and new content
 - Edit timestamp
 
 ### Message Deletions
-- `event_type`: "message_deleted" 
+
+- `event_type`: "message_deleted"
 - Deleted message IDs
 
 ### Chat Actions
+
 - `event_type`: "chat_action"
 - User joins, leaves, promotions, etc.
 
 ### System Events
+
 - `event_type`: "monitor_started" / "monitor_stopped"
 - Monitor status updates
 
