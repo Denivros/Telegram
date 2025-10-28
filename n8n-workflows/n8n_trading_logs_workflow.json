@@ -1,0 +1,152 @@
+{
+  "name": "Trading Logs to Telegram",
+  "active": true,
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "trading-logs",
+        "responseMode": "responseNode"
+      },
+      "id": "webhook-trigger",
+      "name": "Trading Logs Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [240, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Format trading log for Telegram message\nconst logData = $json;\n\n// Create Telegram message based on log type\nlet telegramMessage = '';\nlet parseMode = 'Markdown';\n\nconst timestamp = new Date(logData.timestamp).toLocaleString('en-US', {\n  timeZone: 'Europe/Brussels',\n  hour12: false\n});\n\nswitch(logData.log_type) {\n  case 'signal_received':\n    telegramMessage = `📊 *NEW TRADING SIGNAL*\\n\\n` +\n                     `Symbol: *${logData.data.symbol}*\\n` +\n                     `Direction: *${logData.data.direction.toUpperCase()}*\\n` +\n                     `Range: ${logData.data.range_start} - ${logData.data.range_end}\\n` +\n                     `Stop Loss: ${logData.data.stop_loss}\\n` +\n                     `Take Profit: ${logData.data.take_profit}\\n\\n` +\n                     `🕐 ${timestamp}`;\n    break;\n    \n  case 'entry_calculated':\n    const entryData = logData.data.entry_data;\n    telegramMessage = `🎯 *ENTRY CALCULATED*\\n\\n` +\n                     `Symbol: *${logData.data.signal.symbol}*\\n` +\n                     `Strategy: ${entryData.strategy_used}\\n` +\n                     `Entry Price: *${entryData.entry_price}*\\n` +\n                     `Order Type: ${entryData.order_type}\\n`;\n    \n    if (entryData.current_price) {\n      telegramMessage += `Current Price: ${entryData.current_price}\\n`;\n    }\n    \n    telegramMessage += `\\n🕐 ${timestamp}`;\n    break;\n    \n  case 'trade_execution':\n    const result = logData.data.result;\n    if (result.success) {\n      telegramMessage = `✅ *TRADE EXECUTED*\\n\\n` +\n                       `Symbol: *${logData.data.signal.symbol}*\\n` +\n                       `Side: *${logData.data.signal.direction.toUpperCase()}*\\n` +\n                       `Entry: *${logData.data.entry_data.entry_price}*\\n` +\n                       `Volume: ${logData.data.entry_data.volume || 0.01}\\n` +\n                       `SL: ${logData.data.signal.stop_loss} | TP: ${logData.data.signal.take_profit}\\n`;\n      \n      if (result.order_id) {\n        telegramMessage += `Order ID: ${result.order_id}\\n`;\n      }\n      if (result.deal_id) {\n        telegramMessage += `Deal ID: ${result.deal_id}\\n`;\n      }\n      \n      telegramMessage += `\\n🕐 ${timestamp}`;\n    } else {\n      telegramMessage = `❌ *TRADE FAILED*\\n\\n` +\n                       `Symbol: *${logData.data.signal.symbol}*\\n` +\n                       `Error: ${result.error}\\n` +\n                       `Strategy: ${logData.data.entry_data.strategy_used}\\n` +\n                       `Attempted Entry: ${logData.data.entry_data.entry_price}\\n\\n` +\n                       `🕐 ${timestamp}`;\n    }\n    break;\n    \n  case 'system_status':\n    const statusEmoji = {\n      'starting': '🚀',\n      'connected': '✅',\n      'error': '❌',\n      'disconnected': '⚠️',\n      'stopped': '🛑'\n    };\n    \n    const emoji = statusEmoji[logData.data.status] || '📝';\n    telegramMessage = `${emoji} *SYSTEM ${logData.data.status.toUpperCase()}*\\n\\n` +\n                     `${logData.message}\\n\\n` +\n                     `🕐 ${timestamp}`;\n    break;\n    \n  case 'market_analysis':\n    telegramMessage = `📈 *MARKET ANALYSIS*\\n\\n` +\n                     `Symbol: *${logData.data.symbol}*\\n` +\n                     `Current Price: ${logData.data.current_price}\\n` +\n                     `Signal Range: ${logData.data.signal_range[0]}-${logData.data.signal_range[1]}\\n` +\n                     `Analysis: ${logData.data.analysis}\\n\\n` +\n                     `🕐 ${timestamp}`;\n    break;\n    \n  case 'error':\n    telegramMessage = `🚨 *ERROR ALERT*\\n\\n` +\n                     `Type: ${logData.log_type}\\n` +\n                     `Message: ${logData.message}\\n\\n` +\n                     `🕐 ${timestamp}`;\n    break;\n    \n  default:\n    telegramMessage = `📝 *LOG MESSAGE*\\n\\n` +\n                     `${logData.message}\\n\\n` +\n                     `🕐 ${timestamp}`;\n}\n\n// Return formatted message for Telegram\nreturn {\n  message: telegramMessage,\n  parse_mode: parseMode,\n  log_level: logData.level,\n  log_type: logData.log_type,\n  original_data: logData\n};"
+      },
+      "id": "format-message",
+      "name": "Format for Telegram",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [460, 300]
+    },
+    {
+      "parameters": {
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "requestMethod": "POST",
+        "url": "https://api.telegram.org/bot{{ $credentials.telegramApi.token }}/sendMessage",
+        "jsonParameters": true,
+        "bodyParametersJson": "{\n  \"chat_id\": \"{{ $credentials.telegramApi.chatId }}\",\n  \"text\": \"{{ $json.message }}\",\n  \"parse_mode\": \"{{ $json.parse_mode }}\",\n  \"disable_notification\": {{ $json.log_level === 'ERROR' ? 'false' : 'true' }}\n}",
+        "options": {}
+      },
+      "id": "send-telegram",
+      "name": "Send to Telegram",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [680, 300],
+      "credentials": {
+        "telegramApi": {
+          "id": "telegram-bot-credentials",
+          "name": "Telegram Bot API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "check-important",
+              "leftValue": "={{ $json.log_level }}",
+              "rightValue": "ERROR,SUCCESS",
+              "operator": {
+                "type": "string",
+                "operation": "contains"
+              }
+            }
+          ]
+        }
+      },
+      "id": "filter-important",
+      "name": "Filter Important Logs",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [680, 120]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "{\n  \"success\": true,\n  \"message\": \"Log received and processed\",\n  \"telegram_sent\": true,\n  \"timestamp\": \"{{ $now }}\"\n}"
+      },
+      "id": "response",
+      "name": "Response",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [900, 300]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "{\n  \"success\": true,\n  \"message\": \"Log received but filtered out\",\n  \"telegram_sent\": false,\n  \"timestamp\": \"{{ $now }}\"\n}"
+      },
+      "id": "filtered-response",
+      "name": "Filtered Response",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [900, 120]
+    }
+  ],
+  "connections": {
+    "Trading Logs Webhook": {
+      "main": [
+        [
+          {
+            "node": "Format for Telegram",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Format for Telegram": {
+      "main": [
+        [
+          {
+            "node": "Filter Important Logs",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Filter Important Logs": {
+      "main": [
+        [
+          {
+            "node": "Filtered Response",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Send to Telegram",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send to Telegram": {
+      "main": [
+        [
+          {
+            "node": "Response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}

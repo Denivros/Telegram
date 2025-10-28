@@ -1,0 +1,4 @@
+# Requirements for MT5 API Server
+Flask==2.3.3
+MetaTrader5==5.0.45
+requests==2.31.0

@@ -1,254 +1,230 @@
-# Telegram Group Monitor for n8n
+# Telegram Trading Automation System
 
-A Python script that monitors Telegram groups using your personal account and sends all events to n8n via webhooks.
+A comprehensive system for monitoring Telegram trading signals and automatically executing trades via MetaTrader 5.
 
-## Features
+## 🚀 Project Structure
 
-- 🔍 **Real-time monitoring** of Telegram groups using your personal account
-- 📱 **No bot required** - uses your existing Telegram account
-- 🚀 **Direct n8n integration** via webhooks
-- 📝 **Comprehensive event tracking**:
-  - New messages (text, media, documents)
-  - Message edits and deletions
-  - User joins and leaves
-  - Media information (photos, videos, documents, etc.)
-  - Forward and reply information
-- 🛡️ **Robust error handling** with automatic reconnection
-- 📊 **Detailed logging** for debugging and monitoring
-- ⚡ **Async/await** for high performance
-
-## What Data is Sent to n8n
-
-The script sends structured JSON data to your n8n webhook for each event:
-
-### Message Events
-
-```json
-{
-  "event_type": "new_message",
-  "message_id": 12345,
-  "message_text": "Hello world!",
-  "message_date": "2023-10-27T10:30:00",
-  "sender": {
-    "id": 123456789,
-    "first_name": "John",
-    "last_name": "Doe",
-    "username": "johndoe",
-    "is_bot": false
-  },
-  "media": {
-    "has_media": true,
-    "media_type": "photo",
-    "photo_id": 98765
-  },
-  "group_info": {
-    "id": -1001234567890,
-    "title": "My Group",
-    "username": "mygroup"
-  },
-  "timestamp": "2023-10-27T10:30:01.123456"
-}
+```
+├── telegram-monitor/          # Basic Telegram group monitoring
+│   ├── telegram_monitor.py    # Main monitoring script 
+│   ├── list_groups.py         # Helper to find group IDs
+│   └── requirements.txt       # Dependencies
+│
+├── direct-trading/            # Enhanced monitoring with MT5 integration
+│   └── telegram_direct_mt5.py # Direct MT5 trading system
+│
+├── mt5-integration/           # MT5 API server and Expert Advisors
+│   ├── mt5_api_server.py      # HTTP API for MT5 
+│   ├── mt5_expert_advisor.mq5 # Polling-based EA
+│   ├── simple_signal_ea.mq5   # File-based EA
+│   └── signal_file_writer.py  # File bridge service
+│
+├── n8n-workflows/             # n8n automation workflows
+│   ├── telegram_signal_storage.json
+│   ├── mt5_api_endpoint.json
+│   └── n8n_trading_logs_workflow.json
+│
+└── docs/                      # Documentation
+    ├── README.md              # Main documentation
+    ├── SETUP_GUIDE.md         # Setup instructions
+    └── TELEGRAM_LOGGING_SETUP.md
 ```
 
-### Other Event Types
+## 🎯 Features
 
-- `message_edited` - When messages are edited
-- `message_deleted` - When messages are deleted
-- `chat_action` - User joins, leaves, etc.
-- `monitor_started` - When monitoring begins
-- `monitor_stopped` - When monitoring stops
+### Signal Processing
+- **Real-time Telegram monitoring** - Monitor any Telegram group for trading signals
+- **Intelligent signal parsing** - Extract symbol, direction, range, SL, TP from messages
+- **Multiple entry strategies** - Adaptive, midpoint, range break, momentum strategies
+- **Single entry logic** - Avoid duplicate trades with smart entry calculations
 
-## Installation & Setup
+### Trading Integration
+- **Direct MT5 connection** - Execute trades directly via MetaTrader5 Python API
+- **HTTP API server** - RESTful API for remote MT5 control
+- **Expert Advisors** - Native MQL5 solutions for polling and file-based integration
+- **Comprehensive logging** - Real-time trade notifications via Telegram
 
-### 1. Get Telegram API Credentials
+### Automation & Monitoring
+- **n8n workflows** - Store signals, manage APIs, send notifications
+- **Telegram logging** - Get trade updates directly in Telegram
+- **Error handling** - Robust error recovery and notification system
+- **Multi-deployment** - Local, VPS, and cloud deployment options
 
-1. Go to https://my.telegram.org
-2. Log in with your phone number
-3. Click "API Development Tools"
-4. Create a new application:
-   - App title: "Telegram Monitor"
-   - Short name: "tg_monitor"
-   - Platform: "Desktop"
-5. Save your `API ID` and `API Hash`
+## 🚀 Quick Start
 
-### 2. Get Group ID
-
-**Method 1: Using Bot (Easiest)**
-
-1. Forward any message from the target group to @userinfobot
-2. It will reply with the group ID (starts with -100)
-
-**Method 2: Using Group Username**
-
-- If the group has a public username, you can use `@groupname` or just `groupname`
-
-### 3. Set up n8n Webhook
-
-1. In your n8n workflow, add a **Webhook** trigger node
-2. Set the method to `POST`
-3. Copy the webhook URL (something like `https://your-n8n.com/webhook/telegram-monitor`)
-
-### 4. Configure the Script
-
-1. Copy the configuration template:
-
-   ```bash
-   cp .env.example .env
-   ```
-
-2. Edit `.env` with your credentials:
-
-   ```bash
-   # Your Telegram API credentials
-   TELEGRAM_API_ID=1234567
-   TELEGRAM_API_HASH=abcdef1234567890abcdef1234567890
-
-   # Your phone number (with country code)
-   TELEGRAM_PHONE=+1234567890
-
-   # Target group (ID or username)
-   TELEGRAM_GROUP_ID=-1001234567890
-   # OR
-   TELEGRAM_GROUP_ID=@groupname
-
-   # Your n8n webhook URL
-   N8N_WEBHOOK_URL=https://your-n8n.com/webhook/telegram-monitor
-   ```
-
-### 5. Install Dependencies
+### 1. Basic Telegram Monitor
+Monitor a Telegram group and send events to n8n:
 
 ```bash
-# The script uses a virtual environment
-/Users/victorivros/Documents/Analyte/Python/Test/.venv/bin/python -m pip install telethon requests python-dotenv
+cd telegram-monitor
+pip install -r requirements.txt
+cp .env.example .env
+# Edit .env with your credentials
+python list_groups.py  # Find your group ID
+python telegram_monitor.py
 ```
 
-### 6. Run the Monitor
+### 2. Direct MT5 Trading
+Monitor signals and trade directly with MT5:
 
 ```bash
-/Users/victorivros/Documents/Analyte/Python/Test/.venv/bin/python telegram_monitor.py
+cd direct-trading
+# Copy environment from telegram-monitor and add MT5 settings
+python telegram_direct_mt5.py
 ```
 
-## First Run Authentication
+### 3. MT5 API Server
+Run an HTTP API for remote MT5 control:
 
-On the first run, Telegram will ask you to:
-
-1. Enter the verification code sent to your phone
-2. If you have 2FA enabled, enter your password
-
-The session will be saved locally, so you won't need to authenticate again.
-
-## Example n8n Workflow
-
-Here's a simple n8n workflow to get started:
-
-1. **Webhook Trigger** - Receives data from the script
-2. **Switch Node** - Routes based on `event_type`
-3. **Function Nodes** - Process different event types
-4. **Database/API Nodes** - Store or forward the data
-
-Example Switch conditions:
-
-- `new_message` → Process new messages
-- `message_edited` → Handle edits
-- `chat_action` → Track member changes
-
-## Monitoring and Logs
-
-The script creates detailed logs in `telegram_monitor.log`:
-
-- Connection status
-- Messages sent to n8n
-- Errors and reconnection attempts
-- Performance metrics
-
-## Security Notes
-
-- ⚠️ **Keep your API credentials secure** - Never commit `.env` to version control
-- 🔒 **Session files** contain authentication tokens - keep them private
-- 🛡️ **Network security** - Ensure your n8n webhook URL is secure (HTTPS)
-- 📱 **Account access** - The script uses your personal Telegram account
-
-## Troubleshooting
-
-### Common Issues
-
-**"Could not find group"**
-
-- Verify the group ID/username in `.env`
-- Make sure you're a member of the group
-- Try using the numeric ID instead of username
-
-**"Failed to authorize user"**
-
-- Check your API credentials
-- Delete the session file and re-authenticate
-- Disable 2FA temporarily if needed
-
-**"Connection failed"**
-
-- Check your internet connection
-- Verify n8n webhook URL is accessible
-- Check firewall settings
-
-**"Flood wait error"**
-
-- Telegram is rate limiting - the script will wait automatically
-- Reduce monitoring frequency if this happens often
-
-### Debug Mode
-
-Add this to see more detailed logs:
-
-```python
-# In telegram_monitor.py, change logging level
-logging.basicConfig(level=logging.DEBUG, ...)
+```bash
+cd mt5-integration
+pip install -r mt5_requirements.txt
+python mt5_api_server.py
 ```
 
-## Limitations
+## 🔧 Configuration
 
-- **Rate limits**: Telegram has API limits - don't spam
-- **Message history**: Only sees messages sent after the script starts
-- **Group permissions**: Must be a member of the group
-- **2FA**: Two-factor authentication makes setup more complex
+### Environment Variables
+Create `.env` files in each folder with:
 
-## Advanced Usage
+```env
+# Telegram API (get from https://my.telegram.org)
+TELEGRAM_API_ID=your_api_id
+TELEGRAM_API_HASH=your_api_hash
+TELEGRAM_PHONE=+1234567890
+TELEGRAM_GROUP_ID=-1001234567890
 
-### Custom Event Filtering
+# Trading Configuration
+ENTRY_STRATEGY=adaptive          # adaptive, midpoint, range_break, momentum
+DEFAULT_VOLUME=0.01
+MT5_API_URL=http://localhost:8080/trade
 
-Modify the event handlers to filter specific content:
-
-```python
-@self.client.on(events.NewMessage(chats=self.target_group))
-async def handle_new_message(event):
-    # Only send messages with specific keywords
-    if 'important' in event.message.text.lower():
-        # ... send to n8n
+# n8n Integration
+N8N_WEBHOOK_URL=https://your-n8n.com/webhook/telegram
+N8N_LOG_WEBHOOK=https://your-n8n.com/webhook/trading-logs
 ```
 
-### Multiple Groups
+### Entry Strategies
 
-To monitor multiple groups, modify `TELEGRAM_GROUP_ID` to include multiple IDs:
+1. **Adaptive** (Recommended): Smart entry based on current price vs signal range
+2. **Midpoint**: Enter at the middle of the signal range
+3. **Range Break**: Enter when price breaks into the signal range
+4. **Momentum**: Aggressive entry at range start/end
 
-```python
-# In the script, you can extend to handle multiple groups
-groups = [group1_id, group2_id, group3_id]
+## 📊 Signal Format
+
+The system recognizes signals in this format:
+
+```
+EURUSD BUY RANGE: 1.0850 - 1.0880
+SL: 1.0820
+TP: 1.0920
 ```
 
-### Media Download
+## 🔄 Integration Options
 
-The script can be extended to download media files:
+### Option 1: Direct MT5 (Recommended)
+- `telegram_direct_mt5.py` → Direct MT5 execution
+- Real-time processing, minimal latency
+- Best for live trading
 
-```python
-# Add to handle_new_message
-if message.media:
-    file_path = await message.download_media('downloads/')
-    data['media']['local_path'] = file_path
+### Option 2: n8n + HTTP API
+- `telegram_monitor.py` → n8n → `mt5_api_server.py` → MT5
+- Flexible workflow automation
+- Great for complex logic and monitoring
+
+### Option 3: Expert Advisor Polling
+- `telegram_monitor.py` → n8n → Database → `mt5_expert_advisor.mq5` → MT5
+- Native MT5 integration
+- Works with any broker
+
+## 📱 Telegram Logging
+
+Get real-time trade notifications:
+
+1. Set up n8n workflow from `n8n-workflows/n8n_trading_logs_workflow.json`
+2. Configure `N8N_LOG_WEBHOOK` in your environment
+3. Create a Telegram bot and add to n8n workflow
+4. Receive notifications for:
+   - 📊 New signals received
+   - 🎯 Entry calculations
+   - ✅ Successful trades
+   - ❌ Failed trades
+   - 📈 Market analysis
+   - 🚨 System errors
+
+## 🖥️ VPS Deployment
+
+### Hostinger VPS Setup
+```bash
+# Install Python and dependencies
+sudo apt update && sudo apt install python3 python3-pip
+pip3 install telethon requests python-dotenv
+
+# Clone and setup
+git clone <your-repo>
+cd telegram-trading
+cp telegram-monitor/.env.example telegram-monitor/.env
+# Edit .env with your credentials
+
+# Run in screen session
+screen -S telegram-monitor
+cd telegram-monitor && python3 telegram_monitor.py
+# Ctrl+A+D to detach
 ```
 
-## Contributing
+### With n8n
+If you already have n8n running, you can add the Telegram monitor alongside it:
 
-Feel free to submit issues and pull requests to improve the script!
+```bash
+# Run both n8n and telegram monitor
+screen -S n8n         # Your existing n8n
+screen -S telegram    # New Telegram monitor
+```
 
-## License
+## 🛠️ Development
 
-This project is open source. Use responsibly and respect Telegram's Terms of Service.
+### Adding New Strategies
+Add your strategy to `EntryStrategyCalculator.calculate_entry_price()` in the direct trading system.
+
+### Custom Signal Parsing
+Modify `TradingSignalParser.parse_signal()` to support different signal formats.
+
+### MT5 API Extensions
+Extend `mt5_api_server.py` with additional endpoints for account info, history, etc.
+
+## 📋 Requirements
+
+- Python 3.8+
+- MetaTrader 5 (for direct trading)
+- Telegram API credentials
+- n8n instance (for workflow automation)
+
+## 🔐 Security
+
+- Keep your `.env` files secure and never commit them
+- Use different API keys for development and production
+- Monitor your trading bot carefully, especially in live markets
+- Set appropriate position sizes and risk limits
+
+## 📚 Documentation
+
+- [Setup Guide](docs/SETUP_GUIDE.md) - Detailed installation instructions
+- [Telegram Logging Setup](docs/TELEGRAM_LOGGING_SETUP.md) - Configure notifications
+- [n8n Workflows](n8n-workflows/) - Ready-to-import workflows
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Test thoroughly (preferably on a demo account)
+5. Submit a pull request
+
+## ⚠️ Disclaimer
+
+This is for educational and research purposes. Always test on demo accounts first. Trading involves risk, and you should never risk money you cannot afford to lose. The authors are not responsible for any trading losses.
+
+## 📄 License
+
+MIT License - see LICENSE file for details
