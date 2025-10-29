@@ -158,11 +158,13 @@ Verify:
 ### **Test 4: Telegram Feedback Integration**
 
 Run Telegram feedback test:
+
 ```cmd
 python test_telegram_feedback.py
 ```
 
 Verify:
+
 - [ ] Webhook connection successful (200 status)
 - [ ] Signal received notification sent
 - [ ] Trade execution notification sent
