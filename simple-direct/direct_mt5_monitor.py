@@ -15,10 +15,18 @@ from datetime import datetime
 from typing import Dict, Any, Optional
 
 import requests
-import MetaTrader5 as mt5
 from telethon import TelegramClient, events
 from telethon.errors import SessionPasswordNeededError, FloodWaitError
 from dotenv import load_dotenv
+
+# Try to import MetaTrader5 (available on Windows/Wine only)
+try:
+    import MetaTrader5 as mt5
+    MT5_AVAILABLE = True
+except ImportError:
+    print("MetaTrader5 library not available - using remote MT5 connection mode")
+    MT5_AVAILABLE = False
+    mt5 = None
 
 # Load environment variables
 load_dotenv()
@@ -40,8 +48,9 @@ DEFAULT_VOLUME = float(os.getenv('DEFAULT_VOLUME', '0.01'))
 ENTRY_STRATEGY = os.getenv('ENTRY_STRATEGY', 'adaptive')  # adaptive, midpoint, range_break, momentum
 MAGIC_NUMBER = int(os.getenv('MAGIC_NUMBER', '123456'))
 
-# N8N Logging Configuration
+# N8N Webhooks Configuration
 N8N_LOG_WEBHOOK = os.getenv('N8N_LOG_WEBHOOK', 'https://n8n.srv881084.hstgr.cloud/webhook/trading-logs')
+N8N_TELEGRAM_FEEDBACK = os.getenv('N8N_TELEGRAM_FEEDBACK', 'https://n8n.srv881084.hstgr.cloud/webhook/91126b9d-bd23-4e92-8891-5bfb217455c7')
 
 # Set up logging
 logging.basicConfig(
@@ -146,6 +155,109 @@ class TelegramLogger:
     def log_error(self, error_type: str, error_message: str, context: Dict[str, Any] = None):
         message = f"🚨 ERROR: {error_type}\n{error_message}"
         self.send_log("error", message, "ERROR", context or {})
+
+
+class TelegramFeedback:
+    """Send trade feedback messages to Telegram via N8N webhook"""
+    
+    def __init__(self, webhook_url: str):
+        self.webhook_url = webhook_url
+    
+    def send_feedback(self, message: str, data: Dict[str, Any] = None):
+        """Send feedback message to Telegram via N8N webhook"""
+        try:
+            payload = {
+                'message': message,
+                'timestamp': datetime.now().isoformat(),
+                'data': data or {},
+                'source': 'mt5_trading_bot'
+            }
+            
+            response = requests.post(
+                self.webhook_url,
+                json=payload,
+                timeout=10,
+                headers={'Content-Type': 'application/json'}
+            )
+            
+            if response.status_code == 200:
+                logger.debug(f"Feedback sent to Telegram: {message[:50]}...")
+            else:
+                logger.warning(f"Failed to send feedback to Telegram: {response.status_code}")
+                
+        except Exception as e:
+            logger.error(f"Error sending feedback to Telegram: {e}")
+    
+    def notify_signal_received(self, signal: Dict[str, Any]):
+        """Send notification when new signal is received"""
+        message = f"📊 **NEW SIGNAL DETECTED**\n\n"
+        message += f"**Symbol:** {signal['symbol']}\n"
+        message += f"**Direction:** {signal['direction'].upper()}\n"
+        message += f"**Range:** {signal['range_start']} - {signal['range_end']}\n"
+        message += f"**Stop Loss:** {signal['stop_loss']}\n"
+        message += f"**Take Profit:** {signal['take_profit']}\n"
+        message += f"**Time:** {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}"
+        
+        self.send_feedback(message, signal)
+    
+    def notify_trade_executed(self, signal: Dict[str, Any], result: Dict[str, Any]):
+        """Send notification when trade is executed"""
+        if result.get('success'):
+            message = f"✅ **TRADE EXECUTED SUCCESSFULLY**\n\n"
+            message += f"**Symbol:** {signal['symbol']}\n"
+            message += f"**Direction:** {signal['direction'].upper()}\n"
+            message += f"**Entry Price:** {result['entry_price']}\n"
+            message += f"**Volume:** {result['volume']}\n"
+            message += f"**Stop Loss:** {signal['stop_loss']}\n"
+            message += f"**Take Profit:** {signal['take_profit']}\n"
+            
+            if 'order_id' in result:
+                message += f"**Order ID:** {result['order_id']}\n"
+            if 'deal_id' in result:
+                message += f"**Deal ID:** {result['deal_id']}\n"
+                
+            message += f"**Execution Time:** {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}"
+        else:
+            message = f"❌ **TRADE EXECUTION FAILED**\n\n"
+            message += f"**Symbol:** {signal['symbol']}\n"
+            message += f"**Direction:** {signal['direction'].upper()}\n"
+            message += f"**Attempted Entry:** {result.get('entry_price', 'N/A')}\n"
+            message += f"**Error:** {result.get('error', 'Unknown error')}\n"
+            message += f"**Time:** {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}"
+        
+        self.send_feedback(message, {'signal': signal, 'result': result})
+    
+    def notify_system_status(self, status: str, details: str = ""):
+        """Send system status notifications"""
+        if status == 'started':
+            message = f"🚀 **TRADING BOT STARTED**\n\n"
+            message += f"**Status:** Online and monitoring\n"
+            message += f"**Group ID:** {GROUP_ID}\n"
+            message += f"**MT5 Connection:** {'✅ Connected' if MT5_AVAILABLE else '❌ Not Available'}\n"
+            message += f"**Time:** {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}"
+        elif status == 'stopped':
+            message = f"🛑 **TRADING BOT STOPPED**\n\n"
+            message += f"**Status:** Offline\n"
+            message += f"**Time:** {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}"
+        else:
+            message = f"ℹ️ **SYSTEM UPDATE**\n\n"
+            message += f"**Status:** {status}\n"
+            if details:
+                message += f"**Details:** {details}\n"
+            message += f"**Time:** {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}"
+        
+        self.send_feedback(message, {'status': status, 'details': details})
+    
+    def notify_error(self, error_type: str, error_message: str, context: Dict[str, Any] = None):
+        """Send error notifications"""
+        message = f"🚨 **ERROR ALERT**\n\n"
+        message += f"**Error Type:** {error_type}\n"
+        message += f"**Message:** {error_message}\n"
+        if context:
+            message += f"**Context:** {str(context)[:200]}...\n"
+        message += f"**Time:** {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}"
+        
+        self.send_feedback(message, {'error_type': error_type, 'error_message': error_message, 'context': context})
 
 
 class TradingSignalParser:
@@ -400,6 +512,7 @@ class TelegramMonitor:
         self.signal_parser = TradingSignalParser()
         self.mt5_client = MT5TradingClient()
         self.telegram_logger = TelegramLogger(N8N_LOG_WEBHOOK)
+        self.telegram_feedback = TelegramFeedback(N8N_TELEGRAM_FEEDBACK)
         
     def validate_config(self) -> bool:
         """Validate configuration"""
@@ -455,8 +568,9 @@ class TelegramMonitor:
             if not signal:
                 return
             
-            # Log signal received
+            # Log signal received and send Telegram feedback
             self.telegram_logger.log_signal_received(signal)
+            self.telegram_feedback.notify_signal_received(signal)
             
             logger.info(f"📊 Parsed signal: {signal['symbol']} {signal['direction']} "
                        f"{signal['range_start']}-{signal['range_end']} "
@@ -473,8 +587,9 @@ class TelegramMonitor:
             # Execute trade
             result = self.mt5_client.execute_trade(signal, entry_data)
             
-            # Log execution result
+            # Log execution result and send Telegram feedback
             self.telegram_logger.log_trade_execution(signal, result)
+            self.telegram_feedback.notify_trade_executed(signal, result)
             
             if result['success']:
                 logger.info("✅ Trade executed successfully")
@@ -482,8 +597,10 @@ class TelegramMonitor:
                 logger.error(f"❌ Trade failed: {result['error']}")
                 
         except Exception as e:
-            logger.error(f"Error processing signal: {e}")
+            error_msg = f"Error processing signal: {e}"
+            logger.error(error_msg)
             self.telegram_logger.log_error("signal_processing", str(e))
+            self.telegram_feedback.notify_error("signal_processing", str(e), {"message": message_text})
     
     async def setup_event_handlers(self):
         """Set up Telegram event handlers"""
@@ -513,15 +630,19 @@ class TelegramMonitor:
         
         # Connect to MT5
         if not self.mt5_client.connect():
-            self.telegram_logger.log_error("mt5_connection", "Failed to connect to MT5")
+            error_msg = "Failed to connect to MT5"
+            self.telegram_logger.log_error("mt5_connection", error_msg)
+            self.telegram_feedback.notify_error("mt5_connection", error_msg)
             return False
         
         # Connect to Telegram
         if not await self.initialize_client():
-            self.telegram_logger.log_error("telegram_connection", "Failed to connect to Telegram")
+            error_msg = "Failed to connect to Telegram"
+            self.telegram_logger.log_error("telegram_connection", error_msg)
+            self.telegram_feedback.notify_error("telegram_connection", error_msg)
             return False
         
-        # Send connected status
+        # Send connected status and Telegram feedback
         self.telegram_logger.log_system_status('connected', f"Group: {self.target_group.title}\\nMT5 Account: Connected")
         
         await self.setup_event_handlers()
@@ -529,19 +650,25 @@ class TelegramMonitor:
         logger.info("✅ Monitor is running. Watching for trading signals...")
         self.running = True
         
+        # Send startup notification to Telegram
+        self.telegram_feedback.notify_system_status('started', f"Strategy: {ENTRY_STRATEGY}, Volume: {DEFAULT_VOLUME}")
+        
         try:
             await self.client.run_until_disconnected()
         except KeyboardInterrupt:
             logger.info("Received interrupt signal")
         except Exception as e:
-            logger.error(f"Unexpected error: {e}")
+            error_msg = f"Unexpected error: {e}"
+            logger.error(error_msg)
             self.telegram_logger.log_error("system_error", str(e))
+            self.telegram_feedback.notify_error("system_error", str(e))
         finally:
             self.running = False
             if self.client:
                 await self.client.disconnect()
             self.mt5_client.disconnect()
             self.telegram_logger.log_system_status('stopped', 'Monitor stopped')
+            self.telegram_feedback.notify_system_status('stopped')
         
         logger.info("Monitor stopped")
         return True
