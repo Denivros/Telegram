@@ -21,10 +21,11 @@ from dotenv import load_dotenv
 
 # Try to import MetaTrader5 (available on Windows/Wine only)
 try:
-    import MetaTrader5 as mt5
+    import metatrader5 as mt5
     MT5_AVAILABLE = True
+    print(f"✅ MetaTrader5 library loaded successfully - Version: {mt5.version()}")
 except ImportError:
-    print("MetaTrader5 library not available - using remote MT5 connection mode")
+    print("❌ MetaTrader5 library not available - using remote MT5 connection mode")
     MT5_AVAILABLE = False
     mt5 = None
 
@@ -34,7 +35,8 @@ load_dotenv()
 # Configuration
 API_ID = os.getenv('TELEGRAM_API_ID')
 API_HASH = os.getenv('TELEGRAM_API_HASH')
-PHONE_NUMBER = os.getenv('TELEGRAM_PHONE')
+BOT_TOKEN = os.getenv('BOT_TOKEN')
+PHONE_NUMBER = os.getenv('TELEGRAM_PHONE')  # Keep for fallback
 GROUP_ID = os.getenv('TELEGRAM_GROUP_ID')
 SESSION_NAME = os.getenv('SESSION_NAME', 'telegram_monitor')
 
@@ -48,9 +50,9 @@ DEFAULT_VOLUME = float(os.getenv('DEFAULT_VOLUME', '0.01'))
 ENTRY_STRATEGY = os.getenv('ENTRY_STRATEGY', 'adaptive')  # adaptive, midpoint, range_break, momentum
 MAGIC_NUMBER = int(os.getenv('MAGIC_NUMBER', '123456'))
 
-# N8N Webhooks Configuration
-N8N_LOG_WEBHOOK = os.getenv('N8N_LOG_WEBHOOK', 'https://n8n.srv881084.hstgr.cloud/webhook/trading-logs')
+# N8N Webhooks Configuration - Use feedback URL for all logging
 N8N_TELEGRAM_FEEDBACK = os.getenv('N8N_TELEGRAM_FEEDBACK', 'https://n8n.srv881084.hstgr.cloud/webhook/91126b9d-bd23-4e92-8891-5bfb217455c7')
+N8N_LOG_WEBHOOK = N8N_TELEGRAM_FEEDBACK  # Use same webhook for all logs
 
 # Set up logging
 logging.basicConfig(
@@ -65,21 +67,24 @@ logger = logging.getLogger(__name__)
 
 
 class TelegramLogger:
-    """Send trading logs to n8n for Telegram notifications"""
+    """Send trading logs to n8n feedback webhook for Telegram notifications"""
     
     def __init__(self, webhook_url: str):
         self.webhook_url = webhook_url
     
     def send_log(self, log_type: str, message: str, level: str = "INFO", data: Dict[str, Any] = None):
-        """Send log message to n8n webhook"""
+        """Send log message to n8n feedback webhook"""
         try:
+            # Format as feedback message for consistent handling
             payload = {
-                'timestamp': datetime.now().isoformat(),
-                'log_type': log_type,
-                'level': level,
                 'message': message,
-                'data': data or {},
-                'source': 'direct_mt5_python'
+                'timestamp': datetime.now().isoformat(),
+                'data': {
+                    'log_type': log_type,
+                    'level': level,
+                    'source': 'mt5_trading_bot',
+                    **(data or {})
+                }
             }
             
             response = requests.post(
@@ -104,39 +109,40 @@ class TelegramLogger:
         self.send_log("signal_received", message, "INFO", signal)
     
     def log_entry_calculation(self, signal: Dict[str, Any], entry_price: float, order_type: str):
-        message = f"🎯 ENTRY CALCULATED: {signal['symbol']}\n"
+        message = f"🎯 LIMIT ORDER CALCULATED: {signal['symbol']}\n"
         message += f"Strategy: {ENTRY_STRATEGY}\n"
-        message += f"Entry Price: {entry_price}\n"
-        message += f"Order Type: {order_type}"
+        message += f"Limit Price: {entry_price}\n"
+        message += f"Order Type: LIMIT (Pending)"
         
         data = {
             'signal': signal,
             'entry_price': entry_price,
-            'order_type': order_type,
+            'order_type': 'limit',
             'strategy': ENTRY_STRATEGY
         }
         self.send_log("entry_calculated", message, "INFO", data)
     
     def log_trade_execution(self, signal: Dict[str, Any], result: Dict[str, Any]):
         if result.get('success'):
-            message = f"✅ TRADE EXECUTED: {signal['symbol']}\n"
+            message = f"✅ LIMIT ORDER PLACED: {signal['symbol']}\n"
             message += f"Side: {signal['direction'].upper()}\n"
-            message += f"Entry: {result['entry_price']}\n"
+            message += f"Limit Price: {result['entry_price']}\n"
             message += f"Volume: {result['volume']}\n"
-            message += f"SL: {signal['stop_loss']} | TP: {signal['take_profit']}"
+            message += f"SL: {signal['stop_loss']} | TP: {signal['take_profit']}\n"
+            message += f"Order Type: LIMIT (Pending Execution)"
             
-            if 'order' in result:
+            if 'order_id' in result:
+                message += f"\nOrder ID: {result['order_id']}"
+            elif 'order' in result:
                 message += f"\nOrder: {result['order']}"
-            if 'deal' in result:
-                message += f"\nDeal: {result['deal']}"
                 
-            self.send_log("trade_execution", message, "SUCCESS", result)
+            self.send_log("limit_order_placed", message, "SUCCESS", result)
         else:
-            message = f"❌ TRADE FAILED: {signal['symbol']}\n"
+            message = f"❌ LIMIT ORDER FAILED: {signal['symbol']}\n"
             message += f"Error: {result.get('error', 'Unknown error')}\n"
-            message += f"Attempted Entry: {result.get('entry_price', 'N/A')}"
+            message += f"Attempted Limit Price: {result.get('entry_price', 'N/A')}"
             
-            self.send_log("trade_execution", message, "ERROR", result)
+            self.send_log("limit_order_failed", message, "ERROR", result)
     
     def log_system_status(self, status: str, details: str = ""):
         emoji_map = {
@@ -201,27 +207,29 @@ class TelegramFeedback:
         self.send_feedback(message, signal)
     
     def notify_trade_executed(self, signal: Dict[str, Any], result: Dict[str, Any]):
-        """Send notification when trade is executed"""
+        """Send notification when limit order is placed"""
         if result.get('success'):
-            message = f"✅ **TRADE EXECUTED SUCCESSFULLY**\n\n"
+            message = f"✅ **LIMIT ORDER PLACED SUCCESSFULLY**\n\n"
             message += f"**Symbol:** {signal['symbol']}\n"
             message += f"**Direction:** {signal['direction'].upper()}\n"
-            message += f"**Entry Price:** {result['entry_price']}\n"
+            message += f"**Limit Price:** {result['entry_price']}\n"
             message += f"**Volume:** {result['volume']}\n"
             message += f"**Stop Loss:** {signal['stop_loss']}\n"
             message += f"**Take Profit:** {signal['take_profit']}\n"
+            message += f"**Order Type:** LIMIT (Pending)\n"
             
             if 'order_id' in result:
                 message += f"**Order ID:** {result['order_id']}\n"
-            if 'deal_id' in result:
-                message += f"**Deal ID:** {result['deal_id']}\n"
+            elif 'order' in result:
+                message += f"**Order:** {result['order']}\n"
                 
-            message += f"**Execution Time:** {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}"
+            message += f"**Placement Time:** {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n\n"
+            message += f"💡 *Order will execute when market reaches limit price*"
         else:
-            message = f"❌ **TRADE EXECUTION FAILED**\n\n"
+            message = f"❌ **LIMIT ORDER PLACEMENT FAILED**\n\n"
             message += f"**Symbol:** {signal['symbol']}\n"
             message += f"**Direction:** {signal['direction'].upper()}\n"
-            message += f"**Attempted Entry:** {result.get('entry_price', 'N/A')}\n"
+            message += f"**Attempted Limit Price:** {result.get('entry_price', 'N/A')}\n"
             message += f"**Error:** {result.get('error', 'Unknown error')}\n"
             message += f"**Time:** {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}"
         
@@ -362,7 +370,7 @@ class MT5TradingClient:
         return {'bid': tick.bid, 'ask': tick.ask}
     
     def calculate_entry_price(self, signal: Dict[str, Any]) -> Dict[str, Any]:
-        """Calculate entry price based on strategy"""
+        """Calculate entry price based on strategy - Always returns limit order type"""
         symbol = signal['symbol']
         direction = signal['direction']
         range_start = signal['range_start']
@@ -374,44 +382,43 @@ class MT5TradingClient:
         
         if ENTRY_STRATEGY == 'midpoint':
             entry_price = (range_start + range_end) / 2
-            order_type = 'pending'
             
         elif ENTRY_STRATEGY == 'range_break':
             entry_price = range_end if direction == 'buy' else range_start
-            order_type = 'pending'
             
         elif ENTRY_STRATEGY == 'momentum':
             entry_price = range_start if direction == 'buy' else range_end
-            order_type = 'pending'
             
         elif ENTRY_STRATEGY == 'adaptive':
             if current_price is None:
                 entry_price = (range_start + range_end) / 2
-                order_type = 'pending'
             else:
                 if direction == 'buy':
                     if current_price > range_end:
+                        # Price is above range - set limit at range top for better entry
                         entry_price = range_end
-                        order_type = 'pending'
                     elif current_price < range_start:
-                        entry_price = current_price
-                        order_type = 'market'
+                        # Price is below range - set limit slightly above current for quick fill
+                        symbol_info = mt5.symbol_info(symbol)
+                        pip_value = 10 ** (-symbol_info.digits) if symbol_info else 0.0001
+                        entry_price = current_price + (2 * pip_value)  # 2 pips above current
                     else:
+                        # Price is in range - set limit at current price
                         entry_price = current_price
-                        order_type = 'market'
                 else:  # sell
                     if current_price < range_start:
+                        # Price is below range - set limit at range bottom for better entry
                         entry_price = range_start
-                        order_type = 'pending'
                     elif current_price > range_end:
-                        entry_price = current_price
-                        order_type = 'market'
+                        # Price is above range - set limit slightly below current for quick fill
+                        symbol_info = mt5.symbol_info(symbol)
+                        pip_value = 10 ** (-symbol_info.digits) if symbol_info else 0.0001
+                        entry_price = current_price - (2 * pip_value)  # 2 pips below current
                     else:
+                        # Price is in range - set limit at current price
                         entry_price = current_price
-                        order_type = 'market'
         else:
             entry_price = (range_start + range_end) / 2
-            order_type = 'pending'
         
         # Get symbol info for normalization
         symbol_info = mt5.symbol_info(symbol)
@@ -421,58 +428,71 @@ class MT5TradingClient:
         
         return {
             'entry_price': entry_price,
-            'order_type': order_type,
+            'order_type': 'limit',  # Always limit orders now
             'current_price': current_price,
-            'strategy_used': ENTRY_STRATEGY
+            'strategy_used': ENTRY_STRATEGY,
+            'range_start': range_start,
+            'range_end': range_end
         }
     
     def execute_trade(self, signal: Dict[str, Any], entry_data: Dict[str, Any]) -> Dict[str, Any]:
-        """Execute the trading signal"""
+        """Execute the trading signal - Always use LIMIT orders"""
         try:
             symbol = signal['symbol']
             direction = signal['direction']
             entry_price = entry_data['entry_price']
-            order_type = entry_data['order_type']
             
-            # Prepare order request
-            if order_type == 'market':
-                # Market order
-                if direction == 'buy':
-                    order_type_mt5 = mt5.ORDER_TYPE_BUY
-                    price = mt5.symbol_info_tick(symbol).ask
-                else:
-                    order_type_mt5 = mt5.ORDER_TYPE_SELL  
-                    price = mt5.symbol_info_tick(symbol).bid
-            else:
-                # Pending order
-                if direction == 'buy':
-                    current_ask = mt5.symbol_info_tick(symbol).ask
-                    if entry_price > current_ask:
-                        order_type_mt5 = mt5.ORDER_TYPE_BUY_STOP
-                    else:
-                        order_type_mt5 = mt5.ORDER_TYPE_BUY_LIMIT
-                else:
-                    current_bid = mt5.symbol_info_tick(symbol).bid
-                    if entry_price < current_bid:
-                        order_type_mt5 = mt5.ORDER_TYPE_SELL_STOP
-                    else:
-                        order_type_mt5 = mt5.ORDER_TYPE_SELL_LIMIT
-                price = entry_price
+            # Get current market price for comparison
+            tick = mt5.symbol_info_tick(symbol)
+            if not tick:
+                return {
+                    'success': False,
+                    'error': f"Could not get market price for {symbol}",
+                    'entry_price': entry_price,
+                    'volume': DEFAULT_VOLUME
+                }
             
+            current_ask = tick.ask
+            current_bid = tick.bid
+            
+            # Always use LIMIT orders - determine limit order type based on entry price vs current price
+            if direction == 'buy':
+                if entry_price <= current_ask:
+                    # Entry price is at or below current ask - use BUY LIMIT
+                    order_type_mt5 = mt5.ORDER_TYPE_BUY_LIMIT
+                    logger.info(f"BUY LIMIT order: Entry {entry_price} <= Current Ask {current_ask}")
+                else:
+                    # Entry price is above current ask - use BUY STOP LIMIT
+                    order_type_mt5 = mt5.ORDER_TYPE_BUY_STOP_LIMIT
+                    logger.info(f"BUY STOP LIMIT order: Entry {entry_price} > Current Ask {current_ask}")
+            else:  # sell
+                if entry_price >= current_bid:
+                    # Entry price is at or above current bid - use SELL LIMIT
+                    order_type_mt5 = mt5.ORDER_TYPE_SELL_LIMIT
+                    logger.info(f"SELL LIMIT order: Entry {entry_price} >= Current Bid {current_bid}")
+                else:
+                    # Entry price is below current bid - use SELL STOP LIMIT
+                    order_type_mt5 = mt5.ORDER_TYPE_SELL_STOP_LIMIT
+                    logger.info(f"SELL STOP LIMIT order: Entry {entry_price} < Current Bid {current_bid}")
+            
+            # Prepare limit order request
             request = {
-                "action": mt5.TRADE_ACTION_DEAL if order_type == 'market' else mt5.TRADE_ACTION_PENDING,
+                "action": mt5.TRADE_ACTION_PENDING,
                 "symbol": symbol,
                 "volume": DEFAULT_VOLUME,
                 "type": order_type_mt5,
-                "price": price,
+                "price": entry_price,  # Always use the calculated entry price
                 "sl": signal['stop_loss'],
                 "tp": signal['take_profit'],
-                "deviation": 20,
                 "magic": MAGIC_NUMBER,
-                "comment": f"TG Signal {ENTRY_STRATEGY}",
-                "type_time": mt5.ORDER_TIME_GTC,
-                "type_filling": mt5.ORDER_FILLING_IOC,
+                "comment": f"TG Limit {ENTRY_STRATEGY}",
+                "type_time": mt5.ORDER_TIME_GTC,  # Good Till Cancelled
+                "type_filling": mt5.ORDER_FILLING_RETURN,  # Return execution for limit orders
             }
+            
+            # Add stop limit price for stop limit orders
+            if order_type_mt5 in [mt5.ORDER_TYPE_BUY_STOP_LIMIT, mt5.ORDER_TYPE_SELL_STOP_LIMIT]:
+                request["stoplimit"] = entry_price
             
             # Send order
             result = mt5.order_send(request)
@@ -514,14 +534,22 @@ class TelegramMonitor:
         self.telegram_logger = TelegramLogger(N8N_LOG_WEBHOOK)
         self.telegram_feedback = TelegramFeedback(N8N_TELEGRAM_FEEDBACK)
         
+   
+
+   
     def validate_config(self) -> bool:
         """Validate configuration"""
         required_vars = [
             ('TELEGRAM_API_ID', API_ID),
+
+
             ('TELEGRAM_API_HASH', API_HASH),
-            ('TELEGRAM_PHONE', PHONE_NUMBER),
             ('TELEGRAM_GROUP_ID', GROUP_ID)
         ]
+        
+        if not BOT_TOKEN and not PHONE_NUMBER:
+            logger.error("Missing authentication method: need either BOT_TOKEN or TELEGRAM_PHONE")
+            return False
         
         missing_vars = [name for name, value in required_vars if not value]
         
@@ -532,14 +560,22 @@ class TelegramMonitor:
         return True
     
     async def initialize_client(self):
-        """Initialize Telegram client"""
+        """Initialize Telegram client with bot or user authentication"""
         try:
             self.client = TelegramClient(SESSION_NAME, API_ID, API_HASH)
-            await self.client.start(phone=PHONE_NUMBER)
             
-            if not await self.client.is_user_authorized():
-                logger.error("Failed to authorize user")
-                return False
+            if BOT_TOKEN:
+                logger.info("Connecting to Telegram as bot...")
+                await self.client.start(bot_token=BOT_TOKEN)
+                logger.info("✅ Bot authentication successful!")
+            else:
+                logger.info("Connecting to Telegram as user...")
+                await self.client.start(phone=PHONE_NUMBER)
+                
+                if not await self.client.is_user_authorized():
+                    logger.error("Failed to authorize user - session may be invalid")
+                    return False 
+                     
             
             # Get target group
             try:
@@ -582,9 +618,9 @@ class TelegramMonitor:
             # Log entry calculation
             self.telegram_logger.log_entry_calculation(signal, entry_data['entry_price'], entry_data['order_type'])
             
-            logger.info(f"🎯 Entry calculated: Price={entry_data['entry_price']} Type={entry_data['order_type']}")
+            logger.info(f"🎯 Limit order calculated: Price={entry_data['entry_price']} Type=LIMIT")
             
-            # Execute trade
+            # Execute limit order
             result = self.mt5_client.execute_trade(signal, entry_data)
             
             # Log execution result and send Telegram feedback
@@ -592,9 +628,9 @@ class TelegramMonitor:
             self.telegram_feedback.notify_trade_executed(signal, result)
             
             if result['success']:
-                logger.info("✅ Trade executed successfully")
+                logger.info("✅ Limit order placed successfully - waiting for execution")
             else:
-                logger.error(f"❌ Trade failed: {result['error']}")
+                logger.error(f"❌ Limit order failed: {result['error']}")
                 
         except Exception as e:
             error_msg = f"Error processing signal: {e}"
