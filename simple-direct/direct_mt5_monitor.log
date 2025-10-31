@@ -136,3 +136,1421 @@
 2025-10-31 12:45:25,095 - __main__ - INFO - Starting Direct MT5 Telegram Monitor...
 2025-10-31 12:45:25,095 - __main__ - INFO - Strategy: adaptive, Volume: 0.01
 2025-10-31 12:45:25,096 - __main__ - ERROR - Fatal error: 'NoneType' object has no attribute 'initialize'
+2025-10-31 12:14:43,182 - __main__ - INFO - Health check server started on port 8000
+2025-10-31 12:14:43,844 - __main__ - INFO - Starting Direct MT5 Telegram Monitor...
+2025-10-31 12:14:43,845 - __main__ - INFO - Strategy: adaptive, Volume: 0.09
+2025-10-31 12:14:43,986 - __main__ - INFO - Connected to MT5 VPS - Server: PUPrime-Demo, Account: 700010991
+2025-10-31 12:14:43,987 - __main__ - INFO - Account info - Login: 700010991, Balance: 100000.0
+2025-10-31 12:14:44,036 - __main__ - INFO - Connecting to Telegram as user...
+2025-10-31 12:14:44,037 - telethon.network.mtprotosender - INFO - Connecting to 149.154.167.92:443/TcpFull...
+2025-10-31 12:14:44,049 - telethon.network.mtprotosender - INFO - Connection to 149.154.167.92:443/TcpFull complete!
+2025-10-31 12:14:44,358 - __main__ - INFO - Connected to group: Bot Test Callisto
+2025-10-31 12:14:44,837 - __main__ - INFO - Event handlers set up successfully
+2025-10-31 12:18:14,243 - telethon.network.mtprotosender - INFO - Disconnecting from 149.154.167.92:443/TcpFull...
+2025-10-31 12:18:14,245 - telethon.network.mtprotosender - INFO - Disconnection from 149.154.167.92:443/TcpFull complete!
+2025-10-31 12:18:14,253 - telethon.network.mtprotosender - INFO - Not disconnecting (already have no connection)
+2025-10-31 12:18:14,262 - __main__ - INFO - Disconnected from MT5
+2025-10-31 12:19:23,367 - __main__ - INFO - Health check server started on port 8000
+2025-10-31 12:19:23,793 - __main__ - INFO - Starting Direct MT5 Telegram Monitor...
+2025-10-31 12:19:23,794 - __main__ - INFO - Strategy: adaptive, Volume: 0.09
+2025-10-31 12:19:23,810 - __main__ - INFO - Connected to MT5 VPS - Server: PUPrime-Demo, Account: 700010991
+2025-10-31 12:19:23,811 - __main__ - INFO - Account info - Login: 700010991, Balance: 100000.0
+2025-10-31 12:19:23,852 - __main__ - INFO - Connecting to Telegram as user...
+2025-10-31 12:19:23,853 - telethon.network.mtprotosender - INFO - Connecting to 149.154.167.92:443/TcpFull...
+2025-10-31 12:19:23,867 - telethon.network.mtprotosender - INFO - Connection to 149.154.167.92:443/TcpFull complete!
+2025-10-31 12:19:24,100 - __main__ - INFO - Connected to group: Bot Test Callisto
+2025-10-31 12:19:24,529 - __main__ - INFO - Event handlers set up successfully
+2025-10-31 12:21:26,082 - telethon.network.mtprotosender - INFO - Disconnecting from 149.154.167.92:443/TcpFull...
+2025-10-31 12:21:26,084 - telethon.network.mtprotosender - INFO - Disconnection from 149.154.167.92:443/TcpFull complete!
+2025-10-31 12:21:26,091 - telethon.network.mtprotosender - INFO - Not disconnecting (already have no connection)
+2025-10-31 12:21:26,100 - __main__ - INFO - Disconnected from MT5
+2025-10-31 12:21:31,193 - __main__ - INFO - Health check server started on port 8000
+2025-10-31 12:21:31,644 - __main__ - INFO - Starting Direct MT5 Telegram Monitor...
+2025-10-31 12:21:31,645 - __main__ - INFO - Strategy: adaptive, Volume: 0.09
+2025-10-31 12:21:31,658 - __main__ - INFO - Connected to MT5 VPS - Server: PUPrime-Demo, Account: 700010991
+2025-10-31 12:21:31,659 - __main__ - INFO - Account info - Login: 700010991, Balance: 100000.0
+2025-10-31 12:21:31,707 - __main__ - INFO - Connecting to Telegram as user...
+2025-10-31 12:21:31,708 - telethon.network.mtprotosender - INFO - Connecting to 149.154.167.92:443/TcpFull...
+2025-10-31 12:21:31,717 - telethon.network.mtprotosender - INFO - Connection to 149.154.167.92:443/TcpFull complete!
+2025-10-31 12:21:31,932 - __main__ - INFO - Connected to group: Bot Test Callisto
+2025-10-31 12:21:32,373 - __main__ - INFO - Event handlers set up successfully
+2025-10-31 12:21:44,358 - __main__ - INFO -    Message length: 54 characters
+2025-10-31 12:21:44,388 - __main__ - INFO -    Expected pattern: [SYMBOL] BUY/SELL RANGE: X-Y SL: Z TP: W
+2025-10-31 12:21:59,493 - telethon.network.mtprotosender - INFO - Disconnecting from 149.154.167.92:443/TcpFull...
+2025-10-31 12:21:59,495 - telethon.network.mtprotosender - INFO - Disconnection from 149.154.167.92:443/TcpFull complete!
+2025-10-31 12:21:59,501 - telethon.network.mtprotosender - INFO - Not disconnecting (already have no connection)
+2025-10-31 12:21:59,513 - __main__ - INFO - Disconnected from MT5
+2025-10-31 12:22:24,117 - __main__ - INFO - Health check server started on port 8000
+2025-10-31 12:22:24,578 - __main__ - INFO - Starting Direct MT5 Telegram Monitor...
+2025-10-31 12:22:24,578 - __main__ - INFO - Strategy: adaptive, Volume: 0.09
+2025-10-31 12:22:24,593 - __main__ - INFO - Connected to MT5 VPS - Server: PUPrime-Demo, Account: 700010991
+2025-10-31 12:22:24,593 - __main__ - INFO - Account info - Login: 700010991, Balance: 100000.0
+2025-10-31 12:22:24,640 - __main__ - INFO - Connecting to Telegram as user...
+2025-10-31 12:22:24,641 - telethon.network.mtprotosender - INFO - Connecting to 149.154.167.92:443/TcpFull...
+2025-10-31 12:22:24,651 - telethon.network.mtprotosender - INFO - Connection to 149.154.167.92:443/TcpFull complete!
+2025-10-31 12:22:24,876 - __main__ - INFO - Connected to group: Bot Test Callisto
+2025-10-31 12:22:25,386 - __main__ - INFO - Event handlers set up successfully
+2025-10-31 12:22:39,696 - __main__ - INFO -    Message length: 54 characters
+2025-10-31 12:22:39,719 - __main__ - INFO -    Expected pattern: [SYMBOL] BUY/SELL RANGE: X-Y SL: Z TP: W
+2025-10-31 12:25:26,218 - __main__ - INFO - Health check server started on port 8000
+2025-10-31 12:25:26,674 - __main__ - INFO - Starting Direct MT5 Telegram Monitor...
+2025-10-31 12:25:26,675 - __main__ - INFO - Strategy: adaptive, Volume: 0.09
+2025-10-31 12:25:26,688 - __main__ - INFO - Connected to MT5 VPS - Server: PUPrime-Demo, Account: 700010991
+2025-10-31 12:25:26,688 - __main__ - INFO - Account info - Login: 700010991, Balance: 100000.0
+2025-10-31 12:25:26,734 - __main__ - INFO - Connecting to Telegram as user...
+2025-10-31 12:25:26,734 - telethon.network.mtprotosender - INFO - Connecting to 149.154.167.92:443/TcpFull...
+2025-10-31 12:25:26,750 - telethon.network.mtprotosender - INFO - Connection to 149.154.167.92:443/TcpFull complete!
+2025-10-31 12:25:26,989 - __main__ - INFO - Connected to group: Bot Test Callisto
+2025-10-31 12:25:27,422 - __main__ - INFO - Event handlers set up successfully
+2025-10-31 12:25:30,261 - __main__ - INFO -    Message ID: 420
+2025-10-31 12:25:30,261 - __main__ - INFO -    From user: PeerUser(user_id=7516571994)
+2025-10-31 12:25:30,261 - __main__ - INFO -    Chat ID: PeerChat(chat_id=4867740501)
+2025-10-31 12:25:30,261 - __main__ - INFO -    Has text: True
+2025-10-31 12:25:30,263 - __main__ - INFO -    Message type: text
+2025-10-31 12:25:30,278 - __main__ - INFO -    Message length: 54 characters
+2025-10-31 12:25:30,301 - __main__ - INFO -    Expected pattern: [SYMBOL] BUY/SELL RANGE: X-Y SL: Z TP: W
+2025-10-31 12:26:05,518 - telethon.network.mtprotosender - INFO - Disconnecting from 149.154.167.92:443/TcpFull...
+2025-10-31 12:26:05,520 - telethon.network.mtprotosender - INFO - Disconnection from 149.154.167.92:443/TcpFull complete!
+2025-10-31 12:26:05,525 - telethon.network.mtprotosender - INFO - Not disconnecting (already have no connection)
+2025-10-31 12:26:05,534 - __main__ - INFO - Disconnected from MT5
+2025-10-31 12:28:41,512 - __main__ - INFO - Health check server started on port 8000
+2025-10-31 12:28:41,955 - __main__ - INFO - Starting Direct MT5 Telegram Monitor...
+2025-10-31 12:28:41,956 - __main__ - INFO - Strategy: adaptive, Volume: 0.09
+2025-10-31 12:28:41,972 - __main__ - INFO - Connected to MT5 VPS - Server: PUPrime-Demo, Account: 700010991
+2025-10-31 12:28:41,972 - __main__ - INFO - Account info - Login: 700010991, Balance: 100000.0
+2025-10-31 12:28:42,023 - __main__ - INFO - Connecting to Telegram as user...
+2025-10-31 12:28:42,023 - telethon.network.mtprotosender - INFO - Connecting to 149.154.167.92:443/TcpFull...
+2025-10-31 12:28:42,037 - telethon.network.mtprotosender - INFO - Connection to 149.154.167.92:443/TcpFull complete!
+2025-10-31 12:28:42,732 - __main__ - INFO - Connected to group: Bot Test Callisto
+2025-10-31 12:28:43,163 - __main__ - INFO - Event handlers set up successfully
+2025-10-31 12:28:46,025 - __main__ - INFO -    Message ID: 421
+2025-10-31 12:28:46,026 - __main__ - INFO -    From user: PeerUser(user_id=7516571994)
+2025-10-31 12:28:46,026 - __main__ - INFO -    Chat ID: PeerChat(chat_id=4867740501)
+2025-10-31 12:28:46,027 - __main__ - INFO -    Has text: True
+2025-10-31 12:28:46,027 - __main__ - INFO -    Message type: text
+2025-10-31 12:28:46,054 - __main__ - INFO -    Message length: 54 characters
+2025-10-31 12:28:46,063 - __main__ - INFO -    [SKIP] Range values too high for Forex (likely crypto) - ignoring
+2025-10-31 12:28:46,067 - __main__ - INFO -    Expected pattern: [SYMBOL] BUY/SELL RANGE: X-Y SL: Z TP: W
+2025-10-31 12:30:53,954 - telethon.network.mtprotosender - INFO - Disconnecting from 149.154.167.92:443/TcpFull...
+2025-10-31 12:30:53,956 - telethon.network.mtprotosender - INFO - Disconnection from 149.154.167.92:443/TcpFull complete!
+2025-10-31 12:30:53,963 - telethon.network.mtprotosender - INFO - Not disconnecting (already have no connection)
+2025-10-31 12:30:53,973 - __main__ - INFO - Disconnected from MT5
+2025-10-31 12:31:32,749 - __main__ - INFO - Health check server started on port 8000
+2025-10-31 12:31:33,176 - __main__ - INFO - Starting Direct MT5 Telegram Monitor...
+2025-10-31 12:31:33,177 - __main__ - INFO - Strategy: adaptive, Volume: 0.09
+2025-10-31 12:31:33,191 - __main__ - INFO - Connected to MT5 VPS - Server: PUPrime-Demo, Account: 700010991
+2025-10-31 12:31:33,191 - __main__ - INFO - Account info - Login: 700010991, Balance: 100000.0
+2025-10-31 12:31:33,229 - __main__ - INFO - Connecting to Telegram as user...
+2025-10-31 12:31:33,229 - telethon.network.mtprotosender - INFO - Connecting to 149.154.167.92:443/TcpFull...
+2025-10-31 12:31:33,237 - telethon.network.mtprotosender - INFO - Connection to 149.154.167.92:443/TcpFull complete!
+2025-10-31 12:31:33,414 - __main__ - INFO - Connected to group: Bot Test Callisto
+2025-10-31 12:31:33,812 - __main__ - INFO - Event handlers set up successfully
+2025-10-31 12:31:36,495 - __main__ - INFO -    Message ID: 422
+2025-10-31 12:31:36,495 - __main__ - INFO -    From user: PeerUser(user_id=7516571994)
+2025-10-31 12:31:36,496 - __main__ - INFO -    Chat ID: PeerChat(chat_id=4867740501)
+2025-10-31 12:31:36,497 - __main__ - INFO -    Has text: True
+2025-10-31 12:31:36,497 - __main__ - INFO -    Message type: text
+2025-10-31 12:31:36,543 - __main__ - INFO -    Message length: 54 characters
+2025-10-31 12:31:36,576 - __main__ - INFO -    [SKIP] Range values too high for Forex (likely crypto) - ignoring
+2025-10-31 12:31:36,588 - __main__ - INFO -    Expected pattern: [SYMBOL] BUY/SELL RANGE: X-Y SL: Z TP: W
+2025-10-31 12:32:16,125 - telethon.network.mtprotosender - INFO - Disconnecting from 149.154.167.92:443/TcpFull...
+2025-10-31 12:32:16,126 - telethon.network.mtprotosender - INFO - Disconnection from 149.154.167.92:443/TcpFull complete!
+2025-10-31 12:32:16,133 - telethon.network.mtprotosender - INFO - Not disconnecting (already have no connection)
+2025-10-31 12:32:16,142 - __main__ - INFO - Disconnected from MT5
+2025-10-31 12:32:19,893 - __main__ - INFO - Health check server started on port 8000
+2025-10-31 12:32:20,363 - __main__ - INFO - Starting Direct MT5 Telegram Monitor...
+2025-10-31 12:32:20,364 - __main__ - INFO - Strategy: adaptive, Volume: 0.09
+2025-10-31 12:32:20,379 - __main__ - INFO - Connected to MT5 VPS - Server: PUPrime-Demo, Account: 700010991
+2025-10-31 12:32:20,379 - __main__ - INFO - Account info - Login: 700010991, Balance: 100000.0
+2025-10-31 12:32:20,424 - __main__ - INFO - Connecting to Telegram as user...
+2025-10-31 12:32:20,426 - telethon.network.mtprotosender - INFO - Connecting to 149.154.167.92:443/TcpFull...
+2025-10-31 12:32:20,434 - telethon.network.mtprotosender - INFO - Connection to 149.154.167.92:443/TcpFull complete!
+2025-10-31 12:32:20,630 - __main__ - INFO - Connected to group: Bot Test Callisto
+2025-10-31 12:32:21,095 - __main__ - INFO - Event handlers set up successfully
+2025-10-31 12:32:22,693 - __main__ - INFO -    Message ID: 423
+2025-10-31 12:32:22,693 - __main__ - INFO -    From user: PeerUser(user_id=7516571994)
+2025-10-31 12:32:22,693 - __main__ - INFO -    Chat ID: PeerChat(chat_id=4867740501)
+2025-10-31 12:32:22,694 - __main__ - INFO -    Has text: True
+2025-10-31 12:32:22,694 - __main__ - INFO -    Message type: text
+2025-10-31 12:32:22,704 - __main__ - INFO -    Message length: 54 characters
+2025-10-31 12:32:22,707 - __main__ - INFO -    [SKIP] Range values too high for Forex (likely crypto) - ignoring
+2025-10-31 12:32:22,710 - __main__ - INFO -    Expected pattern: [SYMBOL] BUY/SELL RANGE: X-Y SL: Z TP: W
+2025-10-31 12:32:25,987 - telethon.network.mtprotosender - INFO - Disconnecting from 149.154.167.92:443/TcpFull...
+2025-10-31 12:32:25,988 - telethon.network.mtprotosender - INFO - Disconnection from 149.154.167.92:443/TcpFull complete!
+2025-10-31 12:32:25,992 - telethon.network.mtprotosender - INFO - Not disconnecting (already have no connection)
+2025-10-31 12:32:26,002 - __main__ - INFO - Disconnected from MT5
+2025-10-31 12:32:57,799 - __main__ - INFO - Health check server started on port 8000
+2025-10-31 12:32:58,212 - __main__ - INFO - Starting Direct MT5 Telegram Monitor...
+2025-10-31 12:32:58,213 - __main__ - INFO - Strategy: adaptive, Volume: 0.09
+2025-10-31 12:32:58,227 - __main__ - INFO - Connected to MT5 VPS - Server: PUPrime-Demo, Account: 700010991
+2025-10-31 12:32:58,228 - __main__ - INFO - Account info - Login: 700010991, Balance: 100000.0
+2025-10-31 12:32:58,266 - __main__ - INFO - Connecting to Telegram as user...
+2025-10-31 12:32:58,267 - telethon.network.mtprotosender - INFO - Connecting to 149.154.167.92:443/TcpFull...
+2025-10-31 12:32:58,284 - telethon.network.mtprotosender - INFO - Connection to 149.154.167.92:443/TcpFull complete!
+2025-10-31 12:32:58,518 - __main__ - INFO - Connected to group: Bot Test Callisto
+2025-10-31 12:32:58,938 - __main__ - INFO - Event handlers set up successfully
+2025-10-31 12:32:58,938 - __main__ - INFO - ✅ Monitor is running. Watching for trading signals...
+2025-10-31 12:33:00,041 - __main__ - INFO - 🔍 MESSAGE HANDLER CALLED:
+2025-10-31 12:33:00,041 - __main__ - INFO -    Message ID: 424
+2025-10-31 12:33:00,042 - __main__ - INFO -    From user: PeerUser(user_id=7516571994)
+2025-10-31 12:33:00,042 - __main__ - INFO -    Chat ID: PeerChat(chat_id=4867740501)
+2025-10-31 12:33:00,042 - __main__ - INFO -    Has text: True
+2025-10-31 12:33:00,043 - __main__ - INFO -    Message type: text
+2025-10-31 12:33:00,043 - __main__ - INFO -    ✅ Message text found: 🔴SELL🔴
+
+SELL RANGE: 4000-3995
+
+SL 4010
+
+TP : 3920/3900...
+2025-10-31 12:33:00,043 - __main__ - INFO -    🎯 CALLING process_trading_signal()
+2025-10-31 12:33:00,044 - __main__ - INFO - 🔍 PROCESSING MESSAGE:
+2025-10-31 12:33:00,044 - __main__ - INFO -    Raw message: '🔴SELL🔴\n\nSELL RANGE: 4000-3995\n\nSL 4010\n\nTP : 3920/3900'
+2025-10-31 12:33:00,044 - __main__ - INFO -    Message length: 54 characters
+2025-10-31 12:33:00,045 - __main__ - INFO - 🔍 PARSING SIGNAL:
+2025-10-31 12:33:00,045 - __main__ - INFO -    Input: '🔴SELL🔴\n\nSELL RANGE: 4000-3995\n\nSL 4010\n\nTP : 3920/3900'
+2025-10-31 12:33:00,046 - __main__ - WARNING -    [X] No currency pair found
+2025-10-31 12:33:00,046 - __main__ - WARNING - ❌ NO SIGNAL PARSED - Message did not match trading signal pattern
+2025-10-31 12:33:00,047 - __main__ - INFO -    Expected pattern: [SYMBOL] BUY/SELL RANGE: X-Y SL: Z TP: W
+2025-10-31 12:33:00,047 - __main__ - INFO -    Received: 🔴SELL🔴
+
+SELL RANGE: 4000-3995
+
+SL 4010
+
+TP : 3920/3900
+2025-10-31 12:33:00,860 - __main__ - INFO - 🔍 MESSAGE HANDLER CALLED:
+2025-10-31 12:33:00,861 - __main__ - INFO -    Message ID: 425
+2025-10-31 12:33:00,861 - __main__ - INFO -    From user: PeerUser(user_id=1932453692)
+2025-10-31 12:33:00,861 - __main__ - INFO -    Chat ID: PeerChat(chat_id=4867740501)
+2025-10-31 12:33:00,862 - __main__ - INFO -    Has text: True
+2025-10-31 12:33:00,862 - __main__ - INFO -    Message type: text
+2025-10-31 12:33:00,862 - __main__ - INFO -    ✅ Message text found: Understood...
+2025-10-31 12:33:00,863 - __main__ - INFO -    🎯 CALLING process_trading_signal()
+2025-10-31 12:33:00,863 - __main__ - INFO - 🔍 PROCESSING MESSAGE:
+2025-10-31 12:33:00,863 - __main__ - INFO -    Raw message: 'Understood'
+2025-10-31 12:33:00,863 - __main__ - INFO -    Message length: 10 characters
+2025-10-31 12:33:00,863 - __main__ - INFO - 🔍 PARSING SIGNAL:
+2025-10-31 12:33:00,864 - __main__ - INFO -    Input: 'Understood'
+2025-10-31 12:33:00,864 - __main__ - WARNING -    [X] No currency pair found
+2025-10-31 12:33:00,864 - __main__ - WARNING - ❌ NO SIGNAL PARSED - Message did not match trading signal pattern
+2025-10-31 12:33:00,865 - __main__ - INFO -    Expected pattern: [SYMBOL] BUY/SELL RANGE: X-Y SL: Z TP: W
+2025-10-31 12:33:00,865 - __main__ - INFO -    Received: Understood
+2025-10-31 12:33:56,568 - telethon.network.mtprotosender - INFO - Disconnecting from 149.154.167.92:443/TcpFull...
+2025-10-31 12:33:56,569 - telethon.network.mtprotosender - INFO - Disconnection from 149.154.167.92:443/TcpFull complete!
+2025-10-31 12:33:56,575 - telethon.network.mtprotosender - INFO - Not disconnecting (already have no connection)
+2025-10-31 12:33:56,584 - __main__ - INFO - Disconnected from MT5
+2025-10-31 12:34:00,899 - __main__ - INFO - Health check server started on port 8000
+2025-10-31 12:34:01,364 - __main__ - INFO - Starting Direct MT5 Telegram Monitor...
+2025-10-31 12:34:01,365 - __main__ - INFO - Strategy: adaptive, Volume: 0.09
+2025-10-31 12:34:01,381 - __main__ - INFO - Connected to MT5 VPS - Server: PUPrime-Demo, Account: 700010991
+2025-10-31 12:34:01,381 - __main__ - INFO - Account info - Login: 700010991, Balance: 100000.0
+2025-10-31 12:34:01,423 - __main__ - INFO - Connecting to Telegram as user...
+2025-10-31 12:34:01,423 - telethon.network.mtprotosender - INFO - Connecting to 149.154.167.92:443/TcpFull...
+2025-10-31 12:34:01,436 - telethon.network.mtprotosender - INFO - Connection to 149.154.167.92:443/TcpFull complete!
+2025-10-31 12:34:01,672 - __main__ - INFO - Connected to group: Bot Test Callisto
+2025-10-31 12:34:02,119 - __main__ - INFO - Event handlers set up successfully
+2025-10-31 12:34:02,119 - __main__ - INFO - ✅ Monitor is running. Watching for trading signals...
+2025-10-31 12:34:05,500 - __main__ - INFO - 🔍 MESSAGE HANDLER CALLED:
+2025-10-31 12:34:05,500 - __main__ - INFO -    Message ID: 426
+2025-10-31 12:34:05,500 - __main__ - INFO -    From user: PeerUser(user_id=7516571994)
+2025-10-31 12:34:05,500 - __main__ - INFO -    Chat ID: PeerChat(chat_id=4867740501)
+2025-10-31 12:34:05,500 - __main__ - INFO -    Has text: True
+2025-10-31 12:34:05,500 - __main__ - INFO -    Message type: text
+2025-10-31 12:34:05,502 - __main__ - INFO -    ✅ Message text found: 🔴SELL🔴
+
+SELL RANGE: 4000-3995
+
+SL 4010
+
+TP : 3920/3900...
+2025-10-31 12:34:05,502 - __main__ - INFO -    🎯 CALLING process_trading_signal()
+2025-10-31 12:34:05,502 - __main__ - INFO - 🔍 PROCESSING MESSAGE:
+2025-10-31 12:34:05,502 - __main__ - INFO -    Raw message: '🔴SELL🔴\n\nSELL RANGE: 4000-3995\n\nSL 4010\n\nTP : 3920/3900'
+2025-10-31 12:34:05,502 - __main__ - INFO -    Message length: 54 characters
+2025-10-31 12:34:05,502 - __main__ - INFO - 🔍 PARSING SIGNAL:
+2025-10-31 12:34:05,502 - __main__ - INFO -    Input: '🔴SELL🔴\n\nSELL RANGE: 4000-3995\n\nSL 4010\n\nTP : 3920/3900'
+2025-10-31 12:34:05,504 - __main__ - INFO -    [OK] Symbol: XAUUSD (fixed)
+2025-10-31 12:34:05,504 - __main__ - INFO -    [OK] Direction: SELL (detected from emoji)
+2025-10-31 12:34:05,504 - __main__ - INFO -    [OK] Range: 4000.0 - 3995.0
+2025-10-31 12:34:05,506 - __main__ - INFO -    [OK] Stop Loss: 4010.0
+2025-10-31 12:34:05,506 - __main__ - INFO -    [OK] Take Profit: 3920.0 (using first TP)
+2025-10-31 12:34:05,507 - __main__ - INFO -    [OK] Volume (default): 0.01
+2025-10-31 12:34:05,507 - __main__ - INFO -    [SUCCESS] SIGNAL PARSED SUCCESSFULLY!
+2025-10-31 12:34:06,384 - __main__ - INFO - 📊 Parsed signal: XAUUSD sell 4000.0-3995.0 SL:4010.0 TP:3920.0
+2025-10-31 12:34:06,386 - __main__ - INFO - 🔍 DEBUGGING ORDER PLACEMENT:
+2025-10-31 12:34:06,386 - __main__ - INFO -    Symbol: XAUUSD
+2025-10-31 12:34:06,386 - __main__ - INFO -    Direction: SELL
+2025-10-31 12:34:06,386 - __main__ - INFO -    Signal Range: 4000.0 - 3995.0
+2025-10-31 12:34:06,386 - __main__ - INFO -    Current Market: Bid=N/A, Ask=N/A
+2025-10-31 12:34:06,387 - __main__ - INFO -    Reference Price (sell): None
+2025-10-31 12:34:06,387 - __main__ - INFO -    Strategy: adaptive
+2025-10-31 12:34:06,387 - __main__ - INFO -    📍 ADAPTIVE Strategy (no price): Entry = 3997.5 (midpoint)
+2025-10-31 12:34:06,835 - __main__ - INFO - 🎯 Limit order calculated: Price=3997.5 Type=LIMIT
+2025-10-31 12:34:07,698 - __main__ - ERROR - ❌ Limit order failed: Could not get market price for XAUUSD
+2025-10-31 12:35:08,395 - __main__ - INFO - 🔍 MESSAGE HANDLER CALLED:
+2025-10-31 12:35:08,396 - __main__ - INFO -    Message ID: 427
+2025-10-31 12:35:08,396 - __main__ - INFO -    From user: PeerUser(user_id=7516571994)
+2025-10-31 12:35:08,396 - __main__ - INFO -    Chat ID: PeerChat(chat_id=4867740501)
+2025-10-31 12:35:08,397 - __main__ - INFO -    Has text: True
+2025-10-31 12:35:08,397 - __main__ - INFO -    Message type: text
+2025-10-31 12:35:08,397 - __main__ - INFO -    ✅ Message text found: 🔴SELL🔴
+
+SELL RANGE: 4000-3995
+
+SL 4010
+
+TP : 3920/3900...
+2025-10-31 12:35:08,398 - __main__ - INFO -    🎯 CALLING process_trading_signal()
+2025-10-31 12:35:08,398 - __main__ - INFO - 🔍 PROCESSING MESSAGE:
+2025-10-31 12:35:08,399 - __main__ - INFO -    Raw message: '🔴SELL🔴\n\nSELL RANGE: 4000-3995\n\nSL 4010\n\nTP : 3920/3900'
+2025-10-31 12:35:08,399 - __main__ - INFO -    Message length: 54 characters
+2025-10-31 12:35:08,399 - __main__ - INFO - 🔍 PARSING SIGNAL:
+2025-10-31 12:35:08,399 - __main__ - INFO -    Input: '🔴SELL🔴\n\nSELL RANGE: 4000-3995\n\nSL 4010\n\nTP : 3920/3900'
+2025-10-31 12:35:08,399 - __main__ - INFO -    [OK] Symbol: XAUUSD (fixed)
+2025-10-31 12:35:08,400 - __main__ - INFO -    [OK] Direction: SELL (detected from emoji)
+2025-10-31 12:35:08,400 - __main__ - INFO -    [OK] Range: 4000.0 - 3995.0
+2025-10-31 12:35:08,400 - __main__ - INFO -    [OK] Stop Loss: 4010.0
+2025-10-31 12:35:08,400 - __main__ - INFO -    [OK] Take Profit: 3920.0 (using first TP)
+2025-10-31 12:35:08,401 - __main__ - INFO -    [OK] Volume (default): 0.01
+2025-10-31 12:35:08,401 - __main__ - INFO -    [SUCCESS] SIGNAL PARSED SUCCESSFULLY!
+2025-10-31 12:35:09,259 - __main__ - INFO - 📊 Parsed signal: XAUUSD sell 4000.0-3995.0 SL:4010.0 TP:3920.0
+2025-10-31 12:35:09,260 - __main__ - INFO - 🔍 DEBUGGING ORDER PLACEMENT:
+2025-10-31 12:35:09,261 - __main__ - INFO -    Symbol: XAUUSD
+2025-10-31 12:35:09,261 - __main__ - INFO -    Direction: SELL
+2025-10-31 12:35:09,261 - __main__ - INFO -    Signal Range: 4000.0 - 3995.0
+2025-10-31 12:35:09,261 - __main__ - INFO -    Current Market: Bid=N/A, Ask=N/A
+2025-10-31 12:35:09,262 - __main__ - INFO -    Reference Price (sell): None
+2025-10-31 12:35:09,262 - __main__ - INFO -    Strategy: adaptive
+2025-10-31 12:35:09,262 - __main__ - INFO -    📍 ADAPTIVE Strategy (no price): Entry = 3997.5 (midpoint)
+2025-10-31 12:35:09,738 - __main__ - INFO - 🎯 Limit order calculated: Price=3997.5 Type=LIMIT
+2025-10-31 12:35:10,861 - __main__ - ERROR - ❌ Limit order failed: Could not get market price for XAUUSD
+2025-10-31 12:35:31,957 - telethon.network.mtprotosender - INFO - Disconnecting from 149.154.167.92:443/TcpFull...
+2025-10-31 12:35:31,959 - telethon.network.mtprotosender - INFO - Disconnection from 149.154.167.92:443/TcpFull complete!
+2025-10-31 12:35:31,966 - telethon.network.mtprotosender - INFO - Not disconnecting (already have no connection)
+2025-10-31 12:35:31,978 - __main__ - INFO - Disconnected from MT5
+2025-10-31 12:35:47,486 - __main__ - INFO - Health check server started on port 8000
+2025-10-31 12:35:47,919 - __main__ - INFO - Starting Direct MT5 Telegram Monitor...
+2025-10-31 12:35:47,920 - __main__ - INFO - Strategy: adaptive, Volume: 0.09
+2025-10-31 12:35:47,936 - __main__ - INFO - Connected to MT5 VPS - Server: PUPrime-Demo, Account: 700010991
+2025-10-31 12:35:47,937 - __main__ - INFO - Account info - Login: 700010991, Balance: 100000.0
+2025-10-31 12:35:47,978 - __main__ - INFO - Connecting to Telegram as user...
+2025-10-31 12:35:47,978 - telethon.network.mtprotosender - INFO - Connecting to 149.154.167.92:443/TcpFull...
+2025-10-31 12:35:47,992 - telethon.network.mtprotosender - INFO - Connection to 149.154.167.92:443/TcpFull complete!
+2025-10-31 12:35:48,255 - __main__ - INFO - Connected to group: Bot Test Callisto
+2025-10-31 12:35:48,672 - __main__ - INFO - Event handlers set up successfully
+2025-10-31 12:35:48,673 - __main__ - INFO - ✅ Monitor is running. Watching for trading signals...
+2025-10-31 12:35:49,744 - __main__ - INFO - 🔍 MESSAGE HANDLER CALLED:
+2025-10-31 12:35:49,745 - __main__ - INFO -    Message ID: 428
+2025-10-31 12:35:49,745 - __main__ - INFO -    From user: PeerUser(user_id=7516571994)
+2025-10-31 12:35:49,746 - __main__ - INFO -    Chat ID: PeerChat(chat_id=4867740501)
+2025-10-31 12:35:49,746 - __main__ - INFO -    Has text: True
+2025-10-31 12:35:49,746 - __main__ - INFO -    Message type: text
+2025-10-31 12:35:49,746 - __main__ - INFO -    ✅ Message text found: 🔴SELL🔴
+
+SELL RANGE: 4000-3995
+
+SL 4010
+
+TP : 3920/3900...
+2025-10-31 12:35:49,747 - __main__ - INFO -    🎯 CALLING process_trading_signal()
+2025-10-31 12:35:49,747 - __main__ - INFO - 🔍 PROCESSING MESSAGE:
+2025-10-31 12:35:49,747 - __main__ - INFO -    Raw message: '🔴SELL🔴\n\nSELL RANGE: 4000-3995\n\nSL 4010\n\nTP : 3920/3900'
+2025-10-31 12:35:49,748 - __main__ - INFO -    Message length: 54 characters
+2025-10-31 12:35:49,748 - __main__ - INFO - 🔍 PARSING SIGNAL:
+2025-10-31 12:35:49,748 - __main__ - INFO -    Input: '🔴SELL🔴\n\nSELL RANGE: 4000-3995\n\nSL 4010\n\nTP : 3920/3900'
+2025-10-31 12:35:49,749 - __main__ - INFO -    [OK] Symbol: XAUUSD.p (fixed)
+2025-10-31 12:35:49,750 - __main__ - INFO -    [OK] Direction: SELL (detected from emoji)
+2025-10-31 12:35:49,750 - __main__ - INFO -    [OK] Range: 4000.0 - 3995.0
+2025-10-31 12:35:49,750 - __main__ - INFO -    [OK] Stop Loss: 4010.0
+2025-10-31 12:35:49,751 - __main__ - INFO -    [OK] Take Profit: 3920.0 (using first TP)
+2025-10-31 12:35:49,752 - __main__ - INFO -    [OK] Volume (default): 0.01
+2025-10-31 12:35:49,752 - __main__ - INFO -    [SUCCESS] SIGNAL PARSED SUCCESSFULLY!
+2025-10-31 12:35:50,598 - __main__ - INFO - 📊 Parsed signal: XAUUSD.p sell 4000.0-3995.0 SL:4010.0 TP:3920.0
+2025-10-31 12:35:50,598 - __main__ - INFO - 🔍 DEBUGGING ORDER PLACEMENT:
+2025-10-31 12:35:50,599 - __main__ - INFO -    Symbol: XAUUSD.p
+2025-10-31 12:35:50,599 - __main__ - INFO -    Direction: SELL
+2025-10-31 12:35:50,599 - __main__ - INFO -    Signal Range: 4000.0 - 3995.0
+2025-10-31 12:35:50,599 - __main__ - INFO -    Current Market: Bid=4002.43, Ask=4002.53
+2025-10-31 12:35:50,600 - __main__ - INFO -    Reference Price (sell): 4002.43
+2025-10-31 12:35:50,601 - __main__ - INFO -    Strategy: adaptive
+2025-10-31 12:35:50,601 - __main__ - INFO -    📍 ADAPTIVE Strategy (SELL): Price 4002.43 > range_end 3995.0 → Entry = 4002.41 (-2 pips)
+2025-10-31 12:35:51,029 - __main__ - INFO - 🎯 Limit order calculated: Price=4002.41 Type=LIMIT
+2025-10-31 12:35:51,029 - __main__ - INFO - 🔍 ORDER TYPE DETERMINATION:
+2025-10-31 12:35:51,029 - __main__ - INFO -    Current Market: Bid=4002.43, Ask=4002.53
+2025-10-31 12:35:51,031 - __main__ - INFO -    Entry Price: 4002.41
+2025-10-31 12:35:51,031 - __main__ - INFO -    Direction: SELL
+2025-10-31 12:35:51,031 - __main__ - INFO -    ✅ SELL STOP LIMIT: Entry 4002.41 < Bid 4002.43
+2025-10-31 12:35:51,031 - __main__ - INFO -    💡 This order will fill when Bid drops to 4002.41
+2025-10-31 12:35:51,031 - __main__ - INFO -    Volume: 0.01
+2025-10-31 12:35:51,895 - __main__ - ERROR - ❌ Limit order failed: Order failed: 10027 - AutoTrading disabled by client
+2025-10-31 12:36:01,466 - __main__ - INFO - 🔍 MESSAGE HANDLER CALLED:
+2025-10-31 12:36:01,466 - __main__ - INFO -    Message ID: 429
+2025-10-31 12:36:01,467 - __main__ - INFO -    From user: PeerUser(user_id=7516571994)
+2025-10-31 12:36:01,467 - __main__ - INFO -    Chat ID: PeerChat(chat_id=4867740501)
+2025-10-31 12:36:01,467 - __main__ - INFO -    Has text: True
+2025-10-31 12:36:01,468 - __main__ - INFO -    Message type: text
+2025-10-31 12:36:01,468 - __main__ - INFO -    ✅ Message text found: 🔴SELL🔴
+
+SELL RANGE: 4000-3995
+
+SL 4010
+
+TP : 3920/3900...
+2025-10-31 12:36:01,468 - __main__ - INFO -    🎯 CALLING process_trading_signal()
+2025-10-31 12:36:01,469 - __main__ - INFO - 🔍 PROCESSING MESSAGE:
+2025-10-31 12:36:01,469 - __main__ - INFO -    Raw message: '🔴SELL🔴\n\nSELL RANGE: 4000-3995\n\nSL 4010\n\nTP : 3920/3900'
+2025-10-31 12:36:01,469 - __main__ - INFO -    Message length: 54 characters
+2025-10-31 12:36:01,470 - __main__ - INFO - 🔍 PARSING SIGNAL:
+2025-10-31 12:36:01,470 - __main__ - INFO -    Input: '🔴SELL🔴\n\nSELL RANGE: 4000-3995\n\nSL 4010\n\nTP : 3920/3900'
+2025-10-31 12:36:01,470 - __main__ - INFO -    [OK] Symbol: XAUUSD.p (fixed)
+2025-10-31 12:36:01,471 - __main__ - INFO -    [OK] Direction: SELL (detected from emoji)
+2025-10-31 12:36:01,471 - __main__ - INFO -    [OK] Range: 4000.0 - 3995.0
+2025-10-31 12:36:01,471 - __main__ - INFO -    [OK] Stop Loss: 4010.0
+2025-10-31 12:36:01,471 - __main__ - INFO -    [OK] Take Profit: 3920.0 (using first TP)
+2025-10-31 12:36:01,472 - __main__ - INFO -    [OK] Volume (default): 0.01
+2025-10-31 12:36:01,472 - __main__ - INFO -    [SUCCESS] SIGNAL PARSED SUCCESSFULLY!
+2025-10-31 12:36:02,361 - __main__ - INFO - 📊 Parsed signal: XAUUSD.p sell 4000.0-3995.0 SL:4010.0 TP:3920.0
+2025-10-31 12:36:02,363 - __main__ - INFO - 🔍 DEBUGGING ORDER PLACEMENT:
+2025-10-31 12:36:02,363 - __main__ - INFO -    Symbol: XAUUSD.p
+2025-10-31 12:36:02,363 - __main__ - INFO -    Direction: SELL
+2025-10-31 12:36:02,363 - __main__ - INFO -    Signal Range: 4000.0 - 3995.0
+2025-10-31 12:36:02,363 - __main__ - INFO -    Current Market: Bid=4003.61, Ask=4003.7
+2025-10-31 12:36:02,363 - __main__ - INFO -    Reference Price (sell): 4003.61
+2025-10-31 12:36:02,363 - __main__ - INFO -    Strategy: adaptive
+2025-10-31 12:36:02,365 - __main__ - INFO -    📍 ADAPTIVE Strategy (SELL): Price 4003.61 > range_end 3995.0 → Entry = 4003.59 (-2 pips)
+2025-10-31 12:36:02,780 - __main__ - INFO - 🎯 Limit order calculated: Price=4003.59 Type=LIMIT
+2025-10-31 12:36:02,781 - __main__ - INFO - 🔍 ORDER TYPE DETERMINATION:
+2025-10-31 12:36:02,781 - __main__ - INFO -    Current Market: Bid=4003.57, Ask=4003.66
+2025-10-31 12:36:02,781 - __main__ - INFO -    Entry Price: 4003.59
+2025-10-31 12:36:02,782 - __main__ - INFO -    Direction: SELL
+2025-10-31 12:36:02,782 - __main__ - INFO -    ✅ SELL LIMIT: Entry 4003.59 >= Bid 4003.57
+2025-10-31 12:36:02,783 - __main__ - INFO -    💡 This order will fill when Bid rises to 4003.59
+2025-10-31 12:36:02,784 - __main__ - INFO -    Volume: 0.01
+2025-10-31 12:36:03,593 - __main__ - ERROR - ❌ Limit order failed: Order failed: 10015 - Invalid price
+2025-10-31 12:37:24,919 - telethon.network.mtprotosender - INFO - Disconnecting from 149.154.167.92:443/TcpFull...
+2025-10-31 12:37:24,922 - telethon.network.mtprotosender - INFO - Disconnection from 149.154.167.92:443/TcpFull complete!
+2025-10-31 12:37:24,929 - telethon.network.mtprotosender - INFO - Not disconnecting (already have no connection)
+2025-10-31 12:37:24,938 - __main__ - INFO - Disconnected from MT5
+2025-10-31 12:37:55,125 - __main__ - INFO - Health check server started on port 8000
+2025-10-31 12:37:55,572 - __main__ - INFO - Starting Direct MT5 Telegram Monitor...
+2025-10-31 12:37:55,572 - __main__ - INFO - Strategy: adaptive, Volume: 0.09
+2025-10-31 12:37:55,587 - __main__ - INFO - Connected to MT5 VPS - Server: PUPrime-Demo, Account: 700010991
+2025-10-31 12:37:55,588 - __main__ - INFO - Account info - Login: 700010991, Balance: 100000.0
+2025-10-31 12:37:55,630 - __main__ - INFO - Connecting to Telegram as user...
+2025-10-31 12:37:55,630 - telethon.network.mtprotosender - INFO - Connecting to 149.154.167.92:443/TcpFull...
+2025-10-31 12:37:55,640 - telethon.network.mtprotosender - INFO - Connection to 149.154.167.92:443/TcpFull complete!
+2025-10-31 12:37:55,814 - __main__ - INFO - Connected to group: Bot Test Callisto
+2025-10-31 12:37:56,241 - __main__ - INFO - Event handlers set up successfully
+2025-10-31 12:37:56,241 - __main__ - INFO - ✅ Monitor is running. Watching for trading signals...
+2025-10-31 12:37:57,314 - __main__ - INFO - 🔍 MESSAGE HANDLER CALLED:
+2025-10-31 12:37:57,315 - __main__ - INFO -    Message ID: 432
+2025-10-31 12:37:57,315 - __main__ - INFO -    From user: PeerUser(user_id=7516571994)
+2025-10-31 12:37:57,315 - __main__ - INFO -    Chat ID: PeerChat(chat_id=4867740501)
+2025-10-31 12:37:57,316 - __main__ - INFO -    Has text: True
+2025-10-31 12:37:57,316 - __main__ - INFO -    Message type: text
+2025-10-31 12:37:57,316 - __main__ - INFO -    ✅ Message text found: 🔴SELL🔴
+
+SELL RANGE: 4000-3995
+
+SL 4010
+
+TP : 3920/3900...
+2025-10-31 12:37:57,317 - __main__ - INFO -    🎯 CALLING process_trading_signal()
+2025-10-31 12:37:57,317 - __main__ - INFO - 🔍 PROCESSING MESSAGE:
+2025-10-31 12:37:57,317 - __main__ - INFO -    Raw message: '🔴SELL🔴\n\nSELL RANGE: 4000-3995\n\nSL 4010\n\nTP : 3920/3900'
+2025-10-31 12:37:57,317 - __main__ - INFO -    Message length: 54 characters
+2025-10-31 12:37:57,318 - __main__ - INFO - 🔍 PARSING SIGNAL:
+2025-10-31 12:37:57,318 - __main__ - INFO -    Input: '🔴SELL🔴\n\nSELL RANGE: 4000-3995\n\nSL 4010\n\nTP : 3920/3900'
+2025-10-31 12:37:57,319 - __main__ - INFO -    [OK] Symbol: XAUUSD.p (fixed)
+2025-10-31 12:37:57,320 - __main__ - INFO -    [OK] Direction: SELL (detected from emoji)
+2025-10-31 12:37:57,321 - __main__ - INFO -    [OK] Range: 4000.0 - 3995.0
+2025-10-31 12:37:57,321 - __main__ - INFO -    [OK] Stop Loss: 4010.0
+2025-10-31 12:37:57,321 - __main__ - INFO -    [OK] Take Profit: 3920.0 (using first TP)
+2025-10-31 12:37:57,323 - __main__ - INFO -    [OK] Volume (default): 0.01
+2025-10-31 12:37:57,323 - __main__ - INFO -    [SUCCESS] SIGNAL PARSED SUCCESSFULLY!
+2025-10-31 12:37:58,212 - __main__ - INFO - 📊 Parsed signal: XAUUSD.p sell 4000.0-3995.0 SL:4010.0 TP:3920.0
+2025-10-31 12:37:58,213 - __main__ - INFO - 🔍 DEBUGGING ORDER PLACEMENT:
+2025-10-31 12:37:58,213 - __main__ - INFO -    Symbol: XAUUSD.p
+2025-10-31 12:37:58,213 - __main__ - INFO -    Direction: SELL
+2025-10-31 12:37:58,214 - __main__ - INFO -    Signal Range: 4000.0 - 3995.0
+2025-10-31 12:37:58,214 - __main__ - INFO -    Current Market: Bid=4005.94, Ask=4006.03
+2025-10-31 12:37:58,215 - __main__ - INFO -    Reference Price (sell): 4005.94
+2025-10-31 12:37:58,215 - __main__ - INFO -    Strategy: adaptive
+2025-10-31 12:37:58,215 - __main__ - INFO -    📍 ADAPTIVE Strategy (SELL): Price 4005.94 > range_end 3995.0 → Entry = 4005.92 (-2 pips)
+2025-10-31 12:37:58,656 - __main__ - INFO - 🎯 Limit order calculated: Price=4005.92 Type=LIMIT
+2025-10-31 12:37:58,656 - __main__ - INFO - 🔍 ORDER TYPE DETERMINATION:
+2025-10-31 12:37:58,656 - __main__ - INFO -    Current Market: Bid=4005.93, Ask=4006.03
+2025-10-31 12:37:58,657 - __main__ - INFO -    Entry Price: 4005.92
+2025-10-31 12:37:58,658 - __main__ - INFO -    Direction: SELL
+2025-10-31 12:37:58,658 - __main__ - INFO -    ✅ SELL LIMIT order at 4005.92
+2025-10-31 12:37:58,658 - __main__ - INFO -    💡 Order will fill when market reaches 4005.92
+2025-10-31 12:37:58,658 - __main__ - INFO -    Volume: 0.01
+2025-10-31 12:37:59,615 - __main__ - ERROR - ❌ Limit order failed: Order failed: 10015 - Invalid price
+2025-10-31 12:39:10,087 - telethon.network.mtprotosender - INFO - Disconnecting from 149.154.167.92:443/TcpFull...
+2025-10-31 12:39:10,088 - telethon.network.mtprotosender - INFO - Disconnection from 149.154.167.92:443/TcpFull complete!
+2025-10-31 12:39:10,096 - telethon.network.mtprotosender - INFO - Not disconnecting (already have no connection)
+2025-10-31 12:39:10,107 - __main__ - INFO - Disconnected from MT5
+2025-10-31 12:39:13,447 - __main__ - INFO - Health check server started on port 8000
+2025-10-31 12:39:13,870 - __main__ - INFO - Starting Direct MT5 Telegram Monitor...
+2025-10-31 12:39:13,870 - __main__ - INFO - Strategy: midpoint, Volume: 0.09
+2025-10-31 12:39:13,884 - __main__ - INFO - Connected to MT5 VPS - Server: PUPrime-Demo, Account: 700010991
+2025-10-31 12:39:13,884 - __main__ - INFO - Account info - Login: 700010991, Balance: 100000.0
+2025-10-31 12:39:13,923 - __main__ - INFO - Connecting to Telegram as user...
+2025-10-31 12:39:13,923 - telethon.network.mtprotosender - INFO - Connecting to 149.154.167.92:443/TcpFull...
+2025-10-31 12:39:13,935 - telethon.network.mtprotosender - INFO - Connection to 149.154.167.92:443/TcpFull complete!
+2025-10-31 12:39:14,126 - __main__ - INFO - Connected to group: Bot Test Callisto
+2025-10-31 12:39:14,562 - __main__ - INFO - Event handlers set up successfully
+2025-10-31 12:39:14,563 - __main__ - INFO - ✅ Monitor is running. Watching for trading signals...
+2025-10-31 12:39:15,494 - __main__ - INFO - 🔍 MESSAGE HANDLER CALLED:
+2025-10-31 12:39:15,495 - __main__ - INFO -    Message ID: 433
+2025-10-31 12:39:15,495 - __main__ - INFO -    From user: PeerUser(user_id=7516571994)
+2025-10-31 12:39:15,495 - __main__ - INFO -    Chat ID: PeerChat(chat_id=4867740501)
+2025-10-31 12:39:15,496 - __main__ - INFO -    Has text: True
+2025-10-31 12:39:15,496 - __main__ - INFO -    Message type: text
+2025-10-31 12:39:15,496 - __main__ - INFO -    ✅ Message text found: 🔴SELL🔴
+
+SELL RANGE: 4000-3995
+
+SL 4010
+
+TP : 3920/3900...
+2025-10-31 12:39:15,497 - __main__ - INFO -    🎯 CALLING process_trading_signal()
+2025-10-31 12:39:15,497 - __main__ - INFO - 🔍 PROCESSING MESSAGE:
+2025-10-31 12:39:15,497 - __main__ - INFO -    Raw message: '🔴SELL🔴\n\nSELL RANGE: 4000-3995\n\nSL 4010\n\nTP : 3920/3900'
+2025-10-31 12:39:15,498 - __main__ - INFO -    Message length: 54 characters
+2025-10-31 12:39:15,498 - __main__ - INFO - 🔍 PARSING SIGNAL:
+2025-10-31 12:39:15,498 - __main__ - INFO -    Input: '🔴SELL🔴\n\nSELL RANGE: 4000-3995\n\nSL 4010\n\nTP : 3920/3900'
+2025-10-31 12:39:15,499 - __main__ - INFO -    [OK] Symbol: XAUUSD.p (fixed)
+2025-10-31 12:39:15,500 - __main__ - INFO -    [OK] Direction: SELL (detected from emoji)
+2025-10-31 12:39:15,501 - __main__ - INFO -    [OK] Range: 4000.0 - 3995.0
+2025-10-31 12:39:15,502 - __main__ - INFO -    [OK] Stop Loss: 4010.0
+2025-10-31 12:39:15,502 - __main__ - INFO -    [OK] Take Profit: 3920.0 (using first TP)
+2025-10-31 12:39:15,503 - __main__ - INFO -    [OK] Volume (default): 0.01
+2025-10-31 12:39:15,503 - __main__ - INFO -    [SUCCESS] SIGNAL PARSED SUCCESSFULLY!
+2025-10-31 12:39:16,388 - __main__ - INFO - 📊 Parsed signal: XAUUSD.p sell 4000.0-3995.0 SL:4010.0 TP:3920.0
+2025-10-31 12:39:16,389 - __main__ - INFO - 🔍 DEBUGGING ORDER PLACEMENT:
+2025-10-31 12:39:16,390 - __main__ - INFO -    Symbol: XAUUSD.p
+2025-10-31 12:39:16,390 - __main__ - INFO -    Direction: SELL
+2025-10-31 12:39:16,390 - __main__ - INFO -    Signal Range: 4000.0 - 3995.0
+2025-10-31 12:39:16,390 - __main__ - INFO -    Current Market: Bid=4006.21, Ask=4006.3
+2025-10-31 12:39:16,390 - __main__ - INFO -    Reference Price (sell): 4006.21
+2025-10-31 12:39:16,391 - __main__ - INFO -    Strategy: midpoint
+2025-10-31 12:39:16,391 - __main__ - INFO -    📍 MIDPOINT Strategy: Entry = 3997.5
+2025-10-31 12:39:16,839 - __main__ - INFO - 🎯 Limit order calculated: Price=3997.5 Type=LIMIT
+2025-10-31 12:39:16,839 - __main__ - INFO - 🔍 ORDER TYPE DETERMINATION:
+2025-10-31 12:39:16,839 - __main__ - INFO -    Current Market: Bid=4006.21, Ask=4006.3
+2025-10-31 12:39:16,839 - __main__ - INFO -    Entry Price: 3997.5
+2025-10-31 12:39:16,840 - __main__ - INFO -    Direction: SELL
+2025-10-31 12:39:16,841 - __main__ - INFO -    ✅ SELL LIMIT order at 3997.5
+2025-10-31 12:39:16,841 - __main__ - INFO -    💡 Order will fill when market reaches 3997.5
+2025-10-31 12:39:16,841 - __main__ - INFO -    Volume: 0.01
+2025-10-31 12:39:17,745 - __main__ - ERROR - ❌ Limit order failed: Order failed: 10015 - Invalid price
+2025-10-31 12:40:46,391 - __main__ - INFO - 🔍 MESSAGE HANDLER CALLED:
+2025-10-31 12:40:46,392 - __main__ - INFO -    Message ID: 434
+2025-10-31 12:40:46,393 - __main__ - INFO -    From user: PeerUser(user_id=7516571994)
+2025-10-31 12:40:46,393 - __main__ - INFO -    Chat ID: PeerChat(chat_id=4867740501)
+2025-10-31 12:40:46,393 - __main__ - INFO -    Has text: True
+2025-10-31 12:40:46,393 - __main__ - INFO -    Message type: text
+2025-10-31 12:40:46,393 - __main__ - INFO -    ✅ Message text found: 🔴SELL🔴
+
+SELL RANGE: 4000-3995
+
+SL 4010
+
+TP : 3920/3900...
+2025-10-31 12:40:46,394 - __main__ - INFO -    🎯 CALLING process_trading_signal()
+2025-10-31 12:40:46,395 - __main__ - INFO - 🔍 PROCESSING MESSAGE:
+2025-10-31 12:40:46,395 - __main__ - INFO -    Raw message: '🔴SELL🔴\n\nSELL RANGE: 4000-3995\n\nSL 4010\n\nTP : 3920/3900'
+2025-10-31 12:40:46,395 - __main__ - INFO -    Message length: 54 characters
+2025-10-31 12:40:46,395 - __main__ - INFO - 🔍 PARSING SIGNAL:
+2025-10-31 12:40:46,395 - __main__ - INFO -    Input: '🔴SELL🔴\n\nSELL RANGE: 4000-3995\n\nSL 4010\n\nTP : 3920/3900'
+2025-10-31 12:40:46,396 - __main__ - INFO -    [OK] Symbol: XAUUSD.p (fixed)
+2025-10-31 12:40:46,397 - __main__ - INFO -    [OK] Direction: SELL (detected from emoji)
+2025-10-31 12:40:46,397 - __main__ - INFO -    [OK] Range: 4000.0 - 3995.0
+2025-10-31 12:40:46,397 - __main__ - INFO -    [OK] Stop Loss: 4010.0
+2025-10-31 12:40:46,397 - __main__ - INFO -    [OK] Take Profit: 3920.0 (using first TP)
+2025-10-31 12:40:46,398 - __main__ - INFO -    [OK] Volume (default): 0.01
+2025-10-31 12:40:46,398 - __main__ - INFO -    [SUCCESS] SIGNAL PARSED SUCCESSFULLY!
+2025-10-31 12:40:47,239 - __main__ - INFO - 📊 Parsed signal: XAUUSD.p sell 4000.0-3995.0 SL:4010.0 TP:3920.0
+2025-10-31 12:40:47,241 - __main__ - INFO - 🔍 DEBUGGING ORDER PLACEMENT:
+2025-10-31 12:40:47,241 - __main__ - INFO -    Symbol: XAUUSD.p
+2025-10-31 12:40:47,241 - __main__ - INFO -    Direction: SELL
+2025-10-31 12:40:47,241 - __main__ - INFO -    Signal Range: 4000.0 - 3995.0
+2025-10-31 12:40:47,243 - __main__ - INFO -    Current Market: Bid=4006.74, Ask=4006.83
+2025-10-31 12:40:47,243 - __main__ - INFO -    Reference Price (sell): 4006.74
+2025-10-31 12:40:47,243 - __main__ - INFO -    Strategy: midpoint
+2025-10-31 12:40:47,243 - __main__ - INFO -    📍 MIDPOINT Strategy: Entry = 3997.5
+2025-10-31 12:40:47,670 - __main__ - INFO - 🎯 Limit order calculated: Price=3997.5 Type=LIMIT
+2025-10-31 12:40:47,671 - __main__ - INFO - 🔍 ORDER TYPE DETERMINATION:
+2025-10-31 12:40:47,672 - __main__ - INFO -    Current Market: Bid=4006.74, Ask=4006.83
+2025-10-31 12:40:47,672 - __main__ - INFO -    Entry Price: 3997.5
+2025-10-31 12:40:47,672 - __main__ - INFO -    Direction: SELL
+2025-10-31 12:40:47,672 - __main__ - INFO -    ✅ SELL LIMIT order at 3997.5
+2025-10-31 12:40:47,672 - __main__ - INFO -    💡 Order will fill when market reaches 3997.5
+2025-10-31 12:40:47,673 - __main__ - INFO -    Volume: 0.01
+2025-10-31 12:40:48,539 - __main__ - ERROR - ❌ Limit order failed: Order failed: 10015 - Invalid price
+2025-10-31 12:40:52,068 - telethon.network.mtprotosender - INFO - Disconnecting from 149.154.167.92:443/TcpFull...
+2025-10-31 12:40:52,069 - telethon.network.mtprotosender - INFO - Disconnection from 149.154.167.92:443/TcpFull complete!
+2025-10-31 12:40:52,076 - telethon.network.mtprotosender - INFO - Not disconnecting (already have no connection)
+2025-10-31 12:40:52,086 - __main__ - INFO - Disconnected from MT5
+2025-10-31 12:40:55,206 - __main__ - INFO - Health check server started on port 8000
+2025-10-31 12:40:55,631 - __main__ - INFO - Starting Direct MT5 Telegram Monitor...
+2025-10-31 12:40:55,631 - __main__ - INFO - Strategy: midpoint, Volume: 0.09
+2025-10-31 12:40:55,644 - __main__ - INFO - Connected to MT5 VPS - Server: PUPrime-Demo, Account: 700010991
+2025-10-31 12:40:55,645 - __main__ - INFO - Account info - Login: 700010991, Balance: 100000.0
+2025-10-31 12:40:55,683 - __main__ - INFO - Connecting to Telegram as user...
+2025-10-31 12:40:55,684 - telethon.network.mtprotosender - INFO - Connecting to 149.154.167.92:443/TcpFull...
+2025-10-31 12:40:55,694 - telethon.network.mtprotosender - INFO - Connection to 149.154.167.92:443/TcpFull complete!
+2025-10-31 12:40:55,853 - __main__ - INFO - Connected to group: Bot Test Callisto
+2025-10-31 12:40:56,281 - __main__ - INFO - Event handlers set up successfully
+2025-10-31 12:40:56,281 - __main__ - INFO - ✅ Monitor is running. Watching for trading signals...
+2025-10-31 12:40:57,818 - __main__ - INFO - 🔍 MESSAGE HANDLER CALLED:
+2025-10-31 12:40:57,819 - __main__ - INFO -    Message ID: 435
+2025-10-31 12:40:57,819 - __main__ - INFO -    From user: PeerUser(user_id=7516571994)
+2025-10-31 12:40:57,820 - __main__ - INFO -    Chat ID: PeerChat(chat_id=4867740501)
+2025-10-31 12:40:57,820 - __main__ - INFO -    Has text: True
+2025-10-31 12:40:57,820 - __main__ - INFO -    Message type: text
+2025-10-31 12:40:57,820 - __main__ - INFO -    ✅ Message text found: 🔴SELL🔴
+
+SELL RANGE: 4000-3995
+
+SL 4010
+
+TP : 3920/3900...
+2025-10-31 12:40:57,820 - __main__ - INFO -    🎯 CALLING process_trading_signal()
+2025-10-31 12:40:57,820 - __main__ - INFO - 🔍 PROCESSING MESSAGE:
+2025-10-31 12:40:57,821 - __main__ - INFO -    Raw message: '🔴SELL🔴\n\nSELL RANGE: 4000-3995\n\nSL 4010\n\nTP : 3920/3900'
+2025-10-31 12:40:57,822 - __main__ - INFO -    Message length: 54 characters
+2025-10-31 12:40:57,822 - __main__ - INFO - 🔍 PARSING SIGNAL:
+2025-10-31 12:40:57,822 - __main__ - INFO -    Input: '🔴SELL🔴\n\nSELL RANGE: 4000-3995\n\nSL 4010\n\nTP : 3920/3900'
+2025-10-31 12:40:57,822 - __main__ - INFO -    [OK] Symbol: XAUUSD.p (fixed)
+2025-10-31 12:40:57,824 - __main__ - INFO -    [OK] Direction: SELL (detected from emoji)
+2025-10-31 12:40:57,824 - __main__ - INFO -    [OK] Range: 4000.0 - 3995.0
+2025-10-31 12:40:57,824 - __main__ - INFO -    [OK] Stop Loss: 4010.0
+2025-10-31 12:40:57,824 - __main__ - INFO -    [OK] Take Profit: 3920.0 (using first TP)
+2025-10-31 12:40:57,826 - __main__ - INFO -    [OK] Volume (default): 0.01
+2025-10-31 12:40:57,826 - __main__ - INFO -    [SUCCESS] SIGNAL PARSED SUCCESSFULLY!
+2025-10-31 12:40:58,687 - __main__ - INFO - 📊 Parsed signal: XAUUSD.p sell 4000.0-3995.0 SL:4010.0 TP:3920.0
+2025-10-31 12:40:58,687 - __main__ - INFO - 🔍 DEBUGGING ORDER PLACEMENT:
+2025-10-31 12:40:58,687 - __main__ - INFO -    Symbol: XAUUSD.p
+2025-10-31 12:40:58,687 - __main__ - INFO -    Direction: SELL
+2025-10-31 12:40:58,687 - __main__ - INFO -    Signal Range: 4000.0 - 3995.0
+2025-10-31 12:40:58,687 - __main__ - INFO -    Current Market: Bid=4007.82, Ask=4007.91
+2025-10-31 12:40:58,689 - __main__ - INFO -    Reference Price (sell): 4007.82
+2025-10-31 12:40:58,689 - __main__ - INFO -    Strategy: midpoint
+2025-10-31 12:40:58,689 - __main__ - INFO -    📍 MIDPOINT Strategy: Entry = 3997.5
+2025-10-31 12:40:59,134 - __main__ - INFO - 🎯 Limit order calculated: Price=3997.5 Type=LIMIT
+2025-10-31 12:40:59,134 - __main__ - INFO - 🔍 ORDER TYPE DETERMINATION:
+2025-10-31 12:40:59,134 - __main__ - INFO -    Current Market: Bid=4007.87, Ask=4007.96
+2025-10-31 12:40:59,134 - __main__ - INFO -    Entry Price: 3997.5
+2025-10-31 12:40:59,134 - __main__ - INFO -    Direction: SELL
+2025-10-31 12:40:59,134 - __main__ - INFO -    ✅ SELL LIMIT order at 3997.5
+2025-10-31 12:40:59,136 - __main__ - INFO -    💡 Take Profit (TP): 3920.0, Stop Loss (SL): 4010.0
+2025-10-31 12:40:59,137 - __main__ - INFO -    💡 Order will fill when market reaches 3997.5
+2025-10-31 12:40:59,137 - __main__ - INFO -    Volume: 0.01
+2025-10-31 12:41:00,048 - __main__ - ERROR - ❌ Limit order failed: Order failed: 10015 - Invalid price
+2025-10-31 12:42:35,723 - telethon.network.mtprotosender - INFO - Disconnecting from 149.154.167.92:443/TcpFull...
+2025-10-31 12:42:35,725 - telethon.network.mtprotosender - INFO - Disconnection from 149.154.167.92:443/TcpFull complete!
+2025-10-31 12:42:35,733 - telethon.network.mtprotosender - INFO - Not disconnecting (already have no connection)
+2025-10-31 12:42:35,744 - __main__ - INFO - Disconnected from MT5
+2025-10-31 12:42:39,067 - __main__ - INFO - Health check server started on port 8000
+2025-10-31 12:42:39,491 - __main__ - INFO - Starting Direct MT5 Telegram Monitor...
+2025-10-31 12:42:39,493 - __main__ - INFO - Strategy: midpoint, Volume: 0.09
+2025-10-31 12:42:39,506 - __main__ - INFO - Connected to MT5 VPS - Server: PUPrime-Demo, Account: 700010991
+2025-10-31 12:42:39,507 - __main__ - INFO - Account info - Login: 700010991, Balance: 100000.0
+2025-10-31 12:42:39,551 - __main__ - INFO - Connecting to Telegram as user...
+2025-10-31 12:42:39,551 - telethon.network.mtprotosender - INFO - Connecting to 149.154.167.92:443/TcpFull...
+2025-10-31 12:42:39,560 - telethon.network.mtprotosender - INFO - Connection to 149.154.167.92:443/TcpFull complete!
+2025-10-31 12:42:39,734 - __main__ - INFO - Connected to group: Bot Test Callisto
+2025-10-31 12:42:40,147 - __main__ - INFO - Event handlers set up successfully
+2025-10-31 12:42:40,147 - __main__ - INFO - ✅ Monitor is running. Watching for trading signals...
+2025-10-31 12:42:42,324 - __main__ - INFO - 🔍 MESSAGE HANDLER CALLED:
+2025-10-31 12:42:42,325 - __main__ - INFO -    Message ID: 436
+2025-10-31 12:42:42,326 - __main__ - INFO -    From user: PeerUser(user_id=7516571994)
+2025-10-31 12:42:42,326 - __main__ - INFO -    Chat ID: PeerChat(chat_id=4867740501)
+2025-10-31 12:42:42,326 - __main__ - INFO -    Has text: True
+2025-10-31 12:42:42,326 - __main__ - INFO -    Message type: text
+2025-10-31 12:42:42,327 - __main__ - INFO -    ✅ Message text found: 🔴SELL🔴
+
+SELL RANGE: 4000-3995
+
+SL 4010
+
+TP : 3920/3900...
+2025-10-31 12:42:42,328 - __main__ - INFO -    🎯 CALLING process_trading_signal()
+2025-10-31 12:42:42,328 - __main__ - INFO - 🔍 PROCESSING MESSAGE:
+2025-10-31 12:42:42,328 - __main__ - INFO -    Raw message: '🔴SELL🔴\n\nSELL RANGE: 4000-3995\n\nSL 4010\n\nTP : 3920/3900'
+2025-10-31 12:42:42,328 - __main__ - INFO -    Message length: 54 characters
+2025-10-31 12:42:42,328 - __main__ - INFO - 🔍 PARSING SIGNAL:
+2025-10-31 12:42:42,328 - __main__ - INFO -    Input: '🔴SELL🔴\n\nSELL RANGE: 4000-3995\n\nSL 4010\n\nTP : 3920/3900'
+2025-10-31 12:42:42,330 - __main__ - INFO -    [OK] Symbol: XAUUSD.p (fixed)
+2025-10-31 12:42:42,330 - __main__ - INFO -    [OK] Direction: SELL (detected from emoji)
+2025-10-31 12:42:42,330 - __main__ - INFO -    [OK] Range: 4000.0 - 3995.0
+2025-10-31 12:42:42,331 - __main__ - INFO -    [OK] Stop Loss: 4010.0
+2025-10-31 12:42:42,332 - __main__ - INFO -    [OK] Take Profit: 3920.0 (using first TP)
+2025-10-31 12:42:42,332 - __main__ - INFO -    [OK] Volume (default): 0.01
+2025-10-31 12:42:42,332 - __main__ - INFO -    [SUCCESS] SIGNAL PARSED SUCCESSFULLY!
+2025-10-31 12:42:43,203 - __main__ - INFO - 📊 Parsed signal: XAUUSD.p sell 4000.0-3995.0 SL:4010.0 TP:3920.0
+2025-10-31 12:42:43,203 - __main__ - INFO - 🔍 DEBUGGING ORDER PLACEMENT:
+2025-10-31 12:42:43,203 - __main__ - INFO -    Symbol: XAUUSD.p
+2025-10-31 12:42:43,203 - __main__ - INFO -    Direction: SELL
+2025-10-31 12:42:43,204 - __main__ - INFO -    Signal Range: 4000.0 - 3995.0
+2025-10-31 12:42:43,204 - __main__ - INFO -    Current Market: Bid=4007.38, Ask=4007.47
+2025-10-31 12:42:43,205 - __main__ - INFO -    Reference Price (sell): 4007.38
+2025-10-31 12:42:43,205 - __main__ - INFO -    Strategy: midpoint
+2025-10-31 12:42:43,205 - __main__ - INFO -    📍 MIDPOINT Strategy: Entry = 3997.5
+2025-10-31 12:42:43,641 - __main__ - INFO - 🎯 Limit order calculated: Price=3997.5 Type=LIMIT
+2025-10-31 12:42:43,642 - __main__ - INFO - 🔍 ORDER TYPE DETERMINATION:
+2025-10-31 12:42:43,642 - __main__ - INFO -    Current Market: Bid=4007.27, Ask=4007.36
+2025-10-31 12:42:43,642 - __main__ - INFO -    Entry Price: 3997.5
+2025-10-31 12:42:43,643 - __main__ - INFO -    Direction: SELL
+2025-10-31 12:42:43,643 - __main__ - INFO -    ✅ SELL LIMIT order at 3997.5
+2025-10-31 12:42:43,643 - __main__ - INFO -    💡 Take Profit (TP): 3920.0, Stop Loss (SL): 4010.0
+2025-10-31 12:42:43,644 - __main__ - INFO -    💡 Order will fill when market reaches 3997.5
+2025-10-31 12:42:43,644 - __main__ - INFO -    Volume: 0.01
+2025-10-31 12:42:43,780 - __main__ - INFO - ✅ ORDER PLACED SUCCESSFULLY:
+2025-10-31 12:42:43,794 - __main__ - INFO -    Order ID: 65924593
+2025-10-31 12:42:43,818 - __main__ - INFO -    Deal ID: 0
+2025-10-31 12:42:43,848 - __main__ - INFO -    Return Code: 10009
+2025-10-31 12:42:43,878 - __main__ - INFO -    Comment: Request executed
+2025-10-31 12:42:43,907 - __main__ - INFO - 🔍 CHECKING ORDER STATUS:
+2025-10-31 12:42:43,908 - __main__ - INFO -    📋 PENDING ORDERS (1):
+2025-10-31 12:42:44,780 - __main__ - ERROR - ❌ Limit order failed: Exception: 'TradeOrder' object has no attribute 'type_name'
+2025-10-31 12:44:06,444 - telethon.network.mtprotosender - INFO - Disconnecting from 149.154.167.92:443/TcpFull...
+2025-10-31 12:44:06,445 - telethon.network.mtprotosender - INFO - Disconnection from 149.154.167.92:443/TcpFull complete!
+2025-10-31 12:44:06,453 - telethon.network.mtprotosender - INFO - Not disconnecting (already have no connection)
+2025-10-31 12:44:06,463 - __main__ - INFO - Disconnected from MT5
+2025-10-31 12:44:16,249 - __main__ - INFO - Health check server started on port 8000
+2025-10-31 12:44:16,672 - __main__ - INFO - Starting Direct MT5 Telegram Monitor...
+2025-10-31 12:44:16,673 - __main__ - INFO - Strategy: midpoint, Volume: 0.09
+2025-10-31 12:44:16,690 - __main__ - INFO - Connected to MT5 VPS - Server: PUPrime-Demo, Account: 700010991
+2025-10-31 12:44:16,690 - __main__ - INFO - Account info - Login: 700010991, Balance: 100000.0
+2025-10-31 12:44:16,731 - __main__ - INFO - Connecting to Telegram as user...
+2025-10-31 12:44:16,732 - telethon.network.mtprotosender - INFO - Connecting to 149.154.167.92:443/TcpFull...
+2025-10-31 12:44:16,742 - telethon.network.mtprotosender - INFO - Connection to 149.154.167.92:443/TcpFull complete!
+2025-10-31 12:44:17,239 - __main__ - INFO - Connected to group: Bot Test Callisto
+2025-10-31 12:44:17,676 - __main__ - INFO - Event handlers set up successfully
+2025-10-31 12:44:17,676 - __main__ - INFO - ✅ Monitor is running. Watching for trading signals...
+2025-10-31 12:44:27,861 - __main__ - INFO - 🔍 MESSAGE HANDLER CALLED:
+2025-10-31 12:44:27,862 - __main__ - INFO -    Message ID: 437
+2025-10-31 12:44:27,862 - __main__ - INFO -    From user: PeerUser(user_id=7516571994)
+2025-10-31 12:44:27,862 - __main__ - INFO -    Chat ID: PeerChat(chat_id=4867740501)
+2025-10-31 12:44:27,863 - __main__ - INFO -    Has text: True
+2025-10-31 12:44:27,863 - __main__ - INFO -    Message type: text
+2025-10-31 12:44:27,863 - __main__ - INFO -    ✅ Message text found: 🔴SELL🔴
+
+SELL RANGE: 4000-3995
+
+SL 4010
+
+TP : 3920/3900...
+2025-10-31 12:44:27,864 - __main__ - INFO -    🎯 CALLING process_trading_signal()
+2025-10-31 12:44:27,864 - __main__ - INFO - 🔍 PROCESSING MESSAGE:
+2025-10-31 12:44:27,864 - __main__ - INFO -    Raw message: '🔴SELL🔴\n\nSELL RANGE: 4000-3995\n\nSL 4010\n\nTP : 3920/3900'
+2025-10-31 12:44:27,864 - __main__ - INFO -    Message length: 54 characters
+2025-10-31 12:44:27,865 - __main__ - INFO - 🔍 PARSING SIGNAL:
+2025-10-31 12:44:27,865 - __main__ - INFO -    Input: '🔴SELL🔴\n\nSELL RANGE: 4000-3995\n\nSL 4010\n\nTP : 3920/3900'
+2025-10-31 12:44:27,865 - __main__ - INFO -    [OK] Symbol: XAUUSD.p (fixed)
+2025-10-31 12:44:27,866 - __main__ - INFO -    [OK] Direction: SELL (detected from emoji)
+2025-10-31 12:44:27,867 - __main__ - INFO -    [OK] Range: 4000.0 - 3995.0
+2025-10-31 12:44:27,867 - __main__ - INFO -    [OK] Stop Loss: 4010.0
+2025-10-31 12:44:27,868 - __main__ - INFO -    [OK] Take Profit: 3920.0 (using first TP)
+2025-10-31 12:44:27,868 - __main__ - INFO -    [OK] Volume (default): 0.01
+2025-10-31 12:44:27,868 - __main__ - INFO -    [SUCCESS] SIGNAL PARSED SUCCESSFULLY!
+2025-10-31 12:44:28,707 - __main__ - INFO - 📊 Parsed signal: XAUUSD.p sell 4000.0-3995.0 SL:4010.0 TP:3920.0
+2025-10-31 12:44:28,707 - __main__ - INFO - 🔍 DEBUGGING ORDER PLACEMENT:
+2025-10-31 12:44:28,709 - __main__ - INFO -    Symbol: XAUUSD.p
+2025-10-31 12:44:28,709 - __main__ - INFO -    Direction: SELL
+2025-10-31 12:44:28,709 - __main__ - INFO -    Signal Range: 4000.0 - 3995.0
+2025-10-31 12:44:28,709 - __main__ - INFO -    Current Market: Bid=4007.8, Ask=4007.89
+2025-10-31 12:44:28,709 - __main__ - INFO -    Reference Price (sell): 4007.8
+2025-10-31 12:44:28,709 - __main__ - INFO -    Strategy: midpoint
+2025-10-31 12:44:28,709 - __main__ - INFO -    📍 MIDPOINT Strategy: Entry = 3997.5
+2025-10-31 12:44:29,129 - __main__ - INFO - 🎯 Limit order calculated: Price=3997.5 Type=LIMIT
+2025-10-31 12:44:29,130 - __main__ - INFO - 🔍 ORDER TYPE DETERMINATION:
+2025-10-31 12:44:29,131 - __main__ - INFO -    Current Market: Bid=4007.82, Ask=4007.92
+2025-10-31 12:44:29,131 - __main__ - INFO -    Entry Price: 3997.5
+2025-10-31 12:44:29,131 - __main__ - INFO -    Direction: SELL
+2025-10-31 12:44:29,131 - __main__ - INFO -    ✅ SELL STOP order at 3997.5
+2025-10-31 12:44:29,131 - __main__ - INFO -    💡 Order will trigger when market reaches 3997.5
+2025-10-31 12:44:29,132 - __main__ - INFO -    💡 Take Profit (TP): 3920.0, Stop Loss (SL): 4010.0
+2025-10-31 12:44:29,132 - __main__ - INFO -    Volume: 0.01
+2025-10-31 12:44:29,255 - __main__ - INFO - ✅ ORDER PLACED SUCCESSFULLY:
+2025-10-31 12:44:29,255 - __main__ - INFO -    Order ID: 65924745
+2025-10-31 12:44:29,256 - __main__ - INFO -    Deal ID: 0
+2025-10-31 12:44:29,256 - __main__ - INFO -    Return Code: 10009
+2025-10-31 12:44:29,256 - __main__ - INFO -    Comment: Request executed
+2025-10-31 12:44:29,257 - __main__ - INFO - 🔍 CHECKING ORDER STATUS:
+2025-10-31 12:44:29,257 - __main__ - INFO -    📋 PENDING ORDERS (1):
+2025-10-31 12:44:30,082 - __main__ - ERROR - ❌ Limit order failed: Exception: 'TradeOrder' object has no attribute 'type_name'
+2025-10-31 12:45:10,848 - telethon.network.mtprotosender - INFO - Disconnecting from 149.154.167.92:443/TcpFull...
+2025-10-31 12:45:10,850 - telethon.network.mtprotosender - INFO - Disconnection from 149.154.167.92:443/TcpFull complete!
+2025-10-31 12:45:10,860 - telethon.network.mtprotosender - INFO - Not disconnecting (already have no connection)
+2025-10-31 12:45:10,871 - __main__ - INFO - Disconnected from MT5
+2025-10-31 12:45:14,214 - __main__ - INFO - Health check server started on port 8000
+2025-10-31 12:45:14,647 - __main__ - INFO - Starting Direct MT5 Telegram Monitor...
+2025-10-31 12:45:14,647 - __main__ - INFO - Strategy: midpoint, Volume: 0.09
+2025-10-31 12:45:14,664 - __main__ - INFO - Connected to MT5 VPS - Server: PUPrime-Demo, Account: 700010991
+2025-10-31 12:45:14,665 - __main__ - INFO - Account info - Login: 700010991, Balance: 100000.0
+2025-10-31 12:45:14,712 - __main__ - INFO - Connecting to Telegram as user...
+2025-10-31 12:45:14,713 - telethon.network.mtprotosender - INFO - Connecting to 149.154.167.92:443/TcpFull...
+2025-10-31 12:45:14,729 - telethon.network.mtprotosender - INFO - Connection to 149.154.167.92:443/TcpFull complete!
+2025-10-31 12:45:14,950 - __main__ - INFO - Connected to group: Bot Test Callisto
+2025-10-31 12:45:15,397 - __main__ - INFO - Event handlers set up successfully
+2025-10-31 12:45:15,398 - __main__ - INFO - ✅ Monitor is running. Watching for trading signals...
+2025-10-31 12:45:19,800 - __main__ - INFO - 🔍 MESSAGE HANDLER CALLED:
+2025-10-31 12:45:19,800 - __main__ - INFO -    Message ID: 438
+2025-10-31 12:45:19,801 - __main__ - INFO -    From user: PeerUser(user_id=7516571994)
+2025-10-31 12:45:19,801 - __main__ - INFO -    Chat ID: PeerChat(chat_id=4867740501)
+2025-10-31 12:45:19,801 - __main__ - INFO -    Has text: True
+2025-10-31 12:45:19,802 - __main__ - INFO -    Message type: text
+2025-10-31 12:45:19,802 - __main__ - INFO -    ✅ Message text found: 🔴SELL🔴
+
+SELL RANGE: 4000-3995
+
+SL 4010
+
+TP : 3920/3900...
+2025-10-31 12:45:19,803 - __main__ - INFO -    🎯 CALLING process_trading_signal()
+2025-10-31 12:45:19,803 - __main__ - INFO - 🔍 PROCESSING MESSAGE:
+2025-10-31 12:45:19,803 - __main__ - INFO -    Raw message: '🔴SELL🔴\n\nSELL RANGE: 4000-3995\n\nSL 4010\n\nTP : 3920/3900'
+2025-10-31 12:45:19,804 - __main__ - INFO -    Message length: 54 characters
+2025-10-31 12:45:19,804 - __main__ - INFO - 🔍 PARSING SIGNAL:
+2025-10-31 12:45:19,804 - __main__ - INFO -    Input: '🔴SELL🔴\n\nSELL RANGE: 4000-3995\n\nSL 4010\n\nTP : 3920/3900'
+2025-10-31 12:45:19,805 - __main__ - INFO -    [OK] Symbol: XAUUSD.p (fixed)
+2025-10-31 12:45:19,806 - __main__ - INFO -    [OK] Direction: SELL (detected from emoji)
+2025-10-31 12:45:19,806 - __main__ - INFO -    [OK] Range: 4000.0 - 3995.0
+2025-10-31 12:45:19,807 - __main__ - INFO -    [OK] Stop Loss: 4010.0
+2025-10-31 12:45:19,808 - __main__ - INFO -    [OK] Take Profit: 3920.0 (using first TP)
+2025-10-31 12:45:19,808 - __main__ - INFO -    [OK] Volume (default): 0.01
+2025-10-31 12:45:19,808 - __main__ - INFO -    [SUCCESS] SIGNAL PARSED SUCCESSFULLY!
+2025-10-31 12:45:20,699 - __main__ - INFO - 📊 Parsed signal: XAUUSD.p sell 4000.0-3995.0 SL:4010.0 TP:3920.0
+2025-10-31 12:45:20,699 - __main__ - INFO - 🔍 DEBUGGING ORDER PLACEMENT:
+2025-10-31 12:45:20,699 - __main__ - INFO -    Symbol: XAUUSD.p
+2025-10-31 12:45:20,699 - __main__ - INFO -    Direction: SELL
+2025-10-31 12:45:20,699 - __main__ - INFO -    Signal Range: 4000.0 - 3995.0
+2025-10-31 12:45:20,700 - __main__ - INFO -    Current Market: Bid=4008.93, Ask=4009.03
+2025-10-31 12:45:20,701 - __main__ - INFO -    Reference Price (sell): 4008.93
+2025-10-31 12:45:20,701 - __main__ - INFO -    Strategy: midpoint
+2025-10-31 12:45:20,701 - __main__ - INFO -    📍 MIDPOINT Strategy: Entry = 3997.5
+2025-10-31 12:45:21,131 - __main__ - INFO - 🎯 Limit order calculated: Price=3997.5 Type=LIMIT
+2025-10-31 12:45:21,132 - __main__ - INFO - 🔍 ORDER TYPE DETERMINATION:
+2025-10-31 12:45:21,132 - __main__ - INFO -    Current Market: Bid=4009.0, Ask=4009.1
+2025-10-31 12:45:21,132 - __main__ - INFO -    Entry Price: 3997.5
+2025-10-31 12:45:21,133 - __main__ - INFO -    Direction: SELL
+2025-10-31 12:45:21,133 - __main__ - INFO -    ✅ SELL STOP order at 3997.5
+2025-10-31 12:45:21,133 - __main__ - INFO -    💡 Order will trigger when market reaches 3997.5
+2025-10-31 12:45:21,134 - __main__ - INFO -    💡 Take Profit (TP): 3920.0, Stop Loss (SL): 4010.0
+2025-10-31 12:45:21,134 - __main__ - INFO -    Volume: 0.01
+2025-10-31 12:45:21,266 - __main__ - INFO - ✅ ORDER PLACED SUCCESSFULLY:
+2025-10-31 12:45:21,266 - __main__ - INFO -    Order ID: 65925165
+2025-10-31 12:45:21,266 - __main__ - INFO -    Deal ID: 0
+2025-10-31 12:45:21,267 - __main__ - INFO -    Return Code: 10009
+2025-10-31 12:45:21,267 - __main__ - INFO -    Comment: Request executed
+2025-10-31 12:45:21,267 - __main__ - INFO - 🔍 CHECKING ORDER STATUS:
+2025-10-31 12:45:21,268 - __main__ - INFO -    📋 PENDING ORDERS (1):
+2025-10-31 12:45:21,268 - __main__ - INFO -      Order 65925165: XAUUSD.p SELL_STOP
+2025-10-31 12:45:21,268 - __main__ - INFO -        Entry: 3997.5, Current: 4008.99, Distance: 11.49000
+2025-10-31 12:45:21,268 - __main__ - INFO -        Volume: 0.01, SL: 4010.0, TP: 3920.0
+2025-10-31 12:45:21,269 - __main__ - INFO -    📍 OPEN POSITIONS (1):
+2025-10-31 12:45:21,269 - __main__ - INFO -      Position 65924745: XAUUSD.p SELL
+2025-10-31 12:45:21,269 - __main__ - INFO -        Open: 4008.7, Current: 4009.1, Profit: $-0.4
+2025-10-31 12:45:22,211 - __main__ - INFO - ✅ Limit order placed successfully - waiting for execution
+2025-10-31 12:52:06,211 - __main__ - INFO - 🔍 MESSAGE HANDLER CALLED:
+2025-10-31 12:52:06,212 - __main__ - INFO -    Message ID: 440
+2025-10-31 12:52:06,213 - __main__ - INFO -    From user: PeerUser(user_id=7516571994)
+2025-10-31 12:52:06,213 - __main__ - INFO -    Chat ID: PeerChat(chat_id=4867740501)
+2025-10-31 12:52:06,213 - __main__ - INFO -    Has text: True
+2025-10-31 12:52:06,214 - __main__ - INFO -    Message type: text
+2025-10-31 12:52:06,214 - __main__ - INFO -    ✅ Message text found: 🔴SELL🔴
+
+SELL RANGE: 4000-3995
+
+SL 4010
+
+TP : 3920/3900...
+2025-10-31 12:52:06,215 - __main__ - INFO -    🎯 CALLING process_trading_signal()
+2025-10-31 12:52:06,215 - __main__ - INFO - 🔍 PROCESSING MESSAGE:
+2025-10-31 12:52:06,215 - __main__ - INFO -    Raw message: '🔴SELL🔴\n\nSELL RANGE: 4000-3995\n\nSL 4010\n\nTP : 3920/3900'
+2025-10-31 12:52:06,215 - __main__ - INFO -    Message length: 54 characters
+2025-10-31 12:52:06,216 - __main__ - INFO - 🔍 PARSING SIGNAL:
+2025-10-31 12:52:06,216 - __main__ - INFO -    Input: '🔴SELL🔴\n\nSELL RANGE: 4000-3995\n\nSL 4010\n\nTP : 3920/3900'
+2025-10-31 12:52:06,216 - __main__ - INFO -    [OK] Symbol: XAUUSD.p (fixed)
+2025-10-31 12:52:06,217 - __main__ - INFO -    [OK] Direction: SELL (detected from emoji)
+2025-10-31 12:52:06,217 - __main__ - INFO -    [OK] Range: 4000.0 - 3995.0
+2025-10-31 12:52:06,217 - __main__ - INFO -    [OK] Stop Loss: 4010.0
+2025-10-31 12:52:06,217 - __main__ - INFO -    [OK] Take Profit: 3920.0 (using first TP)
+2025-10-31 12:52:06,218 - __main__ - INFO -    [OK] Volume (default): 0.01
+2025-10-31 12:52:06,218 - __main__ - INFO -    [SUCCESS] SIGNAL PARSED SUCCESSFULLY!
+2025-10-31 12:52:07,076 - __main__ - INFO - 📊 Parsed signal: XAUUSD.p sell 4000.0-3995.0 SL:4010.0 TP:3920.0
+2025-10-31 12:52:07,077 - __main__ - INFO - 🔍 DEBUGGING ORDER PLACEMENT:
+2025-10-31 12:52:07,077 - __main__ - INFO -    Symbol: XAUUSD.p
+2025-10-31 12:52:07,077 - __main__ - INFO -    Direction: SELL
+2025-10-31 12:52:07,078 - __main__ - INFO -    Signal Range: 4000.0 - 3995.0
+2025-10-31 12:52:07,078 - __main__ - INFO -    Current Market: Bid=4009.62, Ask=4009.71
+2025-10-31 12:52:07,078 - __main__ - INFO -    Reference Price (sell): 4009.62
+2025-10-31 12:52:07,079 - __main__ - INFO -    Strategy: midpoint
+2025-10-31 12:52:07,079 - __main__ - INFO -    📍 MIDPOINT Strategy: Entry = 3997.5
+2025-10-31 12:52:07,501 - __main__ - INFO - 🎯 Limit order calculated: Price=3997.5 Type=LIMIT
+2025-10-31 12:52:07,502 - __main__ - INFO - 🔍 ORDER TYPE DETERMINATION:
+2025-10-31 12:52:07,502 - __main__ - INFO -    Current Market: Bid=4009.64, Ask=4009.73
+2025-10-31 12:52:07,502 - __main__ - INFO -    Entry Price: 3997.5
+2025-10-31 12:52:07,503 - __main__ - INFO -    Direction: SELL
+2025-10-31 12:52:07,503 - __main__ - INFO -    ✅ SELL STOP order at 3997.5
+2025-10-31 12:52:07,503 - __main__ - INFO -    💡 Order will trigger when market reaches 3997.5
+2025-10-31 12:52:07,504 - __main__ - INFO -    💡 Take Profit (TP): 3920.0, Stop Loss (SL): 4010.0
+2025-10-31 12:52:07,504 - __main__ - INFO -    Volume: 0.01
+2025-10-31 12:52:07,632 - __main__ - INFO - ✅ ORDER PLACED SUCCESSFULLY:
+2025-10-31 12:52:07,633 - __main__ - INFO -    Order ID: 65926880
+2025-10-31 12:52:07,633 - __main__ - INFO -    Deal ID: 0
+2025-10-31 12:52:07,633 - __main__ - INFO -    Return Code: 10009
+2025-10-31 12:52:07,634 - __main__ - INFO -    Comment: Request executed
+2025-10-31 12:52:07,634 - __main__ - INFO - 🔍 CHECKING ORDER STATUS:
+2025-10-31 12:52:07,635 - __main__ - INFO -    📋 PENDING ORDERS (1):
+2025-10-31 12:52:07,635 - __main__ - INFO -      Order 65926880: XAUUSD.p SELL_STOP
+2025-10-31 12:52:07,635 - __main__ - INFO -        Entry: 3997.5, Current: 4009.64, Distance: 12.14000
+2025-10-31 12:52:07,635 - __main__ - INFO -        Volume: 0.01, SL: 4010.0, TP: 3920.0
+2025-10-31 12:52:07,636 - __main__ - INFO -    📍 No open positions
+2025-10-31 12:52:08,508 - __main__ - INFO - ✅ Limit order placed successfully - waiting for execution
+2025-10-31 12:53:11,452 - telethon.network.mtprotosender - INFO - Disconnecting from 149.154.167.92:443/TcpFull...
+2025-10-31 12:53:11,454 - telethon.network.mtprotosender - INFO - Disconnection from 149.154.167.92:443/TcpFull complete!
+2025-10-31 12:53:11,461 - telethon.network.mtprotosender - INFO - Not disconnecting (already have no connection)
+2025-10-31 12:53:11,470 - __main__ - INFO - Disconnected from MT5
+2025-10-31 12:53:17,624 - __main__ - INFO - Health check server started on port 8000
+2025-10-31 12:53:18,044 - __main__ - INFO - Starting Direct MT5 Telegram Monitor...
+2025-10-31 12:53:18,044 - __main__ - INFO - Strategy: midpoint, Volume: 0.09
+2025-10-31 12:53:18,061 - __main__ - INFO - Connected to MT5 VPS - Server: PUPrime-Demo, Account: 700010991
+2025-10-31 12:53:18,061 - __main__ - INFO - Account info - Login: 700010991, Balance: 99998.97
+2025-10-31 12:53:18,100 - __main__ - INFO - Connecting to Telegram as user...
+2025-10-31 12:53:18,100 - telethon.network.mtprotosender - INFO - Connecting to 149.154.167.92:443/TcpFull...
+2025-10-31 12:53:18,118 - telethon.network.mtprotosender - INFO - Connection to 149.154.167.92:443/TcpFull complete!
+2025-10-31 12:53:18,336 - __main__ - INFO - Connected to group: Bot Test Callisto
+2025-10-31 12:53:18,762 - __main__ - INFO - Event handlers set up successfully
+2025-10-31 12:53:18,777 - __main__ - INFO - ✅ Monitor is running. Watching for trading signals...
+2025-10-31 12:57:03,308 - __main__ - INFO - 🔍 MESSAGE HANDLER CALLED:
+2025-10-31 12:57:03,310 - __main__ - INFO -    Message ID: 445
+2025-10-31 12:57:03,310 - __main__ - INFO -    From user: PeerUser(user_id=7516571994)
+2025-10-31 12:57:03,310 - __main__ - INFO -    Chat ID: PeerChat(chat_id=4867740501)
+2025-10-31 12:57:03,310 - __main__ - INFO -    Has text: True
+2025-10-31 12:57:03,310 - __main__ - INFO -    Message type: text
+2025-10-31 12:57:03,310 - __main__ - INFO -    ✅ Message text found: 🟢XAUUSD🟢
+
+BUY RANGE: 4009-4013
+
+SL 3997
+
+TP : 4015/4032...
+2025-10-31 12:57:03,312 - __main__ - INFO -    🎯 CALLING process_trading_signal()
+2025-10-31 12:57:03,312 - __main__ - INFO - 🔍 PROCESSING MESSAGE:
+2025-10-31 12:57:03,313 - __main__ - INFO -    Raw message: '🟢XAUUSD🟢\n\nBUY RANGE: 4009-4013\n\nSL 3997\n\nTP : 4015/4032'
+2025-10-31 12:57:03,313 - __main__ - INFO -    Message length: 55 characters
+2025-10-31 12:57:03,314 - __main__ - INFO - 🔍 PARSING SIGNAL:
+2025-10-31 12:57:03,315 - __main__ - INFO -    Input: '🟢XAUUSD🟢\n\nBUY RANGE: 4009-4013\n\nSL 3997\n\nTP : 4015/4032'
+2025-10-31 12:57:03,316 - __main__ - INFO -    [OK] Symbol: XAUUSD.p (fixed)
+2025-10-31 12:57:03,317 - __main__ - INFO -    [OK] Direction: BUY (detected from emoji)
+2025-10-31 12:57:03,318 - __main__ - INFO -    [OK] Range: 4009.0 - 4013.0
+2025-10-31 12:57:03,319 - __main__ - INFO -    [OK] Stop Loss: 3997.0
+2025-10-31 12:57:03,319 - __main__ - INFO -    [OK] Take Profit: 4015.0 (using first TP)
+2025-10-31 12:57:03,320 - __main__ - INFO -    [OK] Volume (default): 0.09
+2025-10-31 12:57:03,320 - __main__ - INFO -    [SUCCESS] SIGNAL PARSED SUCCESSFULLY!
+2025-10-31 12:57:04,187 - __main__ - INFO - 📊 Parsed signal: XAUUSD.p buy 4009.0-4013.0 SL:3997.0 TP:4015.0
+2025-10-31 12:57:04,187 - __main__ - INFO - 🔍 DEBUGGING ORDER PLACEMENT:
+2025-10-31 12:57:04,187 - __main__ - INFO -    Symbol: XAUUSD.p
+2025-10-31 12:57:04,187 - __main__ - INFO -    Direction: BUY
+2025-10-31 12:57:04,189 - __main__ - INFO -    Signal Range: 4009.0 - 4013.0
+2025-10-31 12:57:04,189 - __main__ - INFO -    Current Market: Bid=4008.36, Ask=4008.46
+2025-10-31 12:57:04,189 - __main__ - INFO -    Reference Price (buy): 4008.46
+2025-10-31 12:57:04,189 - __main__ - INFO -    Strategy: midpoint
+2025-10-31 12:57:04,189 - __main__ - INFO -    📍 MIDPOINT Strategy: Entry = 4011.0
+2025-10-31 12:57:04,620 - __main__ - INFO - 🎯 Limit order calculated: Price=4011.0 Type=LIMIT
+2025-10-31 12:57:04,620 - __main__ - INFO - 🔍 ORDER TYPE DETERMINATION:
+2025-10-31 12:57:04,621 - __main__ - INFO -    Current Market: Bid=4008.42, Ask=4008.51
+2025-10-31 12:57:04,621 - __main__ - INFO -    Entry Price: 4011.0
+2025-10-31 12:57:04,622 - __main__ - INFO -    Direction: BUY
+2025-10-31 12:57:04,622 - __main__ - INFO -    ✅ BUY STOP order at 4011.0
+2025-10-31 12:57:04,622 - __main__ - INFO -    💡 Order will trigger when market reaches 4011.0
+2025-10-31 12:57:04,623 - __main__ - INFO -    💡 Take Profit (TP): 4015.0, Stop Loss (SL): 3997.0
+2025-10-31 12:57:04,623 - __main__ - INFO -    Volume: 0.09
+2025-10-31 12:57:04,744 - __main__ - INFO - ✅ ORDER PLACED SUCCESSFULLY:
+2025-10-31 12:57:04,744 - __main__ - INFO -    Order ID: 65927963
+2025-10-31 12:57:04,744 - __main__ - INFO -    Deal ID: 0
+2025-10-31 12:57:04,745 - __main__ - INFO -    Return Code: 10009
+2025-10-31 12:57:04,745 - __main__ - INFO -    Comment: Request executed
+2025-10-31 12:57:04,746 - __main__ - INFO - 🔍 CHECKING ORDER STATUS:
+2025-10-31 12:57:04,746 - __main__ - INFO -    📋 PENDING ORDERS (1):
+2025-10-31 12:57:04,746 - __main__ - INFO -      Order 65927963: XAUUSD.p BUY_STOP
+2025-10-31 12:57:04,747 - __main__ - INFO -        Entry: 4011.0, Current: 4008.56, Distance: 2.44000
+2025-10-31 12:57:04,747 - __main__ - INFO -        Volume: 0.09, SL: 3997.0, TP: 4015.0
+2025-10-31 12:57:04,747 - __main__ - INFO -    📍 No open positions
+2025-10-31 12:57:05,621 - __main__ - INFO - ✅ Limit order placed successfully - waiting for execution
+2025-10-31 13:00:33,722 - __main__ - INFO - 🔍 MESSAGE HANDLER CALLED:
+2025-10-31 13:00:33,724 - __main__ - INFO -    Message ID: 446
+2025-10-31 13:00:33,725 - __main__ - INFO -    From user: PeerUser(user_id=7516571994)
+2025-10-31 13:00:33,725 - __main__ - INFO -    Chat ID: PeerChat(chat_id=4867740501)
+2025-10-31 13:00:33,726 - __main__ - INFO -    Has text: True
+2025-10-31 13:00:33,726 - __main__ - INFO -    Message type: text
+2025-10-31 13:00:33,727 - __main__ - INFO -    ✅ Message text found: SET SL TO BE & Take partials NOW....
+2025-10-31 13:00:33,727 - __main__ - INFO -    🎯 CALLING process_trading_signal()
+2025-10-31 13:00:33,728 - __main__ - INFO - 🔍 PROCESSING MESSAGE:
+2025-10-31 13:00:33,728 - __main__ - INFO -    Raw message: 'SET SL TO BE & Take partials NOW.'
+2025-10-31 13:00:33,728 - __main__ - INFO -    Message length: 33 characters
+2025-10-31 13:00:33,728 - __main__ - INFO - 🔍 PARSING SIGNAL:
+2025-10-31 13:00:33,728 - __main__ - INFO -    Input: 'SET SL TO BE & Take partials NOW.'
+2025-10-31 13:00:33,728 - __main__ - INFO -    [OK] Symbol: XAUUSD.p (fixed)
+2025-10-31 13:00:33,730 - __main__ - WARNING -    [X] No direction found (expected: 🔴 for SELL or 🟢 for BUY)
+2025-10-31 13:00:33,730 - __main__ - WARNING - ❌ NO SIGNAL PARSED - Message did not match trading signal pattern
+2025-10-31 13:00:33,730 - __main__ - INFO -    Expected pattern: [SYMBOL] BUY/SELL RANGE: X-Y SL: Z TP: W
+2025-10-31 13:00:33,730 - __main__ - INFO -    Received: SET SL TO BE & Take partials NOW.
+2025-10-31 13:02:54,728 - telethon.network.mtprotosender - INFO - Disconnecting from 149.154.167.92:443/TcpFull...
+2025-10-31 13:02:54,730 - telethon.network.mtprotosender - INFO - Disconnection from 149.154.167.92:443/TcpFull complete!
+2025-10-31 13:02:54,736 - telethon.network.mtprotosender - INFO - Not disconnecting (already have no connection)
+2025-10-31 13:02:54,746 - __main__ - INFO - Disconnected from MT5
+2025-10-31 13:03:30,656 - __main__ - INFO - Health check server started on port 8000
+2025-10-31 13:03:31,104 - __main__ - INFO - Starting Direct MT5 Telegram Monitor...
+2025-10-31 13:03:31,104 - __main__ - INFO - Strategy: midpoint, Volume: 0.09
+2025-10-31 13:03:31,119 - __main__ - INFO - Connected to MT5 VPS - Server: PUPrime-Demo, Account: 700010991
+2025-10-31 13:03:31,120 - __main__ - INFO - Account info - Login: 700010991, Balance: 99998.65
+2025-10-31 13:03:31,169 - __main__ - INFO - Connecting to Telegram as user...
+2025-10-31 13:03:31,170 - telethon.network.mtprotosender - INFO - Connecting to 149.154.167.92:443/TcpFull...
+2025-10-31 13:03:31,182 - telethon.network.mtprotosender - INFO - Connection to 149.154.167.92:443/TcpFull complete!
+2025-10-31 13:03:31,382 - __main__ - INFO - Connected to group: Bot Test Callisto
+2025-10-31 13:03:31,842 - __main__ - INFO - Event handlers set up successfully
+2025-10-31 13:03:31,842 - __main__ - INFO - ✅ Monitor is running. Watching for trading signals...
+2025-10-31 13:03:42,350 - __main__ - INFO - 🔍 MESSAGE HANDLER CALLED:
+2025-10-31 13:03:42,350 - __main__ - INFO -    Message ID: 447
+2025-10-31 13:03:42,350 - __main__ - INFO -    From user: PeerUser(user_id=7516571994)
+2025-10-31 13:03:42,351 - __main__ - INFO -    Chat ID: PeerChat(chat_id=4867740501)
+2025-10-31 13:03:42,352 - __main__ - INFO -    Has text: True
+2025-10-31 13:03:42,352 - __main__ - INFO -    Message type: text
+2025-10-31 13:03:42,352 - __main__ - INFO -    ✅ Message text found: 🟢XAUUSD🟢
+
+BUY RANGE: 4009-4013
+
+SL 3997
+
+TP : 4015/4032...
+2025-10-31 13:03:42,352 - __main__ - INFO -    🎯 CALLING process_trading_signal()
+2025-10-31 13:03:42,352 - __main__ - INFO - 🔍 PROCESSING MESSAGE:
+2025-10-31 13:03:42,353 - __main__ - INFO -    Raw message: '🟢XAUUSD🟢\n\nBUY RANGE: 4009-4013\n\nSL 3997\n\nTP : 4015/4032'
+2025-10-31 13:03:42,353 - __main__ - INFO -    Message length: 55 characters
+2025-10-31 13:03:42,354 - __main__ - INFO -    📍 Found 1 open positions
+2025-10-31 13:03:42,354 - __main__ - INFO - ⚠️  IGNORING NEW SIGNAL - Existing trades detected
+2025-10-31 13:03:42,354 - __main__ - INFO -    💡 Only BE (break even) and partial commands will be processed
+2025-10-31 13:03:42,354 - __main__ - INFO -    📋 Use 'BE' to move stop loss to break even
+2025-10-31 13:03:42,354 - __main__ - INFO -    💰 Use 'TP1', 'TP2', or 'partial' commands for profit taking
+2025-10-31 13:03:46,856 - __main__ - INFO - 🔍 MESSAGE HANDLER CALLED:
+2025-10-31 13:03:46,856 - __main__ - INFO -    Message ID: 448
+2025-10-31 13:03:46,857 - __main__ - INFO -    From user: PeerUser(user_id=7516571994)
+2025-10-31 13:03:46,857 - __main__ - INFO -    Chat ID: PeerChat(chat_id=4867740501)
+2025-10-31 13:03:46,858 - __main__ - INFO -    Has text: True
+2025-10-31 13:03:46,858 - __main__ - INFO -    Message type: text
+2025-10-31 13:03:46,858 - __main__ - INFO -    ✅ Message text found: SET SL TO BE & Take partials NOW....
+2025-10-31 13:03:46,858 - __main__ - INFO -    🎯 CALLING process_trading_signal()
+2025-10-31 13:03:46,859 - __main__ - INFO - 🔍 PROCESSING MESSAGE:
+2025-10-31 13:03:46,859 - __main__ - INFO -    Raw message: 'SET SL TO BE & Take partials NOW.'
+2025-10-31 13:03:46,860 - __main__ - INFO -    Message length: 33 characters
+2025-10-31 13:03:46,860 - __main__ - INFO - 💰 PARTIAL PROFIT COMMAND DETECTED!
+2025-10-31 13:03:46,860 - __main__ - INFO - 💰 PROCESSING PARTIAL PROFIT:
+2025-10-31 13:03:46,860 - __main__ - INFO -    Message: SET SL TO BE & Take partials NOW.
+2025-10-31 13:03:46,861 - __main__ - INFO -    📍 Found 1 positions for potential partial close
+2025-10-31 13:03:46,861 - __main__ - INFO -    💡 Partial profit logic can be implemented here
+2025-10-31 13:03:46,862 - __main__ - INFO -    📝 Current implementation: LOG ONLY (modify as needed)
+2025-10-31 13:05:41,648 - telethon.network.mtprotosender - INFO - Disconnecting from 149.154.167.92:443/TcpFull...
+2025-10-31 13:05:41,649 - telethon.network.mtprotosender - INFO - Disconnection from 149.154.167.92:443/TcpFull complete!
+2025-10-31 13:05:41,655 - telethon.network.mtprotosender - INFO - Not disconnecting (already have no connection)
+2025-10-31 13:05:41,665 - __main__ - INFO - Disconnected from MT5
+2025-10-31 13:05:44,831 - __main__ - INFO - Health check server started on port 8000
+2025-10-31 13:05:45,268 - __main__ - INFO - Starting Direct MT5 Telegram Monitor...
+2025-10-31 13:05:45,268 - __main__ - INFO - Strategy: midpoint, Volume: 0.09
+2025-10-31 13:05:45,283 - __main__ - INFO - Connected to MT5 VPS - Server: PUPrime-Demo, Account: 700010991
+2025-10-31 13:05:45,283 - __main__ - INFO - Account info - Login: 700010991, Balance: 99998.65
+2025-10-31 13:05:45,323 - __main__ - INFO - Connecting to Telegram as user...
+2025-10-31 13:05:45,323 - telethon.network.mtprotosender - INFO - Connecting to 149.154.167.92:443/TcpFull...
+2025-10-31 13:05:45,339 - telethon.network.mtprotosender - INFO - Connection to 149.154.167.92:443/TcpFull complete!
+2025-10-31 13:05:45,552 - __main__ - INFO - Connected to group: Bot Test Callisto
+2025-10-31 13:05:45,966 - __main__ - INFO - Event handlers set up successfully
+2025-10-31 13:05:45,966 - __main__ - INFO - ✅ Monitor is running. Watching for trading signals...
+2025-10-31 13:05:49,634 - __main__ - INFO - 🔍 MESSAGE HANDLER CALLED:
+2025-10-31 13:05:49,636 - __main__ - INFO -    Message ID: 449
+2025-10-31 13:05:49,636 - __main__ - INFO -    From user: PeerUser(user_id=7516571994)
+2025-10-31 13:05:49,636 - __main__ - INFO -    Chat ID: PeerChat(chat_id=4867740501)
+2025-10-31 13:05:49,636 - __main__ - INFO -    Has text: True
+2025-10-31 13:05:49,636 - __main__ - INFO -    Message type: text
+2025-10-31 13:05:49,636 - __main__ - INFO -    ✅ Message text found: SET SL TO BE & Take partials NOW....
+2025-10-31 13:05:49,638 - __main__ - INFO -    🎯 CALLING process_trading_signal()
+2025-10-31 13:05:49,638 - __main__ - INFO - 🔍 PROCESSING MESSAGE:
+2025-10-31 13:05:49,638 - __main__ - INFO -    Raw message: 'SET SL TO BE & Take partials NOW.'
+2025-10-31 13:05:49,638 - __main__ - INFO -    Message length: 33 characters
+2025-10-31 13:05:49,638 - __main__ - INFO - 💰 PARTIAL PROFIT COMMAND DETECTED!
+2025-10-31 13:05:49,638 - __main__ - INFO - 💰 PROCESSING PARTIAL PROFIT:
+2025-10-31 13:05:49,638 - __main__ - INFO -    Message: SET SL TO BE & Take partials NOW.
+2025-10-31 13:05:49,640 - __main__ - INFO -    📍 Found 1 positions for potential partial close
+2025-10-31 13:05:49,640 - __main__ - INFO -    💡 Partial profit logic can be implemented here
+2025-10-31 13:05:49,640 - __main__ - INFO -    📝 Current implementation: LOG ONLY (modify as needed)
+2025-10-31 13:06:36,163 - telethon.network.mtprotosender - INFO - Disconnecting from 149.154.167.92:443/TcpFull...
+2025-10-31 13:06:36,165 - telethon.network.mtprotosender - INFO - Disconnection from 149.154.167.92:443/TcpFull complete!
+2025-10-31 13:06:36,171 - telethon.network.mtprotosender - INFO - Not disconnecting (already have no connection)
+2025-10-31 13:06:36,182 - __main__ - INFO - Disconnected from MT5
+2025-10-31 13:06:39,340 - __main__ - INFO - Health check server started on port 8000
+2025-10-31 13:06:39,767 - __main__ - INFO - Starting Direct MT5 Telegram Monitor...
+2025-10-31 13:06:39,767 - __main__ - INFO - Strategy: midpoint, Volume: 0.09
+2025-10-31 13:06:39,782 - __main__ - INFO - Connected to MT5 VPS - Server: PUPrime-Demo, Account: 700010991
+2025-10-31 13:06:39,783 - __main__ - INFO - Account info - Login: 700010991, Balance: 99998.65
+2025-10-31 13:06:39,826 - __main__ - INFO - Connecting to Telegram as user...
+2025-10-31 13:06:39,826 - telethon.network.mtprotosender - INFO - Connecting to 149.154.167.92:443/TcpFull...
+2025-10-31 13:06:39,843 - telethon.network.mtprotosender - INFO - Connection to 149.154.167.92:443/TcpFull complete!
+2025-10-31 13:06:40,080 - __main__ - INFO - Connected to group: Bot Test Callisto
+2025-10-31 13:06:40,523 - __main__ - INFO - Event handlers set up successfully
+2025-10-31 13:06:40,524 - __main__ - INFO - ✅ Monitor is running. Watching for trading signals...
+2025-10-31 13:06:42,602 - __main__ - INFO - 🔍 MESSAGE HANDLER CALLED:
+2025-10-31 13:06:42,603 - __main__ - INFO -    Message ID: 450
+2025-10-31 13:06:42,603 - __main__ - INFO -    From user: PeerUser(user_id=7516571994)
+2025-10-31 13:06:42,604 - __main__ - INFO -    Chat ID: PeerChat(chat_id=4867740501)
+2025-10-31 13:06:42,604 - __main__ - INFO -    Has text: True
+2025-10-31 13:06:42,604 - __main__ - INFO -    Message type: text
+2025-10-31 13:06:42,605 - __main__ - INFO -    ✅ Message text found: SET SL TO BE & Take partials NOW....
+2025-10-31 13:06:42,605 - __main__ - INFO -    🎯 CALLING process_trading_signal()
+2025-10-31 13:06:42,605 - __main__ - INFO - 🔍 PROCESSING MESSAGE:
+2025-10-31 13:06:42,605 - __main__ - INFO -    Raw message: 'SET SL TO BE & Take partials NOW.'
+2025-10-31 13:06:42,605 - __main__ - INFO -    Message length: 33 characters
+2025-10-31 13:06:42,605 - __main__ - INFO -    🔍 Command Detection: BE=True, Partial=True
+2025-10-31 13:06:42,607 - __main__ - INFO - 🎯 BREAK EVEN COMMAND DETECTED!
+2025-10-31 13:06:42,607 - __main__ - INFO - 🎯 MOVING STOP LOSS TO BREAK EVEN:
+2025-10-31 13:06:42,607 - __main__ - INFO -    📝 Modifying Position 65927963:
+2025-10-31 13:06:42,607 - __main__ - INFO -       Symbol: XAUUSD.p
+2025-10-31 13:06:42,607 - __main__ - INFO -       Entry Price: 4009.0
+2025-10-31 13:06:42,607 - __main__ - INFO -       Current SL: 3997.0 → New SL: 4009.0
+2025-10-31 13:06:42,607 - __main__ - INFO -       Current TP: 4015.0 (unchanged)
+2025-10-31 13:06:42,728 - __main__ - INFO -    ✅ Position 65927963 SL moved to break even!
+2025-10-31 13:06:42,729 - __main__ - ERROR -    ❌ Error modifying Position 65927963: 'TelegramLogger' object has no attribute 'log_trade_action'
+2025-10-31 13:06:42,729 - __main__ - INFO - 🎯 BREAK EVEN COMPLETE:
+2025-10-31 13:06:42,729 - __main__ - INFO -    📊 Total positions: 1
+2025-10-31 13:06:42,730 - __main__ - INFO -    ✅ Modified: 1
+2025-10-31 13:06:42,730 - __main__ - INFO -    ⏭️  Skipped (already BE): 0
+2025-10-31 13:06:42,730 - __main__ - INFO -    ❌ Failed: 0
+2025-10-31 13:06:42,730 - __main__ - INFO - 💰 PARTIAL PROFIT COMMAND DETECTED!
+2025-10-31 13:06:42,731 - __main__ - INFO - 💰 PROCESSING PARTIAL PROFIT:
+2025-10-31 13:06:42,731 - __main__ - INFO -    Message: SET SL TO BE & Take partials NOW.
+2025-10-31 13:06:42,731 - __main__ - INFO -    📍 Found 1 positions for potential partial close
+2025-10-31 13:06:42,732 - __main__ - INFO -    💡 Partial profit logic can be implemented here
+2025-10-31 13:06:42,732 - __main__ - INFO -    📝 Current implementation: LOG ONLY (modify as needed)
+2025-10-31 13:09:03,554 - telethon.network.mtprotosender - INFO - Disconnecting from 149.154.167.92:443/TcpFull...
+2025-10-31 13:09:03,556 - telethon.network.mtprotosender - INFO - Disconnection from 149.154.167.92:443/TcpFull complete!
+2025-10-31 13:09:03,563 - telethon.network.mtprotosender - INFO - Not disconnecting (already have no connection)
+2025-10-31 13:09:03,573 - __main__ - INFO - Disconnected from MT5
+2025-10-31 13:09:06,773 - __main__ - INFO - Health check server started on port 8000
+2025-10-31 13:09:07,276 - __main__ - INFO - Starting Direct MT5 Telegram Monitor...
+2025-10-31 13:09:07,277 - __main__ - INFO - Strategy: midpoint, Volume: 0.09
+2025-10-31 13:09:07,292 - __main__ - INFO - Connected to MT5 VPS - Server: PUPrime-Demo, Account: 700010991
+2025-10-31 13:09:07,292 - __main__ - INFO - Account info - Login: 700010991, Balance: 99998.65
+2025-10-31 13:09:07,336 - __main__ - INFO - Connecting to Telegram as user...
+2025-10-31 13:09:07,337 - telethon.network.mtprotosender - INFO - Connecting to 149.154.167.92:443/TcpFull...
+2025-10-31 13:09:07,349 - telethon.network.mtprotosender - INFO - Connection to 149.154.167.92:443/TcpFull complete!
+2025-10-31 13:09:07,550 - __main__ - INFO - Connected to group: Bot Test Callisto
+2025-10-31 13:09:07,988 - __main__ - INFO - Event handlers set up successfully
+2025-10-31 13:09:07,989 - __main__ - INFO - ✅ Monitor is running. Watching for trading signals...
+2025-10-31 13:09:13,456 - __main__ - INFO - 🔍 MESSAGE HANDLER CALLED:
+2025-10-31 13:09:13,457 - __main__ - INFO -    Message ID: 451
+2025-10-31 13:09:13,457 - __main__ - INFO -    From user: PeerUser(user_id=7516571994)
+2025-10-31 13:09:13,457 - __main__ - INFO -    Chat ID: PeerChat(chat_id=4867740501)
+2025-10-31 13:09:13,458 - __main__ - INFO -    Has text: True
+2025-10-31 13:09:13,458 - __main__ - INFO -    Message type: text
+2025-10-31 13:09:13,458 - __main__ - INFO -    ✅ Message text found: 🟢27 Pips TP 1...
+2025-10-31 13:09:13,459 - __main__ - INFO -    🎯 CALLING process_trading_signal()
+2025-10-31 13:09:13,459 - __main__ - INFO - 🔍 PROCESSING MESSAGE:
+2025-10-31 13:09:13,459 - __main__ - INFO -    Raw message: '🟢27 Pips TP 1'
+2025-10-31 13:09:13,460 - __main__ - INFO -    Message length: 13 characters
+2025-10-31 13:09:13,460 - __main__ - INFO -    🔍 Command Detection: BE=False, Partial=False
+2025-10-31 13:09:13,460 - __main__ - INFO -    📍 Found 1 open positions
+2025-10-31 13:09:13,461 - __main__ - INFO - ⚠️  IGNORING NEW SIGNAL - Existing trades detected
+2025-10-31 13:09:13,461 - __main__ - INFO -    💡 Only BE (break even) and partial commands will be processed
+2025-10-31 13:09:13,461 - __main__ - INFO -    📋 Use 'BE' to move stop loss to break even
+2025-10-31 13:09:13,462 - __main__ - INFO -    💰 Use 'TP1', 'TP2', or 'partial' commands for profit taking
+2025-10-31 13:09:36,849 - telethon.network.mtprotosender - INFO - Disconnecting from 149.154.167.92:443/TcpFull...
+2025-10-31 13:09:36,851 - telethon.network.mtprotosender - INFO - Disconnection from 149.154.167.92:443/TcpFull complete!
+2025-10-31 13:09:36,858 - telethon.network.mtprotosender - INFO - Not disconnecting (already have no connection)
+2025-10-31 13:09:36,868 - __main__ - INFO - Disconnected from MT5
+2025-10-31 13:09:40,402 - __main__ - INFO - Health check server started on port 8000
+2025-10-31 13:09:40,852 - __main__ - INFO - Starting Direct MT5 Telegram Monitor...
+2025-10-31 13:09:40,853 - __main__ - INFO - Strategy: midpoint, Volume: 0.09
+2025-10-31 13:09:40,882 - __main__ - INFO - Connected to MT5 VPS - Server: PUPrime-Demo, Account: 700010991
+2025-10-31 13:09:40,883 - __main__ - INFO - Account info - Login: 700010991, Balance: 99998.65
+2025-10-31 13:09:40,926 - __main__ - INFO - Connecting to Telegram as user...
+2025-10-31 13:09:40,926 - telethon.network.mtprotosender - INFO - Connecting to 149.154.167.92:443/TcpFull...
+2025-10-31 13:09:40,943 - telethon.network.mtprotosender - INFO - Connection to 149.154.167.92:443/TcpFull complete!
+2025-10-31 13:09:41,185 - __main__ - INFO - Connected to group: Bot Test Callisto
+2025-10-31 13:09:41,637 - __main__ - INFO - Event handlers set up successfully
+2025-10-31 13:09:41,638 - __main__ - INFO - ✅ Monitor is running. Watching for trading signals...
+2025-10-31 13:09:43,642 - __main__ - INFO - 🔍 MESSAGE HANDLER CALLED:
+2025-10-31 13:09:43,642 - __main__ - INFO -    Message ID: 452
+2025-10-31 13:09:43,642 - __main__ - INFO -    From user: PeerUser(user_id=7516571994)
+2025-10-31 13:09:43,642 - __main__ - INFO -    Chat ID: PeerChat(chat_id=4867740501)
+2025-10-31 13:09:43,642 - __main__ - INFO -    Has text: True
+2025-10-31 13:09:43,642 - __main__ - INFO -    Message type: text
+2025-10-31 13:09:43,644 - __main__ - INFO -    ✅ Message text found: 🟢27 Pips TP 1...
+2025-10-31 13:09:43,644 - __main__ - INFO -    🎯 CALLING process_trading_signal()
+2025-10-31 13:09:43,644 - __main__ - INFO - 🔍 PROCESSING MESSAGE:
+2025-10-31 13:09:43,644 - __main__ - INFO -    Raw message: '🟢27 Pips TP 1'
+2025-10-31 13:09:43,644 - __main__ - INFO -    Message length: 13 characters
+2025-10-31 13:09:43,644 - __main__ - INFO -    🔍 Command Detection: BE=False, Partial=False
+2025-10-31 13:09:43,646 - __main__ - INFO -    📍 Found 1 open positions
+2025-10-31 13:09:43,646 - __main__ - INFO - ⚠️  IGNORING NEW SIGNAL - Existing trades detected
+2025-10-31 13:09:43,646 - __main__ - INFO -    💡 Only BE (break even) and partial commands will be processed
+2025-10-31 13:09:43,646 - __main__ - INFO -    📋 Use 'BE' to move stop loss to break even
+2025-10-31 13:09:43,646 - __main__ - INFO -    💰 Use 'TP1', 'TP2', or 'partial' commands for profit taking
+2025-10-31 13:10:24,180 - telethon.network.mtprotosender - INFO - Disconnecting from 149.154.167.92:443/TcpFull...
+2025-10-31 13:10:24,182 - telethon.network.mtprotosender - INFO - Disconnection from 149.154.167.92:443/TcpFull complete!
+2025-10-31 13:10:24,187 - telethon.network.mtprotosender - INFO - Not disconnecting (already have no connection)
+2025-10-31 13:10:24,196 - __main__ - INFO - Disconnected from MT5
+2025-10-31 13:10:28,055 - __main__ - INFO - Health check server started on port 8000
+2025-10-31 13:10:28,504 - __main__ - INFO - Starting Direct MT5 Telegram Monitor...
+2025-10-31 13:10:28,505 - __main__ - INFO - Strategy: midpoint, Volume: 0.09
+2025-10-31 13:10:28,522 - __main__ - INFO - Connected to MT5 VPS - Server: PUPrime-Demo, Account: 700010991
+2025-10-31 13:10:28,522 - __main__ - INFO - Account info - Login: 700010991, Balance: 99998.65
+2025-10-31 13:10:28,570 - __main__ - INFO - Connecting to Telegram as user...
+2025-10-31 13:10:28,571 - telethon.network.mtprotosender - INFO - Connecting to 149.154.167.92:443/TcpFull...
+2025-10-31 13:10:28,585 - telethon.network.mtprotosender - INFO - Connection to 149.154.167.92:443/TcpFull complete!
+2025-10-31 13:10:28,782 - __main__ - INFO - Connected to group: Bot Test Callisto
+2025-10-31 13:10:29,212 - __main__ - INFO - Event handlers set up successfully
+2025-10-31 13:10:29,212 - __main__ - INFO - ✅ Monitor is running. Watching for trading signals...
+2025-10-31 13:10:32,499 - telethon.network.mtprotosender - INFO - Disconnecting from 149.154.167.92:443/TcpFull...
+2025-10-31 13:10:32,500 - telethon.network.mtprotosender - INFO - Disconnection from 149.154.167.92:443/TcpFull complete!
+2025-10-31 13:10:32,505 - telethon.network.mtprotosender - INFO - Not disconnecting (already have no connection)
+2025-10-31 13:10:32,519 - __main__ - INFO - Disconnected from MT5
+2025-10-31 13:10:36,619 - __main__ - INFO - Health check server started on port 8000
+2025-10-31 13:10:37,136 - __main__ - INFO - Starting Direct MT5 Telegram Monitor...
+2025-10-31 13:10:37,136 - __main__ - INFO - Strategy: midpoint, Volume: 0.09
+2025-10-31 13:10:37,150 - __main__ - INFO - Connected to MT5 VPS - Server: PUPrime-Demo, Account: 700010991
+2025-10-31 13:10:37,151 - __main__ - INFO - Account info - Login: 700010991, Balance: 99998.65
+2025-10-31 13:10:37,200 - __main__ - INFO - Connecting to Telegram as user...
+2025-10-31 13:10:37,201 - telethon.network.mtprotosender - INFO - Connecting to 149.154.167.92:443/TcpFull...
+2025-10-31 13:10:37,216 - telethon.network.mtprotosender - INFO - Connection to 149.154.167.92:443/TcpFull complete!
+2025-10-31 13:10:37,422 - __main__ - INFO - Connected to group: Bot Test Callisto
+2025-10-31 13:10:37,903 - __main__ - INFO - Event handlers set up successfully
+2025-10-31 13:10:37,904 - __main__ - INFO - ✅ Monitor is running. Watching for trading signals...
+2025-10-31 13:10:41,603 - __main__ - INFO - 🔍 MESSAGE HANDLER CALLED:
+2025-10-31 13:10:41,604 - __main__ - INFO -    Message ID: 453
+2025-10-31 13:10:41,604 - __main__ - INFO -    From user: PeerUser(user_id=7516571994)
+2025-10-31 13:10:41,604 - __main__ - INFO -    Chat ID: PeerChat(chat_id=4867740501)
+2025-10-31 13:10:41,605 - __main__ - INFO -    Has text: True
+2025-10-31 13:10:41,605 - __main__ - INFO -    Message type: text
+2025-10-31 13:10:41,606 - __main__ - INFO -    ✅ Message text found: 🟢27 Pips TP 1...
+2025-10-31 13:10:41,606 - __main__ - INFO -    🎯 CALLING process_trading_signal()
+2025-10-31 13:10:41,606 - __main__ - INFO - 🔍 PROCESSING MESSAGE:
+2025-10-31 13:10:41,606 - __main__ - INFO -    Raw message: '🟢27 Pips TP 1'
+2025-10-31 13:10:41,606 - __main__ - INFO -    Message length: 13 characters
+2025-10-31 13:10:41,607 - __main__ - INFO -    🎯 TP Pattern detected: 'tp\s*[123]' in '🟢27 Pips TP 1'
+2025-10-31 13:10:41,608 - __main__ - INFO -    🔍 Command Detection: BE=False, Partial=True
+2025-10-31 13:10:41,608 - __main__ - INFO - 💰 PARTIAL PROFIT COMMAND DETECTED!
+2025-10-31 13:10:41,608 - __main__ - INFO - 💰 PROCESSING PARTIAL PROFIT:
+2025-10-31 13:10:41,609 - __main__ - INFO -    Message: 🟢27 Pips TP 1
+2025-10-31 13:10:41,609 - __main__ - INFO -    Partial volume to close: 0.02
+2025-10-31 13:10:41,609 - __main__ - INFO -    📈 TP Level: 1
+2025-10-31 13:10:41,610 - __main__ - INFO -    📊 Pips Profit: 27
+2025-10-31 13:10:41,610 - __main__ - INFO -    � Closing partial on Position 65927963:
+2025-10-31 13:10:41,611 - __main__ - INFO -       Symbol: XAUUSD.p
+2025-10-31 13:10:41,611 - __main__ - INFO -       Original Volume: 0.09
+2025-10-31 13:10:41,611 - __main__ - INFO -       Closing Volume: 0.02
+2025-10-31 13:10:41,611 - __main__ - INFO -       Remaining Volume: 0.06999999999999999
+2025-10-31 13:10:41,738 - __main__ - INFO -    ✅ Partial close successful on Position 65927963!
+2025-10-31 13:10:41,738 - __main__ - INFO -       Deal ID: 60597973
+2025-10-31 13:10:41,739 - __main__ - ERROR -    ❌ Error closing partial on Position 65927963: 'TelegramLogger' object has no attribute 'log_trade_action'
+2025-10-31 13:10:41,739 - __main__ - INFO - 💰 PARTIAL PROFIT COMPLETE: 1/1 positions partially closed
+2025-10-31 13:11:55,750 - __main__ - INFO - 🔍 MESSAGE HANDLER CALLED:
+2025-10-31 13:11:55,750 - __main__ - INFO -    Message ID: 454
+2025-10-31 13:11:55,751 - __main__ - INFO -    From user: PeerUser(user_id=7516571994)
+2025-10-31 13:11:55,752 - __main__ - INFO -    Chat ID: PeerChat(chat_id=4867740501)
+2025-10-31 13:11:55,752 - __main__ - INFO -    Has text: True
+2025-10-31 13:11:55,752 - __main__ - INFO -    Message type: text
+2025-10-31 13:11:55,752 - __main__ - INFO -    ✅ Message text found: 🟢43 Pips TP 2...
+2025-10-31 13:11:55,753 - __main__ - INFO -    🎯 CALLING process_trading_signal()
+2025-10-31 13:11:55,753 - __main__ - INFO - 🔍 PROCESSING MESSAGE:
+2025-10-31 13:11:55,753 - __main__ - INFO -    Raw message: '🟢43 Pips TP 2'
+2025-10-31 13:11:55,754 - __main__ - INFO -    Message length: 13 characters
+2025-10-31 13:11:55,754 - __main__ - INFO -    🎯 TP Pattern detected: 'tp\s*[123]' in '🟢43 Pips TP 2'
+2025-10-31 13:11:55,754 - __main__ - INFO -    🔍 Command Detection: BE=False, Partial=True
+2025-10-31 13:11:55,755 - __main__ - INFO - 💰 PARTIAL PROFIT COMMAND DETECTED!
+2025-10-31 13:11:55,755 - __main__ - INFO - 💰 PROCESSING PARTIAL PROFIT:
+2025-10-31 13:11:55,755 - __main__ - INFO -    Message: 🟢43 Pips TP 2
+2025-10-31 13:11:55,755 - __main__ - INFO -    Partial volume to close: 0.02
+2025-10-31 13:11:55,756 - __main__ - INFO -    📈 TP Level: 2
+2025-10-31 13:11:55,756 - __main__ - INFO -    📊 Pips Profit: 43
+2025-10-31 13:11:55,757 - __main__ - INFO -    � Closing partial on Position 65927963:
+2025-10-31 13:11:55,757 - __main__ - INFO -       Symbol: XAUUSD.p
+2025-10-31 13:11:55,757 - __main__ - INFO -       Original Volume: 0.07
+2025-10-31 13:11:55,757 - __main__ - INFO -       Closing Volume: 0.02
+2025-10-31 13:11:55,757 - __main__ - INFO -       Remaining Volume: 0.05
+2025-10-31 13:11:55,881 - __main__ - INFO -    ✅ Partial close successful on Position 65927963!
+2025-10-31 13:11:55,881 - __main__ - INFO -       Deal ID: 60598698
+2025-10-31 13:11:55,882 - __main__ - ERROR -    ❌ Error closing partial on Position 65927963: 'TelegramLogger' object has no attribute 'log_trade_action'
+2025-10-31 13:11:55,883 - __main__ - INFO - 💰 PARTIAL PROFIT COMPLETE: 1/1 positions partially closed
+2025-10-31 13:12:01,084 - telethon.network.mtprotosender - INFO - Disconnecting from 149.154.167.92:443/TcpFull...
+2025-10-31 13:12:01,085 - telethon.network.mtprotosender - INFO - Disconnection from 149.154.167.92:443/TcpFull complete!
+2025-10-31 13:12:01,091 - telethon.network.mtprotosender - INFO - Not disconnecting (already have no connection)
+2025-10-31 13:12:01,101 - __main__ - INFO - Disconnected from MT5
+2025-10-31 13:12:04,717 - __main__ - INFO - Health check server started on port 8000
+2025-10-31 13:12:05,173 - __main__ - INFO - Starting Direct MT5 Telegram Monitor...
+2025-10-31 13:12:05,174 - __main__ - INFO - Strategy: midpoint, Volume: 0.09
+2025-10-31 13:12:05,188 - __main__ - INFO - Connected to MT5 VPS - Server: PUPrime-Demo, Account: 700010991
+2025-10-31 13:12:05,189 - __main__ - INFO - Account info - Login: 700010991, Balance: 100010.41
+2025-10-31 13:12:05,229 - __main__ - INFO - Connecting to Telegram as user...
+2025-10-31 13:12:05,229 - telethon.network.mtprotosender - INFO - Connecting to 149.154.167.92:443/TcpFull...
+2025-10-31 13:12:05,245 - telethon.network.mtprotosender - INFO - Connection to 149.154.167.92:443/TcpFull complete!
+2025-10-31 13:12:05,948 - __main__ - INFO - Connected to group: Bot Test Callisto
+2025-10-31 13:12:06,377 - __main__ - INFO - Event handlers set up successfully
+2025-10-31 13:12:06,377 - __main__ - INFO - ✅ Monitor is running. Watching for trading signals...
+2025-10-31 13:12:18,162 - __main__ - INFO - 🔍 MESSAGE HANDLER CALLED:
+2025-10-31 13:12:18,162 - __main__ - INFO -    Message ID: 460
+2025-10-31 13:12:18,163 - __main__ - INFO -    From user: PeerUser(user_id=7516571994)
+2025-10-31 13:12:18,163 - __main__ - INFO -    Chat ID: PeerChat(chat_id=4867740501)
+2025-10-31 13:12:18,163 - __main__ - INFO -    Has text: True
+2025-10-31 13:12:18,164 - __main__ - INFO -    Message type: text
+2025-10-31 13:12:18,164 - __main__ - INFO -    ✅ Message text found: 🟢43 Pips TP 2...
+2025-10-31 13:12:18,164 - __main__ - INFO -    🎯 CALLING process_trading_signal()
+2025-10-31 13:12:18,164 - __main__ - INFO - 🔍 PROCESSING MESSAGE:
+2025-10-31 13:12:18,165 - __main__ - INFO -    Raw message: '🟢43 Pips TP 2'
+2025-10-31 13:12:18,165 - __main__ - INFO -    Message length: 13 characters
+2025-10-31 13:12:18,166 - __main__ - INFO -    🎯 TP Pattern detected: 'tp\s*[123]' in '🟢43 Pips TP 2'
+2025-10-31 13:12:18,166 - __main__ - INFO -    🔍 Command Detection: BE=False, Partial=True
+2025-10-31 13:12:18,166 - __main__ - INFO - 💰 PARTIAL PROFIT COMMAND DETECTED!
+2025-10-31 13:12:18,166 - __main__ - INFO - 💰 PROCESSING PARTIAL PROFIT:
+2025-10-31 13:12:18,166 - __main__ - INFO -    Message: 🟢43 Pips TP 2
+2025-10-31 13:12:18,166 - __main__ - INFO -    Partial volume to close: 0.02
+2025-10-31 13:12:18,167 - __main__ - INFO -    📈 TP Level: 2
+2025-10-31 13:12:18,167 - __main__ - INFO -    📊 Pips Profit: 43
+2025-10-31 13:12:18,167 - __main__ - INFO -    � Closing partial on Position 65927963:
+2025-10-31 13:12:18,167 - __main__ - INFO -       Symbol: XAUUSD.p
+2025-10-31 13:12:18,167 - __main__ - INFO -       Original Volume: 0.05
+2025-10-31 13:12:18,169 - __main__ - INFO -       Closing Volume: 0.02
+2025-10-31 13:12:18,169 - __main__ - INFO -       Remaining Volume: 0.030000000000000002
+2025-10-31 13:12:18,297 - __main__ - INFO -    ✅ Partial close successful on Position 65927963!
+2025-10-31 13:12:18,298 - __main__ - INFO -       Deal ID: 60598825
+2025-10-31 13:12:19,147 - __main__ - INFO - 💰 PARTIAL PROFIT COMPLETE: 1/1 positions partially closed
+2025-10-31 13:15:42,559 - __main__ - INFO - 🔍 MESSAGE HANDLER CALLED:
+2025-10-31 13:15:42,561 - __main__ - INFO -    Message ID: 463
+2025-10-31 13:15:42,561 - __main__ - INFO -    From user: PeerUser(user_id=7516571994)
+2025-10-31 13:15:42,562 - __main__ - INFO -    Chat ID: PeerChat(chat_id=4867740501)
+2025-10-31 13:15:42,562 - __main__ - INFO -    Has text: True
+2025-10-31 13:15:42,562 - __main__ - INFO -    Message type: text
+2025-10-31 13:15:42,563 - __main__ - INFO -    ✅ Message text found: 🟢65 pips TP3 take more partials...
+2025-10-31 13:15:42,563 - __main__ - INFO -    🎯 CALLING process_trading_signal()
+2025-10-31 13:15:42,563 - __main__ - INFO - 🔍 PROCESSING MESSAGE:
+2025-10-31 13:15:42,564 - __main__ - INFO -    Raw message: '🟢65 pips TP3 take more partials'
+2025-10-31 13:15:42,564 - __main__ - INFO -    Message length: 31 characters
+2025-10-31 13:15:42,565 - __main__ - INFO -    🎯 TP Pattern detected: 'tp\s*[123]' in '🟢65 pips TP3 take more partials'
+2025-10-31 13:15:42,565 - __main__ - INFO -    🔍 Command Detection: BE=False, Partial=True
+2025-10-31 13:15:42,565 - __main__ - INFO - 💰 PARTIAL PROFIT COMMAND DETECTED!
+2025-10-31 13:15:42,565 - __main__ - INFO - 💰 PROCESSING PARTIAL PROFIT:
+2025-10-31 13:15:42,566 - __main__ - INFO -    Message: 🟢65 pips TP3 take more partials
+2025-10-31 13:15:42,566 - __main__ - INFO -    Partial volume to close: 0.02
+2025-10-31 13:15:42,567 - __main__ - INFO -    📈 TP Level: 3
+2025-10-31 13:15:42,567 - __main__ - INFO -    📊 Pips Profit: 65
+2025-10-31 13:15:42,570 - __main__ - INFO -    � Closing partial on Position 65927963:
+2025-10-31 13:15:42,570 - __main__ - INFO -       Symbol: XAUUSD.p
+2025-10-31 13:15:42,570 - __main__ - INFO -       Original Volume: 0.03
+2025-10-31 13:15:42,570 - __main__ - INFO -       Closing Volume: 0.02
+2025-10-31 13:15:42,570 - __main__ - INFO -       Remaining Volume: 0.009999999999999998
+2025-10-31 13:15:42,698 - __main__ - INFO -    ✅ Partial close successful on Position 65927963!
+2025-10-31 13:15:42,698 - __main__ - INFO -       Deal ID: 60600253
+2025-10-31 13:15:43,680 - __main__ - INFO - 💰 PARTIAL PROFIT COMPLETE: 1/1 positions partially closed
+2025-10-31 13:16:33,733 - __main__ - INFO - 🔍 MESSAGE HANDLER CALLED:
+2025-10-31 13:16:33,734 - __main__ - INFO -    Message ID: 466
+2025-10-31 13:16:33,734 - __main__ - INFO -    From user: PeerUser(user_id=7516571994)
+2025-10-31 13:16:33,734 - __main__ - INFO -    Chat ID: PeerChat(chat_id=4867740501)
+2025-10-31 13:16:33,735 - __main__ - INFO -    Has text: True
+2025-10-31 13:16:33,735 - __main__ - INFO -    Message type: text
+2025-10-31 13:16:33,735 - __main__ - INFO -    ✅ Message text found: CLOSE FULL POSITION...
+2025-10-31 13:16:33,735 - __main__ - INFO -    🎯 CALLING process_trading_signal()
+2025-10-31 13:16:33,736 - __main__ - INFO - 🔍 PROCESSING MESSAGE:
+2025-10-31 13:16:33,736 - __main__ - INFO -    Raw message: 'CLOSE FULL POSITION'
+2025-10-31 13:16:33,736 - __main__ - INFO -    Message length: 19 characters
+2025-10-31 13:16:33,737 - __main__ - INFO -    🔍 Command Detection: BE=False, Partial=False
+2025-10-31 13:16:33,738 - __main__ - INFO -    📍 Found 1 open positions
+2025-10-31 13:16:33,738 - __main__ - INFO - ⚠️  IGNORING NEW SIGNAL - Existing trades detected
+2025-10-31 13:16:33,738 - __main__ - INFO -    💡 Only BE (break even) and partial commands will be processed
+2025-10-31 13:16:33,738 - __main__ - INFO -    📋 Use 'BE' to move stop loss to break even
+2025-10-31 13:16:33,738 - __main__ - INFO -    💰 Use 'TP1', 'TP2', or 'partial' commands for profit taking
+2025-10-31 13:17:13,005 - telethon.network.mtprotosender - INFO - Disconnecting from 149.154.167.92:443/TcpFull...
+2025-10-31 13:17:13,007 - telethon.network.mtprotosender - INFO - Disconnection from 149.154.167.92:443/TcpFull complete!
+2025-10-31 13:17:13,014 - telethon.network.mtprotosender - INFO - Not disconnecting (already have no connection)
+2025-10-31 13:17:13,024 - __main__ - INFO - Disconnected from MT5
+2025-10-31 13:19:35,438 - __main__ - INFO - Health check server started on port 8000
+2025-10-31 13:19:35,914 - __main__ - INFO - Starting Direct MT5 Telegram Monitor...
+2025-10-31 13:19:35,914 - __main__ - INFO - Strategy: midpoint, Volume: 0.09
+2025-10-31 13:19:35,931 - __main__ - INFO - Connected to MT5 VPS - Server: PUPrime-Demo, Account: 700010991
+2025-10-31 13:19:35,932 - __main__ - INFO - Account info - Login: 700010991, Balance: 100027.43
+2025-10-31 13:19:35,976 - __main__ - INFO - Connecting to Telegram as user...
+2025-10-31 13:19:35,977 - telethon.network.mtprotosender - INFO - Connecting to 149.154.167.92:443/TcpFull...
+2025-10-31 13:19:35,987 - telethon.network.mtprotosender - INFO - Connection to 149.154.167.92:443/TcpFull complete!
+2025-10-31 13:19:36,152 - __main__ - INFO - Connected to group: Bot Test Callisto
+2025-10-31 13:19:36,597 - __main__ - INFO - Event handlers set up successfully
+2025-10-31 13:19:36,597 - __main__ - INFO - ✅ Monitor is running. Watching for trading signals...
+2025-10-31 13:20:00,513 - __main__ - INFO - 🔍 MESSAGE HANDLER CALLED:
+2025-10-31 13:20:00,514 - __main__ - INFO -    Message ID: 472
+2025-10-31 13:20:00,515 - __main__ - INFO -    From user: PeerUser(user_id=7516571994)
+2025-10-31 13:20:00,515 - __main__ - INFO -    Chat ID: PeerChat(chat_id=4867740501)
+2025-10-31 13:20:00,515 - __main__ - INFO -    Has text: True
+2025-10-31 13:20:00,516 - __main__ - INFO -    Message type: text
+2025-10-31 13:20:00,516 - __main__ - INFO -    ✅ Message text found: 🔴POSITION CLOSED🔴...
+2025-10-31 13:20:00,517 - __main__ - INFO -    🎯 CALLING process_trading_signal()
+2025-10-31 13:20:00,517 - __main__ - INFO - 🔍 PROCESSING MESSAGE:
+2025-10-31 13:20:00,517 - __main__ - INFO -    Raw message: '🔴POSITION CLOSED🔴'
+2025-10-31 13:20:00,517 - __main__ - INFO -    Message length: 17 characters
+2025-10-31 13:20:00,519 - __main__ - INFO -    🔍 Command Detection: BE=False, Partial=False, Close=True
+2025-10-31 13:20:00,519 - __main__ - INFO - 🔴 POSITION CLOSED COMMAND DETECTED!
+2025-10-31 13:20:00,519 - __main__ - INFO - 🔴 CLOSING ALL REMAINING POSITIONS:
+2025-10-31 13:20:00,519 - __main__ - INFO -    🔴 Closing Position 65927963:
+2025-10-31 13:20:00,520 - __main__ - INFO -       Symbol: XAUUSD.p
+2025-10-31 13:20:00,521 - __main__ - INFO -       Volume: 0.01 (FULL CLOSE)
+2025-10-31 13:20:00,521 - __main__ - INFO -       Entry Price: 4009.0
+2025-10-31 13:20:00,522 - __main__ - INFO -       Current Price: 4012.65
+2025-10-31 13:20:00,522 - __main__ - INFO -       Current Profit: $3.65
+2025-10-31 13:20:00,838 - __main__ - INFO -    ✅ Position 65927963 closed successfully!
+2025-10-31 13:20:00,839 - __main__ - INFO -       Deal ID: 60602240
+2025-10-31 13:20:01,894 - __main__ - INFO - 🔴 POSITION CLOSING COMPLETE:
+2025-10-31 13:20:01,894 - __main__ - INFO -    📊 Total positions: 1
+2025-10-31 13:20:01,895 - __main__ - INFO -    ✅ Successfully closed: 1
+2025-10-31 13:20:01,895 - __main__ - INFO -    ❌ Failed to close: 0
+2025-10-31 14:11:33,025 - __main__ - INFO - Health check server started on port 8000
+2025-10-31 14:11:33,512 - __main__ - INFO - Starting Direct MT5 Telegram Monitor...
+2025-10-31 14:11:33,513 - __main__ - INFO - Strategy: midpoint, Volume: 0.09
+2025-10-31 14:11:33,532 - __main__ - INFO - Connected to MT5 VPS - Server: PUPrime-Demo, Account: 700010991
+2025-10-31 14:11:33,533 - __main__ - INFO - Account info - Login: 700010991, Balance: 100030.93
+2025-10-31 14:11:33,675 - __main__ - INFO - Connecting to Telegram as user...
+2025-10-31 14:11:33,675 - telethon.network.mtprotosender - INFO - Connecting to 149.154.167.92:443/TcpFull...
+2025-10-31 14:11:33,691 - telethon.network.mtprotosender - INFO - Connection to 149.154.167.92:443/TcpFull complete!
+2025-10-31 14:11:34,259 - __main__ - INFO - Connected to group: Bot Test Callisto
+2025-10-31 14:11:34,723 - __main__ - INFO - Event handlers set up successfully
+2025-10-31 14:11:34,724 - __main__ - INFO - ✅ Monitor is running. Watching for trading signals...
+2025-10-31 14:13:43,822 - telethon.network.mtprotosender - INFO - Disconnecting from 149.154.167.92:443/TcpFull...
+2025-10-31 14:13:43,823 - telethon.network.mtprotosender - INFO - Disconnection from 149.154.167.92:443/TcpFull complete!
+2025-10-31 14:13:43,831 - telethon.network.mtprotosender - INFO - Not disconnecting (already have no connection)
+2025-10-31 14:13:43,840 - __main__ - INFO - Disconnected from MT5
+2025-10-31 14:14:35,800 - __main__ - INFO - Health check server started on port 8000
+2025-10-31 14:14:36,282 - __main__ - INFO - Starting Direct MT5 Telegram Monitor...
+2025-10-31 14:14:36,282 - __main__ - INFO - Strategy: midpoint, Volume: 0.09
+2025-10-31 14:14:36,302 - __main__ - INFO - Connected to MT5 VPS - Server: PUPrime-Demo, Account: 700010991
+2025-10-31 14:14:36,303 - __main__ - INFO - Account info - Login: 700010991, Balance: 100030.93
+2025-10-31 14:14:36,343 - __main__ - INFO - Connecting to Telegram as user...
+2025-10-31 14:14:36,344 - telethon.network.mtprotosender - INFO - Connecting to 149.154.167.92:443/TcpFull...
+2025-10-31 14:14:36,358 - telethon.network.mtprotosender - INFO - Connection to 149.154.167.92:443/TcpFull complete!
+2025-10-31 14:14:36,635 - __main__ - INFO - Connected to group: 🚀 CallistoFx Premium Channel 🚀
+2025-10-31 14:14:37,078 - __main__ - INFO - Event handlers set up successfully
+2025-10-31 14:14:37,078 - __main__ - INFO - ✅ Monitor is running. Watching for trading signals...
+2025-10-31 14:44:36,741 - telethon.client.updates - INFO - Got difference for account updates
+2025-10-31 14:45:33,094 - telethon.network.mtprotosender - INFO - Disconnecting from 149.154.167.92:443/TcpFull...
+2025-10-31 14:45:33,104 - telethon.network.mtprotosender - INFO - Disconnection from 149.154.167.92:443/TcpFull complete!
+2025-10-31 14:45:33,111 - telethon.network.mtprotosender - INFO - Not disconnecting (already have no connection)
+2025-10-31 14:45:33,123 - __main__ - INFO - Disconnected from MT5
+2025-10-31 14:45:41,961 - __main__ - INFO - Health check server started on port 8000
+2025-10-31 14:45:42,398 - __main__ - INFO - Starting Direct MT5 Telegram Monitor...
+2025-10-31 14:45:42,398 - __main__ - INFO - Strategy: midpoint, Volume: 0.09
+2025-10-31 14:45:42,418 - __main__ - INFO - Connected to MT5 VPS - Server: PUPrime-Demo, Account: 700010991
+2025-10-31 14:45:42,419 - __main__ - INFO - Account info - Login: 700010991, Balance: 100030.93
+2025-10-31 14:45:42,461 - __main__ - INFO - Connecting to Telegram as user...
+2025-10-31 14:45:42,461 - telethon.network.mtprotosender - INFO - Connecting to 149.154.167.92:443/TcpFull...
+2025-10-31 14:45:42,475 - telethon.network.mtprotosender - INFO - Connection to 149.154.167.92:443/TcpFull complete!
+2025-10-31 14:45:42,674 - __main__ - INFO - Connected to group: 🚀 CallistoFx Premium Channel 🚀
+2025-10-31 14:45:43,126 - __main__ - INFO - Event handlers set up successfully
+2025-10-31 14:45:43,127 - __main__ - INFO - ✅ Monitor is running. Watching for trading signals...
