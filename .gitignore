@@ -1,6 +1,5 @@
 # Telegram Monitor - Ignore sensitive files
 .env
-*.session
 *.session-journal
 telegram_monitor.log
 __pycache__/
