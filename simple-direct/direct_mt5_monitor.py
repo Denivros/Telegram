@@ -854,9 +854,18 @@ class TelegramMonitor:
     async def initialize_client(self, retry_count=0):
         """Initialize Telegram client with bot, StringSession, or phone authentication"""
         try:
+            # Log configuration status
+            logger.info("🔐 Telegram Authentication Configuration:")
+            logger.info(f"   API_ID: {'✅ Set' if API_ID else '❌ Missing'}")
+            logger.info(f"   API_HASH: {'✅ Set' if API_HASH else '❌ Missing'}")
+            logger.info(f"   BOT_TOKEN: {'✅ Set' if BOT_TOKEN else '❌ Missing'}")
+            logger.info(f"   STRING_SESSION: {'✅ Set' if STRING_SESSION else '❌ Missing'}")
+            logger.info(f"   PHONE_NUMBER: {'✅ Set' if PHONE_NUMBER else '❌ Missing'}")
+            
             # Determine session type - StringSession takes priority
             if STRING_SESSION:
-                logger.info("Using StringSession for authentication...")
+                logger.info("🔑 Using StringSession for authentication...")
+                logger.info(f"   StringSession length: {len(STRING_SESSION)} characters")
                 self.client = TelegramClient(
                     STRING_SESSION,  # Use StringSession directly
                     API_ID, 
@@ -867,7 +876,7 @@ class TelegramMonitor:
                 )
             else:
                 # Fallback to file-based session
-                logger.info("Using file-based session for authentication...")
+                logger.info("📁 Using file-based session for authentication...")
                 self.client = TelegramClient(
                     SESSION_NAME, 
                     API_ID, 
