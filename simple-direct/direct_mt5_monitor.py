@@ -45,6 +45,7 @@ API_ID = os.getenv('TELEGRAM_API_ID')
 API_HASH = os.getenv('TELEGRAM_API_HASH')
 BOT_TOKEN = os.getenv('BOT_TOKEN')
 PHONE_NUMBER = os.getenv('TELEGRAM_PHONE')  # Keep for fallback
+STRING_SESSION = os.getenv('STRING_SESSION')  # StringSession for authentication
 GROUP_ID = os.getenv('TELEGRAM_GROUP_ID')
 SESSION_NAME = os.getenv('SESSION_NAME', 'telegram_monitor')
 
@@ -851,45 +852,69 @@ class TelegramMonitor:
         return True
     
     async def initialize_client(self, retry_count=0):
-        """Initialize Telegram client with bot or user authentication"""
+        """Initialize Telegram client with bot, StringSession, or phone authentication"""
         try:
-            # Create client with better error handling
-            self.client = TelegramClient(
-                SESSION_NAME, 
-                API_ID, 
-                API_HASH,
-                timeout=30,  # Increase timeout
-                retry_delay=5,  # Add retry delay
-                auto_reconnect=True  # Enable auto-reconnection
-            )
+            # Determine session type - StringSession takes priority
+            if STRING_SESSION:
+                logger.info("Using StringSession for authentication...")
+                self.client = TelegramClient(
+                    STRING_SESSION,  # Use StringSession directly
+                    API_ID, 
+                    API_HASH,
+                    timeout=30,
+                    retry_delay=5,
+                    auto_reconnect=True
+                )
+            else:
+                # Fallback to file-based session
+                logger.info("Using file-based session for authentication...")
+                self.client = TelegramClient(
+                    SESSION_NAME, 
+                    API_ID, 
+                    API_HASH,
+                    timeout=30,
+                    retry_delay=5,
+                    auto_reconnect=True
+                )
             
             if BOT_TOKEN:
                 logger.info("Connecting to Telegram as bot...")
                 await self.client.start(bot_token=BOT_TOKEN)
                 logger.info("✅ Bot authentication successful!")
+            elif STRING_SESSION:
+                logger.info("Connecting with StringSession...")
+                await self.client.start()
+                logger.info("✅ StringSession authentication successful!")
             else:
-                logger.info("Connecting to Telegram as user...")
+                logger.info("Connecting to Telegram as user with phone...")
                 await self.client.start(phone=PHONE_NUMBER)
-                
+            
+            # Check authorization for non-bot connections
+            if not BOT_TOKEN:
                 if not await self.client.is_user_authorized():
-                    logger.error("Failed to authorize user - session may be invalid")
-                    
-                    # Try to delete corrupted session file and retry
-                    if retry_count < 2:
-                        logger.info(f"Attempting session recovery (attempt {retry_count + 1}/3)")
-                        try:
-                            import os
-                            session_file = f"{SESSION_NAME}.session"
-                            if os.path.exists(session_file):
-                                os.remove(session_file)
-                                logger.info("Removed corrupted session file")
-                        except Exception as e:
-                            logger.warning(f"Could not remove session file: {e}")
+                    if STRING_SESSION:
+                        logger.error("❌ StringSession is invalid or expired")
+                        logger.error("Please generate a new StringSession using generate_string_session_macbook.py")
+                        return False
+                    else:
+                        logger.error("Failed to authorize user - session may be invalid")
                         
-                        await asyncio.sleep(2)
-                        return await self.initialize_client(retry_count + 1)
-                    
-                    return False 
+                        # Try to delete corrupted session file and retry
+                        if retry_count < 2:
+                            logger.info(f"Attempting session recovery (attempt {retry_count + 1}/3)")
+                            try:
+                                import os
+                                session_file = f"{SESSION_NAME}.session"
+                                if os.path.exists(session_file):
+                                    os.remove(session_file)
+                                    logger.info("Removed corrupted session file")
+                            except Exception as e:
+                                logger.warning(f"Could not remove session file: {e}")
+                            
+                            await asyncio.sleep(2)
+                            return await self.initialize_client(retry_count + 1)
+                        
+                        return False 
                      
             
             # Get target group
