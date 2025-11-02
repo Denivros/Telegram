@@ -24,6 +24,7 @@ if sys.platform.startswith('win'):
 
 import requests
 from telethon import TelegramClient, events
+from telethon.sessions import StringSession
 from telethon.errors import SessionPasswordNeededError, FloodWaitError
 from dotenv import load_dotenv
 
@@ -867,7 +868,7 @@ class TelegramMonitor:
                 logger.info("🔑 Using StringSession for authentication...")
                 logger.info(f"   StringSession length: {len(STRING_SESSION)} characters")
                 self.client = TelegramClient(
-                    STRING_SESSION,  # Use StringSession directly
+                    StringSession(STRING_SESSION),  # Create StringSession object from string
                     API_ID, 
                     API_HASH,
                     timeout=30,

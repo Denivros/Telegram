@@ -2332,3 +2332,104 @@ BUY/SELL SCENARIOS:
 2025-11-02 17:52:20,775 - __main__ - INFO - Starting Direct MT5 Telegram Monitor...
 2025-11-02 17:52:20,775 - __main__ - INFO - Strategy: adaptive, V: 0.01
 2025-11-02 17:52:20,776 - __main__ - ERROR - Fatal error: 'NoneType' object has no attribute 'initialize'
+2025-11-02 17:08:03,448 - __main__ - INFO - Health check server started on port 8000
+2025-11-02 17:08:03,449 - __main__ - INFO - Starting Direct MT5 Telegram Monitor...
+2025-11-02 17:08:03,449 - __main__ - INFO - Strategy: adaptive, V: 0.09
+2025-11-02 17:08:03,468 - __main__ - INFO - Connected to MT5 VPS - Server: PUPrime-Demo, Account: 700010991
+2025-11-02 17:08:03,469 - __main__ - INFO - Account info - Login: 700010991, Balance: 100030.93
+2025-11-02 17:08:03,469 - __main__ - INFO - 🔐 Telegram Authentication Configuration:
+2025-11-02 17:08:03,469 - __main__ - INFO -    API_ID: ✅ Set
+2025-11-02 17:08:03,470 - __main__ - INFO -    API_HASH: ✅ Set
+2025-11-02 17:08:03,470 - __main__ - INFO -    BOT_TOKEN: ❌ Missing
+2025-11-02 17:08:03,470 - __main__ - INFO -    STRING_SESSION: ✅ Set
+2025-11-02 17:08:03,471 - __main__ - INFO -    PHONE_NUMBER: ✅ Set
+2025-11-02 17:08:03,471 - __main__ - INFO - 🔑 Using StringSession for authentication...
+2025-11-02 17:08:03,471 - __main__ - INFO -    StringSession length: 353 characters
+2025-11-02 17:08:03,472 - __main__ - ERROR - Failed to initialize client: unable to open database file
+2025-11-02 17:08:03,957 - __main__ - WARNING - Failed to send log to Telegram: 404
+2025-11-02 17:08:04,402 - __main__ - WARNING - Failed to send feedback to Telegram: 404
+2025-11-02 17:08:16,429 - __main__ - INFO - Health check server started on port 8000
+2025-11-02 17:08:16,430 - __main__ - INFO - Starting Direct MT5 Telegram Monitor...
+2025-11-02 17:08:16,430 - __main__ - INFO - Strategy: adaptive, V: 0.09
+2025-11-02 17:08:16,447 - __main__ - INFO - Connected to MT5 VPS - Server: PUPrime-Demo, Account: 700010991
+2025-11-02 17:08:16,447 - __main__ - INFO - Account info - Login: 700010991, Balance: 100030.93
+2025-11-02 17:08:16,448 - __main__ - INFO - 🔐 Telegram Authentication Configuration:
+2025-11-02 17:08:16,448 - __main__ - INFO -    API_ID: ✅ Set
+2025-11-02 17:08:16,449 - __main__ - INFO -    API_HASH: ✅ Set
+2025-11-02 17:08:16,449 - __main__ - INFO -    BOT_TOKEN: ❌ Missing
+2025-11-02 17:08:16,449 - __main__ - INFO -    STRING_SESSION: ✅ Set
+2025-11-02 17:08:16,450 - __main__ - INFO -    PHONE_NUMBER: ✅ Set
+2025-11-02 17:08:16,450 - __main__ - INFO - 🔑 Using StringSession for authentication...
+2025-11-02 17:08:16,450 - __main__ - INFO -    StringSession length: 353 characters
+2025-11-02 17:08:16,451 - __main__ - ERROR - Failed to initialize client: unable to open database file
+2025-11-02 17:08:16,946 - __main__ - WARNING - Failed to send log to Telegram: 404
+2025-11-02 17:08:17,397 - __main__ - WARNING - Failed to send feedback to Telegram: 404
+2025-11-02 17:10:56,336 - __main__ - INFO - Health check server started on port 8000
+2025-11-02 17:10:56,337 - __main__ - INFO - Starting Direct MT5 Telegram Monitor...
+2025-11-02 17:10:56,337 - __main__ - INFO - Strategy: adaptive, V: 0.09
+2025-11-02 17:10:56,356 - __main__ - INFO - Connected to MT5 VPS - Server: PUPrime-Demo, Account: 700010991
+2025-11-02 17:10:56,356 - __main__ - INFO - Account info - Login: 700010991, Balance: 100030.93
+2025-11-02 17:10:56,357 - __main__ - INFO - 🔐 Telegram Authentication Configuration:
+2025-11-02 17:10:56,358 - __main__ - INFO -    API_ID: ✅ Set
+2025-11-02 17:10:56,358 - __main__ - INFO -    API_HASH: ✅ Set
+2025-11-02 17:10:56,358 - __main__ - INFO -    BOT_TOKEN: ❌ Missing
+2025-11-02 17:10:56,359 - __main__ - INFO -    STRING_SESSION: ✅ Set
+2025-11-02 17:10:56,359 - __main__ - INFO -    PHONE_NUMBER: ✅ Set
+2025-11-02 17:10:56,359 - __main__ - INFO - 🔑 Using StringSession for authentication...
+2025-11-02 17:10:56,360 - __main__ - INFO -    StringSession length: 353 characters
+2025-11-02 17:10:56,400 - __main__ - INFO - Connecting with StringSession...
+2025-11-02 17:10:56,400 - telethon.network.mtprotosender - INFO - Connecting to 149.154.167.92:443/TcpFull...
+2025-11-02 17:10:56,416 - telethon.network.mtprotosender - INFO - Connection to 149.154.167.92:443/TcpFull complete!
+2025-11-02 17:10:56,680 - __main__ - INFO - ✅ StringSession authentication successful!
+2025-11-02 17:10:56,771 - __main__ - ERROR - Could not find group 1623437581: Could not find the input entity for PeerUser(user_id=1623437581) (PeerUser). Please read https://docs.telethon.dev/en/stable/concepts/entities.html to find out more details.
+2025-11-02 17:10:57,236 - __main__ - WARNING - Failed to send log to Telegram: 404
+2025-11-02 17:10:57,690 - __main__ - WARNING - Failed to send feedback to Telegram: 404
+2025-11-02 17:11:56,948 - __main__ - INFO - Health check server started on port 8000
+2025-11-02 17:11:56,949 - __main__ - INFO - Starting Direct MT5 Telegram Monitor...
+2025-11-02 17:11:56,949 - __main__ - INFO - Strategy: adaptive, V: 0.09
+2025-11-02 17:11:56,968 - __main__ - INFO - Connected to MT5 VPS - Server: PUPrime-Demo, Account: 700010991
+2025-11-02 17:11:56,968 - __main__ - INFO - Account info - Login: 700010991, Balance: 100030.93
+2025-11-02 17:11:56,969 - __main__ - INFO - 🔐 Telegram Authentication Configuration:
+2025-11-02 17:11:56,969 - __main__ - INFO -    API_ID: ✅ Set
+2025-11-02 17:11:56,970 - __main__ - INFO -    API_HASH: ✅ Set
+2025-11-02 17:11:56,970 - __main__ - INFO -    BOT_TOKEN: ❌ Missing
+2025-11-02 17:11:56,971 - __main__ - INFO -    STRING_SESSION: ✅ Set
+2025-11-02 17:11:56,971 - __main__ - INFO -    PHONE_NUMBER: ✅ Set
+2025-11-02 17:11:56,971 - __main__ - INFO - 🔑 Using StringSession for authentication...
+2025-11-02 17:11:56,971 - __main__ - INFO -    StringSession length: 353 characters
+2025-11-02 17:11:57,020 - __main__ - INFO - Connecting with StringSession...
+2025-11-02 17:11:57,021 - telethon.network.mtprotosender - INFO - Connecting to 149.154.167.92:443/TcpFull...
+2025-11-02 17:11:57,033 - telethon.network.mtprotosender - INFO - Connection to 149.154.167.92:443/TcpFull complete!
+2025-11-02 17:11:57,188 - __main__ - INFO - ✅ StringSession authentication successful!
+2025-11-02 17:11:57,218 - __main__ - ERROR - Could not find group 1623437581: Could not find the input entity for PeerUser(user_id=1623437581) (PeerUser). Please read https://docs.telethon.dev/en/stable/concepts/entities.html to find out more details.
+2025-11-02 17:11:57,678 - __main__ - WARNING - Failed to send log to Telegram: 404
+2025-11-02 17:11:58,138 - __main__ - WARNING - Failed to send feedback to Telegram: 404
+2025-11-02 17:13:04,133 - __main__ - INFO - Health check server started on port 8000
+2025-11-02 17:13:04,134 - __main__ - INFO - Starting Direct MT5 Telegram Monitor...
+2025-11-02 17:13:04,134 - __main__ - INFO - Strategy: adaptive, V: 0.09
+2025-11-02 17:13:04,153 - __main__ - INFO - Connected to MT5 VPS - Server: PUPrime-Demo, Account: 700010991
+2025-11-02 17:13:04,154 - __main__ - INFO - Account info - Login: 700010991, Balance: 100030.93
+2025-11-02 17:13:04,154 - __main__ - INFO - 🔐 Telegram Authentication Configuration:
+2025-11-02 17:13:04,155 - __main__ - INFO -    API_ID: ✅ Set
+2025-11-02 17:13:04,155 - __main__ - INFO -    API_HASH: ✅ Set
+2025-11-02 17:13:04,155 - __main__ - INFO -    BOT_TOKEN: ❌ Missing
+2025-11-02 17:13:04,155 - __main__ - INFO -    STRING_SESSION: ✅ Set
+2025-11-02 17:13:04,156 - __main__ - INFO -    PHONE_NUMBER: ✅ Set
+2025-11-02 17:13:04,156 - __main__ - INFO - 🔑 Using StringSession for authentication...
+2025-11-02 17:13:04,156 - __main__ - INFO -    StringSession length: 353 characters
+2025-11-02 17:13:04,199 - __main__ - INFO - Connecting with StringSession...
+2025-11-02 17:13:04,201 - telethon.network.mtprotosender - INFO - Connecting to 149.154.167.92:443/TcpFull...
+2025-11-02 17:13:04,216 - telethon.network.mtprotosender - INFO - Connection to 149.154.167.92:443/TcpFull complete!
+2025-11-02 17:13:04,431 - __main__ - INFO - ✅ StringSession authentication successful!
+2025-11-02 17:13:04,508 - __main__ - INFO - Connected to group: 🚀 CallistoFx Premium Channel 🚀
+2025-11-02 17:13:04,508 - __main__ - INFO - Event handlers set up successfully
+2025-11-02 17:13:04,509 - __main__ - INFO - ✅ Monitor is running. Watching for trading signals...
+2025-11-02 17:13:04,511 - __main__ - INFO - 🌐 Health check server started on port 8080
+2025-11-02 17:13:04,512 - __main__ - INFO -    GET http://localhost:8080/health - Detailed status
+2025-11-02 17:13:04,512 - __main__ - INFO -    GET http://localhost:8080/ - Simple status
+2025-11-02 17:13:04,993 - __main__ - WARNING - Failed to send feedback to Telegram: 404
+2025-11-02 17:13:25,651 - telethon.network.mtprotosender - INFO - Disconnecting from 149.154.167.92:443/TcpFull...
+2025-11-02 17:13:25,653 - telethon.network.mtprotosender - INFO - Disconnection from 149.154.167.92:443/TcpFull complete!
+2025-11-02 17:13:25,653 - telethon.network.mtprotosender - INFO - Not disconnecting (already have no connection)
+2025-11-02 17:13:25,654 - __main__ - INFO - Disconnected from MT5
+2025-11-02 17:13:25,698 - __main__ - INFO - 🌐 Health check server stopped
