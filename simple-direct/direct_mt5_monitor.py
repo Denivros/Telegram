@@ -13,6 +13,8 @@ import re
 import sys
 from datetime import datetime
 from typing import Dict, Any, Optional
+from http.server import HTTPServer, BaseHTTPRequestHandler
+import threading
 
 # Fix Unicode encoding for Windows console
 if sys.platform.startswith('win'):
@@ -58,6 +60,12 @@ PARTIALS_VOLUME = float(os.getenv('PARTIALS_VOLUME', '0.03'))      # Volume to c
 ENTRY_STRATEGY = os.getenv('ENTRY_STRATEGY', 'adaptive')  # adaptive, midpoint, range_break, momentum
 MAGIC_NUMBER = int(os.getenv('MAGIC_NUMBER', '123456'))
 
+# Words/phrases to ignore - won't log as "MESSAGE IGNORED"
+IGNORE_WORDS = [
+    'weekly trading summary', 'weekly journals', 'fucking', 'elite trader', 'analysis','haha', 'livestream','twitch','how to', 'trading summary',
+     'btc','btcusd', 'bitcoin', 'gbpjpy', 'zoom','recaps','recap','shit','w in the chat','stream', 'livestream','channel','batch'
+]
+
 # N8N Webhooks Configuration - Use feedback URL for all logging
 N8N_TELEGRAM_FEEDBACK = os.getenv('N8N_TELEGRAM_FEEDBACK', 'https://n8n.srv881084.hstgr.cloud/webhook/91126b9d-bd23-4e92-8891-5bfb217455c7')
 N8N_LOG_WEBHOOK = N8N_TELEGRAM_FEEDBACK  # Use same webhook for all logs
@@ -72,6 +80,142 @@ logging.basicConfig(
     ]
 )
 logger = logging.getLogger(__name__)
+
+
+class BotHealthHandler(BaseHTTPRequestHandler):
+    """Simple HTTP handler for bot health checks"""
+    
+    def __init__(self, request, client_address, server, bot_instance=None):
+        self.bot_instance = bot_instance
+        super().__init__(request, client_address, server)
+    
+    def do_GET(self):
+        """Handle GET requests"""
+        if self.path == '/health' or self.path == '/status':
+            self.send_health_response()
+        elif self.path == '/':
+            self.send_simple_response()
+        else:
+            self.send_error(404, "Not Found")
+    
+    def send_health_response(self):
+        """Send detailed bot health status"""
+        try:
+            import time
+            from datetime import datetime
+            
+            # Get current time
+            current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+            
+            # Check MT5 connection
+            mt5_connected = mt5.terminal_info() is not None if MT5_AVAILABLE else False
+            
+            # Get positions and orders count
+            positions_count = len(mt5.positions_get()) if MT5_AVAILABLE and mt5_connected else 0
+            orders_count = len(mt5.orders_get()) if MT5_AVAILABLE and mt5_connected else 0
+            
+            # Get account info
+            account_info = mt5.account_info() if MT5_AVAILABLE and mt5_connected else None
+            balance = f"{account_info.balance:.2f}" if account_info else "N/A"
+            equity = f"{account_info.equity:.2f}" if account_info else "N/A"
+            
+            # Bot status
+            bot_running = hasattr(self.bot_instance, 'running') and self.bot_instance.running if self.bot_instance else True
+            
+            # Build JSON response
+            health_data = {
+                "status": "healthy" if bot_running and (not MT5_AVAILABLE or mt5_connected) else "unhealthy",
+                "timestamp": current_time,
+                "bot_running": bot_running,
+                "mt5_available": MT5_AVAILABLE,
+                "mt5_connected": mt5_connected,
+                "account": {
+                    "balance": balance,
+                    "equity": equity
+                },
+                "trades": {
+                    "open_positions": positions_count,
+                    "pending_orders": orders_count
+                },
+                "config": {
+                    "strategy": ENTRY_STRATEGY,
+                    "volume": DEFAULT_VOLUME
+                }
+            }
+            
+            response = json.dumps(health_data, indent=2)
+            
+            self.send_response(200)
+            self.send_header('Content-type', 'application/json')
+            self.send_header('Content-length', str(len(response)))
+            self.end_headers()
+            self.wfile.write(response.encode())
+            
+        except Exception as e:
+            error_response = json.dumps({
+                "status": "error", 
+                "message": str(e),
+                "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+            })
+            
+            self.send_response(500)
+            self.send_header('Content-type', 'application/json')
+            self.send_header('Content-length', str(len(error_response)))
+            self.end_headers()
+            self.wfile.write(error_response.encode())
+    
+    def send_simple_response(self):
+        """Send simple 'Bot is running' response"""
+        response = json.dumps({
+            "message": "MT5 Trading Bot is running",
+            "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+            "status": "online"
+        })
+        
+        self.send_response(200)
+        self.send_header('Content-type', 'application/json')
+        self.send_header('Content-length', str(len(response)))
+        self.end_headers()
+        self.wfile.write(response.encode())
+    
+    def log_message(self, format, *args):
+        """Override to suppress HTTP server logs"""
+        pass
+
+
+class BotHealthServer:
+    """HTTP server for bot health checks"""
+    
+    def __init__(self, port=8080, bot_instance=None):
+        self.port = port
+        self.bot_instance = bot_instance
+        self.server = None
+        self.thread = None
+    
+    def start(self):
+        """Start the HTTP server in a separate thread"""
+        try:
+            # Create custom handler class with bot instance
+            def handler(*args):
+                BotHealthHandler(*args, bot_instance=self.bot_instance)
+            
+            self.server = HTTPServer(('0.0.0.0', self.port), handler)
+            self.thread = threading.Thread(target=self.server.serve_forever, daemon=True)
+            self.thread.start()
+            
+            logger.info(f"🌐 Health check server started on port {self.port}")
+            logger.info(f"   GET http://localhost:{self.port}/health - Detailed status")
+            logger.info(f"   GET http://localhost:{self.port}/ - Simple status")
+            
+        except Exception as e:
+            logger.error(f"Failed to start health server: {e}")
+    
+    def stop(self):
+        """Stop the HTTP server"""
+        if self.server:
+            self.server.shutdown()
+            self.server.server_close()
+            logger.info("🌐 Health check server stopped")
 
 
 class TelegramLogger:
@@ -295,10 +439,10 @@ class TradingSignalParser:
             logger.info(f"🔍 PARSING SIGNAL:")
             logger.info(f"   Input: {repr(message_text)}")
             
-            # Check if message contains BTC-related content and ignore it
-            if re.search(r'BTC|BITCOIN', message_text, re.IGNORECASE):
-                logger.info(f"   [SKIP] Message contains BTC/BITCOIN - ignoring")
-                return None
+            # # Check if message contains BTC-related content and ignore it
+            # if re.search(r'BTC|BITCOIN', message_text, re.IGNORECASE):
+            #     logger.info(f"   [SKIP] Message contains BTC/BITCOIN - ignoring")
+            #     return None
             
             # Also skip if range values are too high (likely crypto, not forex)
             range_check = re.search(r'RANGE\s*:?\s*(\d+)', message_text, re.IGNORECASE)
@@ -663,9 +807,26 @@ class TelegramMonitor:
         self.mt5_client = MT5TradingClient()
         self.telegram_logger = TelegramLogger(N8N_LOG_WEBHOOK)
         self.telegram_feedback = TelegramFeedback(N8N_TELEGRAM_FEEDBACK)
+        self.health_server = BotHealthServer(port=8080, bot_instance=self)
+    
+    def should_ignore_message(self, message_text: str) -> bool:
+        """Check if message contains common words/phrases that should be ignored"""
+        message_lower = message_text.lower().strip()
         
-   
-
+        # Check if message is too short (likely just an emoji or single word)
+        if len(message_lower) <= 3:
+            return True
+            
+        # Check against ignore words list
+        for ignore_word in IGNORE_WORDS:
+            if ignore_word.lower() in message_lower:
+                return True
+                
+        # Check if message is only emojis/symbols (no alphanumeric characters)
+        if not any(c.isalnum() for c in message_text):
+            return True
+            
+        return False
    
     def validate_config(self) -> bool:
         """Validate configuration"""
@@ -689,10 +850,18 @@ class TelegramMonitor:
         
         return True
     
-    async def initialize_client(self):
+    async def initialize_client(self, retry_count=0):
         """Initialize Telegram client with bot or user authentication"""
         try:
-            self.client = TelegramClient(SESSION_NAME, API_ID, API_HASH)
+            # Create client with better error handling
+            self.client = TelegramClient(
+                SESSION_NAME, 
+                API_ID, 
+                API_HASH,
+                timeout=30,  # Increase timeout
+                retry_delay=5,  # Add retry delay
+                auto_reconnect=True  # Enable auto-reconnection
+            )
             
             if BOT_TOKEN:
                 logger.info("Connecting to Telegram as bot...")
@@ -704,6 +873,22 @@ class TelegramMonitor:
                 
                 if not await self.client.is_user_authorized():
                     logger.error("Failed to authorize user - session may be invalid")
+                    
+                    # Try to delete corrupted session file and retry
+                    if retry_count < 2:
+                        logger.info(f"Attempting session recovery (attempt {retry_count + 1}/3)")
+                        try:
+                            import os
+                            session_file = f"{SESSION_NAME}.session"
+                            if os.path.exists(session_file):
+                                os.remove(session_file)
+                                logger.info("Removed corrupted session file")
+                        except Exception as e:
+                            logger.warning(f"Could not remove session file: {e}")
+                        
+                        await asyncio.sleep(2)
+                        return await self.initialize_client(retry_count + 1)
+                    
                     return False 
                      
             
@@ -1164,9 +1349,14 @@ class TelegramMonitor:
         logger.info(f"   ✅ Successfully extended: {success_count}")
         logger.info(f"   ❌ Failed to extend: {total_positions - success_count}")
     
-    def process_trading_signal(self, message_text: str):
+    def process_trading_signal(self, message_text: str): 
         """Process and execute trading signal"""
         try:
+            # Early exit: Check ignore words before any processing
+            if self.should_ignore_message(message_text):
+                logger.debug(f"🔇 Message ignored early (contains ignore words): '{message_text[:30]}...'")
+                return
+            
             # DEBUG: Log the received message
             logger.info(f"🔍 PROCESSING MESSAGE:")
             logger.info(f"   Raw message: {repr(message_text)}")
@@ -1206,14 +1396,20 @@ class TelegramMonitor:
                 logger.info(f"   💡 Only BE (break even) and partial commands will be processed")
                 logger.info(f"   📋 Use 'BE' to move stop loss to break even")
                 logger.info(f"   💰 Use 'TP1', 'TP2', or 'partial' commands for profit taking")
+                logger.info(f"📝 MESSAGE IGNORED: '{message_text[:50]}...' - Active trades prevent new signals")
                 return
             
             # Parse the signal
             signal = self.signal_parser.parse_signal(message_text)
             if not signal:
-                logger.warning(f"❌ NO SIGNAL PARSED - Message did not match trading signal pattern")
-                logger.info(f"   Expected pattern: [SYMBOL] BUY/SELL RANGE: X-Y SL: Z TP: W")
-                logger.info(f"   Received: {message_text}")
+                # Only log detailed message if it's not in the ignore list
+                if not self.should_ignore_message(message_text):
+                    logger.warning(f"❌ NO SIGNAL PARSED - Message did not match trading signal pattern")
+                    logger.info(f"   Expected pattern: [SYMBOL] BUY/SELL RANGE: X-Y SL: Z TP: W")
+                    logger.info(f"   Received: {message_text}")
+                    logger.info(f"📝 MESSAGE IGNORED: '{message_text[:50]}...' - Invalid signal format")
+                else:
+                    logger.debug(f"🔇 Ignored common message: '{message_text[:30]}...'")
                 return
             
             # Log signal received and send Telegram feedback
@@ -1264,50 +1460,38 @@ class TelegramMonitor:
                 logger.info(f"   Has text: {message.text is not None}")
                 logger.info(f"   Message type: {type(message.media) if message.media else 'text'}")
                 
-                # Check for text content (message.text or caption)
-                text_content = None
                 if message.text:
-                    text_content = message.text
-                    logger.info(f"   ✅ Text message found: {text_content[:100]}...")
-                elif hasattr(message, 'message') and message.message:
-                    text_content = message.message
-                    logger.info(f"   ✅ Caption found: {text_content[:100]}...")
-                elif message.media:
-                    # Log detailed media information
-                    media_type = str(type(message.media).__name__)
-                    logger.info(f"   📱 Media message detected: {media_type}")
-                    
-                    # Check for caption in media messages
-                    if hasattr(message.media, 'caption') and message.media.caption:
-                        text_content = message.media.caption
-                        logger.info(f"   ✅ Media caption found: {text_content[:100]}...")
-                    elif hasattr(message, 'raw_text') and message.raw_text:
-                        text_content = message.raw_text
-                        logger.info(f"   ✅ Raw text found: {text_content[:100]}...")
-                    else:
-                        logger.info(f"   📱 Media type: {media_type}, no text/caption found")
-                        # For video messages, check if there's any associated text
-                        if 'video' in media_type.lower():
-                            logger.info(f"   🎬 Video message - checking for associated text...")
-                        return
-                
-                if text_content and text_content.strip():
-                    logger.info(f"   🎯 CALLING process_trading_signal() with text: '{text_content[:50]}...'")
-                    self.process_trading_signal(text_content)
+                    logger.info(f"   ✅ Message text found: {message.text[:100]}...")
+                    logger.info(f"   🎯 CALLING process_trading_signal()")
+                    self.process_trading_signal(message.text)
                 else:
-                    logger.warning(f"   ❌ No processable text content in message")
-                    logger.info(f"   📝 Message debug info:")
-                    logger.info(f"      Message ID: {message.id}")
-                    logger.info(f"      Media: {message.media}")
-                    logger.info(f"      Text: {message.text}")
-                    logger.info(f"      Has message attr: {hasattr(message, 'message')}")
-                    if hasattr(message, 'message'):
-                        logger.info(f"      Message attr: {message.message}")
+                    # Check if it's a video message specifically
+                    if message.media and hasattr(message.media, 'document') and message.media.document:
+                        mime_type = getattr(message.media.document, 'mime_type', '')
+                        if 'video' in mime_type:
+                            logger.info(f"   📹 VIDEO MESSAGE IGNORED - No text content to process")
+                            logger.info(f"      Video mime type: {mime_type}")
+                            logger.info(f"📝 MESSAGE IGNORED: Video message (ID: {message.id}) - No text content")
+                        else:
+                            logger.warning(f"   ❌ No text content in message")
+                            logger.info(f"   Message content: {repr(message)}")
+                            logger.info(f"📝 MESSAGE IGNORED: Media message (ID: {message.id}) - No text content")
+                    else:
+                        logger.warning(f"   ❌ No text content in message")
+                        logger.info(f"   Message content: {repr(message)}")
+                        logger.info(f"📝 MESSAGE IGNORED: Non-text message (ID: {message.id}) - No text content")
                     
             except Exception as e:
                 logger.error(f"Error handling message: {e}")
-                import traceback
-                logger.error(f"Traceback: {traceback.format_exc()}")
+                
+                # Check for specific Telegram protocol errors
+                error_str = str(e).lower()
+                if any(keyword in error_str for keyword in ['constructor', 'tlobject', 'remaining bytes']):
+                    logger.error("🔧 Telegram protocol error in message handler")
+                    logger.info("💡 Message processing will continue, but session may need refresh")
+                else:
+                    import traceback
+                    logger.error(f"Traceback: {traceback.format_exc()}")
         
         logger.info("Event handlers set up successfully")
     
@@ -1315,9 +1499,6 @@ class TelegramMonitor:
         """Main run loop"""
         if not self.validate_config():
             return False
-        
-        # Send startup log
-        self.telegram_logger.log_system_status('starting', f"Strategy: {ENTRY_STRATEGY}\\nVolume: {DEFAULT_VOLUME}")
         
         logger.info(f"Starting Direct MT5 Telegram Monitor...")
         logger.info(f"Strategy: {ENTRY_STRATEGY}, V: {DEFAULT_VOLUME}")
@@ -1336,15 +1517,15 @@ class TelegramMonitor:
             self.telegram_feedback.notify_error("telegram_connection", error_msg)
             return False
         
-        # Send connected status and Telegram feedback
-        self.telegram_logger.log_system_status('connected', f"Group: {self.target_group.title}\\nMT5 Account: Connected")
-        
         await self.setup_event_handlers()
         
         logger.info("✅ Monitor is running. Watching for trading signals...")
         self.running = True
         
-        # Send startup notification to Telegram
+        # Start health check server
+        self.health_server.start()
+        
+        # Send single startup notification to Telegram
         self.telegram_feedback.notify_system_status('started', f"Strategy: {ENTRY_STRATEGY}, V: {DEFAULT_VOLUME}")
         
         try:
@@ -1354,6 +1535,23 @@ class TelegramMonitor:
         except Exception as e:
             error_msg = f"Unexpected error: {e}"
             logger.error(error_msg)
+            
+            # Check if it's a Telegram protocol error
+            error_str = str(e).lower()
+            if any(keyword in error_str for keyword in ['constructor', 'tlobject', 'remaining bytes', 'protocol']):
+                logger.error("🔧 Telegram protocol error detected - session may be corrupted")
+                logger.info("💡 Recommendation: Restart the bot to regenerate session")
+                
+                # Try to clean up corrupted session
+                try:
+                    import os
+                    session_file = f"{SESSION_NAME}.session"
+                    if os.path.exists(session_file):
+                        os.remove(session_file)
+                        logger.info("🗑️ Removed corrupted session file")
+                except Exception as cleanup_err:
+                    logger.warning(f"Could not cleanup session: {cleanup_err}")
+            
             self.telegram_logger.log_error("system_error", str(e))
             self.telegram_feedback.notify_error("system_error", str(e))
         finally:
@@ -1361,7 +1559,9 @@ class TelegramMonitor:
             if self.client:
                 await self.client.disconnect()
             self.mt5_client.disconnect()
-            self.telegram_logger.log_system_status('stopped', 'Monitor stopped')
+            # Stop health check server
+            self.health_server.stop()
+            # Send single shutdown notification to Telegram
             self.telegram_feedback.notify_system_status('stopped')
         
         logger.info("Monitor stopped")

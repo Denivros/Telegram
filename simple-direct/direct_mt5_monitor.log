@@ -1554,3 +1554,777 @@ TP : 4015/4032...
 2025-10-31 14:45:42,674 - __main__ - INFO - Connected to group: 🚀 CallistoFx Premium Channel 🚀
 2025-10-31 14:45:43,126 - __main__ - INFO - Event handlers set up successfully
 2025-10-31 14:45:43,127 - __main__ - INFO - ✅ Monitor is running. Watching for trading signals...
+2025-10-31 16:01:05,065 - telethon.network.mtprotosender - INFO - Disconnecting from 149.154.167.92:443/TcpFull...
+2025-10-31 16:01:05,067 - telethon.network.mtprotosender - INFO - Disconnection from 149.154.167.92:443/TcpFull complete!
+2025-10-31 16:01:05,074 - telethon.network.mtprotosender - INFO - Not disconnecting (already have no connection)
+2025-10-31 16:01:05,084 - __main__ - INFO - Disconnected from MT5
+2025-10-31 16:03:42,043 - __main__ - INFO - Health check server started on port 8000
+2025-10-31 16:03:42,043 - __main__ - INFO - Starting Direct MT5 Telegram Monitor...
+2025-10-31 16:03:42,043 - __main__ - INFO - Strategy: midpoint, V: 0.09
+2025-10-31 16:03:42,060 - __main__ - INFO - Connected to MT5 VPS - Server: PUPrime-Demo, Account: 700010991
+2025-10-31 16:03:42,061 - __main__ - INFO - Account info - Login: 700010991, Balance: 100030.93
+2025-10-31 16:03:42,098 - __main__ - INFO - Connecting to Telegram as user...
+2025-10-31 16:03:42,098 - telethon.network.mtprotosender - INFO - Connecting to 149.154.167.92:443/TcpFull...
+2025-10-31 16:03:42,111 - telethon.network.mtprotosender - INFO - Connection to 149.154.167.92:443/TcpFull complete!
+2025-10-31 16:03:42,722 - __main__ - INFO - Connected to group: 🚀 CallistoFx Premium Channel 🚀
+2025-10-31 16:03:42,722 - __main__ - INFO - Event handlers set up successfully
+2025-10-31 16:03:42,723 - __main__ - INFO - ✅ Monitor is running. Watching for trading signals...
+2025-10-31 16:06:53,606 - telethon.network.mtprotosender - INFO - Disconnecting from 149.154.167.92:443/TcpFull...
+2025-10-31 16:06:53,608 - telethon.network.mtprotosender - INFO - Disconnection from 149.154.167.92:443/TcpFull complete!
+2025-10-31 16:06:53,616 - telethon.network.mtprotosender - INFO - Not disconnecting (already have no connection)
+2025-10-31 16:06:53,625 - __main__ - INFO - Disconnected from MT5
+2025-10-31 16:06:57,834 - __main__ - INFO - Health check server started on port 8000
+2025-10-31 16:06:57,834 - __main__ - INFO - Starting Direct MT5 Telegram Monitor...
+2025-10-31 16:06:57,835 - __main__ - INFO - Strategy: midpoint, V: 0.09
+2025-10-31 16:06:57,853 - __main__ - INFO - Connected to MT5 VPS - Server: PUPrime-Demo, Account: 700010991
+2025-10-31 16:06:57,854 - __main__ - INFO - Account info - Login: 700010991, Balance: 100030.93
+2025-10-31 16:06:57,903 - __main__ - INFO - Connecting to Telegram as user...
+2025-10-31 16:06:57,903 - telethon.network.mtprotosender - INFO - Connecting to 149.154.167.92:443/TcpFull...
+2025-10-31 16:06:57,920 - telethon.network.mtprotosender - INFO - Connection to 149.154.167.92:443/TcpFull complete!
+2025-10-31 16:06:58,236 - __main__ - INFO - Connected to group: 🚀 CallistoFx Premium Channel 🚀
+2025-10-31 16:06:58,237 - __main__ - INFO - Event handlers set up successfully
+2025-10-31 16:06:58,237 - __main__ - INFO - ✅ Monitor is running. Watching for trading signals...
+2025-10-31 16:08:15,448 - __main__ - INFO - 🔍 MESSAGE HANDLER CALLED:
+2025-10-31 16:08:15,449 - __main__ - INFO -    Message ID: 44070
+2025-10-31 16:08:15,449 - __main__ - INFO -    From user: None
+2025-10-31 16:08:15,450 - __main__ - INFO -    Chat ID: PeerChannel(channel_id=1623437581)
+2025-10-31 16:08:15,456 - __main__ - INFO -    Has text: True
+2025-10-31 16:08:15,457 - __main__ - INFO -    Message type: <class 'telethon.tl.types.MessageMediaDocument'>
+2025-10-31 16:08:15,457 - __main__ - INFO -    ✅ Message text found: **Weekly Trading summary 27th - 31st October 2025:**
+
+🟢(PREM)XAUUSD +885 Pips (FULL TP)
+🟢(PREM)XAUUS...
+2025-10-31 16:08:15,458 - __main__ - INFO -    🎯 CALLING process_trading_signal()
+2025-10-31 16:08:15,459 - __main__ - INFO - 🔍 PROCESSING MESSAGE:
+2025-10-31 16:08:15,459 - __main__ - INFO -    Raw message: '**Weekly Trading summary 27th - 31st October 2025:**\n\n🟢(PREM)XAUUSD +885 Pips (FULL TP)\n🟢(PREM)XAUUSD +50 Pips (TP 2)\n🟢(PREM)XAUUSD +66 Pips (TP 2)\n🟢(PREM)XAUUSD +1550 Pips (FULL TP)\n🟢(VIP)XAUUSD +100 Pips (TP 4)\n🟢(PREM)XAUUSD +42 Pips (TP 2)\n🟢(PREM)XAUUSD +33 Pips (TP 2)\n🟢(PREM)XAUUSD +440 Pips (FULL TP)\n🟢(VIP)XAUUSD +40 Pips (TP 2)\n🟢(VIP)XAUUSD +18 Pips (TP 1)\n🟢(PREM)XAUUSD +112 Pips (TP 4)\n🟢(PREM)BTCUSD +75 Pips (TP 3)\n🟢(PREM)XAUUSD +29 Pips (TP 1)\n🟢(PREM)XAUUSD +20 Pips (TP 1)\n🟢(PREM)XAUUSD +40 Pips (TP 2)\n🟢(PREM)XAUUSD +492 Pips (TP 4)\n🟢(VIP)XAUUSD +370 Pips (TP 4)\n🟢(PREM)XAUUSD +230 Pips (FULL TP)\n🟢(PREM)XAUUSD +294 Pips (FULL TP)\n\n**Total Made: +5,332 pips /+$53,320 per lot**,'
+2025-10-31 16:08:15,459 - __main__ - INFO -    Message length: 692 characters
+2025-10-31 16:08:15,460 - __main__ - INFO -    🎯 TP Pattern detected: 'tp\s*[123]' in '**Weekly Trading summary 27th - 31st October 2025:**
+
+🟢(PREM)XAUUSD +885 Pips (FULL TP)
+🟢(PREM)XAUUSD +50 Pips (TP 2)
+🟢(PREM)XAUUSD +66 Pips (TP 2)
+🟢(PREM)XAUUSD +1550 Pips (FULL TP)
+🟢(VIP)XAUUSD +100 Pips (TP 4)
+🟢(PREM)XAUUSD +42 Pips (TP 2)
+🟢(PREM)XAUUSD +33 Pips (TP 2)
+🟢(PREM)XAUUSD +440 Pips (FULL TP)
+🟢(VIP)XAUUSD +40 Pips (TP 2)
+🟢(VIP)XAUUSD +18 Pips (TP 1)
+🟢(PREM)XAUUSD +112 Pips (TP 4)
+🟢(PREM)BTCUSD +75 Pips (TP 3)
+🟢(PREM)XAUUSD +29 Pips (TP 1)
+🟢(PREM)XAUUSD +20 Pips (TP 1)
+🟢(PREM)XAUUSD +40 Pips (TP 2)
+🟢(PREM)XAUUSD +492 Pips (TP 4)
+🟢(VIP)XAUUSD +370 Pips (TP 4)
+🟢(PREM)XAUUSD +230 Pips (FULL TP)
+🟢(PREM)XAUUSD +294 Pips (FULL TP)
+
+**Total Made: +5,332 pips /+$53,320 per lot**,'
+2025-10-31 16:08:15,462 - __main__ - INFO -    🔍 Command Detection: BE=True, Partial=True, Close=False, ExtendTP=False
+2025-10-31 16:08:15,463 - __main__ - INFO - 🎯 BREAK EVEN COMMAND DETECTED!
+2025-10-31 16:08:15,463 - __main__ - INFO - 🎯 MOVING STOP LOSS TO BREAK EVEN:
+2025-10-31 16:08:15,463 - __main__ - INFO -    BE partial volume to close: 0.01
+2025-10-31 16:08:15,463 - __main__ - INFO -    ❌ No open positions to modify
+2025-10-31 16:08:15,464 - __main__ - INFO - 💰 PARTIAL PROFIT COMMAND DETECTED!
+2025-10-31 16:08:15,464 - __main__ - INFO - 💰 PROCESSING PARTIAL PROFIT:
+2025-10-31 16:08:15,464 - __main__ - INFO -    Message: **Weekly Trading summary 27th - 31st October 2025:**
+
+🟢(PREM)XAUUSD +885 Pips (FULL TP)
+🟢(PREM)XAUUSD +50 Pips (TP 2)
+🟢(PREM)XAUUSD +66 Pips (TP 2)
+🟢(PREM)XAUUSD +1550 Pips (FULL TP)
+🟢(VIP)XAUUSD +100 Pips (TP 4)
+🟢(PREM)XAUUSD +42 Pips (TP 2)
+🟢(PREM)XAUUSD +33 Pips (TP 2)
+🟢(PREM)XAUUSD +440 Pips (FULL TP)
+🟢(VIP)XAUUSD +40 Pips (TP 2)
+🟢(VIP)XAUUSD +18 Pips (TP 1)
+🟢(PREM)XAUUSD +112 Pips (TP 4)
+🟢(PREM)BTCUSD +75 Pips (TP 3)
+🟢(PREM)XAUUSD +29 Pips (TP 1)
+🟢(PREM)XAUUSD +20 Pips (TP 1)
+🟢(PREM)XAUUSD +40 Pips (TP 2)
+🟢(PREM)XAUUSD +492 Pips (TP 4)
+🟢(VIP)XAUUSD +370 Pips (TP 4)
+🟢(PREM)XAUUSD +230 Pips (FULL TP)
+🟢(PREM)XAUUSD +294 Pips (FULL TP)
+
+**Total Made: +5,332 pips /+$53,320 per lot**,
+2025-10-31 16:08:15,465 - __main__ - INFO -    Partial volume to close: 0.02
+2025-10-31 16:08:15,466 - __main__ - INFO -    📈 TP Level: 2
+2025-10-31 16:08:15,466 - __main__ - INFO -    📊 Pips Profit: 885
+2025-10-31 16:08:15,467 - __main__ - INFO -    ❌ No open positions for partial profit
+2025-10-31 16:10:06,075 - telethon.network.mtprotosender - INFO - Disconnecting from 149.154.167.92:443/TcpFull...
+2025-10-31 16:10:06,077 - telethon.network.mtprotosender - INFO - Disconnection from 149.154.167.92:443/TcpFull complete!
+2025-10-31 16:10:06,084 - telethon.network.mtprotosender - INFO - Not disconnecting (already have no connection)
+2025-10-31 16:10:06,093 - __main__ - INFO - Disconnected from MT5
+2025-10-31 16:10:09,169 - __main__ - INFO - Health check server started on port 8000
+2025-10-31 16:10:09,171 - __main__ - INFO - Starting Direct MT5 Telegram Monitor...
+2025-10-31 16:10:09,171 - __main__ - INFO - Strategy: midpoint, V: 0.09
+2025-10-31 16:10:09,198 - __main__ - INFO - Connected to MT5 VPS - Server: PUPrime-Demo, Account: 700010991
+2025-10-31 16:10:09,199 - __main__ - INFO - Account info - Login: 700010991, Balance: 100030.93
+2025-10-31 16:10:09,245 - __main__ - INFO - Connecting to Telegram as user...
+2025-10-31 16:10:09,246 - telethon.network.mtprotosender - INFO - Connecting to 149.154.167.92:443/TcpFull...
+2025-10-31 16:10:09,263 - telethon.network.mtprotosender - INFO - Connection to 149.154.167.92:443/TcpFull complete!
+2025-10-31 16:10:09,482 - __main__ - INFO - Connected to group: 🚀 CallistoFx Premium Channel 🚀
+2025-10-31 16:10:09,483 - __main__ - INFO - Event handlers set up successfully
+2025-10-31 16:10:09,483 - __main__ - INFO - ✅ Monitor is running. Watching for trading signals...
+2025-10-31 16:13:54,170 - telethon.network.mtprotosender - INFO - Disconnecting from 149.154.167.92:443/TcpFull...
+2025-10-31 16:13:54,172 - telethon.network.mtprotosender - INFO - Disconnection from 149.154.167.92:443/TcpFull complete!
+2025-10-31 16:13:54,179 - telethon.network.mtprotosender - INFO - Not disconnecting (already have no connection)
+2025-10-31 16:13:54,189 - __main__ - INFO - Disconnected from MT5
+2025-10-31 16:13:57,933 - __main__ - INFO - Health check server started on port 8000
+2025-10-31 16:13:57,934 - __main__ - INFO - Starting Direct MT5 Telegram Monitor...
+2025-10-31 16:13:57,934 - __main__ - INFO - Strategy: midpoint, V: 0.09
+2025-10-31 16:13:57,953 - __main__ - INFO - Connected to MT5 VPS - Server: PUPrime-Demo, Account: 700010991
+2025-10-31 16:13:57,954 - __main__ - INFO - Account info - Login: 700010991, Balance: 100030.93
+2025-10-31 16:13:57,997 - __main__ - INFO - Connecting to Telegram as user...
+2025-10-31 16:13:57,997 - telethon.network.mtprotosender - INFO - Connecting to 149.154.167.92:443/TcpFull...
+2025-10-31 16:13:58,006 - telethon.network.mtprotosender - INFO - Connection to 149.154.167.92:443/TcpFull complete!
+2025-10-31 16:13:58,178 - __main__ - INFO - Connected to group: 🚀 CallistoFx Premium Channel 🚀
+2025-10-31 16:13:58,178 - __main__ - INFO - Event handlers set up successfully
+2025-10-31 16:13:58,179 - __main__ - INFO - ✅ Monitor is running. Watching for trading signals...
+2025-10-31 16:14:29,858 - telethon.network.mtprotosender - INFO - Disconnecting from 149.154.167.92:443/TcpFull...
+2025-10-31 16:14:29,860 - telethon.network.mtprotosender - INFO - Disconnection from 149.154.167.92:443/TcpFull complete!
+2025-10-31 16:14:29,865 - telethon.network.mtprotosender - INFO - Not disconnecting (already have no connection)
+2025-10-31 16:14:29,874 - __main__ - INFO - Disconnected from MT5
+2025-10-31 16:14:32,528 - __main__ - INFO - Health check server started on port 8000
+2025-10-31 16:14:32,530 - __main__ - INFO - Starting Direct MT5 Telegram Monitor...
+2025-10-31 16:14:32,530 - __main__ - INFO - Strategy: midpoint, V: 0.09
+2025-10-31 16:14:32,545 - __main__ - INFO - Connected to MT5 VPS - Server: PUPrime-Demo, Account: 700010991
+2025-10-31 16:14:32,546 - __main__ - INFO - Account info - Login: 700010991, Balance: 100030.93
+2025-10-31 16:14:32,585 - __main__ - INFO - Connecting to Telegram as user...
+2025-10-31 16:14:32,586 - telethon.network.mtprotosender - INFO - Connecting to 149.154.167.92:443/TcpFull...
+2025-10-31 16:14:32,598 - telethon.network.mtprotosender - INFO - Connection to 149.154.167.92:443/TcpFull complete!
+2025-10-31 16:14:32,904 - __main__ - INFO - Connected to group: 🚀 CallistoFx Premium Channel 🚀
+2025-10-31 16:14:32,904 - __main__ - INFO - Event handlers set up successfully
+2025-10-31 16:14:32,904 - __main__ - INFO - ✅ Monitor is running. Watching for trading signals...
+2025-10-31 16:23:32,759 - telethon.network.mtprotosender - INFO - Disconnecting from 149.154.167.92:443/TcpFull...
+2025-10-31 16:23:32,761 - telethon.network.mtprotosender - INFO - Disconnection from 149.154.167.92:443/TcpFull complete!
+2025-10-31 16:23:32,769 - telethon.network.mtprotosender - INFO - Not disconnecting (already have no connection)
+2025-10-31 16:23:32,779 - __main__ - INFO - Disconnected from MT5
+2025-10-31 16:23:43,931 - __main__ - INFO - Health check server started on port 8000
+2025-10-31 16:23:43,931 - __main__ - INFO - Starting Direct MT5 Telegram Monitor...
+2025-10-31 16:23:43,931 - __main__ - INFO - Strategy: midpoint, V: 0.09
+2025-10-31 16:23:43,948 - __main__ - INFO - Connected to MT5 VPS - Server: PUPrime-Demo, Account: 700010991
+2025-10-31 16:23:43,948 - __main__ - INFO - Account info - Login: 700010991, Balance: 100030.93
+2025-10-31 16:23:43,986 - __main__ - INFO - Connecting to Telegram as user...
+2025-10-31 16:23:43,987 - telethon.network.mtprotosender - INFO - Connecting to 149.154.167.92:443/TcpFull...
+2025-10-31 16:23:44,003 - telethon.network.mtprotosender - INFO - Connection to 149.154.167.92:443/TcpFull complete!
+2025-10-31 16:23:44,203 - __main__ - INFO - Connected to group: 🚀 CallistoFx Premium Channel 🚀
+2025-10-31 16:23:44,203 - __main__ - INFO - Event handlers set up successfully
+2025-10-31 16:23:44,203 - __main__ - INFO - ✅ Monitor is running. Watching for trading signals...
+2025-10-31 16:53:44,290 - telethon.client.updates - INFO - Got difference for channel 2848189989 updates
+2025-10-31 19:02:46,244 - __main__ - INFO - 🔍 MESSAGE HANDLER CALLED:
+2025-10-31 19:02:46,246 - __main__ - INFO -    Message ID: 44071
+2025-10-31 19:02:46,246 - __main__ - INFO -    From user: None
+2025-10-31 19:02:46,247 - __main__ - INFO -    Chat ID: PeerChannel(channel_id=1623437581)
+2025-10-31 19:02:46,248 - __main__ - INFO -    Has text: True
+2025-10-31 19:02:46,248 - __main__ - INFO -    Message type: <class 'telethon.tl.types.MessageMediaPhoto'>
+2025-10-31 19:02:46,248 - __main__ - INFO -    ✅ Message text found: Time to Submit Your Weekly Journals Fam! 
+
+Regardless of Wins/Losses/No Trade, Journals is a MUST.
+
+...
+2025-10-31 19:02:46,248 - __main__ - INFO -    🎯 CALLING process_trading_signal()
+2025-10-31 19:38:44,908 - telethon.client.updates - INFO - Got difference for channel 2848189989 updates
+2025-10-31 20:16:44,661 - telethon.network.mtprotosender - INFO - Disconnecting from 149.154.167.92:443/TcpFull...
+2025-10-31 20:16:44,663 - telethon.network.mtprotosender - INFO - Disconnection from 149.154.167.92:443/TcpFull complete!
+2025-10-31 20:16:44,671 - telethon.network.mtprotosender - INFO - Not disconnecting (already have no connection)
+2025-10-31 20:16:44,684 - __main__ - INFO - Disconnected from MT5
+2025-10-31 20:16:48,919 - __main__ - INFO - Health check server started on port 8000
+2025-10-31 20:16:48,920 - __main__ - INFO - Starting Direct MT5 Telegram Monitor...
+2025-10-31 20:16:48,921 - __main__ - INFO - Strategy: midpoint, V: 0.09
+2025-10-31 20:16:48,937 - __main__ - INFO - Connected to MT5 VPS - Server: PUPrime-Demo, Account: 700010991
+2025-10-31 20:16:48,938 - __main__ - INFO - Account info - Login: 700010991, Balance: 100030.93
+2025-10-31 20:16:48,985 - __main__ - INFO - Connecting to Telegram as user...
+2025-10-31 20:16:48,986 - telethon.network.mtprotosender - INFO - Connecting to 149.154.167.92:443/TcpFull...
+2025-10-31 20:16:48,995 - telethon.network.mtprotosender - INFO - Connection to 149.154.167.92:443/TcpFull complete!
+2025-10-31 20:16:49,292 - __main__ - INFO - Connected to group: 🚀 CallistoFx Premium Channel 🚀
+2025-10-31 20:16:49,293 - __main__ - INFO - Event handlers set up successfully
+2025-10-31 20:16:49,293 - __main__ - INFO - ✅ Monitor is running. Watching for trading signals...
+2025-10-31 20:18:17,298 - __main__ - INFO - 🔍 MESSAGE HANDLER CALLED:
+2025-10-31 20:18:17,299 - __main__ - INFO -    Message ID: 44074
+2025-10-31 20:18:17,299 - __main__ - INFO -    From user: None
+2025-10-31 20:18:17,299 - __main__ - INFO -    Chat ID: PeerChannel(channel_id=1623437581)
+2025-10-31 20:18:17,299 - __main__ - INFO -    Has text: True
+2025-10-31 20:18:17,299 - __main__ - INFO -    Message type: <class 'telethon.tl.types.MessageMediaPhoto'>
+2025-10-31 20:18:17,299 - __main__ - WARNING -    ❌ No text content in message
+2025-10-31 20:18:17,299 - __main__ - INFO -    Message content: <telethon.tl.patched.Message object at 0x0000014894723C50>
+2025-10-31 20:18:17,301 - __main__ - INFO - 📝 MESSAGE IGNORED: Non-text message (ID: 44074) - No text content
+2025-10-31 20:18:17,305 - __main__ - INFO - 🔍 MESSAGE HANDLER CALLED:
+2025-10-31 20:18:17,305 - __main__ - INFO -    Message ID: 44075
+2025-10-31 20:18:17,305 - __main__ - INFO -    From user: None
+2025-10-31 20:18:17,305 - __main__ - INFO -    Chat ID: PeerChannel(channel_id=1623437581)
+2025-10-31 20:18:17,305 - __main__ - INFO -    Has text: True
+2025-10-31 20:18:17,307 - __main__ - INFO -    Message type: <class 'telethon.tl.types.MessageMediaPhoto'>
+2025-10-31 20:18:17,307 - __main__ - WARNING -    ❌ No text content in message
+2025-10-31 20:18:17,307 - __main__ - INFO -    Message content: <telethon.tl.patched.Message object at 0x0000014894967450>
+2025-10-31 20:18:17,307 - __main__ - INFO - 📝 MESSAGE IGNORED: Non-text message (ID: 44075) - No text content
+2025-10-31 20:18:17,315 - __main__ - INFO - 🔍 MESSAGE HANDLER CALLED:
+2025-10-31 20:18:17,316 - __main__ - INFO -    Message ID: 44076
+2025-10-31 20:18:17,316 - __main__ - INFO -    From user: None
+2025-10-31 20:18:17,316 - __main__ - INFO -    Chat ID: PeerChannel(channel_id=1623437581)
+2025-10-31 20:18:17,317 - __main__ - INFO -    Has text: True
+2025-10-31 20:18:17,317 - __main__ - INFO -    Message type: <class 'telethon.tl.types.MessageMediaPhoto'>
+2025-10-31 20:18:17,317 - __main__ - WARNING -    ❌ No text content in message
+2025-10-31 20:18:17,317 - __main__ - INFO -    Message content: <telethon.tl.patched.Message object at 0x0000014894967C50>
+2025-10-31 20:18:17,318 - __main__ - INFO - 📝 MESSAGE IGNORED: Non-text message (ID: 44076) - No text content
+2025-10-31 20:18:17,319 - __main__ - INFO - 🔍 MESSAGE HANDLER CALLED:
+2025-10-31 20:18:17,319 - __main__ - INFO -    Message ID: 44077
+2025-10-31 20:18:17,320 - __main__ - INFO -    From user: None
+2025-10-31 20:18:17,320 - __main__ - INFO -    Chat ID: PeerChannel(channel_id=1623437581)
+2025-10-31 20:18:17,320 - __main__ - INFO -    Has text: True
+2025-10-31 20:18:17,320 - __main__ - INFO -    Message type: <class 'telethon.tl.types.MessageMediaPhoto'>
+2025-10-31 20:18:17,321 - __main__ - WARNING -    ❌ No text content in message
+2025-10-31 20:18:17,321 - __main__ - INFO -    Message content: <telethon.tl.patched.Message object at 0x0000014894964C90>
+2025-10-31 20:18:17,321 - __main__ - INFO - 📝 MESSAGE IGNORED: Non-text message (ID: 44077) - No text content
+2025-10-31 20:18:43,782 - __main__ - INFO - 🔍 MESSAGE HANDLER CALLED:
+2025-10-31 20:18:43,802 - __main__ - INFO -    Message ID: 44078
+2025-10-31 20:18:43,824 - __main__ - INFO -    From user: None
+2025-10-31 20:18:43,828 - __main__ - INFO -    Chat ID: PeerChannel(channel_id=1623437581)
+2025-10-31 20:18:43,832 - __main__ - INFO -    Has text: True
+2025-10-31 20:18:43,834 - __main__ - INFO -    Message type: <class 'telethon.tl.types.MessageMediaPhoto'>
+2025-10-31 20:18:43,834 - __main__ - INFO -    ✅ Message text found: 30th October 2025 (Batch 3)...
+2025-10-31 20:18:43,834 - __main__ - INFO -    🎯 CALLING process_trading_signal()
+2025-10-31 20:18:43,836 - __main__ - INFO - 🔍 MESSAGE HANDLER CALLED:
+2025-10-31 20:18:43,837 - __main__ - INFO -    Message ID: 44079
+2025-10-31 20:18:43,840 - __main__ - INFO -    From user: None
+2025-10-31 20:18:43,865 - __main__ - INFO -    Chat ID: PeerChannel(channel_id=1623437581)
+2025-10-31 20:18:43,867 - __main__ - INFO -    Has text: True
+2025-10-31 20:18:43,868 - __main__ - INFO -    Message type: <class 'telethon.tl.types.MessageMediaPhoto'>
+2025-10-31 20:18:43,868 - __main__ - WARNING -    ❌ No text content in message
+2025-10-31 20:18:43,870 - __main__ - INFO -    Message content: <telethon.tl.patched.Message object at 0x0000014894CB6790>
+2025-10-31 20:18:43,870 - __main__ - INFO - 📝 MESSAGE IGNORED: Non-text message (ID: 44079) - No text content
+2025-10-31 20:18:43,870 - __main__ - INFO - 🔍 MESSAGE HANDLER CALLED:
+2025-10-31 20:18:43,870 - __main__ - INFO -    Message ID: 44080
+2025-10-31 20:18:43,872 - __main__ - INFO -    From user: None
+2025-10-31 20:18:43,872 - __main__ - INFO -    Chat ID: PeerChannel(channel_id=1623437581)
+2025-10-31 20:18:43,872 - __main__ - INFO -    Has text: True
+2025-10-31 20:18:43,872 - __main__ - INFO -    Message type: <class 'telethon.tl.types.MessageMediaPhoto'>
+2025-10-31 20:18:43,873 - __main__ - WARNING -    ❌ No text content in message
+2025-10-31 20:18:43,874 - __main__ - INFO -    Message content: <telethon.tl.patched.Message object at 0x0000014894CB62D0>
+2025-10-31 20:18:43,874 - __main__ - INFO - 📝 MESSAGE IGNORED: Non-text message (ID: 44080) - No text content
+2025-10-31 20:18:43,874 - __main__ - INFO - 🔍 MESSAGE HANDLER CALLED:
+2025-10-31 20:18:43,875 - __main__ - INFO -    Message ID: 44081
+2025-10-31 20:18:43,875 - __main__ - INFO -    From user: None
+2025-10-31 20:18:43,875 - __main__ - INFO -    Chat ID: PeerChannel(channel_id=1623437581)
+2025-10-31 20:18:43,875 - __main__ - INFO -    Has text: True
+2025-10-31 20:18:43,876 - __main__ - INFO -    Message type: <class 'telethon.tl.types.MessageMediaPhoto'>
+2025-10-31 20:18:43,876 - __main__ - WARNING -    ❌ No text content in message
+2025-10-31 20:18:43,876 - __main__ - INFO -    Message content: <telethon.tl.patched.Message object at 0x0000014894CB5550>
+2025-10-31 20:18:43,876 - __main__ - INFO - 📝 MESSAGE IGNORED: Non-text message (ID: 44081) - No text content
+2025-10-31 20:18:43,877 - __main__ - INFO - 🔍 MESSAGE HANDLER CALLED:
+2025-10-31 20:18:43,877 - __main__ - INFO -    Message ID: 44082
+2025-10-31 20:18:43,877 - __main__ - INFO -    From user: None
+2025-10-31 20:18:43,878 - __main__ - INFO -    Chat ID: PeerChannel(channel_id=1623437581)
+2025-10-31 20:18:43,878 - __main__ - INFO -    Has text: True
+2025-10-31 20:18:43,878 - __main__ - INFO -    Message type: <class 'telethon.tl.types.MessageMediaPhoto'>
+2025-10-31 20:18:43,879 - __main__ - WARNING -    ❌ No text content in message
+2025-10-31 20:18:43,879 - __main__ - INFO -    Message content: <telethon.tl.patched.Message object at 0x0000014894CB5E10>
+2025-10-31 20:18:43,879 - __main__ - INFO - 📝 MESSAGE IGNORED: Non-text message (ID: 44082) - No text content
+2025-10-31 20:18:43,880 - __main__ - INFO - 🔍 MESSAGE HANDLER CALLED:
+2025-10-31 20:18:43,880 - __main__ - INFO -    Message ID: 44083
+2025-10-31 20:18:43,880 - __main__ - INFO -    From user: None
+2025-10-31 20:18:43,880 - __main__ - INFO -    Chat ID: PeerChannel(channel_id=1623437581)
+2025-10-31 20:18:43,881 - __main__ - INFO -    Has text: True
+2025-10-31 20:18:43,881 - __main__ - INFO -    Message type: <class 'telethon.tl.types.MessageMediaPhoto'>
+2025-10-31 20:18:43,881 - __main__ - WARNING -    ❌ No text content in message
+2025-10-31 20:18:43,882 - __main__ - INFO -    Message content: <telethon.tl.patched.Message object at 0x0000014894CB5950>
+2025-10-31 20:18:43,882 - __main__ - INFO - 📝 MESSAGE IGNORED: Non-text message (ID: 44083) - No text content
+2025-10-31 20:19:49,314 - __main__ - INFO - 🔍 MESSAGE HANDLER CALLED:
+2025-10-31 20:19:49,316 - __main__ - INFO -    Message ID: 44084
+2025-10-31 20:19:49,316 - __main__ - INFO -    From user: None
+2025-10-31 20:19:49,316 - __main__ - INFO -    Chat ID: PeerChannel(channel_id=1623437581)
+2025-10-31 20:19:49,316 - __main__ - INFO -    Has text: True
+2025-10-31 20:19:49,316 - __main__ - INFO -    Message type: <class 'telethon.tl.types.MessageMediaPhoto'>
+2025-10-31 20:19:49,316 - __main__ - INFO -    ✅ Message text found: 30th October 2025 (Batch 3)...
+2025-10-31 20:19:49,316 - __main__ - INFO -    🎯 CALLING process_trading_signal()
+2025-10-31 20:19:49,318 - __main__ - INFO - 🔍 MESSAGE HANDLER CALLED:
+2025-10-31 20:19:49,318 - __main__ - INFO -    Message ID: 44085
+2025-10-31 20:19:49,318 - __main__ - INFO -    From user: None
+2025-10-31 20:19:49,318 - __main__ - INFO -    Chat ID: PeerChannel(channel_id=1623437581)
+2025-10-31 20:19:49,318 - __main__ - INFO -    Has text: True
+2025-10-31 20:19:49,318 - __main__ - INFO -    Message type: <class 'telethon.tl.types.MessageMediaPhoto'>
+2025-10-31 20:19:49,318 - __main__ - WARNING -    ❌ No text content in message
+2025-10-31 20:19:49,320 - __main__ - INFO -    Message content: <telethon.tl.patched.Message object at 0x0000014894CB5490>
+2025-10-31 20:19:49,320 - __main__ - INFO - 📝 MESSAGE IGNORED: Non-text message (ID: 44085) - No text content
+2025-10-31 20:19:49,320 - __main__ - INFO - 🔍 MESSAGE HANDLER CALLED:
+2025-10-31 20:19:49,320 - __main__ - INFO -    Message ID: 44086
+2025-10-31 20:19:49,320 - __main__ - INFO -    From user: None
+2025-10-31 20:19:49,322 - __main__ - INFO -    Chat ID: PeerChannel(channel_id=1623437581)
+2025-10-31 20:19:49,322 - __main__ - INFO -    Has text: True
+2025-10-31 20:19:49,322 - __main__ - INFO -    Message type: <class 'telethon.tl.types.MessageMediaPhoto'>
+2025-10-31 20:19:49,322 - __main__ - WARNING -    ❌ No text content in message
+2025-10-31 20:19:49,322 - __main__ - INFO -    Message content: <telethon.tl.patched.Message object at 0x0000014894CBF0D0>
+2025-10-31 20:19:49,323 - __main__ - INFO - 📝 MESSAGE IGNORED: Non-text message (ID: 44086) - No text content
+2025-10-31 20:19:49,324 - __main__ - INFO - 🔍 MESSAGE HANDLER CALLED:
+2025-10-31 20:19:49,324 - __main__ - INFO -    Message ID: 44087
+2025-10-31 20:19:49,324 - __main__ - INFO -    From user: None
+2025-10-31 20:19:49,325 - __main__ - INFO -    Chat ID: PeerChannel(channel_id=1623437581)
+2025-10-31 20:19:49,325 - __main__ - INFO -    Has text: True
+2025-10-31 20:19:49,325 - __main__ - INFO -    Message type: <class 'telethon.tl.types.MessageMediaPhoto'>
+2025-10-31 20:19:49,325 - __main__ - WARNING -    ❌ No text content in message
+2025-10-31 20:19:49,326 - __main__ - INFO -    Message content: <telethon.tl.patched.Message object at 0x0000014894CBE290>
+2025-10-31 20:19:49,326 - __main__ - INFO - 📝 MESSAGE IGNORED: Non-text message (ID: 44087) - No text content
+2025-10-31 20:19:49,326 - __main__ - INFO - 🔍 MESSAGE HANDLER CALLED:
+2025-10-31 20:19:49,326 - __main__ - INFO -    Message ID: 44088
+2025-10-31 20:19:49,326 - __main__ - INFO -    From user: None
+2025-10-31 20:19:49,327 - __main__ - INFO -    Chat ID: PeerChannel(channel_id=1623437581)
+2025-10-31 20:19:49,327 - __main__ - INFO -    Has text: True
+2025-10-31 20:19:49,327 - __main__ - INFO -    Message type: <class 'telethon.tl.types.MessageMediaPhoto'>
+2025-10-31 20:19:49,328 - __main__ - WARNING -    ❌ No text content in message
+2025-10-31 20:19:49,328 - __main__ - INFO -    Message content: <telethon.tl.patched.Message object at 0x0000014894CBD410>
+2025-10-31 20:19:49,328 - __main__ - INFO - 📝 MESSAGE IGNORED: Non-text message (ID: 44088) - No text content
+2025-10-31 20:19:49,329 - __main__ - INFO - 🔍 MESSAGE HANDLER CALLED:
+2025-10-31 20:19:49,329 - __main__ - INFO -    Message ID: 44089
+2025-10-31 20:19:49,329 - __main__ - INFO -    From user: None
+2025-10-31 20:19:49,329 - __main__ - INFO -    Chat ID: PeerChannel(channel_id=1623437581)
+2025-10-31 20:19:49,330 - __main__ - INFO -    Has text: True
+2025-10-31 20:19:49,330 - __main__ - INFO -    Message type: <class 'telethon.tl.types.MessageMediaPhoto'>
+2025-10-31 20:19:49,330 - __main__ - WARNING -    ❌ No text content in message
+2025-10-31 20:19:49,330 - __main__ - INFO -    Message content: <telethon.tl.patched.Message object at 0x0000014894CB7B50>
+2025-10-31 20:19:49,331 - __main__ - INFO - 📝 MESSAGE IGNORED: Non-text message (ID: 44089) - No text content
+2025-10-31 20:19:49,809 - telethon.client.updates - INFO - Got difference for channel 1623437581 updates
+2025-10-31 20:19:49,809 - __main__ - INFO - 🔍 MESSAGE HANDLER CALLED:
+2025-10-31 20:19:49,811 - __main__ - INFO -    Message ID: 44090
+2025-10-31 20:19:49,811 - __main__ - INFO -    From user: None
+2025-10-31 20:19:49,811 - __main__ - INFO -    Chat ID: PeerChannel(channel_id=1623437581)
+2025-10-31 20:19:49,811 - __main__ - INFO -    Has text: True
+2025-10-31 20:19:49,811 - __main__ - INFO -    Message type: <class 'telethon.tl.types.MessageMediaPhoto'>
+2025-10-31 20:19:49,811 - __main__ - INFO -    ✅ Message text found: 30th October 2025 (Batch 4)...
+2025-10-31 20:19:49,811 - __main__ - INFO -    🎯 CALLING process_trading_signal()
+2025-10-31 20:19:49,813 - __main__ - INFO - 🔍 MESSAGE HANDLER CALLED:
+2025-10-31 20:19:49,813 - __main__ - INFO -    Message ID: 44091
+2025-10-31 20:19:49,813 - __main__ - INFO -    From user: None
+2025-10-31 20:19:49,813 - __main__ - INFO -    Chat ID: PeerChannel(channel_id=1623437581)
+2025-10-31 20:19:49,813 - __main__ - INFO -    Has text: True
+2025-10-31 20:19:49,813 - __main__ - INFO -    Message type: <class 'telethon.tl.types.MessageMediaPhoto'>
+2025-10-31 20:19:49,813 - __main__ - WARNING -    ❌ No text content in message
+2025-10-31 20:19:49,813 - __main__ - INFO -    Message content: <telethon.tl.patched.Message object at 0x0000014894CB6410>
+2025-10-31 20:19:49,815 - __main__ - INFO - 📝 MESSAGE IGNORED: Non-text message (ID: 44091) - No text content
+2025-10-31 20:19:49,815 - __main__ - INFO - 🔍 MESSAGE HANDLER CALLED:
+2025-10-31 20:19:49,815 - __main__ - INFO -    Message ID: 44092
+2025-10-31 20:19:49,815 - __main__ - INFO -    From user: None
+2025-10-31 20:19:49,815 - __main__ - INFO -    Chat ID: PeerChannel(channel_id=1623437581)
+2025-10-31 20:19:49,815 - __main__ - INFO -    Has text: True
+2025-10-31 20:19:49,815 - __main__ - INFO -    Message type: <class 'telethon.tl.types.MessageMediaPhoto'>
+2025-10-31 20:19:49,815 - __main__ - WARNING -    ❌ No text content in message
+2025-10-31 20:19:49,817 - __main__ - INFO -    Message content: <telethon.tl.patched.Message object at 0x0000014894CB61D0>
+2025-10-31 20:19:49,817 - __main__ - INFO - 📝 MESSAGE IGNORED: Non-text message (ID: 44092) - No text content
+2025-10-31 20:19:49,817 - __main__ - INFO - 🔍 MESSAGE HANDLER CALLED:
+2025-10-31 20:19:49,817 - __main__ - INFO -    Message ID: 44093
+2025-10-31 20:19:49,818 - __main__ - INFO -    From user: None
+2025-10-31 20:19:49,818 - __main__ - INFO -    Chat ID: PeerChannel(channel_id=1623437581)
+2025-10-31 20:19:49,818 - __main__ - INFO -    Has text: True
+2025-10-31 20:19:49,819 - __main__ - INFO -    Message type: <class 'telethon.tl.types.MessageMediaPhoto'>
+2025-10-31 20:19:49,819 - __main__ - WARNING -    ❌ No text content in message
+2025-10-31 20:19:49,820 - __main__ - INFO -    Message content: <telethon.tl.patched.Message object at 0x0000014894CB6210>
+2025-10-31 20:19:49,820 - __main__ - INFO - 📝 MESSAGE IGNORED: Non-text message (ID: 44093) - No text content
+2025-10-31 20:19:49,820 - __main__ - INFO - 🔍 MESSAGE HANDLER CALLED:
+2025-10-31 20:19:49,821 - __main__ - INFO -    Message ID: 44094
+2025-10-31 20:19:49,821 - __main__ - INFO -    From user: None
+2025-10-31 20:19:49,821 - __main__ - INFO -    Chat ID: PeerChannel(channel_id=1623437581)
+2025-10-31 20:19:49,821 - __main__ - INFO -    Has text: True
+2025-10-31 20:19:49,822 - __main__ - INFO -    Message type: <class 'telethon.tl.types.MessageMediaPhoto'>
+2025-10-31 20:19:49,822 - __main__ - WARNING -    ❌ No text content in message
+2025-10-31 20:19:49,822 - __main__ - INFO -    Message content: <telethon.tl.patched.Message object at 0x0000014894CB7CD0>
+2025-10-31 20:19:49,822 - __main__ - INFO - 📝 MESSAGE IGNORED: Non-text message (ID: 44094) - No text content
+2025-10-31 20:19:49,823 - __main__ - INFO - 🔍 MESSAGE HANDLER CALLED:
+2025-10-31 20:19:49,823 - __main__ - INFO -    Message ID: 44095
+2025-10-31 20:19:49,823 - __main__ - INFO -    From user: None
+2025-10-31 20:19:49,823 - __main__ - INFO -    Chat ID: PeerChannel(channel_id=1623437581)
+2025-10-31 20:19:49,824 - __main__ - INFO -    Has text: True
+2025-10-31 20:19:49,824 - __main__ - INFO -    Message type: <class 'telethon.tl.types.MessageMediaPhoto'>
+2025-10-31 20:19:49,824 - __main__ - WARNING -    ❌ No text content in message
+2025-10-31 20:19:49,825 - __main__ - INFO -    Message content: <telethon.tl.patched.Message object at 0x0000014894CB73D0>
+2025-10-31 20:19:49,825 - __main__ - INFO - 📝 MESSAGE IGNORED: Non-text message (ID: 44095) - No text content
+2025-10-31 20:19:49,825 - __main__ - INFO - 🔍 MESSAGE HANDLER CALLED:
+2025-10-31 20:19:49,825 - __main__ - INFO -    Message ID: 44096
+2025-10-31 20:19:49,826 - __main__ - INFO -    From user: None
+2025-10-31 20:19:49,826 - __main__ - INFO -    Chat ID: PeerChannel(channel_id=1623437581)
+2025-10-31 20:19:49,826 - __main__ - INFO -    Has text: True
+2025-10-31 20:19:49,826 - __main__ - INFO -    Message type: <class 'telethon.tl.types.MessageMediaPhoto'>
+2025-10-31 20:19:49,827 - __main__ - INFO -    ✅ Message text found: 30th October 2025 (Batch 5)...
+2025-10-31 20:19:49,827 - __main__ - INFO -    🎯 CALLING process_trading_signal()
+2025-10-31 20:19:49,829 - __main__ - INFO - 🔍 MESSAGE HANDLER CALLED:
+2025-10-31 20:19:49,830 - __main__ - INFO -    Message ID: 44097
+2025-10-31 20:19:49,831 - __main__ - INFO -    From user: None
+2025-10-31 20:19:49,832 - __main__ - INFO -    Chat ID: PeerChannel(channel_id=1623437581)
+2025-10-31 20:19:49,832 - __main__ - INFO -    Has text: True
+2025-10-31 20:19:49,833 - __main__ - INFO -    Message type: <class 'telethon.tl.types.MessageMediaPhoto'>
+2025-10-31 20:19:49,834 - __main__ - WARNING -    ❌ No text content in message
+2025-10-31 20:19:49,835 - __main__ - INFO -    Message content: <telethon.tl.patched.Message object at 0x0000014894CB7AD0>
+2025-10-31 20:19:49,836 - __main__ - INFO - 📝 MESSAGE IGNORED: Non-text message (ID: 44097) - No text content
+2025-10-31 20:19:49,837 - __main__ - INFO - 🔍 MESSAGE HANDLER CALLED:
+2025-10-31 20:19:49,838 - __main__ - INFO -    Message ID: 44098
+2025-10-31 20:19:49,838 - __main__ - INFO -    From user: None
+2025-10-31 20:19:49,839 - __main__ - INFO -    Chat ID: PeerChannel(channel_id=1623437581)
+2025-10-31 20:19:49,840 - __main__ - INFO -    Has text: True
+2025-10-31 20:19:49,840 - __main__ - INFO -    Message type: <class 'telethon.tl.types.MessageMediaPhoto'>
+2025-10-31 20:19:49,842 - __main__ - WARNING -    ❌ No text content in message
+2025-10-31 20:19:49,842 - __main__ - INFO -    Message content: <telethon.tl.patched.Message object at 0x0000014894CB5250>
+2025-10-31 20:19:49,843 - __main__ - INFO - 📝 MESSAGE IGNORED: Non-text message (ID: 44098) - No text content
+2025-10-31 20:19:49,844 - __main__ - INFO - 🔍 MESSAGE HANDLER CALLED:
+2025-10-31 20:19:49,845 - __main__ - INFO -    Message ID: 44099
+2025-10-31 20:19:49,847 - __main__ - INFO -    From user: None
+2025-10-31 20:19:49,848 - __main__ - INFO -    Chat ID: PeerChannel(channel_id=1623437581)
+2025-10-31 20:19:49,848 - __main__ - INFO -    Has text: True
+2025-10-31 20:19:49,849 - __main__ - INFO -    Message type: <class 'telethon.tl.types.MessageMediaPhoto'>
+2025-10-31 20:19:49,849 - __main__ - WARNING -    ❌ No text content in message
+2025-10-31 20:19:49,850 - __main__ - INFO -    Message content: <telethon.tl.patched.Message object at 0x0000014894CBC850>
+2025-10-31 20:19:49,850 - __main__ - INFO - 📝 MESSAGE IGNORED: Non-text message (ID: 44099) - No text content
+2025-10-31 20:19:49,850 - __main__ - INFO - 🔍 MESSAGE HANDLER CALLED:
+2025-10-31 20:19:49,850 - __main__ - INFO -    Message ID: 44100
+2025-10-31 20:19:49,851 - __main__ - INFO -    From user: None
+2025-10-31 20:19:49,851 - __main__ - INFO -    Chat ID: PeerChannel(channel_id=1623437581)
+2025-10-31 20:19:49,851 - __main__ - INFO -    Has text: True
+2025-10-31 20:19:49,852 - __main__ - INFO -    Message type: <class 'telethon.tl.types.MessageMediaPhoto'>
+2025-10-31 20:19:49,852 - __main__ - WARNING -    ❌ No text content in message
+2025-10-31 20:19:49,852 - __main__ - INFO -    Message content: <telethon.tl.patched.Message object at 0x0000014894CBC290>
+2025-10-31 20:19:49,853 - __main__ - INFO - 📝 MESSAGE IGNORED: Non-text message (ID: 44100) - No text content
+2025-10-31 20:20:49,803 - telethon.client.updates - INFO - Got difference for channel 1623437581 updates
+2025-10-31 20:20:49,804 - __main__ - INFO - 🔍 MESSAGE HANDLER CALLED:
+2025-10-31 20:20:49,804 - __main__ - INFO -    Message ID: 44101
+2025-10-31 20:20:49,804 - __main__ - INFO -    From user: None
+2025-10-31 20:20:49,805 - __main__ - INFO -    Chat ID: PeerChannel(channel_id=1623437581)
+2025-10-31 20:20:49,805 - __main__ - INFO -    Has text: True
+2025-10-31 20:20:49,806 - __main__ - INFO -    Message type: <class 'telethon.tl.types.MessageMediaPhoto'>
+2025-10-31 20:20:49,806 - __main__ - INFO -    ✅ Message text found: 30th October 2025 (Batch 6)...
+2025-10-31 20:20:49,806 - __main__ - INFO -    🎯 CALLING process_trading_signal()
+2025-10-31 20:20:49,806 - __main__ - INFO - 🔍 MESSAGE HANDLER CALLED:
+2025-10-31 20:20:49,807 - __main__ - INFO -    Message ID: 44102
+2025-10-31 20:20:49,807 - __main__ - INFO -    From user: None
+2025-10-31 20:20:49,808 - __main__ - INFO -    Chat ID: PeerChannel(channel_id=1623437581)
+2025-10-31 20:20:49,808 - __main__ - INFO -    Has text: True
+2025-10-31 20:20:49,808 - __main__ - INFO -    Message type: <class 'telethon.tl.types.MessageMediaPhoto'>
+2025-10-31 20:20:49,810 - __main__ - WARNING -    ❌ No text content in message
+2025-10-31 20:20:49,810 - __main__ - INFO -    Message content: <telethon.tl.patched.Message object at 0x0000014894CBCA10>
+2025-10-31 20:20:49,810 - __main__ - INFO - 📝 MESSAGE IGNORED: Non-text message (ID: 44102) - No text content
+2025-10-31 20:20:49,810 - __main__ - INFO - 🔍 MESSAGE HANDLER CALLED:
+2025-10-31 20:20:49,810 - __main__ - INFO -    Message ID: 44103
+2025-10-31 20:20:49,812 - __main__ - INFO -    From user: None
+2025-10-31 20:20:49,812 - __main__ - INFO -    Chat ID: PeerChannel(channel_id=1623437581)
+2025-10-31 20:20:49,812 - __main__ - INFO -    Has text: True
+2025-10-31 20:20:49,812 - __main__ - INFO -    Message type: <class 'telethon.tl.types.MessageMediaPhoto'>
+2025-10-31 20:20:49,813 - __main__ - WARNING -    ❌ No text content in message
+2025-10-31 20:20:49,813 - __main__ - INFO -    Message content: <telethon.tl.patched.Message object at 0x0000014894CBE850>
+2025-10-31 20:20:49,813 - __main__ - INFO - 📝 MESSAGE IGNORED: Non-text message (ID: 44103) - No text content
+2025-10-31 20:20:49,814 - __main__ - INFO - 🔍 MESSAGE HANDLER CALLED:
+2025-10-31 20:20:49,814 - __main__ - INFO -    Message ID: 44104
+2025-10-31 20:20:49,814 - __main__ - INFO -    From user: None
+2025-10-31 20:20:49,814 - __main__ - INFO -    Chat ID: PeerChannel(channel_id=1623437581)
+2025-10-31 20:20:49,814 - __main__ - INFO -    Has text: True
+2025-10-31 20:20:49,815 - __main__ - INFO -    Message type: <class 'telethon.tl.types.MessageMediaPhoto'>
+2025-10-31 20:20:49,815 - __main__ - WARNING -    ❌ No text content in message
+2025-10-31 20:20:49,815 - __main__ - INFO -    Message content: <telethon.tl.patched.Message object at 0x0000014894CBD190>
+2025-10-31 20:20:49,816 - __main__ - INFO - 📝 MESSAGE IGNORED: Non-text message (ID: 44104) - No text content
+2025-11-01 02:43:53,116 - __main__ - INFO - 🔍 MESSAGE HANDLER CALLED:
+2025-11-01 02:43:53,116 - __main__ - INFO -    Message ID: 44105
+2025-11-01 02:43:53,116 - __main__ - INFO -    From user: None
+2025-11-01 02:43:53,116 - __main__ - INFO -    Chat ID: PeerChannel(channel_id=1623437581)
+2025-11-01 02:43:53,120 - __main__ - INFO -    Has text: True
+2025-11-01 02:43:53,120 - __main__ - INFO -    Message type: <class 'telethon.tl.types.MessageMediaDocument'>
+2025-11-01 02:43:53,120 - __main__ - INFO -    ✅ Message text found: Overnight success is **the most bullshit thing** I believed in when I was poor 🙅
+
+The life you want ...
+2025-11-01 02:43:53,120 - __main__ - INFO -    🎯 CALLING process_trading_signal()
+2025-11-01 06:28:56,012 - telethon.client.updates - INFO - Got difference for channel 1623437581 updates
+2025-11-01 06:58:56,327 - telethon.client.updates - INFO - Got difference for channel 1623437581 updates
+2025-11-01 06:58:56,328 - __main__ - INFO - 🔍 MESSAGE HANDLER CALLED:
+2025-11-01 06:58:56,329 - __main__ - INFO -    Message ID: 44107
+2025-11-01 06:58:56,329 - __main__ - INFO -    From user: None
+2025-11-01 06:58:56,329 - __main__ - INFO -    Chat ID: PeerChannel(channel_id=1623437581)
+2025-11-01 06:58:56,329 - __main__ - INFO -    Has text: True
+2025-11-01 06:58:56,329 - __main__ - INFO -    Message type: <class 'telethon.tl.types.MessageMediaPhoto'>
+2025-11-01 06:58:56,329 - __main__ - INFO -    ✅ Message text found: 🟢 Making an extra $642 on the swap holding 2 lots for this trade since 27th October (when I sent tha...
+2025-11-01 06:58:56,330 - __main__ - INFO -    🎯 CALLING process_trading_signal()
+2025-11-01 06:58:56,331 - __main__ - INFO - 🔍 PROCESSING MESSAGE:
+2025-11-01 06:58:56,331 - __main__ - INFO -    Raw message: '🟢 Making an extra $642 on the swap holding 2 lots for this trade since 27th October (when I sent that signal)\n\nIt’s completely fine holding trades if:\n\n1. It’s obviously going to print crazy\n\n2. You literally get paid to hold them 😂'
+2025-11-01 06:58:56,331 - __main__ - INFO -    Message length: 232 characters
+2025-11-01 06:58:56,333 - __main__ - INFO -    🔍 Command Detection: BE=True, Partial=False, Close=False, ExtendTP=False
+2025-11-01 06:58:56,333 - __main__ - INFO - 🎯 BREAK EVEN COMMAND DETECTED!
+2025-11-01 06:58:56,333 - __main__ - INFO - 🎯 MOVING STOP LOSS TO BREAK EVEN:
+2025-11-01 06:58:56,334 - __main__ - INFO -    BE partial volume to close: 0.01
+2025-11-01 06:58:56,335 - __main__ - INFO -    ❌ No open positions to modify
+2025-11-01 08:17:56,519 - __main__ - INFO - 🔍 MESSAGE HANDLER CALLED:
+2025-11-01 08:17:56,520 - __main__ - INFO -    Message ID: 44108
+2025-11-01 08:17:56,520 - __main__ - INFO -    From user: None
+2025-11-01 08:17:56,521 - __main__ - INFO -    Chat ID: PeerChannel(channel_id=1623437581)
+2025-11-01 08:17:56,521 - __main__ - INFO -    Has text: True
+2025-11-01 08:17:56,521 - __main__ - INFO -    Message type: <class 'telethon.tl.types.MessageMediaPhoto'>
+2025-11-01 08:17:56,523 - __main__ - INFO -    ✅ Message text found: **15M BTCUSD Analysis (1st Nov 2025)**
+
+BUY/SELL SCENARIOS:
+
+🟢BUYS:
+1) Retest the 15M bullish OB at ...
+2025-11-01 08:17:56,523 - __main__ - INFO -    🎯 CALLING process_trading_signal()
+2025-11-01 10:16:51,471 - telethon.client.updates - INFO - Got difference for channel 2848189989 updates
+2025-11-01 10:31:51,506 - telethon.client.updates - INFO - Got difference for channel 2848189989 updates
+2025-11-01 10:46:51,525 - telethon.client.updates - INFO - Got difference for account updates
+2025-11-01 12:16:51,795 - telethon.client.updates - WARNING - Cannot get difference since the account is likely misusing the session: Could not find a matching Constructor ID for the TLObject that was supposed to be read with ID 83259464. See the FAQ for more details. Remaining bytes: b'd\x94%\x83  \x00\x00\x00\x00\x00\x00%\xee\xc3\xa9\x00\x00\x00\x00\x02\xed\xe8A\x99\x9d\xd9\x12\x11CallistoFx (Live)\x00\x00\x11\x1cn\x1c\x02\x00\x00\x00\xf6\xc61\x1bTl!V\x14\x01\x08\x08\xcc/\x1f\x91\xb7\x03w\xd3\xdf\xae~\x9d\xa8\xa2\x8a\x06\x7f\x00\x00\x00\x05\x00\x00\x00\x9a\x02qh\x15\xc4\xb5\x1c\x00\x00\x00\x00>*l\xa5\x8e\x03\x00\x00\x00\x00\x00\x00#\xec\x05i\x9d\x00\x00\x00\x04\x00\x00\x00\xbf9\x0c\xe2\xa7"\xbd\xa0*\xad\xaa\x8b'
+2025-11-01 12:16:51,797 - telethon.network.mtprotosender - INFO - Disconnecting from 149.154.167.92:443/TcpFull...
+2025-11-01 12:16:51,799 - telethon.network.mtprotosender - INFO - Disconnection from 149.154.167.92:443/TcpFull complete!
+2025-11-01 12:16:51,799 - telethon.network.mtprotosender - INFO - Not disconnecting (already have no connection)
+2025-11-01 12:16:51,821 - __main__ - ERROR - Unexpected error: Could not find a matching Constructor ID for the TLObject that was supposed to be read with ID 83259464. See the FAQ for more details. Remaining bytes: b'd\x94%\x83  \x00\x00\x00\x00\x00\x00%\xee\xc3\xa9\x00\x00\x00\x00\x02\xed\xe8A\x99\x9d\xd9\x12\x11CallistoFx (Live)\x00\x00\x11\x1cn\x1c\x02\x00\x00\x00\xf6\xc61\x1bTl!V\x14\x01\x08\x08\xcc/\x1f\x91\xb7\x03w\xd3\xdf\xae~\x9d\xa8\xa2\x8a\x06\x7f\x00\x00\x00\x05\x00\x00\x00\x9a\x02qh\x15\xc4\xb5\x1c\x00\x00\x00\x00>*l\xa5\x8e\x03\x00\x00\x00\x00\x00\x00#\xec\x05i\x9d\x00\x00\x00\x04\x00\x00\x00\xbf9\x0c\xe2\xa7"\xbd\xa0*\xad\xaa\x8b'
+2025-11-01 12:16:53,150 - telethon.network.mtprotosender - INFO - Not disconnecting (already have no connection)
+2025-11-01 12:16:53,160 - __main__ - INFO - Disconnected from MT5
+2025-11-01 12:16:53,658 - __main__ - INFO - Monitor stopped
+2025-11-01 16:18:31,795 - __main__ - INFO - Health check server started on port 8000
+2025-11-01 16:18:31,796 - __main__ - INFO - Starting Direct MT5 Telegram Monitor...
+2025-11-01 16:18:31,796 - __main__ - INFO - Strategy: midpoint, V: 0.09
+2025-11-01 16:18:31,831 - __main__ - INFO - Connected to MT5 VPS - Server: PUPrime-Demo, Account: 700010991
+2025-11-01 16:18:31,832 - __main__ - INFO - Account info - Login: 700010991, Balance: 100030.93
+2025-11-01 16:18:31,873 - __main__ - INFO - Connecting to Telegram as user...
+2025-11-01 16:18:31,873 - telethon.network.mtprotosender - INFO - Connecting to 149.154.167.92:443/TcpFull...
+2025-11-01 16:18:31,883 - telethon.network.mtprotosender - INFO - Connection to 149.154.167.92:443/TcpFull complete!
+2025-11-01 16:18:32,102 - __main__ - INFO - Connected to group: 🚀 CallistoFx Premium Channel 🚀
+2025-11-01 16:18:32,103 - __main__ - INFO - Event handlers set up successfully
+2025-11-01 16:18:32,103 - __main__ - INFO - ✅ Monitor is running. Watching for trading signals...
+2025-11-01 16:22:57,800 - telethon.network.mtprotosender - INFO - Disconnecting from 149.154.167.92:443/TcpFull...
+2025-11-01 16:22:57,802 - telethon.network.mtprotosender - INFO - Disconnection from 149.154.167.92:443/TcpFull complete!
+2025-11-01 16:22:57,810 - telethon.network.mtprotosender - INFO - Not disconnecting (already have no connection)
+2025-11-01 16:22:57,820 - __main__ - INFO - Disconnected from MT5
+2025-11-01 16:23:01,047 - __main__ - INFO - Health check server started on port 8000
+2025-11-01 16:23:01,047 - __main__ - INFO - Starting Direct MT5 Telegram Monitor...
+2025-11-01 16:23:01,048 - __main__ - INFO - Strategy: adaptive, V: 0.09
+2025-11-01 16:23:01,067 - __main__ - INFO - Connected to MT5 VPS - Server: PUPrime-Demo, Account: 700010991
+2025-11-01 16:23:01,067 - __main__ - INFO - Account info - Login: 700010991, Balance: 100030.93
+2025-11-01 16:23:01,110 - __main__ - INFO - Connecting to Telegram as user...
+2025-11-01 16:23:01,111 - telethon.network.mtprotosender - INFO - Connecting to 149.154.167.92:443/TcpFull...
+2025-11-01 16:23:01,121 - telethon.network.mtprotosender - INFO - Connection to 149.154.167.92:443/TcpFull complete!
+2025-11-01 16:23:01,288 - __main__ - INFO - Connected to group: 🚀 CallistoFx Premium Channel 🚀
+2025-11-01 16:23:01,290 - __main__ - INFO - Event handlers set up successfully
+2025-11-01 16:23:01,290 - __main__ - INFO - ✅ Monitor is running. Watching for trading signals...
+2025-11-01 16:24:17,605 - telethon.network.mtprotosender - INFO - Disconnecting from 149.154.167.92:443/TcpFull...
+2025-11-01 16:24:17,607 - telethon.network.mtprotosender - INFO - Disconnection from 149.154.167.92:443/TcpFull complete!
+2025-11-01 16:24:17,612 - telethon.network.mtprotosender - INFO - Not disconnecting (already have no connection)
+2025-11-01 16:24:17,636 - __main__ - INFO - Disconnected from MT5
+2025-11-01 16:24:21,119 - __main__ - INFO - Health check server started on port 8000
+2025-11-01 16:24:21,120 - __main__ - INFO - Starting Direct MT5 Telegram Monitor...
+2025-11-01 16:24:21,120 - __main__ - INFO - Strategy: adaptive, V: 0.09
+2025-11-01 16:24:21,138 - __main__ - INFO - Connected to MT5 VPS - Server: PUPrime-Demo, Account: 700010991
+2025-11-01 16:24:21,139 - __main__ - INFO - Account info - Login: 700010991, Balance: 100030.93
+2025-11-01 16:24:21,179 - __main__ - INFO - Connecting to Telegram as user...
+2025-11-01 16:24:21,180 - telethon.network.mtprotosender - INFO - Connecting to 149.154.167.92:443/TcpFull...
+2025-11-01 16:24:21,192 - telethon.network.mtprotosender - INFO - Connection to 149.154.167.92:443/TcpFull complete!
+2025-11-01 16:24:21,399 - __main__ - INFO - Connected to group: 🚀 CallistoFx Premium Channel 🚀
+2025-11-01 16:24:21,400 - __main__ - INFO - Event handlers set up successfully
+2025-11-01 16:24:21,401 - __main__ - INFO - ✅ Monitor is running. Watching for trading signals...
+2025-11-01 16:25:44,961 - __main__ - INFO - Health check server started on port 8000
+2025-11-01 16:25:44,962 - __main__ - INFO - Starting Direct MT5 Telegram Monitor...
+2025-11-01 16:25:44,962 - __main__ - INFO - Strategy: adaptive, V: 0.09
+2025-11-01 16:25:44,989 - __main__ - INFO - Connected to MT5 VPS - Server: PUPrime-Demo, Account: 700010991
+2025-11-01 16:25:44,989 - __main__ - INFO - Account info - Login: 700010991, Balance: 100030.93
+2025-11-01 16:25:45,049 - __main__ - INFO - Connecting to Telegram as user...
+2025-11-01 16:25:45,049 - telethon.network.mtprotosender - INFO - Connecting to 149.154.167.92:443/TcpFull...
+2025-11-01 16:25:45,062 - telethon.network.mtprotosender - INFO - Connection to 149.154.167.92:443/TcpFull complete!
+2025-11-01 16:25:45,247 - __main__ - INFO - Connected to group: 🚀 CallistoFx Premium Channel 🚀
+2025-11-01 16:25:45,247 - __main__ - INFO - Event handlers set up successfully
+2025-11-01 16:25:45,248 - __main__ - INFO - ✅ Monitor is running. Watching for trading signals...
+2025-11-02 11:08:25,100 - __main__ - INFO - Health check server started on port 8000
+2025-11-02 11:08:25,101 - __main__ - INFO - Starting Direct MT5 Telegram Monitor...
+2025-11-02 11:08:25,101 - __main__ - INFO - Strategy: adaptive, V: 0.09
+2025-11-02 11:08:25,120 - __main__ - INFO - Connected to MT5 VPS - Server: PUPrime-Demo, Account: 700010991
+2025-11-02 11:08:25,120 - __main__ - INFO - Account info - Login: 700010991, Balance: 100030.93
+2025-11-02 11:08:25,172 - __main__ - INFO - Connecting to Telegram as user...
+2025-11-02 11:08:25,172 - telethon.network.mtprotosender - INFO - Connecting to 149.154.167.92:443/TcpFull...
+2025-11-02 11:08:25,189 - telethon.network.mtprotosender - INFO - Connection to 149.154.167.92:443/TcpFull complete!
+2025-11-02 11:08:25,397 - __main__ - INFO - Connected to group: 🚀 CallistoFx Premium Channel 🚀
+2025-11-02 11:08:25,398 - __main__ - INFO - Event handlers set up successfully
+2025-11-02 11:08:25,399 - __main__ - INFO - ✅ Monitor is running. Watching for trading signals...
+2025-11-02 11:08:25,401 - __main__ - INFO - 🌐 Health check server started on port 8080
+2025-11-02 11:08:25,402 - __main__ - INFO -    GET http://localhost:8080/health - Detailed status
+2025-11-02 11:08:25,402 - __main__ - INFO -    GET http://localhost:8080/ - Simple status
+2025-11-02 11:08:25,952 - __main__ - WARNING - Failed to send feedback to Telegram: 404
+2025-11-02 11:13:39,533 - telethon.network.mtprotosender - INFO - Disconnecting from 149.154.167.92:443/TcpFull...
+2025-11-02 11:13:39,535 - telethon.network.mtprotosender - INFO - Disconnection from 149.154.167.92:443/TcpFull complete!
+2025-11-02 11:13:39,543 - telethon.network.mtprotosender - INFO - Not disconnecting (already have no connection)
+2025-11-02 11:13:39,552 - __main__ - INFO - Disconnected from MT5
+2025-11-02 11:13:42,303 - __main__ - INFO - Health check server started on port 8000
+2025-11-02 11:13:42,304 - __main__ - INFO - Starting Direct MT5 Telegram Monitor...
+2025-11-02 11:13:42,304 - __main__ - INFO - Strategy: adaptive, V: 0.09
+2025-11-02 11:13:42,323 - __main__ - INFO - Connected to MT5 VPS - Server: PUPrime-Demo, Account: 700010991
+2025-11-02 11:13:42,324 - __main__ - INFO - Account info - Login: 700010991, Balance: 100030.93
+2025-11-02 11:13:42,366 - __main__ - INFO - Connecting to Telegram as user...
+2025-11-02 11:13:42,366 - telethon.network.mtprotosender - INFO - Connecting to 149.154.167.92:443/TcpFull...
+2025-11-02 11:13:42,379 - telethon.network.mtprotosender - INFO - Connection to 149.154.167.92:443/TcpFull complete!
+2025-11-02 11:13:42,559 - __main__ - INFO - Connected to group: 🚀 CallistoFx Premium Channel 🚀
+2025-11-02 11:13:42,560 - __main__ - INFO - Event handlers set up successfully
+2025-11-02 11:13:42,560 - __main__ - INFO - ✅ Monitor is running. Watching for trading signals...
+2025-11-02 11:13:42,562 - __main__ - INFO - 🌐 Health check server started on port 8080
+2025-11-02 11:13:42,563 - __main__ - INFO -    GET http://localhost:8080/health - Detailed status
+2025-11-02 11:13:42,563 - __main__ - INFO -    GET http://localhost:8080/ - Simple status
+2025-11-02 11:13:43,028 - __main__ - WARNING - Failed to send feedback to Telegram: 404
+2025-11-02 11:14:07,110 - telethon.network.mtprotosender - INFO - Disconnecting from 149.154.167.92:443/TcpFull...
+2025-11-02 11:14:07,112 - telethon.network.mtprotosender - INFO - Disconnection from 149.154.167.92:443/TcpFull complete!
+2025-11-02 11:14:07,116 - telethon.network.mtprotosender - INFO - Not disconnecting (already have no connection)
+2025-11-02 11:14:07,126 - __main__ - INFO - Disconnected from MT5
+2025-11-02 11:14:07,215 - __main__ - INFO - 🌐 Health check server stopped
+2025-11-02 11:14:07,690 - __main__ - WARNING - Failed to send feedback to Telegram: 404
+2025-11-02 11:14:09,885 - __main__ - INFO - Health check server started on port 8000
+2025-11-02 11:14:09,886 - __main__ - INFO - Starting Direct MT5 Telegram Monitor...
+2025-11-02 11:14:09,887 - __main__ - INFO - Strategy: adaptive, V: 0.09
+2025-11-02 11:14:09,904 - __main__ - INFO - Connected to MT5 VPS - Server: PUPrime-Demo, Account: 700010991
+2025-11-02 11:14:09,905 - __main__ - INFO - Account info - Login: 700010991, Balance: 100030.93
+2025-11-02 11:14:09,943 - __main__ - INFO - Connecting to Telegram as user...
+2025-11-02 11:14:09,944 - telethon.network.mtprotosender - INFO - Connecting to 149.154.167.92:443/TcpFull...
+2025-11-02 11:14:09,956 - telethon.network.mtprotosender - INFO - Connection to 149.154.167.92:443/TcpFull complete!
+2025-11-02 11:14:10,161 - __main__ - INFO - Connected to group: 🚀 CallistoFx Premium Channel 🚀
+2025-11-02 11:14:10,161 - __main__ - INFO - Event handlers set up successfully
+2025-11-02 11:14:10,162 - __main__ - INFO - ✅ Monitor is running. Watching for trading signals...
+2025-11-02 11:14:10,165 - __main__ - INFO - 🌐 Health check server started on port 8080
+2025-11-02 11:14:10,165 - __main__ - INFO -    GET http://localhost:8080/health - Detailed status
+2025-11-02 11:14:10,165 - __main__ - INFO -    GET http://localhost:8080/ - Simple status
+2025-11-02 11:14:10,667 - __main__ - WARNING - Failed to send feedback to Telegram: 404
+2025-11-02 11:15:06,316 - telethon.network.mtprotosender - INFO - Disconnecting from 149.154.167.92:443/TcpFull...
+2025-11-02 11:15:06,318 - telethon.network.mtprotosender - INFO - Disconnection from 149.154.167.92:443/TcpFull complete!
+2025-11-02 11:15:06,324 - telethon.network.mtprotosender - INFO - Not disconnecting (already have no connection)
+2025-11-02 11:15:06,334 - __main__ - INFO - Disconnected from MT5
+2025-11-02 11:15:10,142 - __main__ - INFO - Health check server started on port 8000
+2025-11-02 11:15:10,142 - __main__ - INFO - Starting Direct MT5 Telegram Monitor...
+2025-11-02 11:15:10,142 - __main__ - INFO - Strategy: adaptive, V: 0.09
+2025-11-02 11:15:10,161 - __main__ - INFO - Connected to MT5 VPS - Server: PUPrime-Demo, Account: 700010991
+2025-11-02 11:15:10,161 - __main__ - INFO - Account info - Login: 700010991, Balance: 100030.93
+2025-11-02 11:15:10,200 - __main__ - INFO - Connecting to Telegram as user...
+2025-11-02 11:15:10,201 - telethon.network.mtprotosender - INFO - Connecting to 149.154.167.92:443/TcpFull...
+2025-11-02 11:15:10,210 - telethon.network.mtprotosender - INFO - Connection to 149.154.167.92:443/TcpFull complete!
+2025-11-02 11:15:10,370 - __main__ - INFO - Connected to group: 🚀 CallistoFx Premium Channel 🚀
+2025-11-02 11:15:10,370 - __main__ - INFO - Event handlers set up successfully
+2025-11-02 11:15:10,371 - __main__ - INFO - ✅ Monitor is running. Watching for trading signals...
+2025-11-02 11:15:10,374 - __main__ - INFO - 🌐 Health check server started on port 8080
+2025-11-02 11:15:10,374 - __main__ - INFO -    GET http://localhost:8080/health - Detailed status
+2025-11-02 11:15:10,374 - __main__ - INFO -    GET http://localhost:8080/ - Simple status
+2025-11-02 11:15:14,973 - telethon.network.mtprotosender - INFO - Disconnecting from 149.154.167.92:443/TcpFull...
+2025-11-02 11:15:14,973 - telethon.network.mtprotosender - INFO - Disconnection from 149.154.167.92:443/TcpFull complete!
+2025-11-02 11:15:14,979 - telethon.network.mtprotosender - INFO - Not disconnecting (already have no connection)
+2025-11-02 11:15:14,989 - __main__ - INFO - Disconnected from MT5
+2025-11-02 11:15:15,403 - __main__ - INFO - 🌐 Health check server stopped
+2025-11-02 11:15:52,390 - __main__ - INFO - Health check server started on port 8000
+2025-11-02 11:15:52,391 - __main__ - INFO - Starting Direct MT5 Telegram Monitor...
+2025-11-02 11:15:52,391 - __main__ - INFO - Strategy: adaptive, V: 0.09
+2025-11-02 11:15:52,412 - __main__ - INFO - Connected to MT5 VPS - Server: PUPrime-Demo, Account: 700010991
+2025-11-02 11:15:52,412 - __main__ - INFO - Account info - Login: 700010991, Balance: 100030.93
+2025-11-02 11:15:52,455 - __main__ - INFO - Connecting to Telegram as user...
+2025-11-02 11:15:52,455 - telethon.network.mtprotosender - INFO - Connecting to 149.154.167.92:443/TcpFull...
+2025-11-02 11:15:52,469 - telethon.network.mtprotosender - INFO - Connection to 149.154.167.92:443/TcpFull complete!
+2025-11-02 11:15:52,655 - __main__ - INFO - Connected to group: 🚀 CallistoFx Premium Channel 🚀
+2025-11-02 11:15:52,655 - __main__ - INFO - Event handlers set up successfully
+2025-11-02 11:15:52,656 - __main__ - INFO - ✅ Monitor is running. Watching for trading signals...
+2025-11-02 11:15:52,658 - __main__ - INFO - 🌐 Health check server started on port 8080
+2025-11-02 11:15:52,658 - __main__ - INFO -    GET http://localhost:8080/health - Detailed status
+2025-11-02 11:15:52,659 - __main__ - INFO -    GET http://localhost:8080/ - Simple status
+2025-11-02 11:15:53,110 - __main__ - WARNING - Failed to send feedback to Telegram: 404
+2025-11-02 11:32:47,978 - __main__ - INFO - Health check server started on port 8000
+2025-11-02 11:32:47,979 - __main__ - INFO - Starting Direct MT5 Telegram Monitor...
+2025-11-02 11:32:47,979 - __main__ - INFO - Strategy: adaptive, V: 0.09
+2025-11-02 11:32:47,987 - __main__ - ERROR - MT5 initialize() failed
+2025-11-02 11:33:32,986 - __main__ - INFO - Health check server started on port 8000
+2025-11-02 11:33:32,986 - __main__ - INFO - Starting Direct MT5 Telegram Monitor...
+2025-11-02 11:33:32,987 - __main__ - INFO - Strategy: adaptive, V: 0.09
+2025-11-02 11:33:32,994 - __main__ - ERROR - MT5 initialize() failed
+2025-11-02 11:34:19,568 - __main__ - INFO - Health check server started on port 8000
+2025-11-02 11:34:19,568 - __main__ - INFO - Starting Direct MT5 Telegram Monitor...
+2025-11-02 11:34:19,569 - __main__ - INFO - Strategy: adaptive, V: 0.09
+2025-11-02 11:34:19,575 - __main__ - ERROR - MT5 initialize() failed
+2025-11-02 11:35:26,622 - __main__ - INFO - Health check server started on port 8000
+2025-11-02 11:35:26,624 - __main__ - INFO - Starting Direct MT5 Telegram Monitor...
+2025-11-02 11:35:26,624 - __main__ - INFO - Strategy: adaptive, V: 0.09
+2025-11-02 11:35:26,645 - __main__ - INFO - Connected to MT5 VPS - Server: PUPrime-Demo, Account: 700010991
+2025-11-02 11:35:26,645 - __main__ - INFO - Account info - Login: 700010991, Balance: 100030.93
+2025-11-02 11:35:26,686 - __main__ - INFO - Connecting to Telegram as user...
+2025-11-02 11:35:26,687 - telethon.network.mtprotosender - INFO - Connecting to 149.154.167.92:443/TcpFull...
+2025-11-02 11:35:26,701 - telethon.network.mtprotosender - INFO - Connection to 149.154.167.92:443/TcpFull complete!
+2025-11-02 11:35:26,905 - __main__ - INFO - Connected to group: 🚀 CallistoFx Premium Channel 🚀
+2025-11-02 11:35:26,906 - __main__ - INFO - Event handlers set up successfully
+2025-11-02 11:35:26,906 - __main__ - INFO - ✅ Monitor is running. Watching for trading signals...
+2025-11-02 11:35:26,908 - __main__ - INFO - 🌐 Health check server started on port 8080
+2025-11-02 11:35:26,908 - __main__ - INFO -    GET http://localhost:8080/health - Detailed status
+2025-11-02 11:35:26,909 - __main__ - INFO -    GET http://localhost:8080/ - Simple status
+2025-11-02 11:43:24,952 - __main__ - INFO - Health check server started on port 8000
+2025-11-02 11:43:24,952 - __main__ - INFO - Starting Direct MT5 Telegram Monitor...
+2025-11-02 11:43:24,954 - __main__ - INFO - Strategy: adaptive, V: 0.09
+2025-11-02 11:43:24,972 - __main__ - INFO - Connected to MT5 VPS - Server: PUPrime-Demo, Account: 700010991
+2025-11-02 11:43:24,972 - __main__ - INFO - Account info - Login: 700010991, Balance: 100030.93
+2025-11-02 11:43:25,033 - __main__ - INFO - Connecting to Telegram as user...
+2025-11-02 11:43:25,033 - telethon.network.mtprotosender - INFO - Connecting to 149.154.167.92:443/TcpFull...
+2025-11-02 11:43:25,045 - telethon.network.mtprotosender - INFO - Connection to 149.154.167.92:443/TcpFull complete!
+2025-11-02 11:43:25,222 - __main__ - INFO - Connected to group: 🚀 CallistoFx Premium Channel 🚀
+2025-11-02 11:43:25,222 - __main__ - INFO - Event handlers set up successfully
+2025-11-02 11:43:25,222 - __main__ - INFO - ✅ Monitor is running. Watching for trading signals...
+2025-11-02 11:43:25,224 - __main__ - INFO - 🌐 Health check server started on port 8080
+2025-11-02 11:43:25,226 - __main__ - INFO -    GET http://localhost:8080/health - Detailed status
+2025-11-02 11:43:25,226 - __main__ - INFO -    GET http://localhost:8080/ - Simple status
+2025-11-02 12:32:49,652 - __main__ - INFO - Health check server started on port 8000
+2025-11-02 12:32:49,652 - __main__ - INFO - Starting Direct MT5 Telegram Monitor...
+2025-11-02 12:32:49,652 - __main__ - INFO - Strategy: adaptive, V: 0.09
+2025-11-02 12:32:49,670 - __main__ - INFO - Connected to MT5 VPS - Server: PUPrime-Demo, Account: 700010991
+2025-11-02 12:32:49,672 - __main__ - INFO - Account info - Login: 700010991, Balance: 100030.93
+2025-11-02 12:32:49,728 - __main__ - INFO - Connecting to Telegram as user...
+2025-11-02 12:32:49,728 - telethon.network.mtprotosender - INFO - Connecting to 149.154.167.92:443/TcpFull...
+2025-11-02 12:32:49,745 - telethon.network.mtprotosender - INFO - Connection to 149.154.167.92:443/TcpFull complete!
+2025-11-02 12:32:50,185 - __main__ - INFO - Connected to group: 🚀 CallistoFx Premium Channel 🚀
+2025-11-02 12:32:50,187 - __main__ - INFO - Event handlers set up successfully
+2025-11-02 12:32:50,187 - __main__ - INFO - ✅ Monitor is running. Watching for trading signals...
+2025-11-02 12:32:50,189 - __main__ - INFO - 🌐 Health check server started on port 8080
+2025-11-02 12:32:50,189 - __main__ - INFO -    GET http://localhost:8080/health - Detailed status
+2025-11-02 12:32:50,189 - __main__ - INFO -    GET http://localhost:8080/ - Simple status
+2025-11-02 12:32:54,723 - telethon.network.mtprotosender - INFO - Disconnecting from 149.154.167.92:443/TcpFull...
+2025-11-02 12:32:54,723 - telethon.network.mtprotosender - INFO - Disconnection from 149.154.167.92:443/TcpFull complete!
+2025-11-02 12:32:54,729 - telethon.network.mtprotosender - INFO - Not disconnecting (already have no connection)
+2025-11-02 12:32:54,739 - __main__ - INFO - Disconnected from MT5
+2025-11-02 12:32:54,764 - __main__ - INFO - 🌐 Health check server stopped
+2025-11-02 12:44:41,292 - __main__ - INFO - Health check server started on port 8000
+2025-11-02 12:44:41,330 - __main__ - INFO - Starting Direct MT5 Telegram Monitor...
+2025-11-02 12:44:41,330 - __main__ - INFO - Strategy: adaptive, V: 0.09
+2025-11-02 12:44:41,806 - __main__ - INFO - Connected to MT5 VPS - Server: PUPrime-Demo, Account: 700010991
+2025-11-02 12:44:41,807 - __main__ - INFO - Account info - Login: 700010991, Balance: 100030.93
+2025-11-02 12:44:41,871 - __main__ - INFO - Connecting to Telegram as user...
+2025-11-02 12:44:41,873 - telethon.network.mtprotosender - INFO - Connecting to 149.154.167.92:443/TcpFull...
+2025-11-02 12:44:41,886 - telethon.network.mtprotosender - INFO - Connection to 149.154.167.92:443/TcpFull complete!
+2025-11-02 12:44:42,182 - __main__ - INFO - Connected to group: 🚀 CallistoFx Premium Channel 🚀
+2025-11-02 12:44:42,183 - __main__ - INFO - Event handlers set up successfully
+2025-11-02 12:44:42,183 - __main__ - INFO - ✅ Monitor is running. Watching for trading signals...
+2025-11-02 12:44:42,185 - __main__ - INFO - 🌐 Health check server started on port 8080
+2025-11-02 12:44:42,185 - __main__ - INFO -    GET http://localhost:8080/health - Detailed status
+2025-11-02 12:44:42,185 - __main__ - INFO -    GET http://localhost:8080/ - Simple status
+2025-11-02 12:52:38,090 - __main__ - INFO - Health check server started on port 8000
+2025-11-02 12:52:38,090 - __main__ - INFO - Starting Direct MT5 Telegram Monitor...
+2025-11-02 12:52:38,091 - __main__ - INFO - Strategy: adaptive, V: 0.09
+2025-11-02 12:52:38,125 - __main__ - INFO - Connected to MT5 VPS - Server: PUPrime-Demo, Account: 700010991
+2025-11-02 12:52:38,125 - __main__ - INFO - Account info - Login: 700010991, Balance: 100030.93
+2025-11-02 12:52:38,173 - __main__ - INFO - Connecting to Telegram as user...
+2025-11-02 12:52:38,173 - telethon.network.mtprotosender - INFO - Connecting to 149.154.167.92:443/TcpFull...
+2025-11-02 12:52:38,187 - telethon.network.mtprotosender - INFO - Connection to 149.154.167.92:443/TcpFull complete!
+2025-11-02 12:52:38,447 - __main__ - INFO - Connected to group: 🚀 CallistoFx Premium Channel 🚀
+2025-11-02 12:52:38,447 - __main__ - INFO - Event handlers set up successfully
+2025-11-02 12:52:38,447 - __main__ - INFO - ✅ Monitor is running. Watching for trading signals...
+2025-11-02 12:52:38,449 - __main__ - INFO - 🌐 Health check server started on port 8080
+2025-11-02 12:52:38,450 - __main__ - INFO -    GET http://localhost:8080/health - Detailed status
+2025-11-02 12:52:38,450 - __main__ - INFO -    GET http://localhost:8080/ - Simple status
+2025-11-02 13:01:08,210 - __main__ - INFO - Health check server started on port 8000
+2025-11-02 13:01:08,210 - __main__ - INFO - Starting Direct MT5 Telegram Monitor...
+2025-11-02 13:01:08,210 - __main__ - INFO - Strategy: adaptive, V: 0.09
+2025-11-02 13:01:08,332 - __main__ - INFO - Connected to MT5 VPS - Server: PUPrime-Demo, Account: 700010991
+2025-11-02 13:01:08,333 - __main__ - INFO - Account info - Login: 700010991, Balance: 100030.93
+2025-11-02 13:01:08,396 - __main__ - INFO - Connecting to Telegram as user...
+2025-11-02 13:01:08,396 - telethon.network.mtprotosender - INFO - Connecting to 149.154.167.92:443/TcpFull...
+2025-11-02 13:01:08,409 - telethon.network.mtprotosender - INFO - Connection to 149.154.167.92:443/TcpFull complete!
+2025-11-02 13:01:08,610 - __main__ - INFO - Connected to group: 🚀 CallistoFx Premium Channel 🚀
+2025-11-02 13:01:08,610 - __main__ - INFO - Event handlers set up successfully
+2025-11-02 13:01:08,610 - __main__ - INFO - ✅ Monitor is running. Watching for trading signals...
+2025-11-02 13:01:08,612 - __main__ - INFO - 🌐 Health check server started on port 8080
+2025-11-02 13:01:08,614 - __main__ - INFO -    GET http://localhost:8080/health - Detailed status
+2025-11-02 13:01:08,614 - __main__ - INFO -    GET http://localhost:8080/ - Simple status
+2025-11-02 15:16:08,956 - telethon.client.updates - WARNING - Cannot get difference since the account is likely misusing the session: Could not find a matching Constructor ID for the TLObject that was supposed to be read with ID 83259464. See the FAQ for more details. Remaining bytes: b'd\x94%\x83  \x00\x00\x00\x00\x00\x00\r\xb1\xc3`\x00\x00\x00\x00\xa8\x15\x99\xb3\xd1\x7f\r\xfc$\xf0\x9f\x9a\x80 CallistoFx Premium Channel \xf0\x9f\x9a\x80\x00\x00\x00\x11\x1cn\x1c\x02\x00\x00\x00>\xb61\x1b%J\xb1W\x0b\x01\x08\x08\x97\xb7\xbd\x14Q]G\x19\x05\x00\x00\x00\x97\xa2\xdeh\x15\xc4\xb5\x1c\x00\x00\x00\x00>*l\xa5\x10\x04\x00\x00\x00\x00\x00\x00\xaag\x07iq\x01\x00\x00\x04\x00\x00\x006\xb7\x05\xb5\xb1[\xd1\t[\x0f\x00{1$,\xec:\xe2\xecN'
+2025-11-02 15:16:08,958 - telethon.network.mtprotosender - INFO - Disconnecting from 149.154.167.92:443/TcpFull...
+2025-11-02 15:16:08,960 - telethon.network.mtprotosender - INFO - Disconnection from 149.154.167.92:443/TcpFull complete!
+2025-11-02 15:16:08,960 - telethon.network.mtprotosender - INFO - Not disconnecting (already have no connection)
+2025-11-02 15:16:08,979 - __main__ - ERROR - Unexpected error: Could not find a matching Constructor ID for the TLObject that was supposed to be read with ID 83259464. See the FAQ for more details. Remaining bytes: b'd\x94%\x83  \x00\x00\x00\x00\x00\x00\r\xb1\xc3`\x00\x00\x00\x00\xa8\x15\x99\xb3\xd1\x7f\r\xfc$\xf0\x9f\x9a\x80 CallistoFx Premium Channel \xf0\x9f\x9a\x80\x00\x00\x00\x11\x1cn\x1c\x02\x00\x00\x00>\xb61\x1b%J\xb1W\x0b\x01\x08\x08\x97\xb7\xbd\x14Q]G\x19\x05\x00\x00\x00\x97\xa2\xdeh\x15\xc4\xb5\x1c\x00\x00\x00\x00>*l\xa5\x10\x04\x00\x00\x00\x00\x00\x00\xaag\x07iq\x01\x00\x00\x04\x00\x00\x006\xb7\x05\xb5\xb1[\xd1\t[\x0f\x00{1$,\xec:\xe2\xecN'
+2025-11-02 15:16:08,981 - __main__ - ERROR - 🔧 Telegram protocol error detected - session may be corrupted
+2025-11-02 15:16:08,981 - __main__ - INFO - 💡 Recommendation: Restart the bot to regenerate session
+2025-11-02 15:16:08,983 - __main__ - INFO - 🗑️ Removed corrupted session file
+2025-11-02 15:16:09,981 - telethon.network.mtprotosender - INFO - Not disconnecting (already have no connection)
+2025-11-02 15:16:09,985 - __main__ - ERROR - Fatal error: no such table: entities
