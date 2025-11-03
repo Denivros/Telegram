@@ -65,7 +65,7 @@ MAGIC_NUMBER = int(os.getenv('MAGIC_NUMBER', '123456'))
 # Words/phrases to ignore - won't log as "MESSAGE IGNORED"
 IGNORE_WORDS = [
     'weekly trading summary', 'weekly journals', 'fucking', 'elite trader', 'analysis','haha', 'livestream','twitch','how to', 'trading summary',
-     'btc','btcusd', 'bitcoin', 'gbpjpy', 'zoom','recaps','recap','shit','w in the chat','stream', 'livestream','channel','batch'
+     'btc','btcusd', 'bitcoin', 'gbpjpy', 'zoom','recaps','recap','shit','w in the chat','stream', 'livestream','channel','batch', 'how to split risk'
 ]
 
 # N8N Webhooks Configuration - Use feedback URL for all logging
@@ -730,14 +730,14 @@ class MT5TradingClient:
             logger.info(f"   Entry Price: {entry_price}")
             logger.info(f"   Direction: {direction.upper()}")
             
-            # Use STOP orders at the calculated entry price
+            # Use LIMIT orders at the calculated entry price
             if direction == 'buy':
-                order_type_mt5 = mt5.ORDER_TYPE_BUY_STOP
-                logger.info(f"   ✅ BUY STOP order at {entry_price}")
+                order_type_mt5 = mt5.ORDER_TYPE_BUY_LIMIT
+                logger.info(f"   ✅ BUY LIMIT order at {entry_price}")
             else:  # sell
-                order_type_mt5 = mt5.ORDER_TYPE_SELL_STOP
-                logger.info(f"   ✅ SELL STOP order at {entry_price}")
-            
+                order_type_mt5 = mt5.ORDER_TYPE_SELL_LIMIT
+                logger.info(f"   ✅ SELL LIMIT order at {entry_price}")
+
             logger.info(f"   💡 Order will trigger when market reaches {entry_price}")
             logger.info(f"   💡 Take Profit (TP): {signal['take_profit']}, Stop Loss (SL): {signal['stop_loss']}")
             

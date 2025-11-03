@@ -2433,3 +2433,928 @@ BUY/SELL SCENARIOS:
 2025-11-02 17:13:25,653 - telethon.network.mtprotosender - INFO - Not disconnecting (already have no connection)
 2025-11-02 17:13:25,654 - __main__ - INFO - Disconnected from MT5
 2025-11-02 17:13:25,698 - __main__ - INFO - 🌐 Health check server stopped
+2025-11-02 17:16:24,845 - __main__ - INFO - Health check server started on port 8000
+2025-11-02 17:16:24,847 - __main__ - INFO - Starting Direct MT5 Telegram Monitor...
+2025-11-02 17:16:24,847 - __main__ - INFO - Strategy: adaptive, V: 0.09
+2025-11-02 17:16:24,949 - __main__ - INFO - Connected to MT5 VPS - Server: PUPrime-Demo, Account: 700010991
+2025-11-02 17:16:24,950 - __main__ - INFO - Account info - Login: 700010991, Balance: 100030.93
+2025-11-02 17:16:24,950 - __main__ - INFO - 🔐 Telegram Authentication Configuration:
+2025-11-02 17:16:24,950 - __main__ - INFO -    API_ID: ✅ Set
+2025-11-02 17:16:24,950 - __main__ - INFO -    API_HASH: ✅ Set
+2025-11-02 17:16:24,950 - __main__ - INFO -    BOT_TOKEN: ❌ Missing
+2025-11-02 17:16:24,952 - __main__ - INFO -    STRING_SESSION: ✅ Set
+2025-11-02 17:16:24,952 - __main__ - INFO -    PHONE_NUMBER: ✅ Set
+2025-11-02 17:16:24,952 - __main__ - INFO - 🔑 Using StringSession for authentication...
+2025-11-02 17:16:24,952 - __main__ - INFO -    StringSession length: 353 characters
+2025-11-02 17:16:24,992 - __main__ - INFO - Connecting with StringSession...
+2025-11-02 17:16:24,992 - telethon.network.mtprotosender - INFO - Connecting to 149.154.167.92:443/TcpFull...
+2025-11-02 17:16:25,006 - telethon.network.mtprotosender - INFO - Connection to 149.154.167.92:443/TcpFull complete!
+2025-11-02 17:16:25,230 - __main__ - INFO - ✅ StringSession authentication successful!
+2025-11-02 17:16:25,281 - __main__ - INFO - Connected to group: 🚀 CallistoFx Premium Channel 🚀
+2025-11-02 17:16:25,281 - __main__ - INFO - Event handlers set up successfully
+2025-11-02 17:16:25,281 - __main__ - INFO - ✅ Monitor is running. Watching for trading signals...
+2025-11-02 17:16:25,283 - __main__ - INFO - 🌐 Health check server started on port 8080
+2025-11-02 17:16:25,283 - __main__ - INFO -    GET http://localhost:8080/health - Detailed status
+2025-11-02 17:16:25,283 - __main__ - INFO -    GET http://localhost:8080/ - Simple status
+2025-11-02 18:01:25,342 - telethon.client.updates - INFO - Got difference for account updates
+2025-11-02 20:15:27,174 - __main__ - INFO - 🔍 MESSAGE HANDLER CALLED:
+2025-11-02 20:15:27,176 - __main__ - INFO -    Message ID: 44111
+2025-11-02 20:15:27,176 - __main__ - INFO -    From user: None
+2025-11-02 20:15:27,176 - __main__ - INFO -    Chat ID: PeerChannel(channel_id=1623437581)
+2025-11-02 20:15:27,182 - __main__ - INFO -    Has text: True
+2025-11-02 20:15:27,182 - __main__ - INFO -    Message type: <class 'telethon.tl.types.MessageMediaPhoto'>
+2025-11-02 20:15:27,182 - __main__ - INFO -    ✅ Message text found: **15M BTCUSD Analysis (3rd Nov 2025)**
+
+BUY/SELL SCENARIOS:
+
+🟢BUYS:
+1) Body candle close above the 1...
+2025-11-02 20:15:27,183 - __main__ - INFO -    🎯 CALLING process_trading_signal()
+2025-11-03 01:31:27,934 - telethon.client.updates - INFO - Got difference for channel 1623437581 updates
+2025-11-03 02:12:28,362 - __main__ - INFO - 🔍 MESSAGE HANDLER CALLED:
+2025-11-03 02:12:28,362 - __main__ - INFO -    Message ID: 44113
+2025-11-03 02:12:28,362 - __main__ - INFO -    From user: None
+2025-11-03 02:12:28,364 - __main__ - INFO -    Chat ID: PeerChannel(channel_id=1623437581)
+2025-11-03 02:12:28,364 - __main__ - INFO -    Has text: True
+2025-11-03 02:12:28,366 - __main__ - INFO -    Message type: <class 'telethon.tl.types.MessageMediaPhoto'>
+2025-11-03 02:12:28,366 - __main__ - INFO -    ✅ Message text found: **XAUUSD 1H Analysis (3rd November 2025)**
+
+BUY/SELL SCENARIOS:
+
+🟢BUYS:
+1) Body Candle Close above t...
+2025-11-03 02:12:28,366 - __main__ - INFO -    🎯 CALLING process_trading_signal()
+2025-11-03 03:11:28,544 - __main__ - INFO - 🔍 MESSAGE HANDLER CALLED:
+2025-11-03 03:11:28,545 - __main__ - INFO -    Message ID: 44114
+2025-11-03 03:11:28,546 - __main__ - INFO -    From user: None
+2025-11-03 03:11:28,546 - __main__ - INFO -    Chat ID: PeerChannel(channel_id=1623437581)
+2025-11-03 03:11:28,546 - __main__ - INFO -    Has text: True
+2025-11-03 03:11:28,546 - __main__ - INFO -    Message type: text
+2025-11-03 03:11:28,546 - __main__ - INFO -    ✅ Message text found: I know here at CallistoFx the numbers get skewed 🤕
+
+You're seeing $10k, $20k, $30k days
+
+Friday I li...
+2025-11-03 03:11:28,548 - __main__ - INFO -    🎯 CALLING process_trading_signal()
+2025-11-03 03:11:28,548 - __main__ - INFO - 🔍 PROCESSING MESSAGE:
+2025-11-03 03:11:28,548 - __main__ - INFO -    Raw message: "I know here at CallistoFx the numbers get skewed 🤕\n\nYou're seeing $10k, $20k, $30k days\n\nFriday I literally showed you [Sabs making $20k in a single day](https://t.me/c/1623437581/44065)\n\nBut take the time to imagine what an extra $4,117 USD a month will help you with 🧶\n\nSimple stuff like rent/mortgage\n\nFood bills\n\nElectricity bills\n\nDate nights\n\nThat's what I started off worrying about too! Now all you have to do is take out your phone, key in some numbers and print.\n\nBe ready for today, I'm going to win"
+2025-11-03 03:11:28,548 - __main__ - INFO -    Message length: 510 characters
+2025-11-03 03:11:28,550 - __main__ - INFO -    🔍 Command Detection: BE=True, Partial=False, Close=False, ExtendTP=False
+2025-11-03 03:11:28,550 - __main__ - INFO - 🎯 BREAK EVEN COMMAND DETECTED!
+2025-11-03 03:11:28,550 - __main__ - INFO - 🎯 MOVING STOP LOSS TO BREAK EVEN:
+2025-11-03 03:11:28,550 - __main__ - INFO -    BE partial volume to close: 0.01
+2025-11-03 03:11:28,552 - __main__ - INFO -    ❌ No open positions to modify
+2025-11-03 06:31:54,026 - __main__ - INFO - 🔍 MESSAGE HANDLER CALLED:
+2025-11-03 06:31:54,030 - __main__ - INFO -    Message ID: 44115
+2025-11-03 06:31:54,031 - __main__ - INFO -    From user: None
+2025-11-03 06:31:54,032 - __main__ - INFO -    Chat ID: PeerChannel(channel_id=1623437581)
+2025-11-03 06:31:54,033 - __main__ - INFO -    Has text: True
+2025-11-03 06:31:54,033 - __main__ - INFO -    Message type: <class 'telethon.tl.types.MessageMediaDocument'>
+2025-11-03 06:31:54,033 - __main__ - INFO -    ✅ Message text found: $1,000 into $1,900 over the weekend
+
+Monday adding another $3,000 profit
+
+Tuesday adding another $1,...
+2025-11-03 06:31:54,033 - __main__ - INFO -    🎯 CALLING process_trading_signal()
+2025-11-03 06:34:29,113 - __main__ - INFO - 🔍 MESSAGE HANDLER CALLED:
+2025-11-03 06:34:29,113 - __main__ - INFO -    Message ID: 44116
+2025-11-03 06:34:29,115 - __main__ - INFO -    From user: None
+2025-11-03 06:34:29,115 - __main__ - INFO -    Chat ID: PeerChannel(channel_id=1623437581)
+2025-11-03 06:34:29,115 - __main__ - INFO -    Has text: True
+2025-11-03 06:34:29,115 - __main__ - INFO -    Message type: text
+2025-11-03 06:34:29,115 - __main__ - INFO -    ✅ Message text found: Alright callisto premium ready up, I am looking for entries right now!...
+2025-11-03 06:34:29,115 - __main__ - INFO -    🎯 CALLING process_trading_signal()
+2025-11-03 06:34:29,115 - __main__ - INFO - 🔍 PROCESSING MESSAGE:
+2025-11-03 06:34:29,115 - __main__ - INFO -    Raw message: 'Alright callisto premium ready up, I am looking for entries right now!'
+2025-11-03 06:34:29,117 - __main__ - INFO -    Message length: 70 characters
+2025-11-03 06:34:29,117 - __main__ - INFO -    🔍 Command Detection: BE=False, Partial=False, Close=False, ExtendTP=False
+2025-11-03 06:34:29,117 - __main__ - INFO -    ✅ No existing trades found
+2025-11-03 06:34:29,117 - __main__ - INFO - 🔍 PARSING SIGNAL:
+2025-11-03 06:34:29,117 - __main__ - INFO -    Input: 'Alright callisto premium ready up, I am looking for entries right now!'
+2025-11-03 06:34:29,119 - __main__ - INFO -    [OK] Symbol: XAUUSD.p (fixed)
+2025-11-03 06:34:29,119 - __main__ - WARNING -    [X] No direction found (expected: 🔴 for SELL or 🟢 for BUY)
+2025-11-03 06:34:29,119 - __main__ - WARNING - ❌ NO SIGNAL PARSED - Message did not match trading signal pattern
+2025-11-03 06:34:29,121 - __main__ - INFO -    Expected pattern: [SYMBOL] BUY/SELL RANGE: X-Y SL: Z TP: W
+2025-11-03 06:34:29,121 - __main__ - INFO -    Received: Alright callisto premium ready up, I am looking for entries right now!
+2025-11-03 06:34:29,121 - __main__ - INFO - 📝 MESSAGE IGNORED: 'Alright callisto premium ready up, I am looking fo...' - Invalid signal format
+2025-11-03 06:59:29,217 - __main__ - INFO - 🔍 MESSAGE HANDLER CALLED:
+2025-11-03 06:59:29,217 - __main__ - INFO -    Message ID: 44117
+2025-11-03 06:59:29,217 - __main__ - INFO -    From user: None
+2025-11-03 06:59:29,219 - __main__ - INFO -    Chat ID: PeerChannel(channel_id=1623437581)
+2025-11-03 06:59:29,219 - __main__ - INFO -    Has text: True
+2025-11-03 06:59:29,219 - __main__ - INFO -    Message type: text
+2025-11-03 06:59:29,219 - __main__ - INFO -    ✅ Message text found: 🟢XAUUSD🟢
+
+BUY RANGE: 4007-4012
+
+SL 4002
+
+TP : 4055...
+2025-11-03 06:59:29,219 - __main__ - INFO -    🎯 CALLING process_trading_signal()
+2025-11-03 06:59:29,219 - __main__ - INFO - 🔍 PROCESSING MESSAGE:
+2025-11-03 06:59:29,221 - __main__ - INFO -    Raw message: '🟢XAUUSD🟢\n\nBUY RANGE: 4007-4012\n\nSL 4002\n\nTP : 4055'
+2025-11-03 06:59:29,221 - __main__ - INFO -    Message length: 50 characters
+2025-11-03 06:59:29,221 - __main__ - INFO -    🔍 Command Detection: BE=False, Partial=False, Close=False, ExtendTP=False
+2025-11-03 06:59:29,221 - __main__ - INFO -    ✅ No existing trades found
+2025-11-03 06:59:29,221 - __main__ - INFO - 🔍 PARSING SIGNAL:
+2025-11-03 06:59:29,223 - __main__ - INFO -    Input: '🟢XAUUSD🟢\n\nBUY RANGE: 4007-4012\n\nSL 4002\n\nTP : 4055'
+2025-11-03 06:59:29,223 - __main__ - INFO -    [OK] Symbol: XAUUSD.p (fixed)
+2025-11-03 06:59:29,227 - __main__ - INFO -    [OK] Direction: BUY (detected from emoji)
+2025-11-03 06:59:29,227 - __main__ - INFO -    [OK] Range: 4007.0 - 4012.0
+2025-11-03 06:59:29,228 - __main__ - INFO -    [OK] Stop Loss: 4002.0
+2025-11-03 06:59:29,228 - __main__ - INFO -    [OK] Take Profit: 4055.0 (using first TP)
+2025-11-03 06:59:29,228 - __main__ - INFO -    [OK] Volume (default): 0.09
+2025-11-03 06:59:29,229 - __main__ - INFO -    [SUCCESS] SIGNAL PARSED SUCCESSFULLY!
+2025-11-03 06:59:30,521 - __main__ - INFO - 📊 Parsed signal: XAUUSD.p buy 4007.0-4012.0 SL:4002.0 TP:4055.0
+2025-11-03 06:59:30,522 - __main__ - INFO - 🔍 DEBUGGING ORDER PLACEMENT:
+2025-11-03 06:59:30,522 - __main__ - INFO -    Symbol: XAUUSD.p
+2025-11-03 06:59:30,522 - __main__ - INFO -    Direction: BUY
+2025-11-03 06:59:30,523 - __main__ - INFO -    Signal Range: 4007.0 - 4012.0
+2025-11-03 06:59:30,523 - __main__ - INFO -    Current Market: Bid=4013.41, Ask=4013.51
+2025-11-03 06:59:30,524 - __main__ - INFO -    Reference Price (buy): 4013.51
+2025-11-03 06:59:30,524 - __main__ - INFO -    Strategy: adaptive
+2025-11-03 06:59:30,524 - __main__ - INFO -    📍 ADAPTIVE Strategy (BUY): Price 4013.51 > range_end 4012.0 → Entry = 4012.0
+2025-11-03 06:59:31,060 - __main__ - INFO - 🎯 Limit order calculated: Price=4012.0 Type=LIMIT
+2025-11-03 06:59:31,060 - __main__ - INFO - 🔍 ORDER TYPE DETERMINATION:
+2025-11-03 06:59:31,060 - __main__ - INFO -    Current Market: Bid=4013.35, Ask=4013.45
+2025-11-03 06:59:31,060 - __main__ - INFO -    Entry Price: 4012.0
+2025-11-03 06:59:31,061 - __main__ - INFO -    Direction: BUY
+2025-11-03 06:59:31,061 - __main__ - INFO -    ✅ BUY STOP order at 4012.0
+2025-11-03 06:59:31,061 - __main__ - INFO -    💡 Order will trigger when market reaches 4012.0
+2025-11-03 06:59:31,062 - __main__ - INFO -    💡 Take Profit (TP): 4055.0, Stop Loss (SL): 4002.0
+2025-11-03 06:59:31,062 - __main__ - INFO -    Volume: 0.09
+2025-11-03 06:59:31,999 - __main__ - ERROR - ❌ Limit order failed: Order failed: 10015 - Invalid price
+2025-11-03 06:59:32,556 - telethon.client.updates - INFO - Got difference for channel 1623437581 updates
+2025-11-03 06:59:32,559 - __main__ - INFO - 🔍 MESSAGE HANDLER CALLED:
+2025-11-03 06:59:32,559 - __main__ - INFO -    Message ID: 44119
+2025-11-03 06:59:32,559 - __main__ - INFO -    From user: None
+2025-11-03 06:59:32,559 - __main__ - INFO -    Chat ID: PeerChannel(channel_id=1623437581)
+2025-11-03 06:59:32,560 - __main__ - INFO -    Has text: True
+2025-11-03 06:59:32,560 - __main__ - INFO -    Message type: text
+2025-11-03 06:59:32,560 - __main__ - INFO -    ✅ Message text found: 🖱[**HOW TO SPLIT RISK: CLICK HERE FOR VIDEO **](https://t.me/c/1623437581/38449)
+
+✅ If you are looki...
+2025-11-03 06:59:32,561 - __main__ - INFO -    🎯 CALLING process_trading_signal()
+2025-11-03 06:59:32,561 - __main__ - INFO - 🔍 MESSAGE HANDLER CALLED:
+2025-11-03 06:59:32,561 - __main__ - INFO -    Message ID: 44120
+2025-11-03 06:59:32,561 - __main__ - INFO -    From user: None
+2025-11-03 06:59:32,561 - __main__ - INFO -    Chat ID: PeerChannel(channel_id=1623437581)
+2025-11-03 06:59:32,561 - __main__ - INFO -    Has text: True
+2025-11-03 06:59:32,562 - __main__ - INFO -    Message type: <class 'telethon.tl.types.MessageMediaPhoto'>
+2025-11-03 06:59:32,562 - __main__ - WARNING -    ❌ No text content in message
+2025-11-03 06:59:32,563 - __main__ - INFO -    Message content: <telethon.tl.patched.Message object at 0x00000220FFE43690>
+2025-11-03 06:59:32,563 - __main__ - INFO - 📝 MESSAGE IGNORED: Non-text message (ID: 44120) - No text content
+2025-11-03 06:59:32,563 - __main__ - INFO - 🔍 MESSAGE HANDLER CALLED:
+2025-11-03 06:59:32,563 - __main__ - INFO -    Message ID: 44121
+2025-11-03 06:59:32,563 - __main__ - INFO -    From user: None
+2025-11-03 06:59:32,563 - __main__ - INFO -    Chat ID: PeerChannel(channel_id=1623437581)
+2025-11-03 06:59:32,563 - __main__ - INFO -    Has text: True
+2025-11-03 06:59:32,563 - __main__ - INFO -    Message type: text
+2025-11-03 06:59:32,564 - __main__ - INFO -    ✅ Message text found: SET SL TO BE & TAKE PARTIALS NOW....
+2025-11-03 06:59:32,564 - __main__ - INFO -    🎯 CALLING process_trading_signal()
+2025-11-03 06:59:32,564 - __main__ - INFO - 🔍 PROCESSING MESSAGE:
+2025-11-03 06:59:32,565 - __main__ - INFO -    Raw message: 'SET SL TO BE & TAKE PARTIALS NOW.'
+2025-11-03 06:59:32,565 - __main__ - INFO -    Message length: 33 characters
+2025-11-03 06:59:32,565 - __main__ - INFO -    🔍 Command Detection: BE=True, Partial=False, Close=False, ExtendTP=False
+2025-11-03 06:59:32,565 - __main__ - INFO - 🎯 BREAK EVEN COMMAND DETECTED!
+2025-11-03 06:59:32,565 - __main__ - INFO - 🎯 MOVING STOP LOSS TO BREAK EVEN:
+2025-11-03 06:59:32,565 - __main__ - INFO -    BE partial volume to close: 0.01
+2025-11-03 06:59:32,565 - __main__ - INFO -    ❌ No open positions to modify
+2025-11-03 07:00:29,224 - __main__ - INFO - 🔍 MESSAGE HANDLER CALLED:
+2025-11-03 07:00:29,224 - __main__ - INFO -    Message ID: 44122
+2025-11-03 07:00:29,224 - __main__ - INFO -    From user: None
+2025-11-03 07:00:29,226 - __main__ - INFO -    Chat ID: PeerChannel(channel_id=1623437581)
+2025-11-03 07:00:29,226 - __main__ - INFO -    Has text: True
+2025-11-03 07:00:29,226 - __main__ - INFO -    Message type: <class 'telethon.tl.types.MessageMediaPhoto'>
+2025-11-03 07:00:29,226 - __main__ - INFO -    ✅ Message text found: 🟢30 pips...
+2025-11-03 07:00:29,226 - __main__ - INFO -    🎯 CALLING process_trading_signal()
+2025-11-03 07:00:29,226 - __main__ - INFO - 🔍 PROCESSING MESSAGE:
+2025-11-03 07:00:29,226 - __main__ - INFO -    Raw message: '🟢30 pips'
+2025-11-03 07:00:29,228 - __main__ - INFO -    Message length: 8 characters
+2025-11-03 07:00:29,228 - __main__ - INFO -    🔍 Command Detection: BE=False, Partial=False, Close=False, ExtendTP=False
+2025-11-03 07:00:29,228 - __main__ - INFO -    ✅ No existing trades found
+2025-11-03 07:00:29,228 - __main__ - INFO - 🔍 PARSING SIGNAL:
+2025-11-03 07:00:29,228 - __main__ - INFO -    Input: '🟢30 pips'
+2025-11-03 07:00:29,228 - __main__ - INFO -    [OK] Symbol: XAUUSD.p (fixed)
+2025-11-03 07:00:29,230 - __main__ - WARNING -    [X] Not enough numbers found in message (need at least 4)
+2025-11-03 07:00:29,230 - __main__ - WARNING - ❌ NO SIGNAL PARSED - Message did not match trading signal pattern
+2025-11-03 07:00:29,230 - __main__ - INFO -    Expected pattern: [SYMBOL] BUY/SELL RANGE: X-Y SL: Z TP: W
+2025-11-03 07:00:29,230 - __main__ - INFO -    Received: 🟢30 pips
+2025-11-03 07:00:29,230 - __main__ - INFO - 📝 MESSAGE IGNORED: '🟢30 pips...' - Invalid signal format
+2025-11-03 07:01:28,607 - telethon.client.updates - INFO - Got difference for channel 2848189989 updates
+2025-11-03 07:01:28,714 - telethon.client.updates - INFO - Got difference for channel 1623437581 updates
+2025-11-03 07:01:28,716 - __main__ - INFO - 🔍 MESSAGE HANDLER CALLED:
+2025-11-03 07:01:28,716 - __main__ - INFO -    Message ID: 44123
+2025-11-03 07:01:28,716 - __main__ - INFO -    From user: None
+2025-11-03 07:01:28,716 - __main__ - INFO -    Chat ID: PeerChannel(channel_id=1623437581)
+2025-11-03 07:01:28,716 - __main__ - INFO -    Has text: True
+2025-11-03 07:01:28,716 - __main__ - INFO -    Message type: <class 'telethon.tl.types.MessageMediaPhoto'>
+2025-11-03 07:01:28,716 - __main__ - INFO -    ✅ Message text found: 🟢 Clean 30 pips...
+2025-11-03 07:01:28,718 - __main__ - INFO -    🎯 CALLING process_trading_signal()
+2025-11-03 07:01:28,718 - __main__ - INFO - 🔍 PROCESSING MESSAGE:
+2025-11-03 07:01:28,718 - __main__ - INFO -    Raw message: '🟢 Clean 30 pips'
+2025-11-03 07:01:28,718 - __main__ - INFO -    Message length: 15 characters
+2025-11-03 07:01:28,718 - __main__ - INFO -    🔍 Command Detection: BE=False, Partial=False, Close=False, ExtendTP=False
+2025-11-03 07:01:28,718 - __main__ - INFO -    ✅ No existing trades found
+2025-11-03 07:01:28,718 - __main__ - INFO - 🔍 PARSING SIGNAL:
+2025-11-03 07:01:28,718 - __main__ - INFO -    Input: '🟢 Clean 30 pips'
+2025-11-03 07:01:28,720 - __main__ - INFO -    [OK] Symbol: XAUUSD.p (fixed)
+2025-11-03 07:01:28,720 - __main__ - WARNING -    [X] Not enough numbers found in message (need at least 4)
+2025-11-03 07:01:28,720 - __main__ - WARNING - ❌ NO SIGNAL PARSED - Message did not match trading signal pattern
+2025-11-03 07:01:28,720 - __main__ - INFO -    Expected pattern: [SYMBOL] BUY/SELL RANGE: X-Y SL: Z TP: W
+2025-11-03 07:01:28,720 - __main__ - INFO -    Received: 🟢 Clean 30 pips
+2025-11-03 07:01:28,720 - __main__ - INFO - 📝 MESSAGE IGNORED: '🟢 Clean 30 pips...' - Invalid signal format
+2025-11-03 07:01:28,720 - __main__ - INFO - 🔍 MESSAGE HANDLER CALLED:
+2025-11-03 07:01:28,720 - __main__ - INFO -    Message ID: 44124
+2025-11-03 07:01:28,720 - __main__ - INFO -    From user: None
+2025-11-03 07:01:28,722 - __main__ - INFO -    Chat ID: PeerChannel(channel_id=1623437581)
+2025-11-03 07:01:28,722 - __main__ - INFO -    Has text: True
+2025-11-03 07:01:28,722 - __main__ - INFO -    Message type: <class 'telethon.tl.types.MessageMediaPhoto'>
+2025-11-03 07:01:28,722 - __main__ - INFO -    ✅ Message text found: 🟢34 pips...
+2025-11-03 07:01:28,722 - __main__ - INFO -    🎯 CALLING process_trading_signal()
+2025-11-03 07:01:28,722 - __main__ - INFO - 🔍 PROCESSING MESSAGE:
+2025-11-03 07:01:28,722 - __main__ - INFO -    Raw message: '🟢34 pips'
+2025-11-03 07:01:28,722 - __main__ - INFO -    Message length: 8 characters
+2025-11-03 07:01:28,722 - __main__ - INFO -    🔍 Command Detection: BE=False, Partial=False, Close=False, ExtendTP=False
+2025-11-03 07:01:28,723 - __main__ - INFO -    ✅ No existing trades found
+2025-11-03 07:01:28,723 - __main__ - INFO - 🔍 PARSING SIGNAL:
+2025-11-03 07:01:28,723 - __main__ - INFO -    Input: '🟢34 pips'
+2025-11-03 07:01:28,723 - __main__ - INFO -    [OK] Symbol: XAUUSD.p (fixed)
+2025-11-03 07:01:28,723 - __main__ - WARNING -    [X] Not enough numbers found in message (need at least 4)
+2025-11-03 07:01:28,723 - __main__ - WARNING - ❌ NO SIGNAL PARSED - Message did not match trading signal pattern
+2025-11-03 07:01:28,723 - __main__ - INFO -    Expected pattern: [SYMBOL] BUY/SELL RANGE: X-Y SL: Z TP: W
+2025-11-03 07:01:28,723 - __main__ - INFO -    Received: 🟢34 pips
+2025-11-03 07:01:28,725 - __main__ - INFO - 📝 MESSAGE IGNORED: '🟢34 pips...' - Invalid signal format
+2025-11-03 07:01:42,552 - __main__ - INFO - 🔍 MESSAGE HANDLER CALLED:
+2025-11-03 07:01:42,553 - __main__ - INFO -    Message ID: 44125
+2025-11-03 07:01:42,553 - __main__ - INFO -    From user: None
+2025-11-03 07:01:42,553 - __main__ - INFO -    Chat ID: PeerChannel(channel_id=1623437581)
+2025-11-03 07:01:42,553 - __main__ - INFO -    Has text: True
+2025-11-03 07:01:42,554 - __main__ - INFO -    Message type: <class 'telethon.tl.types.MessageMediaPhoto'>
+2025-11-03 07:01:42,555 - __main__ - INFO -    ✅ Message text found: 🟢 45 pips! TP2 hit take more partials...
+2025-11-03 07:01:42,555 - __main__ - INFO -    🎯 CALLING process_trading_signal()
+2025-11-03 07:01:42,555 - __main__ - INFO - 🔍 PROCESSING MESSAGE:
+2025-11-03 07:01:42,555 - __main__ - INFO -    Raw message: '🟢 45 pips! TP2 hit take more partials'
+2025-11-03 07:01:42,555 - __main__ - INFO -    Message length: 37 characters
+2025-11-03 07:01:42,556 - __main__ - INFO -    🎯 TP Pattern detected: 'tp\s*[123]' in '🟢 45 pips! TP2 hit take more partials'
+2025-11-03 07:01:42,556 - __main__ - INFO -    🔍 Command Detection: BE=False, Partial=True, Close=False, ExtendTP=False
+2025-11-03 07:01:42,556 - __main__ - INFO - 💰 PARTIAL PROFIT COMMAND DETECTED!
+2025-11-03 07:01:42,556 - __main__ - INFO - 💰 PROCESSING PARTIAL PROFIT:
+2025-11-03 07:01:42,556 - __main__ - INFO -    Message: 🟢 45 pips! TP2 hit take more partials
+2025-11-03 07:01:42,556 - __main__ - INFO -    Partial volume to close: 0.02
+2025-11-03 07:01:42,558 - __main__ - INFO -    📈 TP Level: 2
+2025-11-03 07:01:42,558 - __main__ - INFO -    📊 Pips Profit: 45
+2025-11-03 07:01:42,558 - __main__ - INFO -    ❌ No open positions for partial profit
+2025-11-03 07:01:42,558 - __main__ - INFO - 🔍 MESSAGE HANDLER CALLED:
+2025-11-03 07:01:42,558 - __main__ - INFO -    Message ID: 44126
+2025-11-03 07:01:42,558 - __main__ - INFO -    From user: None
+2025-11-03 07:01:42,558 - __main__ - INFO -    Chat ID: PeerChannel(channel_id=1623437581)
+2025-11-03 07:01:42,558 - __main__ - INFO -    Has text: True
+2025-11-03 07:01:42,560 - __main__ - INFO -    Message type: <class 'telethon.tl.types.MessageMediaPhoto'>
+2025-11-03 07:01:42,560 - __main__ - INFO -    ✅ Message text found: 🟢40 pips tp2 smacked...
+2025-11-03 07:01:42,560 - __main__ - INFO -    🎯 CALLING process_trading_signal()
+2025-11-03 07:01:42,560 - __main__ - INFO - 🔍 PROCESSING MESSAGE:
+2025-11-03 07:01:42,560 - __main__ - INFO -    Raw message: '🟢40 pips tp2 smacked'
+2025-11-03 07:01:42,560 - __main__ - INFO -    Message length: 20 characters
+2025-11-03 07:01:42,560 - __main__ - INFO -    🎯 TP Pattern detected: 'tp\s*[123]' in '🟢40 pips tp2 smacked'
+2025-11-03 07:01:42,560 - __main__ - INFO -    🔍 Command Detection: BE=False, Partial=True, Close=False, ExtendTP=False
+2025-11-03 07:01:42,560 - __main__ - INFO - 💰 PARTIAL PROFIT COMMAND DETECTED!
+2025-11-03 07:01:42,562 - __main__ - INFO - 💰 PROCESSING PARTIAL PROFIT:
+2025-11-03 07:01:42,562 - __main__ - INFO -    Message: 🟢40 pips tp2 smacked
+2025-11-03 07:01:42,562 - __main__ - INFO -    Partial volume to close: 0.02
+2025-11-03 07:01:42,562 - __main__ - INFO -    📈 TP Level: 2
+2025-11-03 07:01:42,562 - __main__ - INFO -    📊 Pips Profit: 40
+2025-11-03 07:01:42,562 - __main__ - INFO -    ❌ No open positions for partial profit
+2025-11-03 07:05:29,227 - __main__ - INFO - 🔍 MESSAGE HANDLER CALLED:
+2025-11-03 07:05:29,228 - __main__ - INFO -    Message ID: 44127
+2025-11-03 07:05:29,229 - __main__ - INFO -    From user: None
+2025-11-03 07:05:29,229 - __main__ - INFO -    Chat ID: PeerChannel(channel_id=1623437581)
+2025-11-03 07:05:29,230 - __main__ - INFO -    Has text: True
+2025-11-03 07:05:29,230 - __main__ - INFO -    Message type: text
+2025-11-03 07:05:29,230 - __main__ - INFO -    ✅ Message text found: Reasons for BUYS:
+
+1) 4HR bullish structure, still respected + 1HR OB tapped again. 
+2) 1HR internal...
+2025-11-03 07:05:29,230 - __main__ - INFO -    🎯 CALLING process_trading_signal()
+2025-11-03 07:05:29,230 - __main__ - INFO - 🔍 PROCESSING MESSAGE:
+2025-11-03 07:05:29,231 - __main__ - INFO -    Raw message: 'Reasons for BUYS:\n\n1) 4HR bullish structure, still respected + 1HR OB tapped again. \n2) 1HR internal CHOCH with a body candle close + attempt to break through asian High. \n3) Created a 15M bullish FVG just under the Asian high expecting price to tap and push!'
+2025-11-03 07:05:29,231 - __main__ - INFO -    Message length: 259 characters
+2025-11-03 07:05:29,231 - __main__ - INFO -    🔍 Command Detection: BE=False, Partial=False, Close=False, ExtendTP=False
+2025-11-03 07:05:29,232 - __main__ - INFO -    ✅ No existing trades found
+2025-11-03 07:05:29,232 - __main__ - INFO - 🔍 PARSING SIGNAL:
+2025-11-03 07:05:29,232 - __main__ - INFO -    Input: 'Reasons for BUYS:\n\n1) 4HR bullish structure, still respected + 1HR OB tapped again. \n2) 1HR internal CHOCH with a body candle close + attempt to break through asian High. \n3) Created a 15M bullish FVG just under the Asian high expecting price to tap and push!'
+2025-11-03 07:05:29,232 - __main__ - INFO -    [OK] Symbol: XAUUSD.p (fixed)
+2025-11-03 07:05:29,233 - __main__ - WARNING -    [X] No direction found (expected: 🔴 for SELL or 🟢 for BUY)
+2025-11-03 07:05:29,233 - __main__ - WARNING - ❌ NO SIGNAL PARSED - Message did not match trading signal pattern
+2025-11-03 07:05:29,233 - __main__ - INFO -    Expected pattern: [SYMBOL] BUY/SELL RANGE: X-Y SL: Z TP: W
+2025-11-03 07:05:29,234 - __main__ - INFO -    Received: Reasons for BUYS:
+
+1) 4HR bullish structure, still respected + 1HR OB tapped again. 
+2) 1HR internal CHOCH with a body candle close + attempt to break through asian High. 
+3) Created a 15M bullish FVG just under the Asian high expecting price to tap and push!
+2025-11-03 07:05:29,234 - __main__ - INFO - 📝 MESSAGE IGNORED: 'Reasons for BUYS:
+
+1) 4HR bullish structure, still...' - Invalid signal format
+2025-11-03 07:07:29,241 - __main__ - INFO - 🔍 MESSAGE HANDLER CALLED:
+2025-11-03 07:07:29,243 - __main__ - INFO -    Message ID: 44128
+2025-11-03 07:07:29,243 - __main__ - INFO -    From user: None
+2025-11-03 07:07:29,243 - __main__ - INFO -    Chat ID: PeerChannel(channel_id=1623437581)
+2025-11-03 07:07:29,243 - __main__ - INFO -    Has text: True
+2025-11-03 07:07:29,243 - __main__ - INFO -    Message type: text
+2025-11-03 07:07:29,243 - __main__ - INFO -    ✅ Message text found: 🔴POSITION CLOSED🔴    
+
+Partials taken, remaining tapped BE! Absolute beautiful SCALP!! This is how i...
+2025-11-03 07:07:29,245 - __main__ - INFO -    🎯 CALLING process_trading_signal()
+2025-11-03 07:07:29,245 - __main__ - INFO - 🔍 PROCESSING MESSAGE:
+2025-11-03 07:07:29,245 - __main__ - INFO -    Raw message: '🔴POSITION CLOSED🔴    \n\nPartials taken, remaining tapped BE! Absolute beautiful SCALP!! This is how its done Prem.'
+2025-11-03 07:07:29,245 - __main__ - INFO -    Message length: 113 characters
+2025-11-03 07:07:29,245 - __main__ - INFO -    🔍 Command Detection: BE=True, Partial=False, Close=True, ExtendTP=False
+2025-11-03 07:07:29,245 - __main__ - INFO - 🎯 BREAK EVEN COMMAND DETECTED!
+2025-11-03 07:07:29,245 - __main__ - INFO - 🎯 MOVING STOP LOSS TO BREAK EVEN:
+2025-11-03 07:07:29,247 - __main__ - INFO -    BE partial volume to close: 0.01
+2025-11-03 07:07:29,247 - __main__ - INFO -    ❌ No open positions to modify
+2025-11-03 07:07:29,247 - __main__ - INFO - 🔴 POSITION CLOSED COMMAND DETECTED!
+2025-11-03 07:07:29,247 - __main__ - INFO - 🔴 CLOSING ALL REMAINING POSITIONS:
+2025-11-03 07:07:29,247 - __main__ - INFO -    ❌ No open positions to close
+2025-11-03 07:08:29,251 - __main__ - INFO - 🔍 MESSAGE HANDLER CALLED:
+2025-11-03 07:08:29,251 - __main__ - INFO -    Message ID: 44129
+2025-11-03 07:08:29,252 - __main__ - INFO -    From user: None
+2025-11-03 07:08:29,252 - __main__ - INFO -    Chat ID: PeerChannel(channel_id=1623437581)
+2025-11-03 07:08:29,252 - __main__ - INFO -    Has text: True
+2025-11-03 07:08:29,253 - __main__ - INFO -    Message type: text
+2025-11-03 07:08:29,253 - __main__ - INFO -    ✅ Message text found: Looking to re-enter the same set-up...
+2025-11-03 07:08:29,253 - __main__ - INFO -    🎯 CALLING process_trading_signal()
+2025-11-03 07:08:29,253 - __main__ - INFO - 🔍 PROCESSING MESSAGE:
+2025-11-03 07:08:29,253 - __main__ - INFO -    Raw message: 'Looking to re-enter the same set-up'
+2025-11-03 07:08:29,254 - __main__ - INFO -    Message length: 35 characters
+2025-11-03 07:08:29,254 - __main__ - INFO -    🔍 Command Detection: BE=False, Partial=False, Close=False, ExtendTP=False
+2025-11-03 07:08:29,255 - __main__ - INFO -    ✅ No existing trades found
+2025-11-03 07:08:29,255 - __main__ - INFO - 🔍 PARSING SIGNAL:
+2025-11-03 07:08:29,255 - __main__ - INFO -    Input: 'Looking to re-enter the same set-up'
+2025-11-03 07:08:29,255 - __main__ - INFO -    [OK] Symbol: XAUUSD.p (fixed)
+2025-11-03 07:08:29,256 - __main__ - WARNING -    [X] No direction found (expected: 🔴 for SELL or 🟢 for BUY)
+2025-11-03 07:08:29,256 - __main__ - WARNING - ❌ NO SIGNAL PARSED - Message did not match trading signal pattern
+2025-11-03 07:08:29,256 - __main__ - INFO -    Expected pattern: [SYMBOL] BUY/SELL RANGE: X-Y SL: Z TP: W
+2025-11-03 07:08:29,257 - __main__ - INFO -    Received: Looking to re-enter the same set-up
+2025-11-03 07:08:29,257 - __main__ - INFO - 📝 MESSAGE IGNORED: 'Looking to re-enter the same set-up...' - Invalid signal format
+2025-11-03 07:08:29,257 - __main__ - INFO - 🔍 MESSAGE HANDLER CALLED:
+2025-11-03 07:08:29,257 - __main__ - INFO -    Message ID: 44130
+2025-11-03 07:08:29,257 - __main__ - INFO -    From user: None
+2025-11-03 07:08:29,257 - __main__ - INFO -    Chat ID: PeerChannel(channel_id=1623437581)
+2025-11-03 07:08:29,257 - __main__ - INFO -    Has text: True
+2025-11-03 07:08:29,257 - __main__ - INFO -    Message type: text
+2025-11-03 07:08:29,257 - __main__ - INFO -    ✅ Message text found: 🟢XAUUSD🟢
+
+BUY RANGE: 4007-4012.5
+
+SL 4002
+
+TP : 4055...
+2025-11-03 07:08:29,259 - __main__ - INFO -    🎯 CALLING process_trading_signal()
+2025-11-03 07:08:29,260 - __main__ - INFO - 🔍 PROCESSING MESSAGE:
+2025-11-03 07:08:29,260 - __main__ - INFO -    Raw message: '🟢XAUUSD🟢\n\nBUY RANGE: 4007-4012.5\n\nSL 4002\n\nTP : 4055'
+2025-11-03 07:08:29,260 - __main__ - INFO -    Message length: 52 characters
+2025-11-03 07:08:29,260 - __main__ - INFO -    🔍 Command Detection: BE=False, Partial=False, Close=False, ExtendTP=False
+2025-11-03 07:08:29,260 - __main__ - INFO -    ✅ No existing trades found
+2025-11-03 07:08:29,260 - __main__ - INFO - 🔍 PARSING SIGNAL:
+2025-11-03 07:08:29,261 - __main__ - INFO -    Input: '🟢XAUUSD🟢\n\nBUY RANGE: 4007-4012.5\n\nSL 4002\n\nTP : 4055'
+2025-11-03 07:08:29,262 - __main__ - INFO -    [OK] Symbol: XAUUSD.p (fixed)
+2025-11-03 07:08:29,262 - __main__ - INFO -    [OK] Direction: BUY (detected from emoji)
+2025-11-03 07:08:29,262 - __main__ - INFO -    [OK] Range: 4007.0 - 4012.5
+2025-11-03 07:08:29,262 - __main__ - INFO -    [OK] Stop Loss: 4002.0
+2025-11-03 07:08:29,262 - __main__ - INFO -    [OK] Take Profit: 4055.0 (using first TP)
+2025-11-03 07:08:29,262 - __main__ - INFO -    [OK] Volume (default): 0.09
+2025-11-03 07:08:29,263 - __main__ - INFO -    [SUCCESS] SIGNAL PARSED SUCCESSFULLY!
+2025-11-03 07:08:30,175 - __main__ - INFO - 📊 Parsed signal: XAUUSD.p buy 4007.0-4012.5 SL:4002.0 TP:4055.0
+2025-11-03 07:08:30,176 - __main__ - INFO - 🔍 DEBUGGING ORDER PLACEMENT:
+2025-11-03 07:08:30,176 - __main__ - INFO -    Symbol: XAUUSD.p
+2025-11-03 07:08:30,177 - __main__ - INFO -    Direction: BUY
+2025-11-03 07:08:30,177 - __main__ - INFO -    Signal Range: 4007.0 - 4012.5
+2025-11-03 07:08:30,177 - __main__ - INFO -    Current Market: Bid=4013.55, Ask=4013.65
+2025-11-03 07:08:30,177 - __main__ - INFO -    Reference Price (buy): 4013.65
+2025-11-03 07:08:30,177 - __main__ - INFO -    Strategy: adaptive
+2025-11-03 07:08:30,177 - __main__ - INFO -    📍 ADAPTIVE Strategy (BUY): Price 4013.65 > range_end 4012.5 → Entry = 4012.5
+2025-11-03 07:08:30,623 - __main__ - INFO - 🎯 Limit order calculated: Price=4012.5 Type=LIMIT
+2025-11-03 07:08:30,623 - __main__ - INFO - 🔍 ORDER TYPE DETERMINATION:
+2025-11-03 07:08:30,623 - __main__ - INFO -    Current Market: Bid=4013.65, Ask=4013.75
+2025-11-03 07:08:30,623 - __main__ - INFO -    Entry Price: 4012.5
+2025-11-03 07:08:30,623 - __main__ - INFO -    Direction: BUY
+2025-11-03 07:08:30,625 - __main__ - INFO -    ✅ BUY STOP order at 4012.5
+2025-11-03 07:08:30,625 - __main__ - INFO -    💡 Order will trigger when market reaches 4012.5
+2025-11-03 07:08:30,625 - __main__ - INFO -    💡 Take Profit (TP): 4055.0, Stop Loss (SL): 4002.0
+2025-11-03 07:08:30,625 - __main__ - INFO -    Volume: 0.09
+2025-11-03 07:08:31,609 - __main__ - ERROR - ❌ Limit order failed: Order failed: 10015 - Invalid price
+2025-11-03 07:08:31,643 - telethon.client.updates - INFO - Got difference for channel 1623437581 updates
+2025-11-03 07:08:37,409 - __main__ - INFO - 🔍 MESSAGE HANDLER CALLED:
+2025-11-03 07:08:37,409 - __main__ - INFO -    Message ID: 44132
+2025-11-03 07:08:37,409 - __main__ - INFO -    From user: None
+2025-11-03 07:08:37,409 - __main__ - INFO -    Chat ID: PeerChannel(channel_id=1623437581)
+2025-11-03 07:08:37,409 - __main__ - INFO -    Has text: True
+2025-11-03 07:08:37,411 - __main__ - INFO -    Message type: text
+2025-11-03 07:08:37,411 - __main__ - INFO -    ✅ Message text found: 🖱[**HOW TO SPLIT RISK: CLICK HERE FOR VIDEO **](https://t.me/c/1623437581/38449)
+
+✅ If you are looki...
+2025-11-03 07:08:37,411 - __main__ - INFO -    🎯 CALLING process_trading_signal()
+2025-11-03 07:09:29,250 - __main__ - INFO - 🔍 MESSAGE HANDLER CALLED:
+2025-11-03 07:09:29,250 - __main__ - INFO -    Message ID: 44133
+2025-11-03 07:09:29,252 - __main__ - INFO -    From user: None
+2025-11-03 07:09:29,252 - __main__ - INFO -    Chat ID: PeerChannel(channel_id=1623437581)
+2025-11-03 07:09:29,252 - __main__ - INFO -    Has text: True
+2025-11-03 07:09:29,252 - __main__ - INFO -    Message type: text
+2025-11-03 07:09:29,252 - __main__ - INFO -    ✅ Message text found: SET SL TO BE & TAKE partials NOW....
+2025-11-03 07:09:29,252 - __main__ - INFO -    🎯 CALLING process_trading_signal()
+2025-11-03 07:09:29,252 - __main__ - INFO - 🔍 PROCESSING MESSAGE:
+2025-11-03 07:09:29,252 - __main__ - INFO -    Raw message: 'SET SL TO BE & TAKE partials NOW.'
+2025-11-03 07:09:29,254 - __main__ - INFO -    Message length: 33 characters
+2025-11-03 07:09:29,254 - __main__ - INFO -    🔍 Command Detection: BE=True, Partial=False, Close=False, ExtendTP=False
+2025-11-03 07:09:29,254 - __main__ - INFO - 🎯 BREAK EVEN COMMAND DETECTED!
+2025-11-03 07:09:29,254 - __main__ - INFO - 🎯 MOVING STOP LOSS TO BREAK EVEN:
+2025-11-03 07:09:29,254 - __main__ - INFO -    BE partial volume to close: 0.01
+2025-11-03 07:09:29,254 - __main__ - INFO -    ❌ No open positions to modify
+2025-11-03 07:09:29,256 - __main__ - INFO - 🔍 MESSAGE HANDLER CALLED:
+2025-11-03 07:09:29,256 - __main__ - INFO -    Message ID: 44134
+2025-11-03 07:09:29,256 - __main__ - INFO -    From user: None
+2025-11-03 07:09:29,256 - __main__ - INFO -    Chat ID: PeerChannel(channel_id=1623437581)
+2025-11-03 07:09:29,256 - __main__ - INFO -    Has text: True
+2025-11-03 07:09:29,256 - __main__ - INFO -    Message type: <class 'telethon.tl.types.MessageMediaPhoto'>
+2025-11-03 07:09:29,256 - __main__ - WARNING -    ❌ No text content in message
+2025-11-03 07:09:29,256 - __main__ - INFO -    Message content: <telethon.tl.patched.Message object at 0x00000220FFE27A10>
+2025-11-03 07:09:29,258 - __main__ - INFO - 📝 MESSAGE IGNORED: Non-text message (ID: 44134) - No text content
+2025-11-03 07:10:29,246 - __main__ - INFO - 🔍 MESSAGE HANDLER CALLED:
+2025-11-03 07:10:29,248 - __main__ - INFO -    Message ID: 44135
+2025-11-03 07:10:29,248 - __main__ - INFO -    From user: None
+2025-11-03 07:10:29,248 - __main__ - INFO -    Chat ID: PeerChannel(channel_id=1623437581)
+2025-11-03 07:10:29,248 - __main__ - INFO -    Has text: True
+2025-11-03 07:10:29,248 - __main__ - INFO -    Message type: <class 'telethon.tl.types.MessageMediaPhoto'>
+2025-11-03 07:10:29,250 - __main__ - INFO -    ✅ Message text found: 🟢 32 pips...
+2025-11-03 07:10:29,251 - __main__ - INFO -    🎯 CALLING process_trading_signal()
+2025-11-03 07:10:29,251 - __main__ - INFO - 🔍 PROCESSING MESSAGE:
+2025-11-03 07:10:29,251 - __main__ - INFO -    Raw message: '🟢 32 pips'
+2025-11-03 07:10:29,251 - __main__ - INFO -    Message length: 9 characters
+2025-11-03 07:10:29,251 - __main__ - INFO -    🔍 Command Detection: BE=False, Partial=False, Close=False, ExtendTP=False
+2025-11-03 07:10:29,253 - __main__ - INFO -    ✅ No existing trades found
+2025-11-03 07:10:29,253 - __main__ - INFO - 🔍 PARSING SIGNAL:
+2025-11-03 07:10:29,253 - __main__ - INFO -    Input: '🟢 32 pips'
+2025-11-03 07:10:29,253 - __main__ - INFO -    [OK] Symbol: XAUUSD.p (fixed)
+2025-11-03 07:10:29,253 - __main__ - WARNING -    [X] Not enough numbers found in message (need at least 4)
+2025-11-03 07:10:29,253 - __main__ - WARNING - ❌ NO SIGNAL PARSED - Message did not match trading signal pattern
+2025-11-03 07:10:29,254 - __main__ - INFO -    Expected pattern: [SYMBOL] BUY/SELL RANGE: X-Y SL: Z TP: W
+2025-11-03 07:10:29,254 - __main__ - INFO -    Received: 🟢 32 pips
+2025-11-03 07:10:29,255 - __main__ - INFO - 📝 MESSAGE IGNORED: '🟢 32 pips...' - Invalid signal format
+2025-11-03 07:12:29,244 - __main__ - INFO - 🔍 MESSAGE HANDLER CALLED:
+2025-11-03 07:12:29,245 - __main__ - INFO -    Message ID: 44136
+2025-11-03 07:12:29,246 - __main__ - INFO -    From user: None
+2025-11-03 07:12:29,246 - __main__ - INFO -    Chat ID: PeerChannel(channel_id=1623437581)
+2025-11-03 07:12:29,246 - __main__ - INFO -    Has text: True
+2025-11-03 07:12:29,246 - __main__ - INFO -    Message type: <class 'telethon.tl.types.MessageMediaPhoto'>
+2025-11-03 07:12:29,247 - __main__ - INFO -    ✅ Message text found: 🟢 39 pips, take partials here...
+2025-11-03 07:12:29,247 - __main__ - INFO -    🎯 CALLING process_trading_signal()
+2025-11-03 07:12:29,248 - __main__ - INFO - 🔍 PROCESSING MESSAGE:
+2025-11-03 07:12:29,248 - __main__ - INFO -    Raw message: '🟢 39 pips, take partials here'
+2025-11-03 07:12:29,248 - __main__ - INFO -    Message length: 29 characters
+2025-11-03 07:12:29,249 - __main__ - INFO -    🔍 Command Detection: BE=False, Partial=False, Close=False, ExtendTP=False
+2025-11-03 07:12:29,249 - __main__ - INFO -    ✅ No existing trades found
+2025-11-03 07:12:29,249 - __main__ - INFO - 🔍 PARSING SIGNAL:
+2025-11-03 07:12:29,251 - __main__ - INFO -    Input: '🟢 39 pips, take partials here'
+2025-11-03 07:12:29,251 - __main__ - INFO -    [OK] Symbol: XAUUSD.p (fixed)
+2025-11-03 07:12:29,251 - __main__ - WARNING -    [X] Not enough numbers found in message (need at least 4)
+2025-11-03 07:12:29,251 - __main__ - WARNING - ❌ NO SIGNAL PARSED - Message did not match trading signal pattern
+2025-11-03 07:12:29,251 - __main__ - INFO -    Expected pattern: [SYMBOL] BUY/SELL RANGE: X-Y SL: Z TP: W
+2025-11-03 07:12:29,251 - __main__ - INFO -    Received: 🟢 39 pips, take partials here
+2025-11-03 07:12:29,251 - __main__ - INFO - 📝 MESSAGE IGNORED: '🟢 39 pips, take partials here...' - Invalid signal format
+2025-11-03 07:20:29,842 - telethon.client.updates - INFO - Got difference for channel 1623437581 updates
+2025-11-03 07:20:29,844 - __main__ - INFO - 🔍 MESSAGE HANDLER CALLED:
+2025-11-03 07:20:29,844 - __main__ - INFO -    Message ID: 44137
+2025-11-03 07:20:29,846 - __main__ - INFO -    From user: None
+2025-11-03 07:20:29,846 - __main__ - INFO -    Chat ID: PeerChannel(channel_id=1623437581)
+2025-11-03 07:20:29,846 - __main__ - INFO -    Has text: True
+2025-11-03 07:20:29,846 - __main__ - INFO -    Message type: <class 'telethon.tl.types.MessageMediaPhoto'>
+2025-11-03 07:20:29,846 - __main__ - INFO -    ✅ Message text found: 🟢 58 pips, take more partials...
+2025-11-03 07:20:29,846 - __main__ - INFO -    🎯 CALLING process_trading_signal()
+2025-11-03 07:20:29,848 - __main__ - INFO - 🔍 PROCESSING MESSAGE:
+2025-11-03 07:20:29,848 - __main__ - INFO -    Raw message: '🟢 58 pips, take more partials'
+2025-11-03 07:20:29,848 - __main__ - INFO -    Message length: 29 characters
+2025-11-03 07:20:29,848 - __main__ - INFO -    🔍 Command Detection: BE=False, Partial=False, Close=False, ExtendTP=False
+2025-11-03 07:20:29,848 - __main__ - INFO -    ✅ No existing trades found
+2025-11-03 07:20:29,848 - __main__ - INFO - 🔍 PARSING SIGNAL:
+2025-11-03 07:20:29,850 - __main__ - INFO -    Input: '🟢 58 pips, take more partials'
+2025-11-03 07:20:29,850 - __main__ - INFO -    [OK] Symbol: XAUUSD.p (fixed)
+2025-11-03 07:20:29,850 - __main__ - WARNING -    [X] Not enough numbers found in message (need at least 4)
+2025-11-03 07:20:29,850 - __main__ - WARNING - ❌ NO SIGNAL PARSED - Message did not match trading signal pattern
+2025-11-03 07:20:29,850 - __main__ - INFO -    Expected pattern: [SYMBOL] BUY/SELL RANGE: X-Y SL: Z TP: W
+2025-11-03 07:20:29,850 - __main__ - INFO -    Received: 🟢 58 pips, take more partials
+2025-11-03 07:20:29,850 - __main__ - INFO - 📝 MESSAGE IGNORED: '🟢 58 pips, take more partials...' - Invalid signal format
+2025-11-03 07:22:29,325 - __main__ - INFO - 🔍 MESSAGE HANDLER CALLED:
+2025-11-03 07:22:29,325 - __main__ - INFO -    Message ID: 44138
+2025-11-03 07:22:29,328 - __main__ - INFO -    From user: None
+2025-11-03 07:22:29,328 - __main__ - INFO -    Chat ID: PeerChannel(channel_id=1623437581)
+2025-11-03 07:22:29,328 - __main__ - INFO -    Has text: True
+2025-11-03 07:22:29,328 - __main__ - INFO -    Message type: text
+2025-11-03 07:22:29,329 - __main__ - INFO -    ✅ Message text found: Reasons for BUYS:
+
+1) 4HR bullish structure, still respected + 1HR OB tapped again. 
+2) 1HR internal...
+2025-11-03 07:22:29,330 - __main__ - INFO -    🎯 CALLING process_trading_signal()
+2025-11-03 07:22:29,330 - __main__ - INFO - 🔍 PROCESSING MESSAGE:
+2025-11-03 07:22:29,330 - __main__ - INFO -    Raw message: 'Reasons for BUYS:\n\n1) 4HR bullish structure, still respected + 1HR OB tapped again. \n2) 1HR internal CHOCH with a body candle close + attempt to break through asian High. \n3) Created a 15M bullish FVG just under the Asian high expecting price to tap and push!\n\nWhat did I say? Just trust the set-up\n\nThere\'s a reason why I re-enter trades, I don\'t randomly say "Enter enter enter"\n\nEvery trade is carefully curated and picked. Every single set-up is evaluated closely by multiple traders on the team to ensure the maximum profit is achieved.\n\nI\'m not right 100% of the time, that I admit. But this is straight win 30 :) \n\n**30 trade win-streak.**'
+2025-11-03 07:22:29,330 - __main__ - INFO -    Message length: 646 characters
+2025-11-03 07:22:29,330 - __main__ - INFO -    🔍 Command Detection: BE=False, Partial=True, Close=False, ExtendTP=False
+2025-11-03 07:22:29,331 - __main__ - INFO - 💰 PARTIAL PROFIT COMMAND DETECTED!
+2025-11-03 07:22:29,331 - __main__ - INFO - 💰 PROCESSING PARTIAL PROFIT:
+2025-11-03 07:22:29,332 - __main__ - INFO -    Message: Reasons for BUYS:
+
+1) 4HR bullish structure, still respected + 1HR OB tapped again. 
+2) 1HR internal CHOCH with a body candle close + attempt to break through asian High. 
+3) Created a 15M bullish FVG just under the Asian high expecting price to tap and push!
+
+What did I say? Just trust the set-up
+
+There's a reason why I re-enter trades, I don't randomly say "Enter enter enter"
+
+Every trade is carefully curated and picked. Every single set-up is evaluated closely by multiple traders on the team to ensure the maximum profit is achieved.
+
+I'm not right 100% of the time, that I admit. But this is straight win 30 :) 
+
+**30 trade win-streak.**
+2025-11-03 07:22:29,332 - __main__ - INFO -    Partial volume to close: 0.02
+2025-11-03 07:22:29,332 - __main__ - INFO -    📈 TP Level: Unknown
+2025-11-03 07:22:29,332 - __main__ - INFO -    📊 Pips Profit: Unknown
+2025-11-03 07:22:29,332 - __main__ - INFO -    ❌ No open positions for partial profit
+2025-11-03 07:25:29,315 - __main__ - INFO - 🔍 MESSAGE HANDLER CALLED:
+2025-11-03 07:25:29,316 - __main__ - INFO -    Message ID: 44139
+2025-11-03 07:25:29,316 - __main__ - INFO -    From user: None
+2025-11-03 07:25:29,317 - __main__ - INFO -    Chat ID: PeerChannel(channel_id=1623437581)
+2025-11-03 07:25:29,317 - __main__ - INFO -    Has text: True
+2025-11-03 07:25:29,318 - __main__ - INFO -    Message type: <class 'telethon.tl.types.MessageMediaPhoto'>
+2025-11-03 07:25:29,318 - __main__ - INFO -    ✅ Message text found: 🟢 61 pips, officially at TP3 😆...
+2025-11-03 07:25:29,318 - __main__ - INFO -    🎯 CALLING process_trading_signal()
+2025-11-03 07:25:29,318 - __main__ - INFO - 🔍 PROCESSING MESSAGE:
+2025-11-03 07:25:29,318 - __main__ - INFO -    Raw message: '🟢 61 pips, officially at TP3 😆'
+2025-11-03 07:25:29,318 - __main__ - INFO -    Message length: 30 characters
+2025-11-03 07:25:29,318 - __main__ - INFO -    🎯 TP Pattern detected: 'tp\s*[123]' in '🟢 61 pips, officially at TP3 😆'
+2025-11-03 07:25:29,318 - __main__ - INFO -    🔍 Command Detection: BE=False, Partial=True, Close=False, ExtendTP=False
+2025-11-03 07:25:29,318 - __main__ - INFO - 💰 PARTIAL PROFIT COMMAND DETECTED!
+2025-11-03 07:25:29,318 - __main__ - INFO - 💰 PROCESSING PARTIAL PROFIT:
+2025-11-03 07:25:29,320 - __main__ - INFO -    Message: 🟢 61 pips, officially at TP3 😆
+2025-11-03 07:25:29,320 - __main__ - INFO -    Partial volume to close: 0.02
+2025-11-03 07:25:29,320 - __main__ - INFO -    📈 TP Level: 3
+2025-11-03 07:25:29,320 - __main__ - INFO -    📊 Pips Profit: 61
+2025-11-03 07:25:29,320 - __main__ - INFO -    ❌ No open positions for partial profit
+2025-11-03 08:03:58,076 - __main__ - INFO - Health check server started on port 8000
+2025-11-03 08:03:58,078 - __main__ - INFO - Starting Direct MT5 Telegram Monitor...
+2025-11-03 08:03:58,078 - __main__ - INFO - Strategy: midpoint, V: 0.09
+2025-11-03 08:03:58,208 - __main__ - INFO - Connected to MT5 VPS - Server: PUPrime-Demo, Account: 700010991
+2025-11-03 08:03:58,210 - __main__ - INFO - Account info - Login: 700010991, Balance: 100030.93
+2025-11-03 08:03:58,210 - __main__ - INFO - 🔐 Telegram Authentication Configuration:
+2025-11-03 08:03:58,211 - __main__ - INFO -    API_ID: ✅ Set
+2025-11-03 08:03:58,211 - __main__ - INFO -    API_HASH: ✅ Set
+2025-11-03 08:03:58,212 - __main__ - INFO -    BOT_TOKEN: ❌ Missing
+2025-11-03 08:03:58,212 - __main__ - INFO -    STRING_SESSION: ✅ Set
+2025-11-03 08:03:58,212 - __main__ - INFO -    PHONE_NUMBER: ✅ Set
+2025-11-03 08:03:58,212 - __main__ - INFO - 🔑 Using StringSession for authentication...
+2025-11-03 08:03:58,212 - __main__ - INFO -    StringSession length: 353 characters
+2025-11-03 08:03:58,254 - __main__ - INFO - Connecting with StringSession...
+2025-11-03 08:03:58,254 - telethon.network.mtprotosender - INFO - Connecting to 149.154.167.92:443/TcpFull...
+2025-11-03 08:03:58,271 - telethon.network.mtprotosender - INFO - Connection to 149.154.167.92:443/TcpFull complete!
+2025-11-03 08:03:58,920 - __main__ - INFO - ✅ StringSession authentication successful!
+2025-11-03 08:03:58,980 - __main__ - INFO - Connected to group: 🚀 CallistoFx Premium Channel 🚀
+2025-11-03 08:03:58,980 - __main__ - INFO - Event handlers set up successfully
+2025-11-03 08:03:58,980 - __main__ - INFO - ✅ Monitor is running. Watching for trading signals...
+2025-11-03 08:03:58,982 - __main__ - INFO - 🌐 Health check server started on port 8080
+2025-11-03 08:03:58,984 - __main__ - INFO -    GET http://localhost:8080/health - Detailed status
+2025-11-03 08:03:58,984 - __main__ - INFO -    GET http://localhost:8080/ - Simple status
+2025-11-03 08:04:16,969 - __main__ - INFO - 🔍 MESSAGE HANDLER CALLED:
+2025-11-03 08:04:16,969 - __main__ - INFO -    Message ID: 44143
+2025-11-03 08:04:16,971 - __main__ - INFO -    From user: None
+2025-11-03 08:04:16,971 - __main__ - INFO -    Chat ID: PeerChannel(channel_id=1623437581)
+2025-11-03 08:04:16,971 - __main__ - INFO -    Has text: True
+2025-11-03 08:04:16,971 - __main__ - INFO -    Message type: <class 'telethon.tl.types.MessageMediaPhoto'>
+2025-11-03 08:04:16,971 - __main__ - WARNING -    ❌ No text content in message
+2025-11-03 08:04:16,971 - __main__ - INFO -    Message content: <telethon.tl.patched.Message object at 0x000001941A457C10>
+2025-11-03 08:04:16,971 - __main__ - INFO - 📝 MESSAGE IGNORED: Non-text message (ID: 44143) - No text content
+2025-11-03 08:04:34,602 - __main__ - INFO - 🔍 MESSAGE HANDLER CALLED:
+2025-11-03 08:04:34,604 - __main__ - INFO -    Message ID: 44144
+2025-11-03 08:04:34,604 - __main__ - INFO -    From user: None
+2025-11-03 08:04:34,604 - __main__ - INFO -    Chat ID: PeerChannel(channel_id=1623437581)
+2025-11-03 08:04:34,604 - __main__ - INFO -    Has text: True
+2025-11-03 08:04:34,605 - __main__ - INFO -    Message type: text
+2025-11-03 08:04:34,605 - __main__ - INFO -    ✅ Message text found: Taking heavy partials here...
+2025-11-03 08:04:34,606 - __main__ - INFO -    🎯 CALLING process_trading_signal()
+2025-11-03 08:04:34,606 - __main__ - INFO - 🔍 PROCESSING MESSAGE:
+2025-11-03 08:04:34,606 - __main__ - INFO -    Raw message: 'Taking heavy partials here'
+2025-11-03 08:04:34,606 - __main__ - INFO -    Message length: 26 characters
+2025-11-03 08:04:34,608 - __main__ - INFO -    🔍 Command Detection: BE=False, Partial=False, Close=False, ExtendTP=False
+2025-11-03 08:04:34,608 - __main__ - INFO -    ✅ No existing trades found
+2025-11-03 08:04:34,608 - __main__ - INFO - 🔍 PARSING SIGNAL:
+2025-11-03 08:04:34,608 - __main__ - INFO -    Input: 'Taking heavy partials here'
+2025-11-03 08:04:34,610 - __main__ - INFO -    [OK] Symbol: XAUUSD.p (fixed)
+2025-11-03 08:04:34,610 - __main__ - WARNING -    [X] No direction found (expected: 🔴 for SELL or 🟢 for BUY)
+2025-11-03 08:04:34,610 - __main__ - WARNING - ❌ NO SIGNAL PARSED - Message did not match trading signal pattern
+2025-11-03 08:04:34,610 - __main__ - INFO -    Expected pattern: [SYMBOL] BUY/SELL RANGE: X-Y SL: Z TP: W
+2025-11-03 08:04:34,610 - __main__ - INFO -    Received: Taking heavy partials here
+2025-11-03 08:04:34,610 - __main__ - INFO - 📝 MESSAGE IGNORED: 'Taking heavy partials here...' - Invalid signal format
+2025-11-03 08:04:34,610 - __main__ - INFO - 🔍 MESSAGE HANDLER CALLED:
+2025-11-03 08:04:34,610 - __main__ - INFO -    Message ID: 44145
+2025-11-03 08:04:34,610 - __main__ - INFO -    From user: None
+2025-11-03 08:04:34,612 - __main__ - INFO -    Chat ID: PeerChannel(channel_id=1623437581)
+2025-11-03 08:04:34,612 - __main__ - INFO -    Has text: True
+2025-11-03 08:04:34,612 - __main__ - INFO -    Message type: text
+2025-11-03 08:04:34,612 - __main__ - INFO -    ✅ Message text found: TP 4 SMACKED!!...
+2025-11-03 08:04:34,612 - __main__ - INFO -    🎯 CALLING process_trading_signal()
+2025-11-03 08:04:34,612 - __main__ - INFO - 🔍 PROCESSING MESSAGE:
+2025-11-03 08:04:34,612 - __main__ - INFO -    Raw message: 'TP 4 SMACKED!!'
+2025-11-03 08:04:34,612 - __main__ - INFO -    Message length: 14 characters
+2025-11-03 08:04:34,612 - __main__ - INFO -    🔍 Command Detection: BE=False, Partial=True, Close=False, ExtendTP=False
+2025-11-03 08:04:34,614 - __main__ - INFO - 💰 PARTIAL PROFIT COMMAND DETECTED!
+2025-11-03 08:04:34,614 - __main__ - INFO - 💰 PROCESSING PARTIAL PROFIT:
+2025-11-03 08:04:34,614 - __main__ - INFO -    Message: TP 4 SMACKED!!
+2025-11-03 08:04:34,614 - __main__ - INFO -    Partial volume to close: 0.02
+2025-11-03 08:04:34,614 - __main__ - INFO -    📈 TP Level: Unknown
+2025-11-03 08:04:34,614 - __main__ - INFO -    📊 Pips Profit: Unknown
+2025-11-03 08:04:34,614 - __main__ - INFO -    ❌ No open positions for partial profit
+2025-11-03 08:38:59,162 - __main__ - INFO - 🔍 MESSAGE HANDLER CALLED:
+2025-11-03 08:38:59,164 - __main__ - INFO -    Message ID: 44146
+2025-11-03 08:38:59,164 - __main__ - INFO -    From user: None
+2025-11-03 08:38:59,164 - __main__ - INFO -    Chat ID: PeerChannel(channel_id=1623437581)
+2025-11-03 08:38:59,169 - __main__ - INFO -    Has text: True
+2025-11-03 08:38:59,169 - __main__ - INFO -    Message type: <class 'telethon.tl.types.MessageMediaPhoto'>
+2025-11-03 08:38:59,169 - __main__ - INFO -    ✅ Message text found: **📊LONDON ANALYSIS: XAUUSD**
+
+📍Looking for price to retest the 4010.13 level, where the 15M bullish ...
+2025-11-03 08:38:59,169 - __main__ - INFO -    🎯 CALLING process_trading_signal()
+2025-11-03 08:51:59,211 - __main__ - INFO - 🔍 MESSAGE HANDLER CALLED:
+2025-11-03 08:51:59,213 - __main__ - INFO -    Message ID: 44147
+2025-11-03 08:51:59,213 - __main__ - INFO -    From user: None
+2025-11-03 08:51:59,213 - __main__ - INFO -    Chat ID: PeerChannel(channel_id=1623437581)
+2025-11-03 08:51:59,213 - __main__ - INFO -    Has text: True
+2025-11-03 08:51:59,213 - __main__ - INFO -    Message type: <class 'telethon.tl.types.MessageMediaPhoto'>
+2025-11-03 08:51:59,215 - __main__ - INFO -    ✅ Message text found: 🟢130 pips...
+2025-11-03 08:51:59,215 - __main__ - INFO -    🎯 CALLING process_trading_signal()
+2025-11-03 08:51:59,215 - __main__ - INFO - 🔍 PROCESSING MESSAGE:
+2025-11-03 08:51:59,215 - __main__ - INFO -    Raw message: '🟢130 pips'
+2025-11-03 08:51:59,217 - __main__ - INFO -    Message length: 9 characters
+2025-11-03 08:51:59,217 - __main__ - INFO -    🔍 Command Detection: BE=False, Partial=False, Close=False, ExtendTP=False
+2025-11-03 08:51:59,217 - __main__ - INFO -    ✅ No existing trades found
+2025-11-03 08:51:59,217 - __main__ - INFO - 🔍 PARSING SIGNAL:
+2025-11-03 08:51:59,219 - __main__ - INFO -    Input: '🟢130 pips'
+2025-11-03 08:51:59,219 - __main__ - INFO -    [OK] Symbol: XAUUSD.p (fixed)
+2025-11-03 08:51:59,219 - __main__ - WARNING -    [X] Not enough numbers found in message (need at least 4)
+2025-11-03 08:51:59,219 - __main__ - WARNING - ❌ NO SIGNAL PARSED - Message did not match trading signal pattern
+2025-11-03 08:51:59,219 - __main__ - INFO -    Expected pattern: [SYMBOL] BUY/SELL RANGE: X-Y SL: Z TP: W
+2025-11-03 08:51:59,219 - __main__ - INFO -    Received: 🟢130 pips
+2025-11-03 08:51:59,221 - __main__ - INFO - 📝 MESSAGE IGNORED: '🟢130 pips...' - Invalid signal format
+2025-11-03 08:51:59,221 - __main__ - INFO - 🔍 MESSAGE HANDLER CALLED:
+2025-11-03 08:51:59,221 - __main__ - INFO -    Message ID: 44148
+2025-11-03 08:51:59,221 - __main__ - INFO -    From user: None
+2025-11-03 08:51:59,221 - __main__ - INFO -    Chat ID: PeerChannel(channel_id=1623437581)
+2025-11-03 08:51:59,223 - __main__ - INFO -    Has text: True
+2025-11-03 08:51:59,223 - __main__ - INFO -    Message type: <class 'telethon.tl.types.MessageMediaDocument'>
+2025-11-03 08:51:59,223 - __main__ - WARNING -    ❌ No text content in message
+2025-11-03 08:51:59,223 - __main__ - INFO -    Message content: <telethon.tl.patched.Message object at 0x000001941A984650>
+2025-11-03 08:51:59,223 - __main__ - INFO - 📝 MESSAGE IGNORED: Media message (ID: 44148) - No text content
+2025-11-03 09:00:59,213 - __main__ - INFO - 🔍 MESSAGE HANDLER CALLED:
+2025-11-03 09:00:59,215 - __main__ - INFO -    Message ID: 44150
+2025-11-03 09:00:59,216 - __main__ - INFO -    From user: None
+2025-11-03 09:00:59,216 - __main__ - INFO -    Chat ID: PeerChannel(channel_id=1623437581)
+2025-11-03 09:00:59,216 - __main__ - INFO -    Has text: True
+2025-11-03 09:00:59,216 - __main__ - INFO -    Message type: <class 'telethon.tl.types.MessageMediaPhoto'>
+2025-11-03 09:00:59,217 - __main__ - INFO -    ✅ Message text found: 🟢143 pips...
+2025-11-03 09:00:59,217 - __main__ - INFO -    🎯 CALLING process_trading_signal()
+2025-11-03 09:00:59,217 - __main__ - INFO - 🔍 PROCESSING MESSAGE:
+2025-11-03 09:00:59,217 - __main__ - INFO -    Raw message: '🟢143 pips'
+2025-11-03 09:00:59,218 - __main__ - INFO -    Message length: 9 characters
+2025-11-03 09:00:59,218 - __main__ - INFO -    🔍 Command Detection: BE=False, Partial=False, Close=False, ExtendTP=False
+2025-11-03 09:00:59,219 - __main__ - INFO -    ✅ No existing trades found
+2025-11-03 09:00:59,219 - __main__ - INFO - 🔍 PARSING SIGNAL:
+2025-11-03 09:00:59,219 - __main__ - INFO -    Input: '🟢143 pips'
+2025-11-03 09:00:59,220 - __main__ - INFO -    [OK] Symbol: XAUUSD.p (fixed)
+2025-11-03 09:00:59,220 - __main__ - WARNING -    [X] Not enough numbers found in message (need at least 4)
+2025-11-03 09:00:59,220 - __main__ - WARNING - ❌ NO SIGNAL PARSED - Message did not match trading signal pattern
+2025-11-03 09:00:59,220 - __main__ - INFO -    Expected pattern: [SYMBOL] BUY/SELL RANGE: X-Y SL: Z TP: W
+2025-11-03 09:00:59,220 - __main__ - INFO -    Received: 🟢143 pips
+2025-11-03 09:00:59,220 - __main__ - INFO - 📝 MESSAGE IGNORED: '🟢143 pips...' - Invalid signal format
+2025-11-03 09:01:59,772 - telethon.client.updates - INFO - Got difference for channel 2848189989 updates
+2025-11-03 09:05:59,228 - __main__ - INFO - 🔍 MESSAGE HANDLER CALLED:
+2025-11-03 09:05:59,229 - __main__ - INFO -    Message ID: 44151
+2025-11-03 09:05:59,230 - __main__ - INFO -    From user: None
+2025-11-03 09:05:59,230 - __main__ - INFO -    Chat ID: PeerChannel(channel_id=1623437581)
+2025-11-03 09:05:59,230 - __main__ - INFO -    Has text: True
+2025-11-03 09:05:59,230 - __main__ - INFO -    Message type: <class 'telethon.tl.types.MessageMediaPhoto'>
+2025-11-03 09:05:59,230 - __main__ - INFO -    ✅ Message text found: 🟢151 pips...
+2025-11-03 09:05:59,231 - __main__ - INFO -    🎯 CALLING process_trading_signal()
+2025-11-03 09:05:59,231 - __main__ - INFO - 🔍 PROCESSING MESSAGE:
+2025-11-03 09:05:59,232 - __main__ - INFO -    Raw message: '🟢151 pips'
+2025-11-03 09:05:59,232 - __main__ - INFO -    Message length: 9 characters
+2025-11-03 09:05:59,232 - __main__ - INFO -    🔍 Command Detection: BE=False, Partial=False, Close=False, ExtendTP=False
+2025-11-03 09:05:59,233 - __main__ - INFO -    ✅ No existing trades found
+2025-11-03 09:05:59,233 - __main__ - INFO - 🔍 PARSING SIGNAL:
+2025-11-03 09:05:59,233 - __main__ - INFO -    Input: '🟢151 pips'
+2025-11-03 09:05:59,234 - __main__ - INFO -    [OK] Symbol: XAUUSD.p (fixed)
+2025-11-03 09:05:59,234 - __main__ - WARNING -    [X] Not enough numbers found in message (need at least 4)
+2025-11-03 09:05:59,234 - __main__ - WARNING - ❌ NO SIGNAL PARSED - Message did not match trading signal pattern
+2025-11-03 09:05:59,234 - __main__ - INFO -    Expected pattern: [SYMBOL] BUY/SELL RANGE: X-Y SL: Z TP: W
+2025-11-03 09:05:59,234 - __main__ - INFO -    Received: 🟢151 pips
+2025-11-03 09:05:59,234 - __main__ - INFO - 📝 MESSAGE IGNORED: '🟢151 pips...' - Invalid signal format
+2025-11-03 10:21:59,650 - __main__ - INFO - 🔍 MESSAGE HANDLER CALLED:
+2025-11-03 10:21:59,652 - __main__ - INFO -    Message ID: 44152
+2025-11-03 10:21:59,652 - __main__ - INFO -    From user: None
+2025-11-03 10:21:59,652 - __main__ - INFO -    Chat ID: PeerChannel(channel_id=1623437581)
+2025-11-03 10:21:59,652 - __main__ - INFO -    Has text: True
+2025-11-03 10:21:59,652 - __main__ - INFO -    Message type: <class 'telethon.tl.types.MessageMediaWebPage'>
+2025-11-03 10:21:59,652 - __main__ - INFO -    ✅ Message text found: Private Zoom Link: https://us02web.zoom.us/j/87179802405...
+2025-11-03 10:21:59,654 - __main__ - INFO -    🎯 CALLING process_trading_signal()
+2025-11-03 10:26:30,173 - __main__ - INFO - 🔍 MESSAGE HANDLER CALLED:
+2025-11-03 10:26:30,174 - __main__ - INFO -    Message ID: 44153
+2025-11-03 10:26:30,174 - __main__ - INFO -    From user: None
+2025-11-03 10:26:30,175 - __main__ - INFO -    Chat ID: PeerChannel(channel_id=1623437581)
+2025-11-03 10:26:30,175 - __main__ - INFO -    Has text: True
+2025-11-03 10:26:30,176 - __main__ - INFO -    Message type: text
+2025-11-03 10:26:30,176 - __main__ - INFO -    ✅ Message text found: 🔴POSITION CLOSED🔴    
+
+Partials taken, remaining tapped BE! Absolute beautiful SCALP!! This is how i...
+2025-11-03 10:26:30,176 - __main__ - INFO -    🎯 CALLING process_trading_signal()
+2025-11-03 10:26:30,176 - __main__ - INFO - 🔍 PROCESSING MESSAGE:
+2025-11-03 10:26:30,176 - __main__ - INFO -    Raw message: '🔴POSITION CLOSED🔴    \n\nPartials taken, remaining tapped BE! Absolute beautiful SCALP!! This is how its done Prem.'
+2025-11-03 10:26:30,178 - __main__ - INFO -    Message length: 113 characters
+2025-11-03 10:26:30,178 - __main__ - INFO -    🔍 Command Detection: BE=True, Partial=False, Close=True, ExtendTP=False
+2025-11-03 10:26:30,178 - __main__ - INFO - 🎯 BREAK EVEN COMMAND DETECTED!
+2025-11-03 10:26:30,178 - __main__ - INFO - 🎯 MOVING STOP LOSS TO BREAK EVEN:
+2025-11-03 10:26:30,178 - __main__ - INFO -    BE partial volume to close: 0.01
+2025-11-03 10:26:30,178 - __main__ - INFO -    ❌ No open positions to modify
+2025-11-03 10:26:30,180 - __main__ - INFO - 🔴 POSITION CLOSED COMMAND DETECTED!
+2025-11-03 10:26:30,180 - __main__ - INFO - 🔴 CLOSING ALL REMAINING POSITIONS:
+2025-11-03 10:26:30,180 - __main__ - INFO -    ❌ No open positions to close
+2025-11-03 10:35:00,324 - telethon.client.updates - INFO - Got difference for channel 1623437581 updates
+2025-11-03 10:35:00,328 - __main__ - INFO - 🔍 MESSAGE HANDLER CALLED:
+2025-11-03 10:35:00,328 - __main__ - INFO -    Message ID: 44154
+2025-11-03 10:35:00,328 - __main__ - INFO -    From user: None
+2025-11-03 10:35:00,328 - __main__ - INFO -    Chat ID: PeerChannel(channel_id=1623437581)
+2025-11-03 10:35:00,328 - __main__ - INFO -    Has text: True
+2025-11-03 10:35:00,328 - __main__ - INFO -    Message type: text
+2025-11-03 10:35:00,328 - __main__ - INFO -    ✅ Message text found: 🟢XAUUSD🟢
+
+BUY RANGE: 3997-4002
+
+SL 3992
+
+TP : 4050/4070...
+2025-11-03 10:35:00,330 - __main__ - INFO -    🎯 CALLING process_trading_signal()
+2025-11-03 10:35:00,330 - __main__ - INFO - 🔍 PROCESSING MESSAGE:
+2025-11-03 10:35:00,330 - __main__ - INFO -    Raw message: '🟢XAUUSD🟢\n\nBUY RANGE: 3997-4002\n\nSL 3992\n\nTP : 4050/4070'
+2025-11-03 10:35:00,330 - __main__ - INFO -    Message length: 55 characters
+2025-11-03 10:35:00,330 - __main__ - INFO -    🔍 Command Detection: BE=False, Partial=False, Close=False, ExtendTP=False
+2025-11-03 10:35:00,332 - __main__ - INFO -    ✅ No existing trades found
+2025-11-03 10:35:00,332 - __main__ - INFO - 🔍 PARSING SIGNAL:
+2025-11-03 10:35:00,332 - __main__ - INFO -    Input: '🟢XAUUSD🟢\n\nBUY RANGE: 3997-4002\n\nSL 3992\n\nTP : 4050/4070'
+2025-11-03 10:35:00,332 - __main__ - INFO -    [OK] Symbol: XAUUSD.p (fixed)
+2025-11-03 10:35:00,334 - __main__ - INFO -    [OK] Direction: BUY (detected from emoji)
+2025-11-03 10:35:00,334 - __main__ - INFO -    [OK] Range: 3997.0 - 4002.0
+2025-11-03 10:35:00,334 - __main__ - INFO -    [OK] Stop Loss: 3992.0
+2025-11-03 10:35:00,334 - __main__ - INFO -    [OK] Take Profit: 4050.0 (using first TP)
+2025-11-03 10:35:00,336 - __main__ - INFO -    [OK] Volume (default): 0.09
+2025-11-03 10:35:00,336 - __main__ - INFO -    [SUCCESS] SIGNAL PARSED SUCCESSFULLY!
+2025-11-03 10:35:01,443 - __main__ - INFO - 📊 Parsed signal: XAUUSD.p buy 3997.0-4002.0 SL:3992.0 TP:4050.0
+2025-11-03 10:35:01,443 - __main__ - INFO - 🔍 DEBUGGING ORDER PLACEMENT:
+2025-11-03 10:35:01,444 - __main__ - INFO -    Symbol: XAUUSD.p
+2025-11-03 10:35:01,444 - __main__ - INFO -    Direction: BUY
+2025-11-03 10:35:01,444 - __main__ - INFO -    Signal Range: 3997.0 - 4002.0
+2025-11-03 10:35:01,445 - __main__ - INFO -    Current Market: Bid=4003.1, Ask=4003.2
+2025-11-03 10:35:01,445 - __main__ - INFO -    Reference Price (buy): 4003.2
+2025-11-03 10:35:01,445 - __main__ - INFO -    Strategy: midpoint
+2025-11-03 10:35:01,445 - __main__ - INFO -    📍 MIDPOINT Strategy: Entry = 3999.5
+2025-11-03 10:35:01,934 - __main__ - INFO - 🎯 Limit order calculated: Price=3999.5 Type=LIMIT
+2025-11-03 10:35:01,934 - __main__ - INFO - 🔍 ORDER TYPE DETERMINATION:
+2025-11-03 10:35:01,934 - __main__ - INFO -    Current Market: Bid=4003.17, Ask=4003.27
+2025-11-03 10:35:01,935 - __main__ - INFO -    Entry Price: 3999.5
+2025-11-03 10:35:01,935 - __main__ - INFO -    Direction: BUY
+2025-11-03 10:35:01,935 - __main__ - INFO -    ✅ BUY STOP order at 3999.5
+2025-11-03 10:35:01,936 - __main__ - INFO -    💡 Order will trigger when market reaches 3999.5
+2025-11-03 10:35:01,936 - __main__ - INFO -    💡 Take Profit (TP): 4050.0, Stop Loss (SL): 3992.0
+2025-11-03 10:35:01,936 - __main__ - INFO -    Volume: 0.09
+2025-11-03 10:35:02,891 - __main__ - ERROR - ❌ Limit order failed: Order failed: 10015 - Invalid price
+2025-11-03 10:35:05,293 - telethon.client.updates - INFO - Got difference for channel 1623437581 updates
+2025-11-03 10:36:06,117 - __main__ - INFO - 🔍 MESSAGE HANDLER CALLED:
+2025-11-03 10:36:06,118 - __main__ - INFO -    Message ID: 44156
+2025-11-03 10:36:06,118 - __main__ - INFO -    From user: None
+2025-11-03 10:36:06,118 - __main__ - INFO -    Chat ID: PeerChannel(channel_id=1623437581)
+2025-11-03 10:36:06,119 - __main__ - INFO -    Has text: True
+2025-11-03 10:36:06,119 - __main__ - INFO -    Message type: text
+2025-11-03 10:36:06,119 - __main__ - INFO -    ✅ Message text found: 🖱[**HOW TO SPLIT RISK: CLICK HERE FOR VIDEO **](https://t.me/c/1623437581/38449)
+
+✅ If you are looki...
+2025-11-03 10:36:06,120 - __main__ - INFO -    🎯 CALLING process_trading_signal()
+2025-11-03 10:36:14,671 - __main__ - INFO - 🔍 MESSAGE HANDLER CALLED:
+2025-11-03 10:36:14,672 - __main__ - INFO -    Message ID: 44157
+2025-11-03 10:36:14,672 - __main__ - INFO -    From user: None
+2025-11-03 10:36:14,672 - __main__ - INFO -    Chat ID: PeerChannel(channel_id=1623437581)
+2025-11-03 10:36:14,673 - __main__ - INFO -    Has text: True
+2025-11-03 10:36:14,673 - __main__ - INFO -    Message type: <class 'telethon.tl.types.MessageMediaPhoto'>
+2025-11-03 10:36:14,673 - __main__ - WARNING -    ❌ No text content in message
+2025-11-03 10:36:14,673 - __main__ - INFO -    Message content: <telethon.tl.patched.Message object at 0x000001941A985090>
+2025-11-03 10:36:14,673 - __main__ - INFO - 📝 MESSAGE IGNORED: Non-text message (ID: 44157) - No text content
+2025-11-03 10:36:53,946 - __main__ - INFO - 🔍 MESSAGE HANDLER CALLED:
+2025-11-03 10:36:53,946 - __main__ - INFO -    Message ID: 44158
+2025-11-03 10:36:53,946 - __main__ - INFO -    From user: None
+2025-11-03 10:36:53,947 - __main__ - INFO -    Chat ID: PeerChannel(channel_id=1623437581)
+2025-11-03 10:36:53,947 - __main__ - INFO -    Has text: True
+2025-11-03 10:36:53,948 - __main__ - INFO -    Message type: text
+2025-11-03 10:36:53,948 - __main__ - INFO -    ✅ Message text found: Given LIVE...
+2025-11-03 10:36:53,948 - __main__ - INFO -    🎯 CALLING process_trading_signal()
+2025-11-03 10:36:53,948 - __main__ - INFO - 🔍 PROCESSING MESSAGE:
+2025-11-03 10:36:53,949 - __main__ - INFO -    Raw message: 'Given LIVE'
+2025-11-03 10:36:53,949 - __main__ - INFO -    Message length: 10 characters
+2025-11-03 10:36:53,949 - __main__ - INFO -    🔍 Command Detection: BE=False, Partial=False, Close=False, ExtendTP=False
+2025-11-03 10:36:53,949 - __main__ - INFO -    ✅ No existing trades found
+2025-11-03 10:36:53,951 - __main__ - INFO - 🔍 PARSING SIGNAL:
+2025-11-03 10:36:53,951 - __main__ - INFO -    Input: 'Given LIVE'
+2025-11-03 10:36:53,951 - __main__ - INFO -    [OK] Symbol: XAUUSD.p (fixed)
+2025-11-03 10:36:53,951 - __main__ - WARNING -    [X] No direction found (expected: 🔴 for SELL or 🟢 for BUY)
+2025-11-03 10:36:53,951 - __main__ - WARNING - ❌ NO SIGNAL PARSED - Message did not match trading signal pattern
+2025-11-03 10:36:53,951 - __main__ - INFO -    Expected pattern: [SYMBOL] BUY/SELL RANGE: X-Y SL: Z TP: W
+2025-11-03 10:36:53,951 - __main__ - INFO -    Received: Given LIVE
+2025-11-03 10:36:53,951 - __main__ - INFO - 📝 MESSAGE IGNORED: 'Given LIVE...' - Invalid signal format
+2025-11-03 10:38:59,766 - __main__ - INFO - 🔍 MESSAGE HANDLER CALLED:
+2025-11-03 10:38:59,767 - __main__ - INFO -    Message ID: 44159
+2025-11-03 10:38:59,768 - __main__ - INFO -    From user: None
+2025-11-03 10:38:59,768 - __main__ - INFO -    Chat ID: PeerChannel(channel_id=1623437581)
+2025-11-03 10:38:59,768 - __main__ - INFO -    Has text: True
+2025-11-03 10:38:59,769 - __main__ - INFO -    Message type: <class 'telethon.tl.types.MessageMediaPhoto'>
+2025-11-03 10:38:59,769 - __main__ - INFO -    ✅ Message text found: 🟢33 pips...
+2025-11-03 10:38:59,769 - __main__ - INFO -    🎯 CALLING process_trading_signal()
+2025-11-03 10:38:59,769 - __main__ - INFO - 🔍 PROCESSING MESSAGE:
+2025-11-03 10:38:59,770 - __main__ - INFO -    Raw message: '🟢33 pips'
+2025-11-03 10:38:59,770 - __main__ - INFO -    Message length: 8 characters
+2025-11-03 10:38:59,770 - __main__ - INFO -    🔍 Command Detection: BE=False, Partial=False, Close=False, ExtendTP=False
+2025-11-03 10:38:59,771 - __main__ - INFO -    ✅ No existing trades found
+2025-11-03 10:38:59,771 - __main__ - INFO - 🔍 PARSING SIGNAL:
+2025-11-03 10:38:59,772 - __main__ - INFO -    Input: '🟢33 pips'
+2025-11-03 10:38:59,773 - __main__ - INFO -    [OK] Symbol: XAUUSD.p (fixed)
+2025-11-03 10:38:59,773 - __main__ - WARNING -    [X] Not enough numbers found in message (need at least 4)
+2025-11-03 10:38:59,773 - __main__ - WARNING - ❌ NO SIGNAL PARSED - Message did not match trading signal pattern
+2025-11-03 10:38:59,774 - __main__ - INFO -    Expected pattern: [SYMBOL] BUY/SELL RANGE: X-Y SL: Z TP: W
+2025-11-03 10:38:59,775 - __main__ - INFO -    Received: 🟢33 pips
+2025-11-03 10:38:59,775 - __main__ - INFO - 📝 MESSAGE IGNORED: '🟢33 pips...' - Invalid signal format
+2025-11-03 10:38:59,776 - __main__ - INFO - 🔍 MESSAGE HANDLER CALLED:
+2025-11-03 10:38:59,776 - __main__ - INFO -    Message ID: 44160
+2025-11-03 10:38:59,776 - __main__ - INFO -    From user: None
+2025-11-03 10:38:59,777 - __main__ - INFO -    Chat ID: PeerChannel(channel_id=1623437581)
+2025-11-03 10:38:59,777 - __main__ - INFO -    Has text: True
+2025-11-03 10:38:59,777 - __main__ - INFO -    Message type: text
+2025-11-03 10:38:59,777 - __main__ - INFO -    ✅ Message text found: Taking partials here...
+2025-11-03 10:38:59,778 - __main__ - INFO -    🎯 CALLING process_trading_signal()
+2025-11-03 10:38:59,778 - __main__ - INFO - 🔍 PROCESSING MESSAGE:
+2025-11-03 10:38:59,778 - __main__ - INFO -    Raw message: 'Taking partials here'
+2025-11-03 10:38:59,778 - __main__ - INFO -    Message length: 20 characters
+2025-11-03 10:38:59,779 - __main__ - INFO -    🔍 Command Detection: BE=False, Partial=True, Close=False, ExtendTP=False
+2025-11-03 10:38:59,779 - __main__ - INFO - 💰 PARTIAL PROFIT COMMAND DETECTED!
+2025-11-03 10:38:59,779 - __main__ - INFO - 💰 PROCESSING PARTIAL PROFIT:
+2025-11-03 10:38:59,780 - __main__ - INFO -    Message: Taking partials here
+2025-11-03 10:38:59,780 - __main__ - INFO -    Partial volume to close: 0.02
+2025-11-03 10:38:59,780 - __main__ - INFO -    📈 TP Level: Unknown
+2025-11-03 10:38:59,780 - __main__ - INFO -    📊 Pips Profit: Unknown
+2025-11-03 10:38:59,781 - __main__ - INFO -    ❌ No open positions for partial profit
+2025-11-03 10:41:59,757 - __main__ - INFO - 🔍 MESSAGE HANDLER CALLED:
+2025-11-03 10:41:59,758 - __main__ - INFO -    Message ID: 44161
+2025-11-03 10:41:59,758 - __main__ - INFO -    From user: None
+2025-11-03 10:41:59,758 - __main__ - INFO -    Chat ID: PeerChannel(channel_id=1623437581)
+2025-11-03 10:41:59,759 - __main__ - INFO -    Has text: True
+2025-11-03 10:41:59,759 - __main__ - INFO -    Message type: text
+2025-11-03 10:41:59,759 - __main__ - INFO -    ✅ Message text found: 🔴POSITION CLOSED🔴    
+
+Partials taken, remaining tapped BE! Absolute beautiful SCALP!! This is how i...
+2025-11-03 10:41:59,760 - __main__ - INFO -    🎯 CALLING process_trading_signal()
+2025-11-03 10:41:59,760 - __main__ - INFO - 🔍 PROCESSING MESSAGE:
+2025-11-03 10:41:59,760 - __main__ - INFO -    Raw message: '🔴POSITION CLOSED🔴    \n\nPartials taken, remaining tapped BE! Absolute beautiful SCALP!! This is how its done Prem.'
+2025-11-03 10:41:59,760 - __main__ - INFO -    Message length: 113 characters
+2025-11-03 10:41:59,760 - __main__ - INFO -    🔍 Command Detection: BE=True, Partial=False, Close=True, ExtendTP=False
+2025-11-03 10:41:59,760 - __main__ - INFO - 🎯 BREAK EVEN COMMAND DETECTED!
+2025-11-03 10:41:59,761 - __main__ - INFO - 🎯 MOVING STOP LOSS TO BREAK EVEN:
+2025-11-03 10:41:59,762 - __main__ - INFO -    BE partial volume to close: 0.01
+2025-11-03 10:41:59,762 - __main__ - INFO -    ❌ No open positions to modify
+2025-11-03 10:41:59,762 - __main__ - INFO - 🔴 POSITION CLOSED COMMAND DETECTED!
+2025-11-03 10:41:59,762 - __main__ - INFO - 🔴 CLOSING ALL REMAINING POSITIONS:
+2025-11-03 10:41:59,763 - __main__ - INFO -    ❌ No open positions to close
+2025-11-03 10:50:05,234 - telethon.client.updates - INFO - Got difference for channel 2848189989 updates
+2025-11-03 11:00:11,931 - __main__ - INFO - Health check server started on port 8000
+2025-11-03 11:00:11,931 - __main__ - INFO - Starting Direct MT5 Telegram Monitor...
+2025-11-03 11:00:11,931 - __main__ - INFO - Strategy: midpoint, V: 0.09
+2025-11-03 11:00:12,036 - __main__ - INFO - Connected to MT5 VPS - Server: PUPrime-Demo, Account: 700010991
+2025-11-03 11:00:12,036 - __main__ - INFO - Account info - Login: 700010991, Balance: 100030.61
+2025-11-03 11:00:12,038 - __main__ - INFO - 🔐 Telegram Authentication Configuration:
+2025-11-03 11:00:12,038 - __main__ - INFO -    API_ID: ✅ Set
+2025-11-03 11:00:12,038 - __main__ - INFO -    API_HASH: ✅ Set
+2025-11-03 11:00:12,038 - __main__ - INFO -    BOT_TOKEN: ❌ Missing
+2025-11-03 11:00:12,038 - __main__ - INFO -    STRING_SESSION: ✅ Set
+2025-11-03 11:00:12,038 - __main__ - INFO -    PHONE_NUMBER: ✅ Set
+2025-11-03 11:00:12,038 - __main__ - INFO - 🔑 Using StringSession for authentication...
+2025-11-03 11:00:12,040 - __main__ - INFO -    StringSession length: 353 characters
+2025-11-03 11:00:12,081 - __main__ - INFO - Connecting with StringSession...
+2025-11-03 11:00:12,081 - telethon.network.mtprotosender - INFO - Connecting to 149.154.167.92:443/TcpFull...
+2025-11-03 11:00:12,094 - telethon.network.mtprotosender - INFO - Connection to 149.154.167.92:443/TcpFull complete!
+2025-11-03 11:00:12,685 - __main__ - INFO - ✅ StringSession authentication successful!
+2025-11-03 11:00:12,731 - __main__ - INFO - Connected to group: 🚀 CallistoFx Premium Channel 🚀
+2025-11-03 11:00:12,732 - __main__ - INFO - Event handlers set up successfully
+2025-11-03 11:00:12,732 - __main__ - INFO - ✅ Monitor is running. Watching for trading signals...
+2025-11-03 11:00:12,734 - __main__ - INFO - 🌐 Health check server started on port 8080
+2025-11-03 11:00:12,734 - __main__ - INFO -    GET http://localhost:8080/health - Detailed status
+2025-11-03 11:00:12,734 - __main__ - INFO -    GET http://localhost:8080/ - Simple status
