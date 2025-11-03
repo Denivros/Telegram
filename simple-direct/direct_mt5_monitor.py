@@ -59,7 +59,7 @@ MT5_SERVER = os.getenv('MT5_SERVER', '')
 DEFAULT_VOLUME = float(os.getenv('DEFAULT_VOLUME', '0.01'))
 BE_PARTIAL_VOLUME = float(os.getenv('BE_PARTIAL_VOLUME', '0.01'))  # Volume to close when moving to BE
 PARTIALS_VOLUME = float(os.getenv('PARTIALS_VOLUME', '0.03'))      # Volume to close for partial profits
-ENTRY_STRATEGY = os.getenv('ENTRY_STRATEGY', 'adaptive')  # adaptive, midpoint, range_break, momentum
+ENTRY_STRATEGY = os.getenv('ENTRY_STRATEGY', 'adaptive')  # adaptive, midpoint, range_break, momentum, dual_entry
 MAGIC_NUMBER = int(os.getenv('MAGIC_NUMBER', '123456'))
 
 # Words/phrases to ignore - won't log as "MESSAGE IGNORED"
@@ -686,14 +686,38 @@ class MT5TradingClient:
                         # Price is in range - set limit at current price
                         entry_price = current_price
                         logger.info(f"   📍 ADAPTIVE Strategy (SELL): Price {current_price} in range → Entry = {entry_price}")
+                        
+        elif ENTRY_STRATEGY == 'dual_entry':
+            # Calculate dual entry points at 1/3 and 2/3 of the range
+            range_span = range_end - range_start
+            entry_1 = range_start + (range_span / 3)  # 1/3 point
+            entry_2 = range_start + (2 * range_span / 3)  # 2/3 point
+            
+            logger.info(f"   📍 DUAL_ENTRY Strategy:")
+            logger.info(f"      Range: {range_start} - {range_end} (span: {range_span})")
+            logger.info(f"      Entry 1 (1/3): {entry_1}")
+            logger.info(f"      Entry 2 (2/3): {entry_2}")
+            logger.info(f"      Volume each: 0.07")
+            
+            # Return both entry points for dual execution
+            entry_price = entry_1  # Primary entry for main logic
+            
         else:
             entry_price = (range_start + range_end) / 2
         
-        # Get symbol info for normalization
+        # Get symbol info for normalization and prepare dual entry data if needed
         symbol_info = mt5.symbol_info(symbol)
         if symbol_info:
             digits = symbol_info.digits
             entry_price = round(entry_price, digits)
+        
+        # Prepare dual entry data for dual_entry strategy
+        dual_entries = None
+        if ENTRY_STRATEGY == 'dual_entry':
+            range_span = range_end - range_start
+            entry_1 = round(range_start + (range_span / 3), digits) if symbol_info else range_start + (range_span / 3)
+            entry_2 = round(range_start + (2 * range_span / 3), digits) if symbol_info else range_start + (2 * range_span / 3)
+            dual_entries = [entry_1, entry_2]
         
         return {
             'entry_price': entry_price,
@@ -701,16 +725,25 @@ class MT5TradingClient:
             'current_price': current_price,
             'strategy_used': ENTRY_STRATEGY,
             'range_start': range_start,
-            'range_end': range_end
+            'range_end': range_end,
+            'dual_entries': dual_entries  # None for single entry, [entry_1, entry_2] for dual entry
         }
     
     def execute_trade(self, signal: Dict[str, Any], entry_data: Dict[str, Any]) -> Dict[str, Any]:
-        """Execute the trading signal - Always use LIMIT orders"""
+        """Execute the trading signal - Handle both single and dual entry strategies"""
         try:
             symbol = signal['symbol']
             direction = signal['direction']
             entry_price = entry_data['entry_price']
             
+            # Check if this is a dual entry strategy
+            dual_entries = entry_data.get('dual_entries')
+            if dual_entries:
+                logger.info(f"🎯 DUAL ENTRY STRATEGY DETECTED!")
+                logger.info(f"   Placing TWO orders with 0.07 volume each")
+                return self._execute_dual_trades(signal, dual_entries)
+            
+            # Single entry logic
             # Get current market price for comparison
             tick = mt5.symbol_info_tick(symbol)
             if not tick:
@@ -797,6 +830,141 @@ class MT5TradingClient:
                 'error': f"Exception: {str(e)}",
                 'entry_price': entry_data.get('entry_price', 0),
                 'volume': DEFAULT_VOLUME
+            }
+    
+    def _execute_dual_trades(self, signal: Dict[str, Any], dual_entries: list) -> Dict[str, Any]:
+        """Execute dual entry trades at 1/3 and 2/3 of range with 0.07 volume each"""
+        try:
+            symbol = signal['symbol']
+            direction = signal['direction']
+            entry_1, entry_2 = dual_entries
+            
+            # Get current market price for order type determination
+            tick = mt5.symbol_info_tick(symbol)
+            if not tick:
+                return {
+                    'success': False,
+                    'error': f"Could not get market price for {symbol}",
+                    'entry_price': entry_1,
+                    'volume': 0.07
+                }
+            
+            current_ask = tick.ask
+            current_bid = tick.bid
+            
+            logger.info(f"🎯 EXECUTING DUAL ENTRY ORDERS:")
+            logger.info(f"   Symbol: {symbol}")
+            logger.info(f"   Direction: {direction.upper()}")
+            logger.info(f"   Current Market: Bid={current_bid}, Ask={current_ask}")
+            logger.info(f"   Entry 1 (1/3): {entry_1} - Volume: 0.07")
+            logger.info(f"   Entry 2 (2/3): {entry_2} - Volume: 0.07")
+            
+            results = []
+            successful_orders = 0
+            
+            # Execute both orders
+            for i, entry_price in enumerate([entry_1, entry_2], 1):
+                logger.info(f"\n🔄 PLACING ORDER {i}/2:")
+                logger.info(f"   Entry Price: {entry_price}")
+                
+                # Determine order type based on market vs entry price
+                if direction == 'buy':
+                    # if entry_price > current_ask:
+                    #     order_type_mt5 = mt5.ORDER_TYPE_BUY_STOP
+                    #     logger.info(f"   ✅ BUY STOP order {i} at {entry_price}")
+                    # else:
+                    order_type_mt5 = mt5.ORDER_TYPE_BUY_LIMIT
+                    logger.info(f"   ✅ BUY LIMIT order {i} at {entry_price}")
+                else:  # sell
+                    # if entry_price < current_bid:
+                    #     order_type_mt5 = mt5.ORDER_TYPE_SELL_STOP
+                    #     logger.info(f"   ✅ SELL STOP order {i} at {entry_price}")
+                    # else:
+                    order_type_mt5 = mt5.ORDER_TYPE_SELL_LIMIT
+                    logger.info(f"   ✅ SELL LIMIT order {i} at {entry_price}")
+                
+                # Prepare order request
+                request = {
+                    "action": mt5.TRADE_ACTION_PENDING,
+                    "symbol": symbol,
+                    "volume": 0.07,  # Fixed volume for dual entry
+                    "type": order_type_mt5,
+                    "price": entry_price,
+                    "sl": signal['stop_loss'],
+                    "tp": signal['take_profit'],
+                    "magic": MAGIC_NUMBER,
+                    "comment": f"TG Dual {i}/2 {ENTRY_STRATEGY}",
+                    "type_time": mt5.ORDER_TIME_GTC,
+                    "type_filling": mt5.ORDER_FILLING_RETURN,
+                }
+                
+                # Send order
+                result = mt5.order_send(request)
+                
+                if result.retcode == mt5.TRADE_RETCODE_DONE:
+                    logger.info(f"   ✅ Order {i} placed successfully!")
+                    logger.info(f"      Order ID: {result.order}")
+                    logger.info(f"      Deal ID: {result.deal}")
+                    successful_orders += 1
+                    results.append({
+                        'order_id': result.order,
+                        'deal_id': result.deal,
+                        'entry_price': entry_price,
+                        'success': True
+                    })
+                else:
+                    logger.error(f"   ❌ Order {i} failed: {result.retcode} - {result.comment}")
+                    results.append({
+                        'entry_price': entry_price,
+                        'error': f"{result.retcode} - {result.comment}",
+                        'success': False
+                    })
+            
+            # Check order status
+            self.check_order_status()
+            
+            # Return summary result
+            if successful_orders == 2:
+                logger.info(f"🎉 DUAL ENTRY SUCCESS: Both orders placed!")
+                return {
+                    'success': True,
+                    'dual_entry': True,
+                    'orders_placed': successful_orders,
+                    'total_volume': 0.14,  # 0.07 * 2
+                    'entry_prices': [entry_1, entry_2],
+                    'results': results
+                }
+            elif successful_orders == 1:
+                logger.warning(f"⚠️ PARTIAL SUCCESS: {successful_orders}/2 orders placed")
+                return {
+                    'success': True,
+                    'dual_entry': True,
+                    'orders_placed': successful_orders,
+                    'total_volume': 0.07,
+                    'entry_prices': [entry_1, entry_2],
+                    'results': results,
+                    'warning': 'Only 1/2 orders placed successfully'
+                }
+            else:
+                logger.error(f"❌ DUAL ENTRY FAILED: No orders placed successfully")
+                return {
+                    'success': False,
+                    'dual_entry': True,
+                    'orders_placed': 0,
+                    'total_volume': 0,
+                    'entry_prices': [entry_1, entry_2],
+                    'results': results,
+                    'error': 'Both dual entry orders failed'
+                }
+                
+        except Exception as e:
+            logger.error(f"Exception in dual entry execution: {e}")
+            return {
+                'success': False,
+                'dual_entry': True,
+                'error': f"Exception: {str(e)}",
+                'entry_prices': dual_entries,
+                'volume': 0.07
             }
 
 
@@ -1237,6 +1405,89 @@ class TelegramMonitor:
                 logger.error(f"   ❌ Error closing partial on Position {pos.ticket}: {e}")
         
         logger.info(f"💰 PARTIAL PROFIT COMPLETE: {success_count}/{len(positions)} positions partially closed")
+        
+        # Auto-move to Break Even on TP1 (if not already at BE)
+        if tp_level == "1" and success_count > 0:
+            logger.info(f"🎯 TP1 DETECTED - AUTO-MOVING REMAINING POSITIONS TO BREAK EVEN:")
+            self._auto_move_to_break_even_after_tp1()
+    
+    def _auto_move_to_break_even_after_tp1(self):
+        """Automatically move SL to break even after TP1 (without closing BE_PARTIAL_VOLUME)"""
+        logger.info(f"🎯 AUTO BREAK EVEN AFTER TP1:")
+        
+        # Get all remaining open positions
+        positions = mt5.positions_get()
+        if not positions:
+            logger.info(f"   ❌ No remaining positions to modify")
+            return
+        
+        be_success_count = 0
+        be_skipped_count = 0
+        
+        for pos in positions:
+            try:
+                # Use entry price as break even
+                new_sl = pos.price_open
+                
+                # Check if SL is already at break even (with tolerance)
+                tolerance = 0.00001  # 1 pip tolerance
+                if abs(pos.sl - new_sl) <= tolerance:
+                    logger.info(f"   ⏭️  Position {pos.ticket} ALREADY at break even:")
+                    logger.info(f"      Current SL: {pos.sl} ≈ Entry: {pos.price_open}")
+                    logger.info(f"      ✅ Skipping - already protected")
+                    be_skipped_count += 1
+                    continue
+                
+                # Create SL modification request (NO partial close - already done in TP1)
+                request = {
+                    "action": mt5.TRADE_ACTION_SLTP,
+                    "position": pos.ticket,
+                    "sl": new_sl,
+                    "tp": pos.tp,  # Keep existing TP
+                }
+                
+                logger.info(f"   📝 Moving Position {pos.ticket} to Break Even:")
+                logger.info(f"      Symbol: {pos.symbol}")
+                logger.info(f"      Entry Price: {pos.price_open}")
+                logger.info(f"      Current SL: {pos.sl} → New SL: {new_sl} (Break Even)")
+                logger.info(f"      Current TP: {pos.tp} (unchanged)")
+                logger.info(f"      💡 No additional partial close - already done in TP1")
+                
+                # Send modification
+                result = mt5.order_send(request)
+                
+                if result.retcode == mt5.TRADE_RETCODE_DONE:
+                    logger.info(f"   ✅ Position {pos.ticket} SL moved to break even!")
+                    be_success_count += 1
+                    
+                    # Log to n8n and send Telegram notification
+                    self.telegram_logger.send_log(
+                        'auto_sl_break_even',
+                        f"Auto BE after TP1: Position {pos.ticket} SL moved to break even at {new_sl}"
+                    )
+                    self.telegram_feedback.send_feedback(
+                        f"🎯 **AUTO BREAK EVEN (After TP1)**\n\n"
+                        f"**Position:** {pos.ticket}\n"
+                        f"**New SL Price:** {new_sl}\n"
+                        f"**Status:** Protected at entry level\n"
+                        f"**Trigger:** Automatic after TP1\n"
+                        f"**Time:** {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}",
+                        {'action': 'auto_sl_break_even', 'position_id': pos.ticket, 'break_even_price': new_sl, 'trigger': 'tp1'}
+                    )
+                    
+                else:
+                    logger.error(f"   ❌ Failed to move Position {pos.ticket} to BE: {result.retcode} - {result.comment}")
+                    
+            except Exception as e:
+                logger.error(f"   ❌ Error moving Position {pos.ticket} to BE: {e}")
+        
+        # Summary log
+        total_positions = len(positions)
+        logger.info(f"🎯 AUTO BREAK EVEN COMPLETE:")
+        logger.info(f"   📊 Remaining positions: {total_positions}")
+        logger.info(f"   ✅ Moved to BE: {be_success_count}")
+        logger.info(f"   ⏭️  Already at BE: {be_skipped_count}")
+        logger.info(f"   ❌ Failed: {total_positions - be_success_count - be_skipped_count}")
     
     def close_remaining_positions(self):
         """Close all remaining open positions completely"""
