@@ -56,11 +56,27 @@ MT5_PASSWORD = os.getenv('MT5_PASSWORD', '')
 MT5_SERVER = os.getenv('MT5_SERVER', '')
 
 # Trading Configuration
-DEFAULT_VOLUME = float(os.getenv('DEFAULT_VOLUME', '0.01'))
-BE_PARTIAL_VOLUME = float(os.getenv('BE_PARTIAL_VOLUME', '0.01'))  # Volume to close when moving to BE
-PARTIALS_VOLUME = float(os.getenv('PARTIALS_VOLUME', '0.03'))      # Volume to close for partial profits
-ENTRY_STRATEGY = os.getenv('ENTRY_STRATEGY', 'adaptive')  # adaptive, midpoint, range_break, momentum, dual_entry
+DEFAULT_VOLUME = float(os.getenv('DEFAULT_VOLUME', '0.09'))
+DEFAULT_VOLUME_MULTI = float(os.getenv('DEFAULT_VOLUME_MULTI', '0.01'))  # Multiplier for triple entry volumes
+BE_PARTIAL_VOLUME = float(os.getenv('BE_PARTIAL_VOLUME', '0.01'))  # Volume to close when moving to BE (single entry)
+BE_PARTIAL_VOLUME_MULTI = float(os.getenv('BE_PARTIAL_VOLUME_MULTI', '0.01'))  # Volume to close when moving to BE (multi-entry)
+PARTIALS_VOLUME = float(os.getenv('PARTIALS_VOLUME', '0.02'))      # Volume to close for partial profits (single entry)
+PARTIALS_VOLUME_MULTI = float(os.getenv('PARTIALS_VOLUME_MULTI', '0.01'))      # Volume to close for partial profits (multi-entry)
+ENTRY_STRATEGY = os.getenv('ENTRY_STRATEGY', 'adaptive')  # adaptive, midpoint, range_break, momentum, dual_entry, triple_entry
 MAGIC_NUMBER = int(os.getenv('MAGIC_NUMBER', '123456'))
+
+# Helper functions for strategy-aware volumes
+def get_partials_volume():
+    """Get partial profit volume based on current strategy"""
+    if ENTRY_STRATEGY in ['dual_entry', 'triple_entry']:
+        return PARTIALS_VOLUME_MULTI
+    return PARTIALS_VOLUME
+
+def get_be_partial_volume():
+    """Get break-even partial volume based on current strategy"""
+    if ENTRY_STRATEGY in ['dual_entry', 'triple_entry']:
+        return BE_PARTIAL_VOLUME_MULTI
+    return BE_PARTIAL_VOLUME
 
 # Words/phrases to ignore - won't log as "MESSAGE IGNORED"
 IGNORE_WORDS = [
@@ -702,6 +718,32 @@ class MT5TradingClient:
             # Return both entry points for dual execution
             entry_price = entry_1  # Primary entry for main logic
             
+        elif ENTRY_STRATEGY == 'triple_entry':
+            # Calculate triple entry points at begin, mid, and end of the range
+            range_span = range_end - range_start
+            entry_begin = range_start                         # Begin of range
+            entry_mid = range_start + (range_span / 2)       # Mid of range  
+            entry_end = range_end                             # End of range
+            
+            logger.info(f"   📍 TRIPLE_ENTRY Strategy ({direction.upper()}):")
+            logger.info(f"      Range: {range_start} - {range_end} (span: {range_span})")
+            logger.info(f"      Begin: {entry_begin} - Mid: {entry_mid} - End: {entry_end}")
+            
+            if direction == 'buy':
+                logger.info(f"      BUY Order: Begin(2x) → Mid(4x) → End(3x) LAST")
+                logger.info(f"      Entry 1: {entry_begin} - Volume: {2 * DEFAULT_VOLUME_MULTI}")
+                logger.info(f"      Entry 2: {entry_mid} - Volume: {4 * DEFAULT_VOLUME_MULTI}")
+                logger.info(f"      Entry 3: {entry_end} - Volume: {3 * DEFAULT_VOLUME_MULTI} ← LAST")
+                entry_price = entry_begin  # Primary entry for main logic
+            else:
+                logger.info(f"      SELL Order: End(3x) → Mid(4x) → Begin(2x) LAST")
+                logger.info(f"      Entry 1: {entry_end} - Volume: {3 * DEFAULT_VOLUME_MULTI}")
+                logger.info(f"      Entry 2: {entry_mid} - Volume: {4 * DEFAULT_VOLUME_MULTI}")
+                logger.info(f"      Entry 3: {entry_begin} - Volume: {2 * DEFAULT_VOLUME_MULTI} ← LAST")
+                entry_price = entry_end  # Primary entry for main logic
+            
+            logger.info(f"      Total Volume: {9 * DEFAULT_VOLUME_MULTI}")
+            
         else:
             entry_price = (range_start + range_end) / 2
         
@@ -711,13 +753,37 @@ class MT5TradingClient:
             digits = symbol_info.digits
             entry_price = round(entry_price, digits)
         
-        # Prepare dual entry data for dual_entry strategy
-        dual_entries = None
+        # Prepare multi-entry data for dual_entry and triple_entry strategies
+        multi_entries = None
         if ENTRY_STRATEGY == 'dual_entry':
             range_span = range_end - range_start
             entry_1 = round(range_start + (range_span / 3), digits) if symbol_info else range_start + (range_span / 3)
             entry_2 = round(range_start + (2 * range_span / 3), digits) if symbol_info else range_start + (2 * range_span / 3)
-            dual_entries = [entry_1, entry_2]
+            multi_entries = [
+                {'price': entry_1, 'volume': 0.07},
+                {'price': entry_2, 'volume': 0.07}
+            ]
+        elif ENTRY_STRATEGY == 'triple_entry':
+            range_span = range_end - range_start
+            entry_begin = round(range_start, digits) if symbol_info else range_start                    # Begin of range
+            entry_mid = round(range_start + (range_span / 2), digits) if symbol_info else range_start + (range_span / 2)  # Mid of range
+            entry_end = round(range_end, digits) if symbol_info else range_end                        # End of range
+            
+            # Order entries based on direction - 2x volume always enters LAST
+            if direction == 'buy':
+                # BUY: Price moves up, so 2x volume enters at highest level (end) = LAST
+                multi_entries = [
+                    {'price': entry_begin, 'volume': 3 * DEFAULT_VOLUME_MULTI},  # First: 3x at begin (lowest)
+                    {'price': entry_mid, 'volume': 4 * DEFAULT_VOLUME_MULTI},    # Second: 4x at mid
+                    {'price': entry_end, 'volume': 2 * DEFAULT_VOLUME_MULTI}     # LAST: 2x at end (highest)
+                ]
+            else:  # sell
+                # SELL: Price moves down, so 2x volume enters at lowest level (begin) = LAST
+                multi_entries = [
+                    {'price': entry_end, 'volume': 3 * DEFAULT_VOLUME_MULTI},    # First: 3x at end (highest)
+                    {'price': entry_mid, 'volume': 4 * DEFAULT_VOLUME_MULTI},    # Second: 4x at mid
+                    {'price': entry_begin, 'volume': 2 * DEFAULT_VOLUME_MULTI}   # LAST: 2x at begin (lowest)
+                ]
         
         return {
             'entry_price': entry_price,
@@ -726,7 +792,7 @@ class MT5TradingClient:
             'strategy_used': ENTRY_STRATEGY,
             'range_start': range_start,
             'range_end': range_end,
-            'dual_entries': dual_entries  # None for single entry, [entry_1, entry_2] for dual entry
+            'multi_entries': multi_entries  # None for single, [{'price': x, 'volume': y}, ...] for multi-entry
         }
     
     def execute_trade(self, signal: Dict[str, Any], entry_data: Dict[str, Any]) -> Dict[str, Any]:
@@ -736,12 +802,17 @@ class MT5TradingClient:
             direction = signal['direction']
             entry_price = entry_data['entry_price']
             
-            # Check if this is a dual entry strategy
-            dual_entries = entry_data.get('dual_entries')
-            if dual_entries:
-                logger.info(f"🎯 DUAL ENTRY STRATEGY DETECTED!")
-                logger.info(f"   Placing TWO orders with 0.07 volume each")
-                return self._execute_dual_trades(signal, dual_entries)
+            # Check if this is a multi-entry strategy (dual or triple)
+            multi_entries = entry_data.get('multi_entries')
+            if multi_entries:
+                if len(multi_entries) == 2:
+                    logger.info(f"🎯 DUAL ENTRY STRATEGY DETECTED!")
+                    logger.info(f"   Placing TWO orders with 0.07 volume each")
+                elif len(multi_entries) == 3:
+                    logger.info(f"🎯 TRIPLE ENTRY STRATEGY DETECTED!")
+                    total_vol = sum(entry['volume'] for entry in multi_entries)
+                    logger.info(f"   Placing THREE orders with total volume: {total_vol}")
+                return self._execute_multi_trades(signal, multi_entries)
             
             # Single entry logic
             # Get current market price for comparison
@@ -832,12 +903,12 @@ class MT5TradingClient:
                 'volume': DEFAULT_VOLUME
             }
     
-    def _execute_dual_trades(self, signal: Dict[str, Any], dual_entries: list) -> Dict[str, Any]:
-        """Execute dual entry trades at 1/3 and 2/3 of range with 0.07 volume each"""
+    def _execute_multi_trades(self, signal: Dict[str, Any], multi_entries: list) -> Dict[str, Any]:
+        """Execute multi-entry trades (dual or triple) with flexible volumes"""
         try:
             symbol = signal['symbol']
             direction = signal['direction']
-            entry_1, entry_2 = dual_entries
+            entry_count = len(multi_entries)
             
             # Get current market price for order type determination
             tick = mt5.symbol_info_tick(symbol)
@@ -845,41 +916,42 @@ class MT5TradingClient:
                 return {
                     'success': False,
                     'error': f"Could not get market price for {symbol}",
-                    'entry_price': entry_1,
-                    'volume': 0.07
+                    'entry_price': multi_entries[0]['price'] if multi_entries else 0,
+                    'volume': multi_entries[0]['volume'] if multi_entries else 0
                 }
             
             current_ask = tick.ask
             current_bid = tick.bid
             
-            logger.info(f"🎯 EXECUTING DUAL ENTRY ORDERS:")
+            # Calculate total volume
+            total_volume = sum([entry['volume'] for entry in multi_entries])
+            
+            logger.info(f"🎯 EXECUTING {entry_count.upper()} ENTRY ORDERS:")
             logger.info(f"   Symbol: {symbol}")
             logger.info(f"   Direction: {direction.upper()}")
             logger.info(f"   Current Market: Bid={current_bid}, Ask={current_ask}")
-            logger.info(f"   Entry 1 (1/3): {entry_1} - Volume: 0.07")
-            logger.info(f"   Entry 2 (2/3): {entry_2} - Volume: 0.07")
+            logger.info(f"   Total Volume: {total_volume}")
+            
+            for i, entry in enumerate(multi_entries, 1):
+                logger.info(f"   Entry {i}/{entry_count}: {entry['price']} - Volume: {entry['volume']}")
             
             results = []
             successful_orders = 0
             
-            # Execute both orders
-            for i, entry_price in enumerate([entry_1, entry_2], 1):
-                logger.info(f"\n🔄 PLACING ORDER {i}/2:")
+            # Execute all orders
+            for i, entry in enumerate(multi_entries, 1):
+                entry_price = entry['price']
+                volume = entry['volume']
+                
+                logger.info(f"\n🔄 PLACING ORDER {i}/{entry_count}:")
                 logger.info(f"   Entry Price: {entry_price}")
+                logger.info(f"   Volume: {volume}")
                 
                 # Determine order type based on market vs entry price
                 if direction == 'buy':
-                    # if entry_price > current_ask:
-                    #     order_type_mt5 = mt5.ORDER_TYPE_BUY_STOP
-                    #     logger.info(f"   ✅ BUY STOP order {i} at {entry_price}")
-                    # else:
                     order_type_mt5 = mt5.ORDER_TYPE_BUY_LIMIT
                     logger.info(f"   ✅ BUY LIMIT order {i} at {entry_price}")
                 else:  # sell
-                    # if entry_price < current_bid:
-                    #     order_type_mt5 = mt5.ORDER_TYPE_SELL_STOP
-                    #     logger.info(f"   ✅ SELL STOP order {i} at {entry_price}")
-                    # else:
                     order_type_mt5 = mt5.ORDER_TYPE_SELL_LIMIT
                     logger.info(f"   ✅ SELL LIMIT order {i} at {entry_price}")
                 
@@ -887,13 +959,13 @@ class MT5TradingClient:
                 request = {
                     "action": mt5.TRADE_ACTION_PENDING,
                     "symbol": symbol,
-                    "volume": 0.07,  # Fixed volume for dual entry
+                    "volume": volume,  # Variable volume for multi-entry
                     "type": order_type_mt5,
                     "price": entry_price,
                     "sl": signal['stop_loss'],
                     "tp": signal['take_profit'],
                     "magic": MAGIC_NUMBER,
-                    "comment": f"TG Dual {i}/2 {ENTRY_STRATEGY}",
+                    "comment": f"TG Multi {i}/{entry_count} {ENTRY_STRATEGY}",
                     "type_time": mt5.ORDER_TIME_GTC,
                     "type_filling": mt5.ORDER_FILLING_RETURN,
                 }
@@ -910,12 +982,14 @@ class MT5TradingClient:
                         'order_id': result.order,
                         'deal_id': result.deal,
                         'entry_price': entry_price,
+                        'volume': volume,
                         'success': True
                     })
                 else:
                     logger.error(f"   ❌ Order {i} failed: {result.retcode} - {result.comment}")
                     results.append({
                         'entry_price': entry_price,
+                        'volume': volume,
                         'error': f"{result.retcode} - {result.comment}",
                         'success': False
                     })
@@ -923,48 +997,54 @@ class MT5TradingClient:
             # Check order status
             self.check_order_status()
             
+            # Extract entry prices for return data
+            entry_prices = [entry['price'] for entry in multi_entries]
+            
             # Return summary result
-            if successful_orders == 2:
-                logger.info(f"🎉 DUAL ENTRY SUCCESS: Both orders placed!")
+            if successful_orders == entry_count:
+                logger.info(f"🎉 MULTI-ENTRY SUCCESS: All {entry_count} orders placed!")
                 return {
                     'success': True,
-                    'dual_entry': True,
+                    'multi_entry': True,
+                    'entry_type': 'triple' if entry_count == 3 else 'dual',
                     'orders_placed': successful_orders,
-                    'total_volume': 0.14,  # 0.07 * 2
-                    'entry_prices': [entry_1, entry_2],
+                    'total_volume': total_volume,
+                    'entry_prices': entry_prices,
                     'results': results
                 }
-            elif successful_orders == 1:
-                logger.warning(f"⚠️ PARTIAL SUCCESS: {successful_orders}/2 orders placed")
+            elif successful_orders > 0:
+                logger.warning(f"⚠️ PARTIAL SUCCESS: {successful_orders}/{entry_count} orders placed")
                 return {
                     'success': True,
-                    'dual_entry': True,
+                    'multi_entry': True,
+                    'entry_type': 'triple' if entry_count == 3 else 'dual',
                     'orders_placed': successful_orders,
-                    'total_volume': 0.07,
-                    'entry_prices': [entry_1, entry_2],
+                    'total_volume': sum([r['volume'] for r in results if r.get('success', False)]),
+                    'entry_prices': entry_prices,
                     'results': results,
-                    'warning': 'Only 1/2 orders placed successfully'
+                    'warning': f'Only {successful_orders}/{entry_count} orders placed successfully'
                 }
             else:
-                logger.error(f"❌ DUAL ENTRY FAILED: No orders placed successfully")
+                logger.error(f"❌ MULTI-ENTRY FAILED: No orders placed successfully")
                 return {
                     'success': False,
-                    'dual_entry': True,
+                    'multi_entry': True,
+                    'entry_type': 'triple' if entry_count == 3 else 'dual',
                     'orders_placed': 0,
                     'total_volume': 0,
-                    'entry_prices': [entry_1, entry_2],
+                    'entry_prices': entry_prices,
                     'results': results,
-                    'error': 'Both dual entry orders failed'
+                    'error': f'All {entry_count} multi-entry orders failed'
                 }
                 
         except Exception as e:
-            logger.error(f"Exception in dual entry execution: {e}")
+            logger.error(f"Exception in multi-entry execution: {e}")
             return {
                 'success': False,
-                'dual_entry': True,
+                'multi_entry': True,
                 'error': f"Exception: {str(e)}",
-                'entry_prices': dual_entries,
-                'volume': 0.07
+                'entry_prices': [entry.get('price', 0) for entry in multi_entries] if multi_entries else [],
+                'volume': multi_entries[0].get('volume', 0) if multi_entries else 0
             }
 
 
@@ -1128,9 +1208,11 @@ class TelegramMonitor:
         return False
     
     def move_sl_to_break_even(self):
-        """Move Stop Loss to break even (entry price) and close BE_PARTIAL_VOLUME for all open positions"""
+        """Move Stop Loss to break even (entry price) and close strategy-aware BE partial volume for all open positions"""
+        be_partial_vol = get_be_partial_volume()
         logger.info(f"🎯 MOVING STOP LOSS TO BREAK EVEN:")
-        logger.info(f"   BE partial volume to close: {BE_PARTIAL_VOLUME}")
+        logger.info(f"   Strategy: {ENTRY_STRATEGY}")
+        logger.info(f"   BE partial volume to close: {be_partial_vol}")
         
         # Get all open positions
         positions = mt5.positions_get()
@@ -1159,17 +1241,17 @@ class TelegramMonitor:
                     continue
                 
                 # First, close BE_PARTIAL_VOLUME if position is large enough
-                if pos.volume > BE_PARTIAL_VOLUME:
-                    logger.info(f"   💰 Closing BE partial volume {BE_PARTIAL_VOLUME} on Position {pos.ticket}")
+                if pos.volume > be_partial_vol:
+                    logger.info(f"   💰 Closing BE partial volume {be_partial_vol} on Position {pos.ticket}")
                     
                     partial_request = {
                         "action": mt5.TRADE_ACTION_DEAL,
                         "position": pos.ticket,
                         "symbol": pos.symbol,
-                        "volume": BE_PARTIAL_VOLUME,
+                        "volume": be_partial_vol,
                         "type": mt5.ORDER_TYPE_SELL if pos.type == 0 else mt5.ORDER_TYPE_BUY,  # Opposite of position
                         "magic": MAGIC_NUMBER,
-                        "comment": f"BE partial close {BE_PARTIAL_VOLUME}",
+                        "comment": f"BE partial close {be_partial_vol}",
                         "type_filling": mt5.ORDER_FILLING_IOC,  # Immediate or Cancel
                     }
                     
@@ -1182,12 +1264,12 @@ class TelegramMonitor:
                         # Log partial close
                         self.telegram_logger.send_log(
                             'be_partial_close',
-                            f"BE partial close {BE_PARTIAL_VOLUME} on Position {pos.ticket}, Deal: {partial_result.deal}"
+                            f"BE partial close {be_partial_vol} on Position {pos.ticket}, Deal: {partial_result.deal}"
                         )
                     else:
                         logger.error(f"      ❌ BE partial close failed: {partial_result.retcode} - {partial_result.comment}")
                 else:
-                    logger.info(f"   ⚠️  Position {pos.ticket} volume ({pos.volume}) too small for BE partial close ({BE_PARTIAL_VOLUME})")
+                    logger.info(f"   ⚠️  Position {pos.ticket} volume ({pos.volume}) too small for BE partial close ({be_partial_vol})")
                 
                 # Create SL modification request
                 request = {
@@ -1325,10 +1407,12 @@ class TelegramMonitor:
         return False
     
     def process_partial_profit(self, message_text: str):
-        """Process partial profit taking commands - closes PARTIALS_VOLUME"""
+        """Process partial profit taking commands - closes strategy-aware partial volume"""
+        partials_vol = get_partials_volume()
         logger.info(f"💰 PROCESSING PARTIAL PROFIT:")
         logger.info(f"   Message: {message_text}")
-        logger.info(f"   Partial volume to close: {PARTIALS_VOLUME}")
+        logger.info(f"   Strategy: {ENTRY_STRATEGY}")
+        logger.info(f"   Partial volume to close: {partials_vol}")
         
         # Extract TP level and pips information if available
         import re
@@ -1351,8 +1435,8 @@ class TelegramMonitor:
         for pos in positions:
             try:
                 # Check if position has enough volume for partial close
-                if pos.volume <= PARTIALS_VOLUME:
-                    logger.info(f"   ⚠️  Position {pos.ticket} volume ({pos.volume}) <= partial volume ({PARTIALS_VOLUME})")
+                if pos.volume <= partials_vol:
+                    logger.info(f"   ⚠️  Position {pos.ticket} volume ({pos.volume}) <= partial volume ({partials_vol})")
                     logger.info(f"      Skipping partial close - would close entire position")
                     continue
                 
@@ -1361,18 +1445,18 @@ class TelegramMonitor:
                     "action": mt5.TRADE_ACTION_DEAL,
                     "position": pos.ticket,
                     "symbol": pos.symbol,
-                    "volume": PARTIALS_VOLUME,
+                    "volume": partials_vol,
                     "type": mt5.ORDER_TYPE_SELL if pos.type == 0 else mt5.ORDER_TYPE_BUY,  # Opposite of position
                     "magic": MAGIC_NUMBER,
-                    "comment": f"Partial close {PARTIALS_VOLUME}",
+                    "comment": f"Partial close {partials_vol}",
                     "type_filling": mt5.ORDER_FILLING_IOC,  # Immediate or Cancel
                 }
                 
                 logger.info(f"   � Closing partial on Position {pos.ticket}:")
                 logger.info(f"      Symbol: {pos.symbol}")
                 logger.info(f"      Original Volume: {pos.volume}")
-                logger.info(f"      Closing Volume: {PARTIALS_VOLUME}")
-                logger.info(f"      Remaining Volume: {pos.volume - PARTIALS_VOLUME}")
+                logger.info(f"      Closing Volume: {partials_vol}")
+                logger.info(f"      Remaining Volume: {pos.volume - partials_vol}")
                 
                 # Send partial close order
                 result = mt5.order_send(request)
@@ -1385,17 +1469,17 @@ class TelegramMonitor:
                     # Log to n8n and send Telegram notification
                     self.telegram_logger.send_log(
                         'partial_profit',
-                        f"TP{tp_level} - {pips_profit} pips: Partial close {PARTIALS_VOLUME} on Position {pos.ticket}, Deal: {result.deal}"
+                        f"TP{tp_level} - {pips_profit} pips: Partial close {partials_vol} on Position {pos.ticket}, Deal: {result.deal}"
                     )
                     self.telegram_feedback.send_feedback(
                         f"💰 **PARTIAL PROFIT TAKEN (TP{tp_level})**\n\n"
                         f"**Position:** {pos.ticket}\n"
                         f"**TP Level:** TP{tp_level}\n"
                         f"**Pips Profit:** {pips_profit}\n"
-                        f"**Volume Closed:** {PARTIALS_VOLUME}\n"
+                        f"**Volume Closed:** {partials_vol}\n"
                         f"**Deal ID:** {result.deal}\n"
                         f"**Time:** {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}",
-                        {'action': 'partial_profit', 'position_id': pos.ticket, 'volume_closed': PARTIALS_VOLUME, 'deal_id': result.deal, 'tp_level': tp_level, 'pips_profit': pips_profit}
+                        {'action': 'partial_profit', 'position_id': pos.ticket, 'volume_closed': partials_vol, 'deal_id': result.deal, 'tp_level': tp_level, 'pips_profit': pips_profit}
                     )
                     
                 else:

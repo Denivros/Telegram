@@ -3358,3 +3358,36 @@ Partials taken, remaining tapped BE! Absolute beautiful SCALP!! This is how i...
 2025-11-03 11:00:12,734 - __main__ - INFO - 🌐 Health check server started on port 8080
 2025-11-03 11:00:12,734 - __main__ - INFO -    GET http://localhost:8080/health - Detailed status
 2025-11-03 11:00:12,734 - __main__ - INFO -    GET http://localhost:8080/ - Simple status
+2025-11-03 11:13:53,726 - __main__ - INFO - 🔍 MESSAGE HANDLER CALLED:
+2025-11-03 11:13:53,728 - __main__ - INFO -    Message ID: 44162
+2025-11-03 11:13:53,728 - __main__ - INFO -    From user: None
+2025-11-03 11:13:53,728 - __main__ - INFO -    Chat ID: PeerChannel(channel_id=1623437581)
+2025-11-03 11:13:53,734 - __main__ - INFO -    Has text: True
+2025-11-03 11:13:53,734 - __main__ - INFO -    Message type: <class 'telethon.tl.types.MessageMediaPhoto'>
+2025-11-03 11:13:53,734 - __main__ - INFO -    ✅ Message text found: Extremely convincing win in my books 🚀
+
+Called out "**ENTER NOW**" for buys live on zoom and price w...
+2025-11-03 11:13:53,734 - __main__ - INFO -    🎯 CALLING process_trading_signal()
+2025-11-03 11:24:07,479 - __main__ - INFO - Health check server started on port 8000
+2025-11-03 11:24:07,481 - __main__ - INFO - Starting Direct MT5 Telegram Monitor...
+2025-11-03 11:24:07,481 - __main__ - INFO - Strategy: dual_entry, V: 0.09
+2025-11-03 11:24:07,595 - __main__ - INFO - Connected to MT5 VPS - Server: PUPrime-Demo, Account: 700010991
+2025-11-03 11:24:07,595 - __main__ - INFO - Account info - Login: 700010991, Balance: 100030.61
+2025-11-03 11:24:07,595 - __main__ - INFO - 🔐 Telegram Authentication Configuration:
+2025-11-03 11:24:07,595 - __main__ - INFO -    API_ID: ✅ Set
+2025-11-03 11:24:07,595 - __main__ - INFO -    API_HASH: ✅ Set
+2025-11-03 11:24:07,597 - __main__ - INFO -    BOT_TOKEN: ❌ Missing
+2025-11-03 11:24:07,597 - __main__ - INFO -    STRING_SESSION: ✅ Set
+2025-11-03 11:24:07,597 - __main__ - INFO -    PHONE_NUMBER: ✅ Set
+2025-11-03 11:24:07,597 - __main__ - INFO - 🔑 Using StringSession for authentication...
+2025-11-03 11:24:07,597 - __main__ - INFO -    StringSession length: 353 characters
+2025-11-03 11:24:07,647 - __main__ - INFO - Connecting with StringSession...
+2025-11-03 11:24:07,649 - telethon.network.mtprotosender - INFO - Connecting to 149.154.167.92:443/TcpFull...
+2025-11-03 11:24:07,661 - telethon.network.mtprotosender - INFO - Connection to 149.154.167.92:443/TcpFull complete!
+2025-11-03 11:24:08,403 - __main__ - INFO - ✅ StringSession authentication successful!
+2025-11-03 11:24:08,452 - __main__ - INFO - Connected to group: 🚀 CallistoFx Premium Channel 🚀
+2025-11-03 11:24:08,454 - __main__ - INFO - Event handlers set up successfully
+2025-11-03 11:24:08,454 - __main__ - INFO - ✅ Monitor is running. Watching for trading signals...
+2025-11-03 11:24:08,456 - __main__ - INFO - 🌐 Health check server started on port 8080
+2025-11-03 11:24:08,456 - __main__ - INFO -    GET http://localhost:8080/health - Detailed status
+2025-11-03 11:24:08,456 - __main__ - INFO -    GET http://localhost:8080/ - Simple status
