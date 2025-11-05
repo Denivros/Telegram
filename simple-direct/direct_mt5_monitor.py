@@ -6,15 +6,12 @@ Sends logs to n8n for Telegram notifications
 """
 
 import asyncio
-import json
 import logging
 import os
 import re
 import sys
 from datetime import datetime
-from typing import Dict, Any, Optional
-from http.server import HTTPServer, BaseHTTPRequestHandler
-import threading
+from typing import Dict, Any
 
 # Fix Unicode encoding for Windows console
 if sys.platform.startswith('win'):
@@ -22,11 +19,15 @@ if sys.platform.startswith('win'):
     sys.stdout = codecs.getwriter('utf-8')(sys.stdout.buffer, 'strict')
     sys.stderr = codecs.getwriter('utf-8')(sys.stderr.buffer, 'strict')
 
-import requests
 from telethon import TelegramClient, events
 from telethon.sessions import StringSession
-from telethon.errors import SessionPasswordNeededError, FloodWaitError
-from dotenv import load_dotenv
+from config import *
+
+# Import modular components
+from telegram_logger import TelegramLogger, TelegramFeedback
+from mt5_client import MT5TradingClient
+from signal_parser import TradingSignalParser
+from health_server import BotHealthServer
 
 # Try to import MetaTrader5 (available on Windows/Wine only)
 try:
@@ -38,55 +39,7 @@ except ImportError:
     MT5_AVAILABLE = False
     mt5 = None
 
-# Load environment variables
-load_dotenv()
-
-# Configuration
-API_ID = os.getenv('TELEGRAM_API_ID')
-API_HASH = os.getenv('TELEGRAM_API_HASH')
-BOT_TOKEN = os.getenv('BOT_TOKEN')
-PHONE_NUMBER = os.getenv('TELEGRAM_PHONE')  # Keep for fallback
-STRING_SESSION = os.getenv('STRING_SESSION')  # StringSession for authentication
-GROUP_ID = os.getenv('TELEGRAM_GROUP_ID')
-SESSION_NAME = os.getenv('SESSION_NAME', 'telegram_monitor')
-
-# MT5 VPS Connection Configuration
-MT5_LOGIN = int(os.getenv('MT5_LOGIN', '0'))
-MT5_PASSWORD = os.getenv('MT5_PASSWORD', '')
-MT5_SERVER = os.getenv('MT5_SERVER', '')
-
-# Trading Configuration
-DEFAULT_VOLUME = float(os.getenv('DEFAULT_VOLUME', '0.09'))
-DEFAULT_VOLUME_MULTI = float(os.getenv('DEFAULT_VOLUME_MULTI', '0.01'))  # Multiplier for triple entry volumes
-BE_PARTIAL_VOLUME = float(os.getenv('BE_PARTIAL_VOLUME', '0.01'))  # Volume to close when moving to BE (single entry)
-BE_PARTIAL_VOLUME_MULTI = float(os.getenv('BE_PARTIAL_VOLUME_MULTI', '0.01'))  # Volume to close when moving to BE (multi-entry)
-PARTIALS_VOLUME = float(os.getenv('PARTIALS_VOLUME', '0.02'))      # Volume to close for partial profits (single entry)
-PARTIALS_VOLUME_MULTI = float(os.getenv('PARTIALS_VOLUME_MULTI', '0.01'))      # Volume to close for partial profits (multi-entry)
-ENTRY_STRATEGY = os.getenv('ENTRY_STRATEGY', 'adaptive')  # adaptive, midpoint, range_break, momentum, dual_entry, triple_entry
-MAGIC_NUMBER = int(os.getenv('MAGIC_NUMBER', '123456'))
-
-# Helper functions for strategy-aware volumes
-def get_partials_volume():
-    """Get partial profit volume based on current strategy"""
-    if ENTRY_STRATEGY in ['dual_entry', 'triple_entry']:
-        return PARTIALS_VOLUME_MULTI
-    return PARTIALS_VOLUME
-
-def get_be_partial_volume():
-    """Get break-even partial volume based on current strategy"""
-    if ENTRY_STRATEGY in ['dual_entry', 'triple_entry']:
-        return BE_PARTIAL_VOLUME_MULTI
-    return BE_PARTIAL_VOLUME
-
-# Words/phrases to ignore - won't log as "MESSAGE IGNORED"
-IGNORE_WORDS = [
-    'weekly trading summary', 'weekly journals', 'fucking', 'elite trader', 'analysis','haha', 'livestream','twitch','how to', 'trading summary',
-     'btc','btcusd', 'bitcoin', 'gbpjpy', 'zoom','recaps','recap','shit','w in the chat','stream', 'livestream','channel','batch', 'how to split risk'
-]
-
-# N8N Webhooks Configuration - Use feedback URL for all logging
-N8N_TELEGRAM_FEEDBACK = os.getenv('N8N_TELEGRAM_FEEDBACK', 'https://n8n.srv881084.hstgr.cloud/webhook/91126b9d-bd23-4e92-8891-5bfb217455c7')
-N8N_LOG_WEBHOOK = N8N_TELEGRAM_FEEDBACK  # Use same webhook for all logs
+# Configuration loaded from config.py
 
 # Set up logging
 logging.basicConfig(
@@ -100,506 +53,22 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 
-class BotHealthHandler(BaseHTTPRequestHandler):
-    """Simple HTTP handler for bot health checks"""
-    
-    def __init__(self, request, client_address, server, bot_instance=None):
-        self.bot_instance = bot_instance
-        super().__init__(request, client_address, server)
-    
-    def do_GET(self):
-        """Handle GET requests"""
-        if self.path == '/health' or self.path == '/status':
-            self.send_health_response()
-        elif self.path == '/':
-            self.send_simple_response()
-        else:
-            self.send_error(404, "Not Found")
-    
-    def send_health_response(self):
-        """Send detailed bot health status"""
-        try:
-            import time
-            from datetime import datetime
-            
-            # Get current time
-            current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-            
-            # Check MT5 connection
-            mt5_connected = mt5.terminal_info() is not None if MT5_AVAILABLE else False
-            
-            # Get positions and orders count
-            positions_count = len(mt5.positions_get()) if MT5_AVAILABLE and mt5_connected else 0
-            orders_count = len(mt5.orders_get()) if MT5_AVAILABLE and mt5_connected else 0
-            
-            # Get account info
-            account_info = mt5.account_info() if MT5_AVAILABLE and mt5_connected else None
-            balance = f"{account_info.balance:.2f}" if account_info else "N/A"
-            equity = f"{account_info.equity:.2f}" if account_info else "N/A"
-            
-            # Bot status
-            bot_running = hasattr(self.bot_instance, 'running') and self.bot_instance.running if self.bot_instance else True
-            
-            # Build JSON response
-            health_data = {
-                "status": "healthy" if bot_running and (not MT5_AVAILABLE or mt5_connected) else "unhealthy",
-                "timestamp": current_time,
-                "bot_running": bot_running,
-                "mt5_available": MT5_AVAILABLE,
-                "mt5_connected": mt5_connected,
-                "account": {
-                    "balance": balance,
-                    "equity": equity
-                },
-                "trades": {
-                    "open_positions": positions_count,
-                    "pending_orders": orders_count
-                },
-                "config": {
-                    "strategy": ENTRY_STRATEGY,
-                    "volume": DEFAULT_VOLUME
-                }
-            }
-            
-            response = json.dumps(health_data, indent=2)
-            
-            self.send_response(200)
-            self.send_header('Content-type', 'application/json')
-            self.send_header('Content-length', str(len(response)))
-            self.end_headers()
-            self.wfile.write(response.encode())
-            
-        except Exception as e:
-            error_response = json.dumps({
-                "status": "error", 
-                "message": str(e),
-                "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-            })
-            
-            self.send_response(500)
-            self.send_header('Content-type', 'application/json')
-            self.send_header('Content-length', str(len(error_response)))
-            self.end_headers()
-            self.wfile.write(error_response.encode())
-    
-    def send_simple_response(self):
-        """Send simple 'Bot is running' response"""
-        response = json.dumps({
-            "message": "MT5 Trading Bot is running",
-            "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
-            "status": "online"
-        })
-        
-        self.send_response(200)
-        self.send_header('Content-type', 'application/json')
-        self.send_header('Content-length', str(len(response)))
-        self.end_headers()
-        self.wfile.write(response.encode())
-    
-    def log_message(self, format, *args):
-        """Override to suppress HTTP server logs"""
-        pass
+# Health server classes moved to health_server.py
+# Telegram logger classes moved to telegram_logger.py
+# TradingSignalParser class moved to signal_parser.py
+# MT5TradingClient class moved to mt5_client.py
 
 
-class BotHealthServer:
-    """HTTP server for bot health checks"""
-    
-    def __init__(self, port=8080, bot_instance=None):
-        self.port = port
-        self.bot_instance = bot_instance
-        self.server = None
-        self.thread = None
-    
-    def start(self):
-        """Start the HTTP server in a separate thread"""
-        try:
-            # Create custom handler class with bot instance
-            def handler(*args):
-                BotHealthHandler(*args, bot_instance=self.bot_instance)
-            
-            self.server = HTTPServer(('0.0.0.0', self.port), handler)
-            self.thread = threading.Thread(target=self.server.serve_forever, daemon=True)
-            self.thread.start()
-            
-            logger.info(f"🌐 Health check server started on port {self.port}")
-            logger.info(f"   GET http://localhost:{self.port}/health - Detailed status")
-            logger.info(f"   GET http://localhost:{self.port}/ - Simple status")
-            
-        except Exception as e:
-            logger.error(f"Failed to start health server: {e}")
-    
-    def stop(self):
-        """Stop the HTTP server"""
-        if self.server:
-            self.server.shutdown()
-            self.server.server_close()
-            logger.info("🌐 Health check server stopped")
-
-
-class TelegramLogger:
-    """Send trading logs to n8n feedback webhook for Telegram notifications"""
-    
-    def __init__(self, webhook_url: str):
-        self.webhook_url = webhook_url
-    
-    def send_log(self, log_type: str, message: str, level: str = "INFO", data: Dict[str, Any] = None):
-        """Send log message to n8n feedback webhook"""
-        try:
-            # Format as feedback message for consistent handling
-            payload = {
-                'message': message,
-                'timestamp': datetime.now().isoformat(),
-                'data': {
-                    'log_type': log_type,
-                    'level': level,
-                    'source': 'mt5_trading_bot',
-                    **(data or {})
-                }
-            }
-            
-            response = requests.post(
-                self.webhook_url,
-                json=payload,
-                timeout=10,
-                headers={'Content-Type': 'application/json'}
-            )
-            
-            if response.status_code == 200:
-                logger.debug(f"Log sent to Telegram: {message}")
-            else:
-                logger.warning(f"Failed to send log to Telegram: {response.status_code}")
-                
-        except Exception as e:
-            logger.error(f"Error sending log to Telegram: {e}")
-    
-    def log_signal_received(self, signal: Dict[str, Any]):
-        message = f"📊 NEW SIGNAL: {signal['symbol']} {signal['direction'].upper()}\n"
-        message += f"Range: {signal['range_start']}-{signal['range_end']}\n" 
-        message += f"SL: {signal['stop_loss']} | TP: {signal['take_profit']}"
-        self.send_log("signal_received", message, "INFO", signal)
-    
-    def log_entry_calculation(self, signal: Dict[str, Any], entry_price: float, order_type: str):
-        message = f"🎯 LIMIT ORDER CALCULATED: {signal['symbol']}\n"
-        message += f"Strategy: {ENTRY_STRATEGY}\n"
-        message += f"Limit Price: {entry_price}\n"
-        message += f"Order Type: LIMIT (Pending)"
-        
-        data = {
-            'signal': signal,
-            'entry_price': entry_price,
-            'order_type': 'limit',
-            'strategy': ENTRY_STRATEGY
-        }
-        self.send_log("entry_calculated", message, "INFO", data)
-    
-    def log_trade_execution(self, signal: Dict[str, Any], result: Dict[str, Any]):
-        if result.get('success'):
-            message = f"✅ LIMIT ORDER PLACED: {signal['symbol']}\n"
-            message += f"Side: {signal['direction'].upper()}\n"
-            message += f"Limit Price: {result['entry_price']}\n"
-            message += f"Volume: {result['volume']}\n"
-            message += f"SL: {signal['stop_loss']} | TP: {signal['take_profit']}\n"
-            message += f"Order Type: LIMIT (Pending Execution)"
-            
-            if 'order_id' in result:
-                message += f"\nOrder ID: {result['order_id']}"
-            elif 'order' in result:
-                message += f"\nOrder: {result['order']}"
-                
-            self.send_log("limit_order_placed", message, "SUCCESS", result)
-        else:
-            message = f"❌ LIMIT ORDER FAILED: {signal['symbol']}\n"
-            message += f"Error: {result.get('error', 'Unknown error')}\n"
-            message += f"Attempted Limit Price: {result.get('entry_price', 'N/A')}"
-            
-            self.send_log("limit_order_failed", message, "ERROR", result)
-    
-    def log_system_status(self, status: str, details: str = ""):
-        emoji_map = {
-            'starting': '🚀', 'connected': '✅', 'error': '❌', 
-            'disconnected': '⚠️', 'stopped': '🛑'
-        } 
-        
-        emoji = emoji_map.get(status, '📝')
-        message = f"{emoji} SYSTEM {status.upper()}"
-        
-        if details:
-            message += f"\n{details}"
-        
-        self.send_log("system_status", message, "INFO", {'status': status})
-    
-    def log_error(self, error_type: str, error_message: str, context: Dict[str, Any] = None):
-        message = f"🚨 ERROR: {error_type}\n{error_message}"   
-        self.send_log("error", message, "ERROR", context or { })
-
-
-class TelegramFeedback:
-    """Send trade feedback messages to Telegram via N8N webhook"""
-    
-    def __init__(self, webhook_url: str):
-        self.webhook_url = webhook_url
-    
-    def send_feedback(self, message: str, data: Dict[str, Any] = None):
-        """Send feedback message to Telegram via N8N webhook"""
-        try:
-            payload = {
-                'message': message,
-                'timestamp': datetime.now().isoformat(),
-                'data': data or {},
-                'source': 'mt5_trading_bot'
-            }
-            
-            response = requests.post(
-                self.webhook_url,
-                json=payload,
-                timeout=10,
-                headers={'Content-Type': 'application/json'}
-            )
-            
-            if response.status_code == 200:
-                logger.debug(f"Feedback sent to Telegram: {message[:50]}...")
-            else:
-                logger.warning(f"Failed to send feedback to Telegram: {response.status_code}")
-                
-        except Exception as e:
-            logger.error(f"Error sending feedback to Telegram: {e}")
-    
-    def notify_signal_received(self, signal: Dict[str, Any]):
-        """Send notification when new signal is received"""
-        message = f"📊 **NEW SIGNAL DETECTED**\n\n"
-        message += f"**Symbol:** {signal['symbol']}\n"
-        message += f"**Direction:** {signal['direction'].upper()}\n"
-        message += f"**Range:** {signal['range_start']} - {signal['range_end']}\n"
-        message += f"**Stop Loss:** {signal['stop_loss']}\n"
-        message += f"**Take Profit:** {signal['take_profit']}\n"
-        message += f"**Time:** {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}"
-        
-        self.send_feedback(message, signal)
-    
-    def notify_trade_executed(self, signal: Dict[str, Any], result: Dict[str, Any]):
-        """Send notification when limit order is placed"""
-        if result.get('success'):
-            message = f"✅ **LIMIT ORDER PLACED SUCCESSFULLY**\n\n"
-            message += f"**Symbol:** {signal['symbol']}\n"
-            message += f"**Direction:** {signal['direction'].upper()}\n"
-            message += f"**Limit Price:** {result['entry_price']}\n"
-            message += f"**Volume:** {result['volume']}\n"
-            message += f"**Stop Loss:** {signal['stop_loss']}\n"
-            message += f"**Take Profit:** {signal['take_profit']}\n"
-            message += f"**Order Type:** LIMIT (Pending)\n"
-            
-            if 'order_id' in result:
-                message += f"**Order ID:** {result['order_id']}\n"
-            elif 'order' in result:
-                message += f"**Order:** {result['order']}\n"
-                
-            message += f"**Placement Time:** {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n\n"
-            message += f"💡 *Order will execute when market reaches limit price*"
-        else:
-            message = f"❌ **LIMIT ORDER PLACEMENT FAILED**\n\n"
-            message += f"**Symbol:** {signal['symbol']}\n"
-            message += f"**Direction:** {signal['direction'].upper()}\n"
-            message += f"**Attempted Limit Price:** {result.get('entry_price', 'N/A')}\n"
-            message += f"**Error:** {result.get('error', 'Unknown error')}\n"
-            message += f"**Time:** {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}"
-        
-        self.send_feedback(message, {'signal': signal, 'result': result})
-    
-    def notify_system_status(self, status: str, details: str = ""):
-        """Send system status notifications"""
-        if status == 'started':
-            message = f"🚀 **TRADING BOT STARTED**\n\n"
-            message += f"**Status:** Online and monitoring\n"
-            message += f"**Group ID:** {GROUP_ID}\n"
-            message += f"**MT5 Connection:** {'✅ Connected' if MT5_AVAILABLE else '❌ Not Available'}\n"
-            message += f"**Time:** {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}"
-        elif status == 'stopped':
-            message = f"🛑 **TRADING BOT STOPPED**\n\n"
-            message += f"**Status:** Offline\n"
-            message += f"**Time:** {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}"
-        else:
-            message = f"ℹ️ **SYSTEM UPDATE**\n\n"
-            message += f"**Status:** {status}\n"
-            if details:
-                message += f"**Details:** {details}\n"
-            message += f"**Time:** {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}"
-        
-        self.send_feedback(message, {'status': status, 'details': details})
-    
-    def notify_error(self, error_type: str, error_message: str, context: Dict[str, Any] = None):
-        """Send error notifications"""
-        message = f"🚨 **ERROR ALERT**\n\n"
-        message += f"**Error Type:** {error_type}\n"
-        message += f"**Message:** {error_message}\n"
-        if context:
-            message += f"**Context:** {str(context)[:200]}...\n"
-        message += f"**Time:** {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}"
-        
-        self.send_feedback(message, {'error_type': error_type, 'error_message': error_message, 'context': context})
-    
-    def notify_sl_break_even(self, position_id: int, break_even_price: float):
-        """Send break even notification"""
-        message = f"🎯 **STOP LOSS MOVED TO BREAK EVEN**\n\n"
-        message += f"**Position:** {position_id}\n"
-        message += f"**New SL Price:** {break_even_price}\n"
-        message += f"**Status:** Protected at entry level\n"
-        message += f"**Time:** {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}"
-        
-        self.send_feedback(message, {'action': 'sl_break_even', 'position_id': position_id, 'break_even_price': break_even_price})
-
-
-class TradingSignalParser:
-    """Parse trading signals from Telegram messages"""
-    
-    @staticmethod
-    def parse_signal(message_text: str) -> Optional[Dict[str, Any]]:
-        try:
-            logger.info(f"🔍 PARSING SIGNAL:")
-            logger.info(f"   Input: {repr(message_text)}")
-            
-            # # Check if message contains BTC-related content and ignore it
-            # if re.search(r'BTC|BITCOIN', message_text, re.IGNORECASE):
-            #     logger.info(f"   [SKIP] Message contains BTC/BITCOIN - ignoring")
-            #     return None
-            
-            # Also skip if range values are too high (likely crypto, not forex)
-            range_check = re.search(r'RANGE\s*:?\s*(\d+)', message_text, re.IGNORECASE)
-            if range_check and int(range_check.group(1)) > 50000:  # Increased threshold - 4000 could be legitimate forex
-                logger.info(f"   [SKIP] Range values too high for Forex (likely crypto) - ignoring")
-                return None
-            
-            # Always use XAUUSD (Gold) as the trading symbol
-            symbol = 'XAUUSD.p'
-            logger.info(f"   [OK] Symbol: {symbol} (fixed)")
-            
-            # Extract direction from emojis: 🔴 = SELL, 🟢 = BUY
-            direction = None
-            if '🔴' in message_text:
-                direction = 'SELL'
-            elif '🟢' in message_text:
-                direction = 'BUY'
-            else:
-                # Fallback to text-based detection
-                if re.search(r'\bSELL\b', message_text, re.IGNORECASE):
-                    direction = 'SELL'
-                elif re.search(r'\bBUY\b', message_text, re.IGNORECASE):
-                    direction = 'BUY'
-            
-            if not direction:
-                logger.warning(f"   [X] No direction found (expected: 🔴 for SELL or 🟢 for BUY)")
-                return None
-            
-            # Extract range (look for any two numbers that might represent a range)
-            range_numbers = re.findall(r'(\d+(?:\.\d+)?)', message_text)
-            if len(range_numbers) < 4:  # Need at least range_start, range_end, SL, TP
-                logger.warning(f"   [X] Not enough numbers found in message (need at least 4)")
-                return None
-            
-            # Try to find range by looking for patterns or take first two numbers
-            range_match = re.search(r'(?:RANGE|:)\s*(\d+(?:\.\d+)?)\s*[-–~]\s*(\d+(?:\.\d+)?)', message_text, re.IGNORECASE)
-            if range_match:
-                range_start = float(range_match.group(1))
-                range_end = float(range_match.group(2))
-            else:
-                # Fallback: assume first two numbers are the range
-                range_start = float(range_numbers[0])
-                range_end = float(range_numbers[1])
-            
-            logger.info(f"   [OK] Direction: {direction} (detected from emoji)")
-            logger.info(f"   [OK] Range: {range_start} - {range_end}")
-            
-            # Extract SL - find number after "SL"
-            sl_match = re.search(r'SL\s*:?\s*(\d+(?:\.\d+)?)', message_text, re.IGNORECASE)
-            if sl_match:
-                stop_loss = float(sl_match.group(1))
-                logger.info(f"   [OK] Stop Loss: {stop_loss}")
-            else:
-                logger.warning(f"   [X] No SL (Stop Loss) found")
-                return None
-            
-            # Extract TP - find number after "TP"
-            tp_match = re.search(r'TP\s*:?\s*(\d+(?:\.\d+)?)', message_text, re.IGNORECASE)
-            if tp_match:
-                take_profit = float(tp_match.group(1))
-                logger.info(f"   [OK] Take Profit: {take_profit} (using first TP)")
-            else:
-                logger.warning(f"   [X] No TP (Take Profit) found")
-                return None
-            # Extract volume/lot size if specified, otherwise use default
-            volume_match = re.search(r'(?:lot|lots|volume)s?\s*[:=]?\s*(\d+\.?\d*)', message_text, re.IGNORECASE)
-            if volume_match:
-                volume = float(volume_match.group(1))
-                logger.info(f"   [OK] Volume specified: {volume}")
-            else:
-                volume = DEFAULT_VOLUME
-                logger.info(f"   [OK] Volume (default): {volume}")
-            
-            logger.info(f"   [SUCCESS] SIGNAL PARSED SUCCESSFULLY!")
-            
-            return {
-                'symbol': symbol,
-                'direction': direction.lower(),
-                'range_start': range_start,
-                'range_end': range_end,
-                'stop_loss': stop_loss,
-                'take_profit': take_profit,
-                'volume': volume,
-                'timestamp': datetime.now().isoformat(),
-                'original_message': message_text
-            }
-            
-        except Exception as e:
-            logger.error(f"Error parsing signal: {e}")
-            return None
-
-
-class MT5TradingClient:
-    """Direct MT5 trading via Python library"""
-    
+class TelegramMonitor:
     def __init__(self):
-        self.connected = False
-        
-    def connect(self) -> bool:
-        """Connect to remote MT5 VPS"""
-        if not mt5.initialize():
-            logger.error("MT5 initialize() failed")
-            return False
-        
-        # Connect to MT5 VPS using credentials
-        if MT5_LOGIN and MT5_PASSWORD and MT5_SERVER:
-            if not mt5.login(MT5_LOGIN, password=MT5_PASSWORD, server=MT5_SERVER):
-                logger.error(f"MT5 login failed: {mt5.last_error()}")
-                return False
-            logger.info(f"Connected to MT5 VPS - Server: {MT5_SERVER}, Account: {MT5_LOGIN}")
-        else:
-            logger.warning("No MT5 VPS credentials provided, using local MT5 connection")
-        
-        # Get account info
-        account_info = mt5.account_info()
-        if account_info is None:
-            logger.error("Failed to get account info")
-            return False
-        
-        logger.info(f"Account info - Login: {account_info.login}, Balance: {account_info.balance}")
-        self.connected = True
-        return True
-    
-    def disconnect(self):
-        """Disconnect from MT5"""
-        mt5.shutdown()
-        self.connected = False
-        logger.info("Disconnected from MT5")
-    
-    def get_current_price(self, symbol: str) -> Optional[Dict[str, float]]:
-        """Get current bid/ask prices"""
-        if not self.connected:
-            return None
-            
-        tick = mt5.symbol_info_tick(symbol)
-        if tick is None:
-            return None
-            
-        return {'bid': tick.bid, 'ask': tick.ask}
+        self.client = None
+        self.target_group = None
+        self.running = False
+        self.signal_parser = TradingSignalParser()
+        self.mt5_client = MT5TradingClient()
+        self.telegram_logger = TelegramLogger(N8N_LOG_WEBHOOK)
+        self.telegram_feedback = TelegramFeedback(N8N_TELEGRAM_FEEDBACK)
+        self.health_server = BotHealthServer(port=8080, bot_instance=self)
     
     def check_order_status(self, order_id: int = None):
         """Check status of orders and positions"""
@@ -730,19 +199,65 @@ class MT5TradingClient:
             logger.info(f"      Begin: {entry_begin} - Mid: {entry_mid} - End: {entry_end}")
             
             if direction == 'buy':
-                logger.info(f"      BUY Order: Begin(2x) → Mid(4x) → End(3x) LAST")
+                logger.info(f"      BUY Order: Begin(4x) → Mid(2x) → End(2x) LAST")
                 logger.info(f"      Entry 1: {entry_begin} - Volume: {2 * DEFAULT_VOLUME_MULTI}")
                 logger.info(f"      Entry 2: {entry_mid} - Volume: {4 * DEFAULT_VOLUME_MULTI}")
                 logger.info(f"      Entry 3: {entry_end} - Volume: {3 * DEFAULT_VOLUME_MULTI} ← LAST")
                 entry_price = entry_begin  # Primary entry for main logic
             else:
-                logger.info(f"      SELL Order: End(3x) → Mid(4x) → Begin(2x) LAST")
-                logger.info(f"      Entry 1: {entry_end} - Volume: {3 * DEFAULT_VOLUME_MULTI}")
-                logger.info(f"      Entry 2: {entry_mid} - Volume: {4 * DEFAULT_VOLUME_MULTI}")
-                logger.info(f"      Entry 3: {entry_begin} - Volume: {2 * DEFAULT_VOLUME_MULTI} ← LAST")
+                logger.info(f"      SELL Order: End(2x) → Mid(3x) → Begin(4x) LAST")
+                logger.info(f"      Entry 1: {entry_end} - Volume: {2 * DEFAULT_VOLUME_MULTI}")
+                logger.info(f"      Entry 2: {entry_mid} - Volume: {3 * DEFAULT_VOLUME_MULTI}")
+                logger.info(f"      Entry 3: {entry_begin} - Volume: {4 * DEFAULT_VOLUME_MULTI} ← LAST")
                 entry_price = entry_end  # Primary entry for main logic
             
             logger.info(f"      Total Volume: {9 * DEFAULT_VOLUME_MULTI}")
+            
+        elif ENTRY_STRATEGY == 'multi_tp_entry':
+            # Multi-TP strategy uses adaptive entry but with multiple TP levels
+            if direction == 'buy':
+                if current_price < range_start:
+                    entry_price = range_start
+                    logger.info(f"   📍 MULTI_TP_ENTRY Strategy (BUY): Price {current_price} < range_start {range_start} → Entry = {entry_price}")
+                elif current_price > range_end:
+                    symbol_info = mt5.symbol_info(symbol)
+                    pip_value = 10 ** (-symbol_info.digits) if symbol_info else 0.0001
+                    entry_price = current_price + (2 * pip_value)
+                    logger.info(f"   📍 MULTI_TP_ENTRY Strategy (BUY): Price {current_price} > range_end {range_end} → Entry = {entry_price} (+2 pips)")
+                else:
+                    entry_price = current_price
+                    logger.info(f"   📍 MULTI_TP_ENTRY Strategy (BUY): Price {current_price} in range → Entry = {entry_price}")
+            else:  # sell
+                if current_price < range_start:
+                    entry_price = range_start
+                    logger.info(f"   📍 MULTI_TP_ENTRY Strategy (SELL): Price {current_price} < range_start {range_start} → Entry = {entry_price}")
+                elif current_price > range_end:
+                    symbol_info = mt5.symbol_info(symbol)
+                    pip_value = 10 ** (-symbol_info.digits) if symbol_info else 0.0001
+                    entry_price = current_price - (2 * pip_value)
+                    logger.info(f"   📍 MULTI_TP_ENTRY Strategy (SELL): Price {current_price} > range_end {range_end} → Entry = {entry_price} (-2 pips)")
+                else:
+                    entry_price = current_price
+                    logger.info(f"   📍 MULTI_TP_ENTRY Strategy (SELL): Price {current_price} in range → Entry = {entry_price}")
+            
+            logger.info(f"   📊 Will open 5 positions with TP levels: {MULTI_TP_PIPS} pips + Signal TP")
+            logger.info(f"   📊 Volumes: {MULTI_TP_VOLUMES}")
+            total_volume = sum(MULTI_TP_VOLUMES)
+            logger.info(f"   📊 Total Volume: {total_volume}")
+            
+        elif ENTRY_STRATEGY == 'multi_position_entry':
+            # Multi-Position strategy: Fixed entry points at range boundaries
+            # 4 positions at range END, 3 at MIDDLE, 2 at START
+            entry_price = current_price  # Use current price as reference
+            range_middle = range_start + ((range_end - range_start) / 2)
+            
+            logger.info(f"   📍 MULTI_POSITION_ENTRY Strategy ({direction.upper()}):")
+            logger.info(f"   📊 Will open {NUMBER_POSITIONS_MULTI} positions at fixed range points")
+            logger.info(f"   📊 Range: {range_start} (START) - {range_middle} (MIDDLE) - {range_end} (END)")
+            logger.info(f"   📊 Distribution: 4 at END ({range_end}) + 3 at MIDDLE ({range_middle}) + 2 at START ({range_start})")
+            logger.info(f"   📊 Volume per position: {POSITION_VOLUME_MULTI}")
+            logger.info(f"   📊 Total Volume: {NUMBER_POSITIONS_MULTI * POSITION_VOLUME_MULTI}")
+            logger.info(f"   📊 TP levels: 200, 400, 600, 800 pips per zone from entry")
             
         else:
             entry_price = (range_start + range_end) / 2
@@ -784,6 +299,136 @@ class MT5TradingClient:
                     {'price': entry_mid, 'volume': 4 * DEFAULT_VOLUME_MULTI},    # Second: 4x at mid
                     {'price': entry_begin, 'volume': 2 * DEFAULT_VOLUME_MULTI}   # LAST: 2x at begin (lowest)
                 ]
+        elif ENTRY_STRATEGY == 'multi_tp_entry':
+            # Multi-TP strategy: 5 positions with different TP levels
+            # All positions use same entry price but different TPs and volumes
+            multi_entries = []
+            for i, (tp_pips, volume) in enumerate(zip(MULTI_TP_PIPS + [None], MULTI_TP_VOLUMES), 1):
+                multi_entries.append({
+                    'price': entry_price,
+                    'volume': volume,
+                    'tp_pips': tp_pips,  # None for TP5 (uses signal TP)
+                    'tp_level': i  # TP1, TP2, TP3, TP4, TP5
+                })
+        elif ENTRY_STRATEGY == 'multi_position_entry':
+            # Multi-Position strategy: Fixed entry points at range boundaries
+            # BUY: 4 at END, 3 at MIDDLE, 2 at START | SELL: 2 at END, 3 at MIDDLE, 4 at START
+            # Each with TP starting from 200, 400, 600, 800 pips per zone
+            range_span = range_end - range_start
+            range_middle = range_start + (range_span / 2)
+            
+            # Create positions at fixed levels (distribution depends on direction)
+            positions = []
+            
+            if direction == 'buy':
+                # BUY: More positions at higher price (range_end) - 4,3,2 distribution
+                # 4 positions at range END
+                for i in range(4):
+                    positions.append({
+                        'price': range_end,
+                        'zone': 'end',
+                        'position_number': i + 1
+                    })
+                
+                # 3 positions at range MIDDLE  
+                for i in range(3):
+                    positions.append({
+                        'price': range_middle,
+                        'zone': 'middle', 
+                        'position_number': i + 5
+                    })
+                
+                # 2 positions at range START
+                for i in range(2):
+                    positions.append({
+                        'price': range_start,
+                        'zone': 'start',
+                        'position_number': i + 8
+                    })
+            else:  # direction == 'sell'
+                # SELL: More positions at lower price (range_start) - 2,3,4 distribution
+                # 2 positions at range END
+                for i in range(2):
+                    positions.append({
+                        'price': range_end,
+                        'zone': 'end',
+                        'position_number': i + 1
+                    })
+                
+                # 3 positions at range MIDDLE  
+                for i in range(3):
+                    positions.append({
+                        'price': range_middle,
+                        'zone': 'middle', 
+                        'position_number': i + 3
+                    })
+                
+                # 4 positions at range START
+                for i in range(4):
+                    positions.append({
+                        'price': range_start,
+                        'zone': 'start',
+                        'position_number': i + 6
+                    })
+            
+            # Set entry_price as range middle for multi-position strategy (representative value)
+            entry_price = range_middle
+            
+            # DEBUG: Log position distribution before processing
+            logger.info(f"   🔍 DEBUG Position Distribution:")
+            logger.info(f"      Total positions created: {len(positions)}")
+            logger.info(f"      NUMBER_POSITIONS_MULTI: {NUMBER_POSITIONS_MULTI}")
+            zone_counts = {}
+            for p in positions:
+                zone_counts[p['zone']] = zone_counts.get(p['zone'], 0) + 1
+            logger.info(f"      Zone distribution: {zone_counts}")
+            
+            # Create multi_entries with grouped TPs (200, 400, 600, 800 pips per zone)
+            multi_entries = []
+            for i, pos in enumerate(positions[:NUMBER_POSITIONS_MULTI]):
+                pos_price = pos['price']
+                if symbol_info:
+                    pos_price = round(pos_price, symbol_info.digits)
+               
+                # Calculate grouped TP progression based on position zone and direction
+                if direction == 'buy':
+                    # BUY: 3 at END, 4 at MIDDLE, 2 at START
+                    if pos['zone'] == 'end':  # 3 positions: TP 200, 400, 600 pips
+                        zone_tp_levels = [200, 400, 600]
+                        zone_index = sum(1 for p in positions[:i] if p['zone'] == 'end')
+                    elif pos['zone'] == 'middle':  # 4 positions: TP 200, 400, 600, 800 pips
+                        zone_tp_levels = [200, 400, 600, 800]
+                        zone_index = sum(1 for p in positions[:i] if p['zone'] == 'middle')
+                    else:  # start - 2 positions: TP 200, 400 pips
+                        zone_tp_levels = [200, 400]
+                        zone_index = sum(1 for p in positions[:i] if p['zone'] == 'start')
+                    
+                    # DEBUG: Log TP assignment
+                    logger.info(f"      Position {i+1}: zone='{pos['zone']}', zone_index={zone_index}, tp_levels={zone_tp_levels}")
+                else:  # direction == 'sell'
+                    # SELL: 2 at END, 4 at MIDDLE, 3 at START
+                    if pos['zone'] == 'end':  # 2 positions: TP 200, 400 pips
+                        zone_tp_levels = [200, 400]
+                        zone_index = sum(1 for p in positions[:i] if p['zone'] == 'end')
+                    elif pos['zone'] == 'middle':  # 4 positions: TP 200, 400, 600, 800 pips
+                        zone_tp_levels = [200, 400, 600, 800]
+                        zone_index = sum(1 for p in positions[:i] if p['zone'] == 'middle')
+                    else:  # start - 3 positions: TP 200, 400, 600 pips
+                        zone_tp_levels = [200, 400, 600]
+                        zone_index = sum(1 for p in positions[:i] if p['zone'] == 'start')
+                    
+                    # DEBUG: Log TP assignment
+                    logger.info(f"      Position {i+1}: zone='{pos['zone']}', zone_index={zone_index}, tp_levels={zone_tp_levels}")
+                
+                tp_pips = zone_tp_levels[zone_index] if zone_index < len(zone_tp_levels) else zone_tp_levels[-1]
+                
+                multi_entries.append({
+                    'price': pos_price,
+                    'volume': POSITION_VOLUME_MULTI,
+                    'tp_pips': tp_pips,  # Grouped TP: range_end(200,400,600,800), range_middle(200,400,600), range_start(200,400)
+                    'tp_level': zone_index + 1,
+                    'position_zone': pos['zone']
+                })
         
         return {
             'entry_price': entry_price,
@@ -802,17 +447,32 @@ class MT5TradingClient:
             direction = signal['direction']
             entry_price = entry_data['entry_price']
             
-            # Check if this is a multi-entry strategy (dual or triple)
+            # Check if this is a multi-entry strategy (dual, triple, or multi-tp)
             multi_entries = entry_data.get('multi_entries')
             if multi_entries:
                 if len(multi_entries) == 2:
                     logger.info(f"🎯 DUAL ENTRY STRATEGY DETECTED!")
                     logger.info(f"   Placing TWO orders with 0.07 volume each")
+                    return self._execute_multi_trades(signal, multi_entries)
                 elif len(multi_entries) == 3:
                     logger.info(f"🎯 TRIPLE ENTRY STRATEGY DETECTED!")
                     total_vol = sum(entry['volume'] for entry in multi_entries)
                     logger.info(f"   Placing THREE orders with total volume: {total_vol}")
-                return self._execute_multi_trades(signal, multi_entries)
+                    return self._execute_multi_trades(signal, multi_entries)
+                elif len(multi_entries) == 5 and multi_entries[0].get('tp_pips') is not None and not multi_entries[0].get('position_zone'):
+                    logger.info(f"🎯 MULTI-TP ENTRY STRATEGY DETECTED!")
+                    total_vol = sum(entry['volume'] for entry in multi_entries)
+                    logger.info(f"   Placing FIVE orders with different TP levels, total volume: {total_vol}")
+                    return self._execute_multi_tp_trades(signal, multi_entries)
+                elif len(multi_entries) == NUMBER_POSITIONS_MULTI and multi_entries[0].get('position_zone'):
+                    logger.info(f"🎯 MULTI-POSITION ENTRY STRATEGY DETECTED!")
+                    total_vol = sum(entry['volume'] for entry in multi_entries)
+                    logger.info(f"   Placing {NUMBER_POSITIONS_MULTI} orders distributed across range, total volume: {total_vol}")
+                    logger.info(f"   Position distribution: 4 close + 3 middle + 2 outer")
+                    return self._execute_multi_tp_trades(signal, multi_entries)  # Reuse multi-TP handler
+                else:
+                    # Fallback for other multi-entry strategies
+                    return self._execute_multi_trades(signal, multi_entries)
             
             # Single entry logic
             # Get current market price for comparison
@@ -926,7 +586,7 @@ class MT5TradingClient:
             # Calculate total volume
             total_volume = sum([entry['volume'] for entry in multi_entries])
             
-            logger.info(f"🎯 EXECUTING {entry_count.upper()} ENTRY ORDERS:")
+            logger.info(f"🎯 EXECUTING {entry_count} ENTRY ORDERS:")
             logger.info(f"   Symbol: {symbol}")
             logger.info(f"   Direction: {direction.upper()}")
             logger.info(f"   Current Market: Bid={current_bid}, Ask={current_ask}")
@@ -947,28 +607,64 @@ class MT5TradingClient:
                 logger.info(f"   Entry Price: {entry_price}")
                 logger.info(f"   Volume: {volume}")
                 
-                # Determine order type based on market vs entry price
-                if direction == 'buy':
-                    order_type_mt5 = mt5.ORDER_TYPE_BUY_LIMIT
-                    logger.info(f"   ✅ BUY LIMIT order {i} at {entry_price}")
-                else:  # sell
-                    order_type_mt5 = mt5.ORDER_TYPE_SELL_LIMIT
-                    logger.info(f"   ✅ SELL LIMIT order {i} at {entry_price}")
+                # Get symbol info for pip calculation
+                symbol_info = mt5.symbol_info(symbol)
+                if symbol_info:
+                    pip_value = 10 ** (-symbol_info.digits + (1 if symbol_info.digits == 5 or symbol_info.digits == 3 else 0))
+                else:
+                    pip_value = 0.0001  # Default for most pairs
                 
-                # Prepare order request
-                request = {
-                    "action": mt5.TRADE_ACTION_PENDING,
-                    "symbol": symbol,
-                    "volume": volume,  # Variable volume for multi-entry
-                    "type": order_type_mt5,
-                    "price": entry_price,
-                    "sl": signal['stop_loss'],
-                    "tp": signal['take_profit'],
-                    "magic": MAGIC_NUMBER,
-                    "comment": f"TG Multi {i}/{entry_count} {ENTRY_STRATEGY}",
-                    "type_time": mt5.ORDER_TIME_GTC,
-                    "type_filling": mt5.ORDER_FILLING_RETURN,
-                }
+                # Check if entry price is too close to market price (within ±$1)
+                market_price = current_ask if direction == 'buy' else current_bid
+                price_distance = abs(entry_price - market_price)
+                min_distance = 1.0  # $1 minimum distance
+                
+                if price_distance <= min_distance:
+                    # Market price too close - use market order instead
+                    logger.warning(f"   ⚠️  Entry price {entry_price} too close to market {market_price} (distance: {price_distance:.5f})")
+                    logger.info(f"   🔄 Converting to MARKET order for immediate execution")
+                    
+                    if direction == 'buy':
+                        order_type_mt5 = mt5.ORDER_TYPE_BUY
+                    else:  # sell
+                        order_type_mt5 = mt5.ORDER_TYPE_SELL
+                    
+                    # Market order - no price needed
+                    request = {
+                        "action": mt5.TRADE_ACTION_DEAL,
+                        "symbol": symbol,
+                        "volume": volume,
+                        "type": order_type_mt5,
+                        "sl": signal['stop_loss'],
+                        "tp": signal['take_profit'],
+                        "magic": MAGIC_NUMBER,
+                        "comment": f"TG Market {i}/{entry_count} {ENTRY_STRATEGY}",
+                        "type_filling": mt5.ORDER_FILLING_IOC,
+                    }
+                    logger.info(f"   ✅ {direction.upper()} MARKET order {i} (was limit at {entry_price})")
+                else:
+                    # Normal limit order
+                    if direction == 'buy':
+                        order_type_mt5 = mt5.ORDER_TYPE_BUY_LIMIT
+                        logger.info(f"   ✅ BUY LIMIT order {i} at {entry_price}")
+                    else:  # sell
+                        order_type_mt5 = mt5.ORDER_TYPE_SELL_LIMIT
+                        logger.info(f"   ✅ SELL LIMIT order {i} at {entry_price}")
+                    
+                    # Limit order request
+                    request = {
+                        "action": mt5.TRADE_ACTION_PENDING,
+                        "symbol": symbol,
+                        "volume": volume,
+                        "type": order_type_mt5,
+                        "price": entry_price,
+                        "sl": signal['stop_loss'],
+                        "tp": signal['take_profit'],
+                        "magic": MAGIC_NUMBER,
+                        "comment": f"TG Multi {i}/{entry_count} {ENTRY_STRATEGY}",
+                        "type_time": mt5.ORDER_TIME_GTC,
+                        "type_filling": mt5.ORDER_FILLING_RETURN,
+                    }
                 
                 # Send order
                 result = mt5.order_send(request)
@@ -1045,6 +741,214 @@ class MT5TradingClient:
                 'error': f"Exception: {str(e)}",
                 'entry_prices': [entry.get('price', 0) for entry in multi_entries] if multi_entries else [],
                 'volume': multi_entries[0].get('volume', 0) if multi_entries else 0
+            }
+
+    def _execute_multi_tp_trades(self, signal: Dict[str, Any], multi_tp_entries: list) -> Dict[str, Any]:
+        """Execute multi-TP or multi-position trades with different entry prices and TP levels"""
+        try:
+            symbol = signal['symbol']
+            direction = signal['direction']
+            entry_count = len(multi_tp_entries)
+            
+            # Get current market price and symbol info
+            tick = mt5.symbol_info_tick(symbol)
+            symbol_info = mt5.symbol_info(symbol)
+            if not tick or not symbol_info:
+                return {
+                    'success': False,
+                    'error': f"Could not get market data for {symbol}",
+                    'entry_price': multi_tp_entries[0]['price'] if multi_tp_entries else 0,
+                    'volume': sum([e['volume'] for e in multi_tp_entries])
+                }
+            
+            current_ask = tick.ask
+            current_bid = tick.bid
+            
+            # Calculate pip value for TP calculations
+            pip_value = 10 ** (-symbol_info.digits + (1 if symbol_info.digits == 5 or symbol_info.digits == 3 else 0))
+            
+            # Calculate total volume
+            total_volume = sum([entry['volume'] for entry in multi_tp_entries])
+            
+            # Check if all positions use same entry (original multi_tp) or different entries (multi_position)
+            unique_entries = list(set([entry['price'] for entry in multi_tp_entries]))
+            is_multi_position = len(unique_entries) > 1
+            
+            logger.info(f"🎯 EXECUTING MULTI-{'POSITION' if is_multi_position else 'TP'} ORDERS:")
+            logger.info(f"   Symbol: {symbol}")
+            logger.info(f"   Direction: {direction.upper()}")
+            if is_multi_position:
+                logger.info(f"   Entry Prices: {unique_entries}")
+            else:
+                logger.info(f"   Entry Price: {unique_entries[0]}")
+            logger.info(f"   Current Market: Bid={current_bid}, Ask={current_ask}")
+            logger.info(f"   Pip Value: {pip_value}")
+            logger.info(f"   Total Volume: {total_volume}")
+            
+            results = []
+            successful_orders = 0
+            
+            # Execute all TP orders
+            for i, entry in enumerate(multi_tp_entries, 1):
+                tp_pips = entry['tp_pips']
+                volume = entry['volume']
+                tp_level = entry['tp_level']
+                entry_price = entry['price']  # Use individual entry price for each position
+                position_zone = entry.get('position_zone', 'standard')
+                
+                # Calculate TP price
+                if tp_pips is not None:
+                    # Use pip-based calculation for each position's entry price
+                    if direction == 'buy':
+                        tp_price = entry_price + (tp_pips * pip_value)
+                    else:  # sell
+                        tp_price = entry_price - (tp_pips * pip_value)
+                    tp_price = round(tp_price, symbol_info.digits)
+                    tp_label = f"TP{tp_level} ({tp_pips} pips)"
+                else:
+                    # Use signal's original TP
+                    tp_price = signal['take_profit']
+                    tp_label = f"TP{tp_level} (Signal TP)"
+                
+                logger.info(f"\n🔄 PLACING ORDER {i}/{entry_count}:")
+                logger.info(f"   Entry: {entry_price} ({position_zone})")
+                logger.info(f"   {tp_label}: {tp_price}")
+                logger.info(f"   Volume: {volume}")
+                
+                # Check if entry price is too close to market price (within ±$1)
+                market_price = current_ask if direction == 'buy' else current_bid
+                price_distance = abs(entry_price - market_price)
+                min_distance = 1.0  # $1 minimum distance
+                
+                if price_distance <= min_distance:
+                    # Market price too close - use market order instead
+                    logger.warning(f"   ⚠️  Entry price {entry_price} too close to market {market_price} (distance: {price_distance:.5f})")
+                    logger.info(f"   🔄 Converting to MARKET order for immediate execution")
+                    
+                    if direction == 'buy':
+                        order_type_mt5 = mt5.ORDER_TYPE_BUY
+                    else:  # sell
+                        order_type_mt5 = mt5.ORDER_TYPE_SELL
+                    
+                    # Market order - no price needed
+                    request = {
+                        "action": mt5.TRADE_ACTION_DEAL,
+                        "symbol": symbol,
+                        "volume": volume,
+                        "type": order_type_mt5,
+                        "sl": signal['stop_loss'],
+                        "tp": tp_price,
+                        "magic": MAGIC_NUMBER,
+                        "comment": f"TG Market {tp_level}/5 {tp_pips if tp_pips else 'Signal'}p",
+                        "type_filling": mt5.ORDER_FILLING_IOC,
+                    }
+                    logger.info(f"   ✅ {direction.upper()} MARKET order {i} (was limit at {entry_price})")
+                else:
+                    # Normal limit order
+                    if direction == 'buy':
+                        order_type_mt5 = mt5.ORDER_TYPE_BUY_LIMIT
+                        logger.info(f"   ✅ BUY LIMIT order {i} at {entry_price}")
+                    else:  # sell
+                        order_type_mt5 = mt5.ORDER_TYPE_SELL_LIMIT
+                        logger.info(f"   ✅ SELL LIMIT order {i} at {entry_price}")
+                    
+                    # Limit order request
+                    request = {
+                        "action": mt5.TRADE_ACTION_PENDING,
+                        "symbol": symbol,
+                        "volume": volume,
+                        "type": order_type_mt5,
+                        "price": entry_price,
+                        "sl": signal['stop_loss'],
+                        "tp": tp_price,
+                        "magic": MAGIC_NUMBER,
+                        "comment": f"TG MultiTP {tp_level}/5 {tp_pips if tp_pips else 'Signal'}p",
+                        "type_time": mt5.ORDER_TIME_GTC,
+                        "type_filling": mt5.ORDER_FILLING_RETURN,
+                    }
+                
+                # Send order
+                result = mt5.order_send(request)
+                
+                if result.retcode == mt5.TRADE_RETCODE_DONE:
+                    logger.info(f"   ✅ {tp_label} order placed successfully!")
+                    logger.info(f"      Order ID: {result.order}")
+                    logger.info(f"      Deal ID: {result.deal}")
+                    successful_orders += 1
+                    results.append({
+                        'order_id': result.order,
+                        'deal_id': result.deal,
+                        'entry_price': entry_price,
+                        'tp_price': tp_price,
+                        'tp_pips': tp_pips,
+                        'tp_level': tp_level,
+                        'volume': volume,
+                        'success': True
+                    })
+                else:
+                    logger.error(f"   ❌ {tp_label} order failed: {result.retcode} - {result.comment}")
+                    results.append({
+                        'entry_price': entry_price,
+                        'tp_price': tp_price,
+                        'tp_pips': tp_pips,
+                        'tp_level': tp_level,
+                        'volume': volume,
+                        'error': f"{result.retcode} - {result.comment}",
+                        'success': False
+                    })
+            
+            # Check order status
+            self.check_order_status()
+            
+            # Return summary result  
+            entry_prices = [r['entry_price'] for r in results if r.get('success', False)]
+            
+            if successful_orders == entry_count:
+                logger.info(f"🎉 MULTI-{'POSITION' if is_multi_position else 'TP'} SUCCESS: All {entry_count} orders placed!")
+                return {
+                    'success': True,
+                    'multi_tp': True,
+                    'multi_position': is_multi_position,
+                    'orders_placed': successful_orders,
+                    'total_volume': total_volume,
+                    'entry_prices': unique_entries,
+                    'tp_levels': [f"TP{r['tp_level']}" for r in results if r.get('success', False)],
+                    'results': results
+                }
+            elif successful_orders > 0:
+                logger.warning(f"⚠️ PARTIAL SUCCESS: {successful_orders}/{entry_count} orders placed")
+                return {
+                    'success': True,
+                    'multi_tp': True,
+                    'multi_position': is_multi_position,
+                    'orders_placed': successful_orders,
+                    'total_volume': sum([r['volume'] for r in results if r.get('success', False)]),
+                    'entry_prices': entry_prices,
+                    'tp_levels': [f"TP{r['tp_level']}" for r in results if r.get('success', False)],
+                    'results': results,
+                    'warning': f'Only {successful_orders}/{entry_count} orders placed successfully'
+                }
+            else:
+                logger.error(f"❌ MULTI-{'POSITION' if is_multi_position else 'TP'} FAILED: No orders placed successfully")
+                return {
+                    'success': False,
+                    'multi_tp': True,
+                    'multi_position': is_multi_position,
+                    'orders_placed': 0,
+                    'total_volume': 0,
+                    'entry_prices': unique_entries,
+                    'results': results,
+                    'error': f'All {entry_count} multi-position orders failed'
+                }
+                
+        except Exception as e:
+            logger.error(f"Exception in multi-position execution: {e}")
+            return {
+                'success': False,
+                'multi_tp': True,
+                'error': f"Exception: {str(e)}",
+                'entry_prices': [e.get('price', 0) for e in multi_tp_entries] if multi_tp_entries else [],
+                'volume': sum([e.get('volume', 0) for e in multi_tp_entries]) if multi_tp_entries else 0
             }
 
 
@@ -1161,7 +1065,6 @@ class TelegramMonitor:
                         if retry_count < 2:
                             logger.info(f"Attempting session recovery (attempt {retry_count + 1}/3)")
                             try:
-                                import os
                                 session_file = f"{SESSION_NAME}.session"
                                 if os.path.exists(session_file):
                                     os.remove(session_file)
@@ -1198,7 +1101,7 @@ class TelegramMonitor:
         """Check if message is a break even command"""
         break_even_keywords = [
             'break even', 'breakeven', 'be', 'move sl to entry', 
-            'sl to entry', 'move stop to entry', 'sl be', 'sl to be', 'set slto be', 'set slto be & take partials now', 'sl to be and take partials here'
+            'sl to entry', 'move stop to entry', 'sl be', 'sl to be', 'set slto be', 'set slto be & take partials now', 'sl to be and take partials here', 'sl to be& take partials'
         ]
         
         message_lower = message_text.lower()
@@ -1213,6 +1116,14 @@ class TelegramMonitor:
         logger.info(f"🎯 MOVING STOP LOSS TO BREAK EVEN:")
         logger.info(f"   Strategy: {ENTRY_STRATEGY}")
         logger.info(f"   BE partial volume to close: {be_partial_vol}")
+        
+        # Cancel all pending orders when moving to break even
+        logger.info(f"🚫 Cancelling pending orders (SL to BE triggered)")
+        cancel_result = self.cancel_all_pending_orders()
+        if cancel_result['cancelled_count'] > 0:
+            logger.info(f"   ✅ Cancelled {cancel_result['cancelled_count']} pending orders")
+        else:
+            logger.info(f"   📋 No pending orders to cancel")
         
         # Get all open positions
         positions = mt5.positions_get()
@@ -1350,13 +1261,12 @@ class TelegramMonitor:
         partial_keywords = [
             'tp1', 'tp2', 'tp3', 'tp 1', 'tp 2', 'tp 3', 'tp 4', 'tp4',
             'take profit', 'close half', 
-            'close 50%', 'close 25%', 'close 75%', 'profit', 'taking partials here'
+            'close 50%', 'close 25%', 'close 75%', 'taking partials here'
         ]
         
         message_lower = message_text.lower()
         
         # Check for specific TP patterns like "TP 1", "27 Pips TP 1", etc.
-        import re
         tp_patterns = [
             r'tp\s*[123]',           # "TP 1", "TP1", "TP 2", etc.
             r'\d+\s*pips?\s*tp\s*[123]', # "27 Pips TP 1", "15 pip TP 2", etc.
@@ -1405,6 +1315,82 @@ class TelegramMonitor:
                 return True
                 
         return False
+    
+    def is_tp_hit_command(self, message_text: str) -> bool:
+        """Check if message indicates TP has been hit and all orders should be cancelled"""
+        tp_hit_keywords = [
+            'tp hit', 'tp reached', 'take profit hit', 'target reached',
+            'tp1 hit', 'tp2 hit', 'tp3 hit', 'tp4 hit', 'tp5 hit',
+            'first tp hit', 'tp achieved', 'profit taken',
+            'close all orders', 'cancel all orders', 'cancel remaining orders',
+            'target hit', 'tp complete', 'full tp', 'tp done'
+        ]
+        
+        message_lower = message_text.lower()
+        for keyword in tp_hit_keywords:
+            if keyword in message_lower:
+                logger.info(f"   🎯 TP Hit detected: '{keyword}' in '{message_text}'")
+                return True
+        return False
+    
+    def cancel_all_pending_orders(self):
+        """Cancel all pending orders when TP is hit"""
+        logger.info(f"🚫 CANCELLING ALL PENDING ORDERS:")
+        
+        # Get all pending orders
+        orders = mt5.orders_get()
+        if not orders:
+            logger.info(f"   ✅ No pending orders to cancel")
+            return {'success': True, 'cancelled_count': 0, 'message': 'No pending orders'}
+        
+        cancelled_count = 0
+        failed_count = 0
+        
+        logger.info(f"   📋 Found {len(orders)} pending orders to cancel")
+        
+        for order in orders:
+            # Cancel order request
+            cancel_request = {
+                "action": mt5.TRADE_ACTION_REMOVE,
+                "order": order.ticket,
+            }
+            
+            result = mt5.order_send(cancel_request)
+            
+            if result.retcode == mt5.TRADE_RETCODE_DONE:
+                logger.info(f"   ✅ Order {order.ticket} cancelled successfully")
+                logger.info(f"      Symbol: {order.symbol}, Type: {order.type}, Price: {order.price_open}, Volume: {order.volume_initial}")
+                cancelled_count += 1
+            else:
+                logger.error(f"   ❌ Failed to cancel order {order.ticket}: {result.retcode} - {result.comment}")
+                failed_count += 1
+        
+        # Send Telegram notification
+        if cancelled_count > 0:
+            message = f"🚫 **ALL PENDING ORDERS CANCELLED**\n\n"
+            message += f"**Orders Cancelled:** {cancelled_count}\n"
+            if failed_count > 0:
+                message += f"**Failed to Cancel:** {failed_count}\n"
+            message += f"**Reason:** TP Hit - Target Achieved\n"
+            message += f"**Time:** {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}"
+            
+            self.telegram_feedback.send_feedback(message, {
+                'action': 'cancel_all_orders',
+                'cancelled_count': cancelled_count,
+                'failed_count': failed_count,
+                'reason': 'tp_hit'
+            })
+        
+        logger.info(f"🚫 ORDER CANCELLATION COMPLETE:")
+        logger.info(f"   ✅ Cancelled: {cancelled_count}")
+        logger.info(f"   ❌ Failed: {failed_count}")
+        
+        return {
+            'success': cancelled_count > 0,
+            'cancelled_count': cancelled_count,
+            'failed_count': failed_count,
+            'message': f'Cancelled {cancelled_count} orders, {failed_count} failed'
+        }
     
     def process_partial_profit(self, message_text: str):
         """Process partial profit taking commands - closes strategy-aware partial volume"""
@@ -1732,15 +1718,16 @@ class TelegramMonitor:
             logger.info(f"   Raw message: {repr(message_text)}")
             logger.info(f"   Message length: {len(message_text)} characters")
             
-            # Check for break even, partial, position closed, and extend TP commands
+            # Check for break even, partial, position closed, TP hit, and extend TP commands
             has_be_command = self.is_break_even_command(message_text)
             has_partial_command = self.is_partial_command(message_text)
             has_position_closed_command = self.is_position_closed_command(message_text)
+            has_tp_hit_command = self.is_tp_hit_command(message_text)
             has_extend_tp_command = self.is_extend_tp_command(message_text)
             
-            logger.info(f"   🔍 Command Detection: BE={has_be_command}, Partial={has_partial_command}, Close={has_position_closed_command}, ExtendTP={has_extend_tp_command}")
+            logger.info(f"   🔍 Command Detection: BE={has_be_command}, Partial={has_partial_command}, Close={has_position_closed_command}, TPHit={has_tp_hit_command}, ExtendTP={has_extend_tp_command}")
             
-            if has_be_command or has_partial_command or has_position_closed_command or has_extend_tp_command:
+            if has_be_command or has_partial_command or has_position_closed_command or has_tp_hit_command or has_extend_tp_command:
                 if has_be_command:
                     logger.info(f"🎯 BREAK EVEN COMMAND DETECTED!")
                     self.move_sl_to_break_even()
@@ -1752,6 +1739,10 @@ class TelegramMonitor:
                 if has_position_closed_command:
                     logger.info(f"🔴 POSITION CLOSED COMMAND DETECTED!")
                     self.close_remaining_positions()
+                
+                if has_tp_hit_command:
+                    logger.info(f"🎯 TP HIT COMMAND DETECTED!")
+                    self.cancel_all_pending_orders()
                 
                 if has_extend_tp_command:
                     logger.info(f"🎯 EXTEND TP COMMAND DETECTED!")
@@ -1794,9 +1785,13 @@ class TelegramMonitor:
             entry_data = self.mt5_client.calculate_entry_price(signal)
             
             # Log entry calculation
-            self.telegram_logger.log_entry_calculation(signal, entry_data['entry_price'], entry_data['order_type'])
+            entry_price_to_log = entry_data.get('entry_price', 'Multi-Position')
+            self.telegram_logger.log_entry_calculation(signal, entry_price_to_log, entry_data.get('order_type', 'LIMIT'))
             
-            logger.info(f"🎯 Limit order calculated: Price={entry_data['entry_price']} Type=LIMIT")
+            if 'entry_price' in entry_data:
+                logger.info(f"🎯 Limit order calculated: Price={entry_data['entry_price']} Type=LIMIT")
+            else:
+                logger.info(f"🎯 Multi-position strategy: Multiple entry points calculated")
             
             # Execute limit order
             result = self.mt5_client.execute_trade(signal, entry_data)
@@ -1938,50 +1933,9 @@ class TelegramMonitor:
         return True
 
 
-async def start_health_server(): 
-    """Simple health check server for Docker healthcheck"""
-    from http.server import HTTPServer, BaseHTTPRequestHandler 
-    import threading
-    
-    class HealthHandler(BaseHTTPRequestHandler):  
-       
-
-         
-
-        def do_GET(self):
-            if self.path == '/health':
-                self.send_response(200)
-                self.send_header('Content-type', 'application/json')
-                self.end_headers()
-                response = {
-                    "status": "healthy",
-                    "timestamp": datetime.now().isoformat(),
-                    "service": "mt5-trading-bot"
-                }
-                self.wfile.write(json.dumps(response).encode())
-            else:
-                self.send_response(404)
-                self.end_headers()
-        
-        def log_message(self, format, *args):
-            # Suppress default HTTP logging
-            pass
-    
-    def run_server():
-        server = HTTPServer(('0.0.0.0', 8000), HealthHandler)
-        server.serve_forever()
-    
-    health_thread = threading.Thread(target=run_server, daemon=True)
-    health_thread.start()
-    logger.info("Health check server started on port 8000")
-
-
 async def main():
     """Main entry point"""
-    # Start health check server
-    await start_health_server()
-    
-    # Start main bot
+    # Start main bot (health server starts automatically in TelegramMonitor.__init__)
     monitor = TelegramMonitor()
     await monitor.run()
 

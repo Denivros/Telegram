@@ -7,6 +7,7 @@ This will help you find the correct group ID
 import asyncio
 import os
 from telethon import TelegramClient
+from telethon.sessions import StringSession
 from telethon.tl.types import Chat, Channel
 from dotenv import load_dotenv
 
@@ -14,15 +15,26 @@ load_dotenv()
 
 API_ID = os.getenv('TELEGRAM_API_ID')
 API_HASH = os.getenv('TELEGRAM_API_HASH')
-PHONE_NUMBER = os.getenv('TELEGRAM_PHONE')
+PHONE_NUMBER = os.getenv('TELEGRAM_PHONE')  # Keep for fallback
+STRING_SESSION = os.getenv('STRING_SESSION')  # StringSession for authentication
 SESSION_NAME = os.getenv('SESSION_NAME', 'telegram_monitor')
 
 async def list_groups():
     """List all groups the user is a member of."""
-    client = TelegramClient(SESSION_NAME, API_ID, API_HASH)
+    
+    # Use StringSession if available, otherwise fall back to file session
+    if STRING_SESSION:
+        print("🔑 Using StringSession for authentication...")
+        client = TelegramClient(StringSession(STRING_SESSION), API_ID, API_HASH)
+    else:
+        print("🔑 Using file session for authentication...")
+        client = TelegramClient(SESSION_NAME, API_ID, API_HASH)
     
     try:
-        await client.start(phone=PHONE_NUMBER)
+        if STRING_SESSION:
+            await client.start()
+        else:
+            await client.start(phone=PHONE_NUMBER)
         
         print("📋 Groups you're a member of:\n")
         print("=" * 80)
