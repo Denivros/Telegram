@@ -4,10 +4,17 @@ Contains MT5TradingClient class for direct MetaTrader5 trading operations.
 """
 
 import logging
-import MetaTrader5 as mt5
 from datetime import datetime
 from typing import Dict, Any, Optional
 from config import *
+
+# Try to import MetaTrader5 (available on Windows/Wine only)
+try:
+    import metatrader5 as mt5
+    MT5_AVAILABLE = True
+except ImportError:
+    MT5_AVAILABLE = False
+    mt5 = None
 
 logger = logging.getLogger(__name__)
 

@@ -14,10 +14,11 @@ logger = logging.getLogger(__name__)
 
 # Import MT5 for health checks
 try:
-    import MetaTrader5 as mt5
+    import metatrader5 as mt5
     MT5_AVAILABLE = True
 except ImportError:
     MT5_AVAILABLE = False
+    mt5 = None
     logger.warning("MetaTrader5 not available for health checks")
 
 

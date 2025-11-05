@@ -10,6 +10,14 @@ from datetime import datetime
 from typing import Dict, Any
 from config import *
 
+# Try to import MetaTrader5 for status checks
+try:
+    import metatrader5 as mt5
+    MT5_AVAILABLE = True
+except ImportError:
+    MT5_AVAILABLE = False
+    mt5 = None
+
 logger = logging.getLogger(__name__)
 
 

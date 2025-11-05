@@ -9168,3 +9168,94 @@ WHY did I not give the trade?...
 2025-11-05 11:09:49,356 - __main__ - INFO - 🌐 Health check server started on port 8080
 2025-11-05 11:09:49,357 - __main__ - INFO -    GET http://localhost:8080/health - Detailed status
 2025-11-05 11:09:49,357 - __main__ - INFO -    GET http://localhost:8080/ - Simple status
+2025-11-05 11:40:28,971 - __main__ - INFO - Starting Direct MT5 Telegram Monitor...
+2025-11-05 11:40:28,971 - __main__ - INFO - Strategy: multi_position_entry, V: 0.09
+2025-11-05 11:40:28,988 - mt5_client - INFO - Connected to MT5 VPS - Server: PUPrime-Demo, Account: 700010991
+2025-11-05 11:40:28,989 - mt5_client - INFO - Account info - Login: 700010991, Balance: 99950.98
+2025-11-05 11:40:28,989 - __main__ - INFO - 🔐 Telegram Authentication Configuration:
+2025-11-05 11:40:28,990 - __main__ - INFO -    API_ID: ✅ Set
+2025-11-05 11:40:28,990 - __main__ - INFO -    API_HASH: ✅ Set
+2025-11-05 11:40:28,991 - __main__ - INFO -    BOT_TOKEN: ❌ Missing
+2025-11-05 11:40:28,991 - __main__ - INFO -    STRING_SESSION: ✅ Set
+2025-11-05 11:40:28,991 - __main__ - INFO -    PHONE_NUMBER: ✅ Set
+2025-11-05 11:40:28,991 - __main__ - INFO - 🔑 Using StringSession for authentication...
+2025-11-05 11:40:28,992 - __main__ - INFO -    StringSession length: 353 characters
+2025-11-05 11:40:29,029 - __main__ - INFO - Connecting with StringSession...
+2025-11-05 11:40:29,030 - telethon.network.mtprotosender - INFO - Connecting to 149.154.167.92:443/TcpFull...
+2025-11-05 11:40:29,043 - telethon.network.mtprotosender - INFO - Connection to 149.154.167.92:443/TcpFull complete!
+2025-11-05 11:40:29,215 - __main__ - INFO - ✅ StringSession authentication successful!
+2025-11-05 11:40:29,275 - __main__ - INFO - Connected to group: 🚀 CallistoFx Premium Channel 🚀
+2025-11-05 11:40:29,275 - __main__ - INFO - Event handlers set up successfully
+2025-11-05 11:40:29,277 - __main__ - INFO - ✅ Monitor is running. Watching for trading signals...
+2025-11-05 11:40:29,291 - health_server - INFO - 🌐 Health check server started on port 8080
+2025-11-05 11:40:29,291 - health_server - INFO -    GET http://localhost:8080/health - Detailed status
+2025-11-05 11:40:29,292 - health_server - INFO -    GET http://localhost:8080/ - Simple status
+2025-11-05 11:40:29,294 - __main__ - ERROR - Fatal error: name 'MT5_AVAILABLE' is not defined
+2025-11-05 11:40:36,785 - __main__ - INFO - Starting Direct MT5 Telegram Monitor...
+2025-11-05 11:40:36,786 - __main__ - INFO - Strategy: multi_position_entry, V: 0.09
+2025-11-05 11:40:36,799 - mt5_client - INFO - Connected to MT5 VPS - Server: PUPrime-Demo, Account: 700010991
+2025-11-05 11:40:36,800 - mt5_client - INFO - Account info - Login: 700010991, Balance: 99950.98
+2025-11-05 11:40:36,801 - __main__ - INFO - 🔐 Telegram Authentication Configuration:
+2025-11-05 11:40:36,801 - __main__ - INFO -    API_ID: ✅ Set
+2025-11-05 11:40:36,801 - __main__ - INFO -    API_HASH: ✅ Set
+2025-11-05 11:40:36,801 - __main__ - INFO -    BOT_TOKEN: ❌ Missing
+2025-11-05 11:40:36,802 - __main__ - INFO -    STRING_SESSION: ✅ Set
+2025-11-05 11:40:36,802 - __main__ - INFO -    PHONE_NUMBER: ✅ Set
+2025-11-05 11:40:36,802 - __main__ - INFO - 🔑 Using StringSession for authentication...
+2025-11-05 11:40:36,803 - __main__ - INFO -    StringSession length: 353 characters
+2025-11-05 11:40:36,850 - __main__ - INFO - Connecting with StringSession...
+2025-11-05 11:40:36,851 - telethon.network.mtprotosender - INFO - Connecting to 149.154.167.92:443/TcpFull...
+2025-11-05 11:40:36,860 - telethon.network.mtprotosender - INFO - Connection to 149.154.167.92:443/TcpFull complete!
+2025-11-05 11:40:36,986 - __main__ - INFO - ✅ StringSession authentication successful!
+2025-11-05 11:40:37,026 - __main__ - INFO - Connected to group: 🚀 CallistoFx Premium Channel 🚀
+2025-11-05 11:40:37,027 - __main__ - INFO - Event handlers set up successfully
+2025-11-05 11:40:37,027 - __main__ - INFO - ✅ Monitor is running. Watching for trading signals...
+2025-11-05 11:40:37,040 - health_server - INFO - 🌐 Health check server started on port 8080
+2025-11-05 11:40:37,040 - health_server - INFO -    GET http://localhost:8080/health - Detailed status
+2025-11-05 11:40:37,041 - health_server - INFO -    GET http://localhost:8080/ - Simple status
+2025-11-05 11:40:37,042 - __main__ - ERROR - Fatal error: name 'MT5_AVAILABLE' is not defined
+2025-11-05 11:41:41,037 - __main__ - INFO - Starting Direct MT5 Telegram Monitor...
+2025-11-05 11:41:41,037 - __main__ - INFO - Strategy: multi_position_entry, V: 0.09
+2025-11-05 11:41:41,053 - mt5_client - INFO - Connected to MT5 VPS - Server: PUPrime-Demo, Account: 700010991
+2025-11-05 11:41:41,054 - mt5_client - INFO - Account info - Login: 700010991, Balance: 99950.98
+2025-11-05 11:41:41,054 - __main__ - INFO - 🔐 Telegram Authentication Configuration:
+2025-11-05 11:41:41,054 - __main__ - INFO -    API_ID: ✅ Set
+2025-11-05 11:41:41,055 - __main__ - INFO -    API_HASH: ✅ Set
+2025-11-05 11:41:41,055 - __main__ - INFO -    BOT_TOKEN: ❌ Missing
+2025-11-05 11:41:41,055 - __main__ - INFO -    STRING_SESSION: ✅ Set
+2025-11-05 11:41:41,056 - __main__ - INFO -    PHONE_NUMBER: ✅ Set
+2025-11-05 11:41:41,056 - __main__ - INFO - 🔑 Using StringSession for authentication...
+2025-11-05 11:41:41,056 - __main__ - INFO -    StringSession length: 353 characters
+2025-11-05 11:41:41,092 - __main__ - INFO - Connecting with StringSession...
+2025-11-05 11:41:41,093 - telethon.network.mtprotosender - INFO - Connecting to 149.154.167.92:443/TcpFull...
+2025-11-05 11:41:41,105 - telethon.network.mtprotosender - INFO - Connection to 149.154.167.92:443/TcpFull complete!
+2025-11-05 11:41:41,267 - __main__ - INFO - ✅ StringSession authentication successful!
+2025-11-05 11:41:41,316 - __main__ - INFO - Connected to group: 🚀 CallistoFx Premium Channel 🚀
+2025-11-05 11:41:41,316 - __main__ - INFO - Event handlers set up successfully
+2025-11-05 11:41:41,317 - __main__ - INFO - ✅ Monitor is running. Watching for trading signals...
+2025-11-05 11:41:41,332 - health_server - INFO - 🌐 Health check server started on port 8080
+2025-11-05 11:41:41,332 - health_server - INFO -    GET http://localhost:8080/health - Detailed status
+2025-11-05 11:41:41,333 - health_server - INFO -    GET http://localhost:8080/ - Simple status
+2025-11-05 11:41:41,335 - __main__ - ERROR - Fatal error: name 'MT5_AVAILABLE' is not defined
+2025-11-05 11:42:41,874 - __main__ - INFO - Starting Direct MT5 Telegram Monitor...
+2025-11-05 11:42:41,875 - __main__ - INFO - Strategy: multi_position_entry, V: 0.09
+2025-11-05 11:42:41,890 - mt5_client - INFO - Connected to MT5 VPS - Server: PUPrime-Demo, Account: 700010991
+2025-11-05 11:42:41,890 - mt5_client - INFO - Account info - Login: 700010991, Balance: 99950.98
+2025-11-05 11:42:41,891 - __main__ - INFO - 🔐 Telegram Authentication Configuration:
+2025-11-05 11:42:41,891 - __main__ - INFO -    API_ID: ✅ Set
+2025-11-05 11:42:41,891 - __main__ - INFO -    API_HASH: ✅ Set
+2025-11-05 11:42:41,892 - __main__ - INFO -    BOT_TOKEN: ❌ Missing
+2025-11-05 11:42:41,892 - __main__ - INFO -    STRING_SESSION: ✅ Set
+2025-11-05 11:42:41,892 - __main__ - INFO -    PHONE_NUMBER: ✅ Set
+2025-11-05 11:42:41,893 - __main__ - INFO - 🔑 Using StringSession for authentication...
+2025-11-05 11:42:41,893 - __main__ - INFO -    StringSession length: 353 characters
+2025-11-05 11:42:41,930 - __main__ - INFO - Connecting with StringSession...
+2025-11-05 11:42:41,931 - telethon.network.mtprotosender - INFO - Connecting to 149.154.167.92:443/TcpFull...
+2025-11-05 11:42:41,947 - telethon.network.mtprotosender - INFO - Connection to 149.154.167.92:443/TcpFull complete!
+2025-11-05 11:42:42,129 - __main__ - INFO - ✅ StringSession authentication successful!
+2025-11-05 11:42:42,179 - __main__ - INFO - Connected to group: 🚀 CallistoFx Premium Channel 🚀
+2025-11-05 11:42:42,180 - __main__ - INFO - Event handlers set up successfully
+2025-11-05 11:42:42,180 - __main__ - INFO - ✅ Monitor is running. Watching for trading signals...
+2025-11-05 11:42:42,194 - health_server - INFO - 🌐 Health check server started on port 8080
+2025-11-05 11:42:42,194 - health_server - INFO -    GET http://localhost:8080/health - Detailed status
+2025-11-05 11:42:42,195 - health_server - INFO -    GET http://localhost:8080/ - Simple status
