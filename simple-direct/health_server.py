@@ -5,9 +5,11 @@ Contains HTTP server classes for bot health monitoring and status checks.
 
 import json
 import logging
+import os
 import threading
 from http.server import HTTPServer, BaseHTTPRequestHandler
 from datetime import datetime
+from urllib.parse import parse_qs, urlparse
 from config import *
 
 logger = logging.getLogger(__name__)
@@ -33,6 +35,28 @@ class BotHealthHandler(BaseHTTPRequestHandler):
         """Handle GET requests"""
         if self.path == '/health' or self.path == '/status':
             self.send_health_response()
+        elif self.path.startswith('/log'):
+            # Parse query parameters for line count and format
+            lines = 40  # default
+            format_type = 'json'  # default
+            if '?' in self.path:
+                parsed_url = urlparse(self.path)
+                query_params = parse_qs(parsed_url.query)
+                if 'lines' in query_params:
+                    try:
+                        lines = int(query_params['lines'][0])
+                        lines = min(max(lines, 1), 1000)  # Limit between 1 and 1000 lines
+                    except (ValueError, IndexError):
+                        lines = 40
+                if 'format' in query_params:
+                    format_type = query_params['format'][0].lower()
+                    if format_type not in ['json', 'html']:
+                        format_type = 'json'
+            
+            if format_type == 'html':
+                self.send_log_html(lines)
+            else:
+                self.send_log_response(lines)
         elif self.path == '/':
             self.send_simple_response()
         else:
@@ -101,6 +125,147 @@ class BotHealthHandler(BaseHTTPRequestHandler):
             self.end_headers()
             self.wfile.write(error_response.encode())
     
+    def send_log_response(self, lines=40):
+        """Send last N lines from log file"""
+        try:
+            log_file = 'direct_mt5_monitor.log'
+            
+            # Check if log file exists
+            if not os.path.exists(log_file):
+                error_response = json.dumps({
+                    "status": "error",
+                    "message": "Log file not found",
+                    "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+                })
+                
+                self.send_response(404)
+                self.send_header('Content-type', 'application/json')
+                self.send_header('Content-length', str(len(error_response)))
+                self.end_headers()
+                self.wfile.write(error_response.encode())
+                return
+            
+            # Read the last N lines from the log file
+            with open(log_file, 'r', encoding='utf-8') as f:
+                all_lines = f.readlines()
+                last_lines = all_lines[-lines:] if len(all_lines) >= lines else all_lines
+            
+            # Create JSON response with log data
+            log_data = {
+                "status": "success",
+                "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+                "log_file": log_file,
+                "total_lines": len(all_lines),
+                "lines_returned": len(last_lines),
+                "lines_requested": lines,
+                "log_content": [line.rstrip() for line in last_lines]  # Remove trailing newlines
+            }
+            
+            response = json.dumps(log_data, indent=2)
+            
+            self.send_response(200)
+            self.send_header('Content-type', 'application/json')
+            self.send_header('Content-length', str(len(response)))
+            self.end_headers()
+            self.wfile.write(response.encode())
+            
+        except Exception as e:
+            error_response = json.dumps({
+                "status": "error",
+                "message": f"Failed to read log file: {str(e)}",
+                "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+            })
+            
+            self.send_response(500)
+            self.send_header('Content-type', 'application/json')
+            self.send_header('Content-length', str(len(error_response)))
+            self.end_headers()
+            self.wfile.write(error_response.encode())
+    
+    def send_log_html(self, lines=40):
+        """Send last N lines from log file as HTML"""
+        try:
+            log_file = 'direct_mt5_monitor.log'
+            
+            # Check if log file exists
+            if not os.path.exists(log_file):
+                html_content = """
+                <!DOCTYPE html>
+                <html><head><title>MT5 Bot Logs</title></head>
+                <body><h1>Log File Not Found</h1><p>The log file does not exist yet.</p></body>
+                </html>
+                """
+                
+                self.send_response(404)
+                self.send_header('Content-type', 'text/html')
+                self.send_header('Content-length', str(len(html_content)))
+                self.end_headers()
+                self.wfile.write(html_content.encode())
+                return
+            
+            # Read the last N lines from the log file
+            with open(log_file, 'r', encoding='utf-8') as f:
+                all_lines = f.readlines()
+                last_lines = all_lines[-lines:] if len(all_lines) >= lines else all_lines
+            
+            # Create HTML response
+            html_content = f"""
+            <!DOCTYPE html>
+            <html>
+            <head>
+                <title>MT5 Bot Logs - Last {len(last_lines)} Lines</title>
+                <style>
+                    body {{ font-family: 'Consolas', 'Monaco', monospace; margin: 20px; background-color: #1e1e1e; color: #d4d4d4; }}
+                    h1 {{ color: #569cd6; }}
+                    .log-info {{ background: #2d2d30; padding: 10px; margin: 10px 0; border-radius: 5px; }}
+                    .log-content {{ background: #0c0c0c; padding: 15px; border-radius: 5px; white-space: pre-wrap; font-size: 12px; overflow-x: auto; }}
+                    .refresh-btn {{ background: #007acc; color: white; padding: 8px 16px; border: none; border-radius: 4px; cursor: pointer; margin: 10px 0; }}
+                    .refresh-btn:hover {{ background: #005a9e; }}
+                </style>
+            </head>
+            <body>
+                <h1>📋 MT5 Trading Bot Logs</h1>
+                
+                <div class="log-info">
+                    <strong>File:</strong> {log_file}<br>
+                    <strong>Total Lines:</strong> {len(all_lines):,}<br>
+                    <strong>Showing:</strong> Last {len(last_lines)} lines<br>
+                    <strong>Updated:</strong> {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}<br>
+                    <button class="refresh-btn" onclick="location.reload()">🔄 Refresh</button>
+                    <a href="/log?format=html&lines=100" class="refresh-btn">📄 Show 100 Lines</a>
+                    <a href="/log?format=json" class="refresh-btn">📊 JSON Format</a>
+                </div>
+                
+                <div class="log-content">{''.join(last_lines).replace('<', '&lt;').replace('>', '&gt;')}</div>
+                
+                <script>
+                    // Auto-refresh every 30 seconds
+                    setTimeout(function(){{ location.reload(); }}, 30000);
+                </script>
+            </body>
+            </html>
+            """
+            
+            self.send_response(200)
+            self.send_header('Content-type', 'text/html; charset=utf-8')
+            self.send_header('Content-length', str(len(html_content)))
+            self.end_headers()
+            self.wfile.write(html_content.encode())
+            
+        except Exception as e:
+            error_html = f"""
+            <!DOCTYPE html>
+            <html><head><title>Error - MT5 Bot Logs</title></head>
+            <body><h1>Error Reading Log File</h1><p>{str(e)}</p></body>
+            </html>
+            """
+            
+            self.send_response(500)
+            self.send_header('Content-type', 'text/html')
+            self.send_header('Content-length', str(len(error_html)))
+            self.end_headers()
+            self.wfile.write(error_html.encode())
+    
     def send_simple_response(self):
         """Send simple 'Bot is running' response"""
         response = json.dumps({
@@ -142,6 +307,9 @@ class BotHealthServer:
             
             logger.info(f"🌐 Health check server started on port {self.port}")
             logger.info(f"   GET http://localhost:{self.port}/health - Detailed status")
+            logger.info(f"   GET http://localhost:{self.port}/log - Last 40 log lines (JSON)")
+            logger.info(f"   GET http://localhost:{self.port}/log?format=html - HTML log viewer")
+            logger.info(f"   GET http://localhost:{self.port}/log?lines=N - Last N log lines")
             logger.info(f"   GET http://localhost:{self.port}/ - Simple status")
             
         except Exception as e:

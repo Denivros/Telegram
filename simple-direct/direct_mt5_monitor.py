@@ -1100,7 +1100,7 @@ class TelegramMonitor:
     def is_break_even_command(self, message_text: str) -> bool:
         """Check if message is a break even command"""
         break_even_keywords = [
-            'break even', 'breakeven', 'be', 'move sl to entry', 
+            'break even', 'breakeven', 'move sl to entry', 
             'sl to entry', 'move stop to entry', 'sl be', 'sl to be', 'set slto be', 'set slto be & take partials now', 'sl to be and take partials here', 'sl to be& take partials'
         ]
         
@@ -1710,7 +1710,7 @@ class TelegramMonitor:
         try:
             # Early exit: Check ignore words before any processing
             if self.should_ignore_message(message_text):
-                logger.debug(f"🔇 Message ignored early (contains ignore words): '{message_text[:30]}...'")
+                logger.info(f"🔇 Message ignored early (contains ignore words): '{message_text[:30]}...'")
                 return
             
             # DEBUG: Log the received message
@@ -1722,7 +1722,7 @@ class TelegramMonitor:
             has_be_command = self.is_break_even_command(message_text)
             has_partial_command = self.is_partial_command(message_text)
             has_position_closed_command = self.is_position_closed_command(message_text)
-            has_tp_hit_command = self.is_tp_hit_command(message_text)
+            # has_tp_hit_command = self.is_tp_hit_command(message_text)
             has_extend_tp_command = self.is_extend_tp_command(message_text)
             
             logger.info(f"   🔍 Command Detection: BE={has_be_command}, Partial={has_partial_command}, Close={has_position_closed_command}, TPHit={has_tp_hit_command}, ExtendTP={has_extend_tp_command}")
@@ -1770,7 +1770,7 @@ class TelegramMonitor:
                     logger.info(f"   Received: {message_text}")
                     logger.info(f"📝 MESSAGE IGNORED: '{message_text[:50]}...' - Invalid signal format")
                 else:
-                    logger.debug(f"🔇 Ignored common message: '{message_text[:30]}...'")
+                    logger.info(f"🔇 Ignored common message: '{message_text[:30]}...'")
                 return
             
             # Log signal received and send Telegram feedback

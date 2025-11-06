@@ -65,6 +65,8 @@ IGNORE_WORDS = [
     'fucking', 
     'elite trader', 
     'analysis',
+    'strategy',
+    'summary',
     'haha', 
     'livestream',
     'twitch',
@@ -85,7 +87,15 @@ IGNORE_WORDS = [
     'batch', 
     'how to split risk',
     'vip discussion',
-    'youtube'
+    'youtube',
+    'twitch',
+    'discord',
+    'strategy',
+    'fucking',
+    'fuck',
+    'haha',
+    'lol',
+    'NZDJPY'
 ]
 
 # =============================================================================

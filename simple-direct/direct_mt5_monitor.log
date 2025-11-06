@@ -9259,3 +9259,729 @@ WHY did I not give the trade?...
 2025-11-05 11:42:42,194 - health_server - INFO - 🌐 Health check server started on port 8080
 2025-11-05 11:42:42,194 - health_server - INFO -    GET http://localhost:8080/health - Detailed status
 2025-11-05 11:42:42,195 - health_server - INFO -    GET http://localhost:8080/ - Simple status
+2025-11-05 11:45:39,386 - __main__ - INFO - Starting Direct MT5 Telegram Monitor...
+2025-11-05 11:45:39,386 - __main__ - INFO - Strategy: multi_position_entry, V: 0.09
+2025-11-05 11:45:39,491 - mt5_client - INFO - Connected to MT5 VPS - Server: PUPrime-Demo, Account: 700010991
+2025-11-05 11:45:39,491 - mt5_client - INFO - Account info - Login: 700010991, Balance: 99950.98
+2025-11-05 11:45:39,491 - __main__ - INFO - 🔐 Telegram Authentication Configuration:
+2025-11-05 11:45:39,491 - __main__ - INFO -    API_ID: ✅ Set
+2025-11-05 11:45:39,491 - __main__ - INFO -    API_HASH: ✅ Set
+2025-11-05 11:45:39,493 - __main__ - INFO -    BOT_TOKEN: ❌ Missing
+2025-11-05 11:45:39,493 - __main__ - INFO -    STRING_SESSION: ✅ Set
+2025-11-05 11:45:39,493 - __main__ - INFO -    PHONE_NUMBER: ✅ Set
+2025-11-05 11:45:39,493 - __main__ - INFO - 🔑 Using StringSession for authentication...
+2025-11-05 11:45:39,493 - __main__ - INFO -    StringSession length: 353 characters
+2025-11-05 11:45:39,534 - __main__ - INFO - Connecting with StringSession...
+2025-11-05 11:45:39,535 - telethon.network.mtprotosender - INFO - Connecting to 149.154.167.92:443/TcpFull...
+2025-11-05 11:45:40,551 - telethon.network.mtprotosender - INFO - Connection to 149.154.167.92:443/TcpFull complete!
+2025-11-05 11:45:40,694 - __main__ - INFO - ✅ StringSession authentication successful!
+2025-11-05 11:45:40,744 - __main__ - INFO - Connected to group: 🚀 CallistoFx Premium Channel 🚀
+2025-11-05 11:45:40,744 - __main__ - INFO - Event handlers set up successfully
+2025-11-05 11:45:40,745 - __main__ - INFO - ✅ Monitor is running. Watching for trading signals...
+2025-11-05 11:45:40,770 - health_server - INFO - 🌐 Health check server started on port 8080
+2025-11-05 11:45:40,770 - health_server - INFO -    GET http://localhost:8080/health - Detailed status
+2025-11-05 11:45:40,770 - health_server - INFO -    GET http://localhost:8080/ - Simple status
+2025-11-05 11:53:27,344 - __main__ - INFO - 🔍 MESSAGE HANDLER CALLED:
+2025-11-05 11:53:27,346 - __main__ - INFO -    Message ID: 44309
+2025-11-05 11:53:27,346 - __main__ - INFO -    From user: None
+2025-11-05 11:53:27,346 - __main__ - INFO -    Chat ID: PeerChannel(channel_id=1623437581)
+2025-11-05 11:53:27,348 - __main__ - INFO -    Has text: True
+2025-11-05 11:53:27,348 - __main__ - INFO -    Message type: <class 'telethon.tl.types.MessageMediaPhoto'>
+2025-11-05 11:53:27,348 - __main__ - INFO -    ✅ Message text found: **XAUUSD TRC Strategy (PRE NY)**
+
+Currently Price has respected the 4HR bearish FVG and is accumulat...
+2025-11-05 11:53:27,348 - __main__ - INFO -    🎯 CALLING process_trading_signal()
+2025-11-05 11:53:27,348 - __main__ - INFO - 🔍 PROCESSING MESSAGE:
+2025-11-05 11:53:27,348 - __main__ - INFO -    Raw message: '**XAUUSD TRC Strategy (PRE NY)**\n\nCurrently Price has respected the 4HR bearish FVG and is accumulating orders for a move later on this NY session. Currently 15M has turned weak bearish and we are expecting a deeper pullback in the the FVG for the NY session. \n\n**For SELLS: **\n1) Retest the 15M bearish BPR at the 3975.86 level. \n2) Create a 3/5M bearish CHOCH with a body candle close. \n3) Retest the bearish CHOCH level to capitalise on SELLS towards the 3934 level. \n**\nFor BUYS: **\n1) Body candle close above the 3987.15 level. \n2) Retest the 15M bullish CHOCH level at the 3987.15 level. \n3) Create a 3/5 bullish engulfing candle to capitalise on BUYS towards the 4014 level.'
+2025-11-05 11:53:27,350 - __main__ - INFO -    Message length: 681 characters
+2025-11-05 11:53:27,352 - __main__ - INFO -    🔍 Command Detection: BE=True, Partial=False, Close=False, TPHit=False, ExtendTP=False
+2025-11-05 11:53:27,352 - __main__ - INFO - 🎯 BREAK EVEN COMMAND DETECTED!
+2025-11-05 11:53:27,352 - __main__ - INFO - 🎯 MOVING STOP LOSS TO BREAK EVEN:
+2025-11-05 11:53:27,352 - __main__ - INFO -    Strategy: multi_position_entry
+2025-11-05 11:53:27,352 - __main__ - INFO -    BE partial volume to close: 0.01
+2025-11-05 11:53:27,352 - __main__ - INFO - 🚫 Cancelling pending orders (SL to BE triggered)
+2025-11-05 11:53:27,354 - __main__ - INFO - 🚫 CANCELLING ALL PENDING ORDERS:
+2025-11-05 11:53:27,354 - __main__ - INFO -    ✅ No pending orders to cancel
+2025-11-05 11:53:27,354 - __main__ - INFO -    📋 No pending orders to cancel
+2025-11-05 11:53:27,354 - __main__ - INFO -    ❌ No open positions to modify
+2025-11-05 12:53:19,231 - telethon.client.updates - INFO - Got difference for channel 1623437581 updates
+2025-11-05 12:57:06,350 - __main__ - INFO - Starting Direct MT5 Telegram Monitor...
+2025-11-05 12:57:06,351 - __main__ - INFO - Strategy: multi_position_entry, V: 0.09
+2025-11-05 12:57:06,479 - mt5_client - INFO - Connected to MT5 VPS - Server: PUPrime-Demo, Account: 700010991
+2025-11-05 12:57:06,479 - mt5_client - INFO - Account info - Login: 700010991, Balance: 99950.98
+2025-11-05 12:57:06,479 - __main__ - INFO - 🔐 Telegram Authentication Configuration:
+2025-11-05 12:57:06,480 - __main__ - INFO -    API_ID: ✅ Set
+2025-11-05 12:57:06,480 - __main__ - INFO -    API_HASH: ✅ Set
+2025-11-05 12:57:06,480 - __main__ - INFO -    BOT_TOKEN: ❌ Missing
+2025-11-05 12:57:06,480 - __main__ - INFO -    STRING_SESSION: ✅ Set
+2025-11-05 12:57:06,481 - __main__ - INFO -    PHONE_NUMBER: ✅ Set
+2025-11-05 12:57:06,481 - __main__ - INFO - 🔑 Using StringSession for authentication...
+2025-11-05 12:57:06,481 - __main__ - INFO -    StringSession length: 353 characters
+2025-11-05 12:57:06,532 - __main__ - INFO - Connecting with StringSession...
+2025-11-05 12:57:06,533 - telethon.network.mtprotosender - INFO - Connecting to 149.154.167.92:443/TcpFull...
+2025-11-05 12:57:06,544 - telethon.network.mtprotosender - INFO - Connection to 149.154.167.92:443/TcpFull complete!
+2025-11-05 12:57:06,679 - __main__ - INFO - ✅ StringSession authentication successful!
+2025-11-05 12:57:06,718 - __main__ - INFO - Connected to group: 🚀 CallistoFx Premium Channel 🚀
+2025-11-05 12:57:06,719 - __main__ - INFO - Event handlers set up successfully
+2025-11-05 12:57:06,719 - __main__ - INFO - ✅ Monitor is running. Watching for trading signals...
+2025-11-05 12:57:06,748 - health_server - INFO - 🌐 Health check server started on port 8080
+2025-11-05 12:57:06,749 - health_server - INFO -    GET http://localhost:8080/health - Detailed status
+2025-11-05 12:57:06,749 - health_server - INFO -    GET http://localhost:8080/ - Simple status
+2025-11-05 13:03:06,740 - __main__ - INFO - 🔍 MESSAGE HANDLER CALLED:
+2025-11-05 13:03:06,742 - __main__ - INFO -    Message ID: 44310
+2025-11-05 13:03:06,742 - __main__ - INFO -    From user: None
+2025-11-05 13:03:06,742 - __main__ - INFO -    Chat ID: PeerChannel(channel_id=1623437581)
+2025-11-05 13:03:06,742 - __main__ - INFO -    Has text: True
+2025-11-05 13:03:06,743 - __main__ - INFO -    Message type: <class 'telethon.tl.types.MessageMediaDocument'>
+2025-11-05 13:03:06,743 - __main__ - INFO -    ✅ Message text found: **Twitch:** https://www.twitch.tv/callistofx
+
+**Youtube**: https://youtube.com/live/0ZbHmmriezc?feat...
+2025-11-05 13:03:06,743 - __main__ - INFO -    🎯 CALLING process_trading_signal()
+2025-11-05 13:27:06,746 - telethon.client.updates - INFO - Got difference for account updates
+2025-11-05 13:33:50,604 - __main__ - INFO - 🔍 MESSAGE HANDLER CALLED:
+2025-11-05 13:33:50,606 - __main__ - INFO -    Message ID: 44311
+2025-11-05 13:33:50,606 - __main__ - INFO -    From user: None
+2025-11-05 13:33:50,606 - __main__ - INFO -    Chat ID: PeerChannel(channel_id=1623437581)
+2025-11-05 13:33:50,614 - __main__ - INFO -    Has text: True
+2025-11-05 13:33:50,614 - __main__ - INFO -    Message type: <class 'telethon.tl.types.MessageMediaPhoto'>
+2025-11-05 13:33:50,614 - __main__ - INFO -    ✅ Message text found: **📊NEW YORK ANALYSIS: XAUUSD**
+
+📍Retest the 1HR OB at the 3972.73 level. Create 3/5M bearish reversa...
+2025-11-05 13:33:50,614 - __main__ - INFO -    🎯 CALLING process_trading_signal()
+2025-11-05 13:40:40,077 - __main__ - INFO - Starting Direct MT5 Telegram Monitor...
+2025-11-05 13:40:40,077 - __main__ - INFO - Strategy: multi_position_entry, V: 0.09
+2025-11-05 13:40:40,176 - mt5_client - INFO - Connected to MT5 VPS - Server: PUPrime-Demo, Account: 700010991
+2025-11-05 13:40:40,176 - mt5_client - INFO - Account info - Login: 700010991, Balance: 99950.98
+2025-11-05 13:40:40,176 - __main__ - INFO - 🔐 Telegram Authentication Configuration:
+2025-11-05 13:40:40,177 - __main__ - INFO -    API_ID: ✅ Set
+2025-11-05 13:40:40,178 - __main__ - INFO -    API_HASH: ✅ Set
+2025-11-05 13:40:40,178 - __main__ - INFO -    BOT_TOKEN: ❌ Missing
+2025-11-05 13:40:40,178 - __main__ - INFO -    STRING_SESSION: ✅ Set
+2025-11-05 13:40:40,178 - __main__ - INFO -    PHONE_NUMBER: ✅ Set
+2025-11-05 13:40:40,178 - __main__ - INFO - 🔑 Using StringSession for authentication...
+2025-11-05 13:40:40,178 - __main__ - INFO -    StringSession length: 353 characters
+2025-11-05 13:40:40,217 - __main__ - INFO - Connecting with StringSession...
+2025-11-05 13:40:40,218 - telethon.network.mtprotosender - INFO - Connecting to 149.154.167.92:443/TcpFull...
+2025-11-05 13:40:40,231 - telethon.network.mtprotosender - INFO - Connection to 149.154.167.92:443/TcpFull complete!
+2025-11-05 13:40:40,374 - __main__ - INFO - ✅ StringSession authentication successful!
+2025-11-05 13:40:40,422 - __main__ - INFO - Connected to group: 🚀 CallistoFx Premium Channel 🚀
+2025-11-05 13:40:40,422 - __main__ - INFO - Event handlers set up successfully
+2025-11-05 13:40:40,423 - __main__ - INFO - ✅ Monitor is running. Watching for trading signals...
+2025-11-05 13:40:40,467 - health_server - INFO - 🌐 Health check server started on port 8080
+2025-11-05 13:40:40,467 - health_server - INFO -    GET http://localhost:8080/health - Detailed status
+2025-11-05 13:40:40,467 - health_server - INFO -    GET http://localhost:8080/ - Simple status
+2025-11-05 14:10:11,149 - __main__ - INFO - 🔍 MESSAGE HANDLER CALLED:
+2025-11-05 14:10:11,151 - __main__ - INFO -    Message ID: 44312
+2025-11-05 14:10:11,151 - __main__ - INFO -    From user: None
+2025-11-05 14:10:11,151 - __main__ - INFO -    Chat ID: PeerChannel(channel_id=1623437581)
+2025-11-05 14:10:11,151 - __main__ - INFO -    Has text: True
+2025-11-05 14:10:11,151 - __main__ - INFO -    Message type: text
+2025-11-05 14:10:11,153 - __main__ - INFO -    ✅ Message text found: For those that took the aggro entry on stream based on the iFVG and push up high, please take HEAVY ...
+2025-11-05 14:10:11,153 - __main__ - INFO -    🎯 CALLING process_trading_signal()
+2025-11-05 14:10:11,153 - __main__ - INFO - 🔇 Message ignored early (contains ignore words): 'For those that took the aggro ...'
+2025-11-05 14:10:17,669 - __main__ - INFO - 🔍 MESSAGE HANDLER CALLED:
+2025-11-05 14:10:17,669 - __main__ - INFO -    Message ID: 44313
+2025-11-05 14:10:17,669 - __main__ - INFO -    From user: None
+2025-11-05 14:10:17,669 - __main__ - INFO -    Chat ID: PeerChannel(channel_id=1623437581)
+2025-11-05 14:10:17,671 - __main__ - INFO -    Has text: True
+2025-11-05 14:10:17,671 - __main__ - INFO -    Message type: <class 'telethon.tl.types.MessageMediaPhoto'>
+2025-11-05 14:10:17,671 - __main__ - INFO -    ✅ Message text found: Those in aggro buys...
+2025-11-05 14:10:17,671 - __main__ - INFO -    🎯 CALLING process_trading_signal()
+2025-11-05 14:10:17,671 - __main__ - INFO - 🔍 PROCESSING MESSAGE:
+2025-11-05 14:10:17,671 - __main__ - INFO -    Raw message: 'Those in aggro buys'
+2025-11-05 14:10:17,673 - __main__ - INFO -    Message length: 19 characters
+2025-11-05 14:10:17,675 - __main__ - INFO -    🔍 Command Detection: BE=False, Partial=False, Close=False, TPHit=False, ExtendTP=False
+2025-11-05 14:10:17,677 - __main__ - INFO -    ✅ No existing trades found
+2025-11-05 14:10:17,677 - signal_parser - INFO - 🔍 PARSING SIGNAL:
+2025-11-05 14:10:17,677 - signal_parser - INFO -    Input: 'Those in aggro buys'
+2025-11-05 14:10:17,677 - signal_parser - INFO -    [OK] Symbol: XAUUSD.p (fixed)
+2025-11-05 14:10:17,677 - signal_parser - WARNING -    [X] No direction found (expected: 🔴 for SELL or 🟢 for BUY)
+2025-11-05 14:10:17,677 - __main__ - WARNING - ❌ NO SIGNAL PARSED - Message did not match trading signal pattern
+2025-11-05 14:10:17,679 - __main__ - INFO -    Expected pattern: [SYMBOL] BUY/SELL RANGE: X-Y SL: Z TP: W
+2025-11-05 14:10:17,679 - __main__ - INFO -    Received: Those in aggro buys
+2025-11-05 14:10:17,679 - __main__ - INFO - 📝 MESSAGE IGNORED: 'Those in aggro buys...' - Invalid signal format
+2025-11-05 14:10:23,247 - __main__ - INFO - 🔍 MESSAGE HANDLER CALLED:
+2025-11-05 14:10:23,249 - __main__ - INFO -    Message ID: 44314
+2025-11-05 14:10:23,249 - __main__ - INFO -    From user: None
+2025-11-05 14:10:23,251 - __main__ - INFO -    Chat ID: PeerChannel(channel_id=1623437581)
+2025-11-05 14:10:23,251 - __main__ - INFO -    Has text: True
+2025-11-05 14:10:23,251 - __main__ - INFO -    Message type: text
+2025-11-05 14:10:23,251 - __main__ - INFO -    ✅ Message text found: C1 for sells has been tapped...
+2025-11-05 14:10:23,251 - __main__ - INFO -    🎯 CALLING process_trading_signal()
+2025-11-05 14:10:23,251 - __main__ - INFO - 🔍 PROCESSING MESSAGE:
+2025-11-05 14:10:23,251 - __main__ - INFO -    Raw message: 'C1 for sells has been tapped'
+2025-11-05 14:10:23,251 - __main__ - INFO -    Message length: 28 characters
+2025-11-05 14:10:23,253 - __main__ - INFO -    🔍 Command Detection: BE=False, Partial=False, Close=False, TPHit=False, ExtendTP=False
+2025-11-05 14:10:23,253 - __main__ - INFO -    ✅ No existing trades found
+2025-11-05 14:10:23,253 - signal_parser - INFO - 🔍 PARSING SIGNAL:
+2025-11-05 14:10:23,253 - signal_parser - INFO -    Input: 'C1 for sells has been tapped'
+2025-11-05 14:10:23,253 - signal_parser - INFO -    [OK] Symbol: XAUUSD.p (fixed)
+2025-11-05 14:10:23,253 - signal_parser - WARNING -    [X] No direction found (expected: 🔴 for SELL or 🟢 for BUY)
+2025-11-05 14:10:23,255 - __main__ - WARNING - ❌ NO SIGNAL PARSED - Message did not match trading signal pattern
+2025-11-05 14:10:23,255 - __main__ - INFO -    Expected pattern: [SYMBOL] BUY/SELL RANGE: X-Y SL: Z TP: W
+2025-11-05 14:10:23,255 - __main__ - INFO -    Received: C1 for sells has been tapped
+2025-11-05 14:10:23,255 - __main__ - INFO - 📝 MESSAGE IGNORED: 'C1 for sells has been tapped...' - Invalid signal format
+2025-11-05 14:10:40,455 - telethon.client.updates - INFO - Got difference for channel 1623437581 updates
+2025-11-05 14:10:40,455 - __main__ - INFO - 🔍 MESSAGE HANDLER CALLED:
+2025-11-05 14:10:40,457 - __main__ - INFO -    Message ID: 44315
+2025-11-05 14:10:40,457 - __main__ - INFO -    From user: None
+2025-11-05 14:10:40,457 - __main__ - INFO -    Chat ID: PeerChannel(channel_id=1623437581)
+2025-11-05 14:10:40,457 - __main__ - INFO -    Has text: True
+2025-11-05 14:10:40,457 - __main__ - INFO -    Message type: text
+2025-11-05 14:10:40,457 - __main__ - INFO -    ✅ Message text found: Take half off and derisk now...
+2025-11-05 14:10:40,457 - __main__ - INFO -    🎯 CALLING process_trading_signal()
+2025-11-05 14:10:40,457 - __main__ - INFO - 🔍 PROCESSING MESSAGE:
+2025-11-05 14:10:40,459 - __main__ - INFO -    Raw message: 'Take half off and derisk now'
+2025-11-05 14:10:40,459 - __main__ - INFO -    Message length: 28 characters
+2025-11-05 14:10:40,459 - __main__ - INFO -    🔍 Command Detection: BE=False, Partial=False, Close=False, TPHit=False, ExtendTP=False
+2025-11-05 14:10:40,461 - __main__ - INFO -    ✅ No existing trades found
+2025-11-05 14:10:40,461 - signal_parser - INFO - 🔍 PARSING SIGNAL:
+2025-11-05 14:10:40,462 - signal_parser - INFO -    Input: 'Take half off and derisk now'
+2025-11-05 14:10:40,462 - signal_parser - INFO -    [OK] Symbol: XAUUSD.p (fixed)
+2025-11-05 14:10:40,462 - signal_parser - WARNING -    [X] No direction found (expected: 🔴 for SELL or 🟢 for BUY)
+2025-11-05 14:10:40,463 - __main__ - WARNING - ❌ NO SIGNAL PARSED - Message did not match trading signal pattern
+2025-11-05 14:10:40,463 - __main__ - INFO -    Expected pattern: [SYMBOL] BUY/SELL RANGE: X-Y SL: Z TP: W
+2025-11-05 14:10:40,463 - __main__ - INFO -    Received: Take half off and derisk now
+2025-11-05 14:10:40,463 - __main__ - INFO - 📝 MESSAGE IGNORED: 'Take half off and derisk now...' - Invalid signal format
+2025-11-05 14:11:15,942 - __main__ - INFO - 🔍 MESSAGE HANDLER CALLED:
+2025-11-05 14:11:15,943 - __main__ - INFO -    Message ID: 44316
+2025-11-05 14:11:15,943 - __main__ - INFO -    From user: None
+2025-11-05 14:11:15,943 - __main__ - INFO -    Chat ID: PeerChannel(channel_id=1623437581)
+2025-11-05 14:11:15,944 - __main__ - INFO -    Has text: True
+2025-11-05 14:11:15,944 - __main__ - INFO -    Message type: <class 'telethon.tl.types.MessageMediaPhoto'>
+2025-11-05 14:11:15,944 - __main__ - INFO -    ✅ Message text found: 🟢50 pips on the aggro entry...
+2025-11-05 14:11:15,945 - __main__ - INFO -    🎯 CALLING process_trading_signal()
+2025-11-05 14:11:15,946 - __main__ - INFO - 🔍 PROCESSING MESSAGE:
+2025-11-05 14:11:15,946 - __main__ - INFO -    Raw message: '🟢50 pips on the aggro entry'
+2025-11-05 14:11:15,946 - __main__ - INFO -    Message length: 27 characters
+2025-11-05 14:11:15,946 - __main__ - INFO -    🔍 Command Detection: BE=False, Partial=False, Close=False, TPHit=False, ExtendTP=False
+2025-11-05 14:11:15,946 - __main__ - INFO -    ✅ No existing trades found
+2025-11-05 14:11:15,946 - signal_parser - INFO - 🔍 PARSING SIGNAL:
+2025-11-05 14:11:15,948 - signal_parser - INFO -    Input: '🟢50 pips on the aggro entry'
+2025-11-05 14:11:15,948 - signal_parser - INFO -    [OK] Symbol: XAUUSD.p (fixed)
+2025-11-05 14:11:15,948 - signal_parser - WARNING -    [X] Not enough numbers found in message (need at least 4)
+2025-11-05 14:11:15,948 - __main__ - WARNING - ❌ NO SIGNAL PARSED - Message did not match trading signal pattern
+2025-11-05 14:11:15,948 - __main__ - INFO -    Expected pattern: [SYMBOL] BUY/SELL RANGE: X-Y SL: Z TP: W
+2025-11-05 14:11:15,948 - __main__ - INFO -    Received: 🟢50 pips on the aggro entry
+2025-11-05 14:11:15,950 - __main__ - INFO - 📝 MESSAGE IGNORED: '🟢50 pips on the aggro entry...' - Invalid signal format
+2025-11-05 14:16:24,086 - __main__ - INFO - 🔍 MESSAGE HANDLER CALLED:
+2025-11-05 14:16:24,088 - __main__ - INFO -    Message ID: 44317
+2025-11-05 14:16:24,088 - __main__ - INFO -    From user: None
+2025-11-05 14:16:24,088 - __main__ - INFO -    Chat ID: PeerChannel(channel_id=1623437581)
+2025-11-05 14:16:24,088 - __main__ - INFO -    Has text: True
+2025-11-05 14:16:24,088 - __main__ - INFO -    Message type: text
+2025-11-05 14:16:24,090 - __main__ - INFO -    ✅ Message text found: Ok i’m out of this position!...
+2025-11-05 14:16:24,090 - __main__ - INFO -    🎯 CALLING process_trading_signal()
+2025-11-05 14:16:24,090 - __main__ - INFO - 🔍 PROCESSING MESSAGE:
+2025-11-05 14:16:24,092 - __main__ - INFO -    Raw message: 'Ok i’m out of this position!'
+2025-11-05 14:16:24,092 - __main__ - INFO -    Message length: 28 characters
+2025-11-05 14:16:24,092 - __main__ - INFO -    🔍 Command Detection: BE=False, Partial=False, Close=False, TPHit=False, ExtendTP=False
+2025-11-05 14:16:24,092 - __main__ - INFO -    ✅ No existing trades found
+2025-11-05 14:16:24,094 - signal_parser - INFO - 🔍 PARSING SIGNAL:
+2025-11-05 14:16:24,094 - signal_parser - INFO -    Input: 'Ok i’m out of this position!'
+2025-11-05 14:16:24,094 - signal_parser - INFO -    [OK] Symbol: XAUUSD.p (fixed)
+2025-11-05 14:16:24,094 - signal_parser - WARNING -    [X] No direction found (expected: 🔴 for SELL or 🟢 for BUY)
+2025-11-05 14:16:24,094 - __main__ - WARNING - ❌ NO SIGNAL PARSED - Message did not match trading signal pattern
+2025-11-05 14:16:24,095 - __main__ - INFO -    Expected pattern: [SYMBOL] BUY/SELL RANGE: X-Y SL: Z TP: W
+2025-11-05 14:16:24,096 - __main__ - INFO -    Received: Ok i’m out of this position!
+2025-11-05 14:16:24,096 - __main__ - INFO - 📝 MESSAGE IGNORED: 'Ok i’m out of this position!...' - Invalid signal format
+2025-11-05 14:16:39,290 - __main__ - INFO - 🔍 MESSAGE HANDLER CALLED:
+2025-11-05 14:16:39,290 - __main__ - INFO -    Message ID: 44318
+2025-11-05 14:16:39,291 - __main__ - INFO -    From user: None
+2025-11-05 14:16:39,291 - __main__ - INFO -    Chat ID: PeerChannel(channel_id=1623437581)
+2025-11-05 14:16:39,292 - __main__ - INFO -    Has text: True
+2025-11-05 14:16:39,292 - __main__ - INFO -    Message type: text
+2025-11-05 14:16:39,292 - __main__ - INFO -    ✅ Message text found: ADP NFP results released, that’s why going risk free is key....
+2025-11-05 14:16:39,292 - __main__ - INFO -    🎯 CALLING process_trading_signal()
+2025-11-05 14:16:39,292 - __main__ - INFO - 🔍 PROCESSING MESSAGE:
+2025-11-05 14:16:39,292 - __main__ - INFO -    Raw message: 'ADP NFP results released, that’s why going risk free is key.'
+2025-11-05 14:16:39,293 - __main__ - INFO -    Message length: 60 characters
+2025-11-05 14:16:39,293 - __main__ - INFO -    🔍 Command Detection: BE=False, Partial=False, Close=False, TPHit=False, ExtendTP=False
+2025-11-05 14:16:39,294 - __main__ - INFO -    ✅ No existing trades found
+2025-11-05 14:16:39,294 - signal_parser - INFO - 🔍 PARSING SIGNAL:
+2025-11-05 14:16:39,294 - signal_parser - INFO -    Input: 'ADP NFP results released, that’s why going risk free is key.'
+2025-11-05 14:16:39,295 - signal_parser - INFO -    [OK] Symbol: XAUUSD.p (fixed)
+2025-11-05 14:16:39,295 - signal_parser - WARNING -    [X] No direction found (expected: 🔴 for SELL or 🟢 for BUY)
+2025-11-05 14:16:39,295 - __main__ - WARNING - ❌ NO SIGNAL PARSED - Message did not match trading signal pattern
+2025-11-05 14:16:39,295 - __main__ - INFO -    Expected pattern: [SYMBOL] BUY/SELL RANGE: X-Y SL: Z TP: W
+2025-11-05 14:16:39,295 - __main__ - INFO -    Received: ADP NFP results released, that’s why going risk free is key.
+2025-11-05 14:16:39,296 - __main__ - INFO - 📝 MESSAGE IGNORED: 'ADP NFP results released, that’s why going risk fr...' - Invalid signal format
+2025-11-05 15:49:22,219 - __main__ - INFO - 🔍 MESSAGE HANDLER CALLED:
+2025-11-05 15:49:22,221 - __main__ - INFO -    Message ID: 44319
+2025-11-05 15:49:22,221 - __main__ - INFO -    From user: None
+2025-11-05 15:49:22,221 - __main__ - INFO -    Chat ID: PeerChannel(channel_id=1623437581)
+2025-11-05 15:49:22,221 - __main__ - INFO -    Has text: True
+2025-11-05 15:49:22,221 - __main__ - INFO -    Message type: <class 'telethon.tl.types.MessageMediaDocument'>
+2025-11-05 15:49:22,221 - __main__ - INFO -    📹 VIDEO MESSAGE IGNORED - No text content to process
+2025-11-05 15:49:22,223 - __main__ - INFO -       Video mime type: video/mp4
+2025-11-05 15:49:22,223 - __main__ - INFO - 📝 MESSAGE IGNORED: Video message (ID: 44319) - No text content
+2025-11-05 16:13:35,416 - __main__ - INFO - 🔍 MESSAGE HANDLER CALLED:
+2025-11-05 16:13:35,418 - __main__ - INFO -    Message ID: 44320
+2025-11-05 16:13:35,418 - __main__ - INFO -    From user: None
+2025-11-05 16:13:35,418 - __main__ - INFO -    Chat ID: PeerChannel(channel_id=1623437581)
+2025-11-05 16:13:35,418 - __main__ - INFO -    Has text: True
+2025-11-05 16:13:35,420 - __main__ - INFO -    Message type: <class 'telethon.tl.types.MessageMediaPhoto'>
+2025-11-05 16:13:35,420 - __main__ - INFO -    ✅ Message text found: 🔴Criteria 1: 4HR bearish CHOCH with a body candle close below the 3960.23 level. 
+🟠Criteria 2: 4HR b...
+2025-11-05 16:13:35,420 - __main__ - INFO -    🎯 CALLING process_trading_signal()
+2025-11-05 16:13:35,420 - __main__ - INFO - 🔍 PROCESSING MESSAGE:
+2025-11-05 16:13:35,420 - __main__ - INFO -    Raw message: '🔴Criteria 1: 4HR bearish CHOCH with a body candle close below the 3960.23 level. \n🟠Criteria 2: 4HR bearish FVG retested at the 3975.64 level. \n🟢Criteria 3: Also swept the Asian High at the 3973.77 to capitalise on SELLS towards the 3910 level. \n\nAll 3 criteria met, SELLS on XAU during the London Session that ran 153 Pips!'
+2025-11-05 16:13:35,421 - __main__ - INFO -    Message length: 323 characters
+2025-11-05 16:13:35,421 - __main__ - INFO -    🔍 Command Detection: BE=False, Partial=False, Close=False, TPHit=False, ExtendTP=False
+2025-11-05 16:13:35,421 - __main__ - INFO -    ✅ No existing trades found
+2025-11-05 16:13:35,423 - signal_parser - INFO - 🔍 PARSING SIGNAL:
+2025-11-05 16:13:35,423 - signal_parser - INFO -    Input: '🔴Criteria 1: 4HR bearish CHOCH with a body candle close below the 3960.23 level. \n🟠Criteria 2: 4HR bearish FVG retested at the 3975.64 level. \n🟢Criteria 3: Also swept the Asian High at the 3973.77 to capitalise on SELLS towards the 3910 level. \n\nAll 3 criteria met, SELLS on XAU during the London Session that ran 153 Pips!'
+2025-11-05 16:13:35,423 - signal_parser - INFO -    [OK] Symbol: XAUUSD.p (fixed)
+2025-11-05 16:13:35,425 - signal_parser - INFO -    [OK] Direction: SELL (detected from emoji)
+2025-11-05 16:13:35,425 - signal_parser - INFO -    [OK] Range: 1.0 - 4.0
+2025-11-05 16:13:35,425 - signal_parser - WARNING -    [X] No SL (Stop Loss) found
+2025-11-05 16:13:35,425 - __main__ - WARNING - ❌ NO SIGNAL PARSED - Message did not match trading signal pattern
+2025-11-05 16:13:35,427 - __main__ - INFO -    Expected pattern: [SYMBOL] BUY/SELL RANGE: X-Y SL: Z TP: W
+2025-11-05 16:13:35,427 - __main__ - INFO -    Received: 🔴Criteria 1: 4HR bearish CHOCH with a body candle close below the 3960.23 level. 
+🟠Criteria 2: 4HR bearish FVG retested at the 3975.64 level. 
+🟢Criteria 3: Also swept the Asian High at the 3973.77 to capitalise on SELLS towards the 3910 level. 
+
+All 3 criteria met, SELLS on XAU during the London Session that ran 153 Pips!
+2025-11-05 16:13:35,427 - __main__ - INFO - 📝 MESSAGE IGNORED: '🔴Criteria 1: 4HR bearish CHOCH with a body candle ...' - Invalid signal format
+2025-11-05 16:38:41,209 - __main__ - INFO - 🔍 MESSAGE HANDLER CALLED:
+2025-11-05 16:38:41,210 - __main__ - INFO -    Message ID: 44321
+2025-11-05 16:38:41,211 - __main__ - INFO -    From user: None
+2025-11-05 16:38:41,211 - __main__ - INFO -    Chat ID: PeerChannel(channel_id=1623437581)
+2025-11-05 16:38:41,216 - __main__ - INFO -    Has text: True
+2025-11-05 16:38:41,216 - __main__ - INFO -    Message type: <class 'telethon.tl.types.MessageMediaDocument'>
+2025-11-05 16:38:41,216 - __main__ - INFO -    ✅ Message text found: **Trading summary 5th November 2025:**
+
+🟢(PREM)XAUUSD +60 Pips (TP 3)
+🟢(PREM)XAUUSD +30 Pips (TP 1)
+...
+2025-11-05 16:38:41,216 - __main__ - INFO -    🎯 CALLING process_trading_signal()
+2025-11-05 16:38:41,216 - __main__ - INFO - 🔇 Message ignored early (contains ignore words): '**Trading summary 5th November...'
+2025-11-05 17:31:41,484 - __main__ - INFO - 🔍 MESSAGE HANDLER CALLED:
+2025-11-05 17:31:41,485 - __main__ - INFO -    Message ID: 44322
+2025-11-05 17:31:41,485 - __main__ - INFO -    From user: None
+2025-11-05 17:31:41,486 - __main__ - INFO -    Chat ID: PeerChannel(channel_id=1623437581)
+2025-11-05 17:31:41,486 - __main__ - INFO -    Has text: True
+2025-11-05 17:31:41,486 - __main__ - INFO -    Message type: <class 'telethon.tl.types.MessageMediaPhoto'>
+2025-11-05 17:31:41,486 - __main__ - WARNING -    ❌ No text content in message
+2025-11-05 17:31:41,486 - __main__ - INFO -    Message content: <telethon.tl.patched.Message object at 0x000001DB3F6EE390>
+2025-11-05 17:31:41,487 - __main__ - INFO - 📝 MESSAGE IGNORED: Non-text message (ID: 44322) - No text content
+2025-11-05 17:31:41,488 - __main__ - INFO - 🔍 MESSAGE HANDLER CALLED:
+2025-11-05 17:31:41,488 - __main__ - INFO -    Message ID: 44323
+2025-11-05 17:31:41,488 - __main__ - INFO -    From user: None
+2025-11-05 17:31:41,488 - __main__ - INFO -    Chat ID: PeerChannel(channel_id=1623437581)
+2025-11-05 17:31:41,488 - __main__ - INFO -    Has text: True
+2025-11-05 17:31:41,488 - __main__ - INFO -    Message type: <class 'telethon.tl.types.MessageMediaPhoto'>
+2025-11-05 17:31:41,488 - __main__ - WARNING -    ❌ No text content in message
+2025-11-05 17:31:41,488 - __main__ - INFO -    Message content: <telethon.tl.patched.Message object at 0x000001DB3F6EC6D0>
+2025-11-05 17:31:41,489 - __main__ - INFO - 📝 MESSAGE IGNORED: Non-text message (ID: 44323) - No text content
+2025-11-05 17:31:41,490 - __main__ - INFO - 🔍 MESSAGE HANDLER CALLED:
+2025-11-05 17:31:41,490 - __main__ - INFO -    Message ID: 44324
+2025-11-05 17:31:41,490 - __main__ - INFO -    From user: None
+2025-11-05 17:31:41,490 - __main__ - INFO -    Chat ID: PeerChannel(channel_id=1623437581)
+2025-11-05 17:31:41,490 - __main__ - INFO -    Has text: True
+2025-11-05 17:31:41,490 - __main__ - INFO -    Message type: <class 'telethon.tl.types.MessageMediaPhoto'>
+2025-11-05 17:31:41,492 - __main__ - WARNING -    ❌ No text content in message
+2025-11-05 17:31:41,492 - __main__ - INFO -    Message content: <telethon.tl.patched.Message object at 0x000001DB3F6ED190>
+2025-11-05 17:31:41,492 - __main__ - INFO - 📝 MESSAGE IGNORED: Non-text message (ID: 44324) - No text content
+2025-11-05 17:31:41,492 - __main__ - INFO - 🔍 MESSAGE HANDLER CALLED:
+2025-11-05 17:31:41,492 - __main__ - INFO -    Message ID: 44325
+2025-11-05 17:31:41,492 - __main__ - INFO -    From user: None
+2025-11-05 17:31:41,492 - __main__ - INFO -    Chat ID: PeerChannel(channel_id=1623437581)
+2025-11-05 17:31:41,492 - __main__ - INFO -    Has text: True
+2025-11-05 17:31:41,492 - __main__ - INFO -    Message type: <class 'telethon.tl.types.MessageMediaPhoto'>
+2025-11-05 17:31:41,494 - __main__ - WARNING -    ❌ No text content in message
+2025-11-05 17:31:41,494 - __main__ - INFO -    Message content: <telethon.tl.patched.Message object at 0x000001DB3F6EC890>
+2025-11-05 17:31:41,494 - __main__ - INFO - 📝 MESSAGE IGNORED: Non-text message (ID: 44325) - No text content
+2025-11-05 17:31:41,494 - __main__ - INFO - 🔍 MESSAGE HANDLER CALLED:
+2025-11-05 17:31:41,494 - __main__ - INFO -    Message ID: 44326
+2025-11-05 17:31:41,494 - __main__ - INFO -    From user: None
+2025-11-05 17:31:41,494 - __main__ - INFO -    Chat ID: PeerChannel(channel_id=1623437581)
+2025-11-05 17:31:41,494 - __main__ - INFO -    Has text: True
+2025-11-05 17:31:41,496 - __main__ - INFO -    Message type: <class 'telethon.tl.types.MessageMediaPhoto'>
+2025-11-05 17:31:41,496 - __main__ - WARNING -    ❌ No text content in message
+2025-11-05 17:31:41,496 - __main__ - INFO -    Message content: <telethon.tl.patched.Message object at 0x000001DB3F6EDC50>
+2025-11-05 17:31:41,496 - __main__ - INFO - 📝 MESSAGE IGNORED: Non-text message (ID: 44326) - No text content
+2025-11-05 17:31:41,496 - __main__ - INFO - 🔍 MESSAGE HANDLER CALLED:
+2025-11-05 17:31:41,496 - __main__ - INFO -    Message ID: 44327
+2025-11-05 17:31:41,496 - __main__ - INFO -    From user: None
+2025-11-05 17:31:41,496 - __main__ - INFO -    Chat ID: PeerChannel(channel_id=1623437581)
+2025-11-05 17:31:41,498 - __main__ - INFO -    Has text: True
+2025-11-05 17:31:41,498 - __main__ - INFO -    Message type: <class 'telethon.tl.types.MessageMediaPhoto'>
+2025-11-05 17:31:41,498 - __main__ - INFO -    ✅ Message text found: 5th November 2025 (Batch 1)...
+2025-11-05 17:31:41,498 - __main__ - INFO -    🎯 CALLING process_trading_signal()
+2025-11-05 17:31:41,498 - __main__ - INFO - 🔇 Message ignored early (contains ignore words): '5th November 2025 (Batch 1)...'
+2025-11-05 17:32:30,438 - __main__ - INFO - 🔍 MESSAGE HANDLER CALLED:
+2025-11-05 17:32:30,440 - __main__ - INFO -    Message ID: 44328
+2025-11-05 17:32:30,440 - __main__ - INFO -    From user: None
+2025-11-05 17:32:30,440 - __main__ - INFO -    Chat ID: PeerChannel(channel_id=1623437581)
+2025-11-05 17:32:30,440 - __main__ - INFO -    Has text: True
+2025-11-05 17:32:30,440 - __main__ - INFO -    Message type: <class 'telethon.tl.types.MessageMediaPhoto'>
+2025-11-05 17:32:30,440 - __main__ - WARNING -    ❌ No text content in message
+2025-11-05 17:32:30,440 - __main__ - INFO -    Message content: <telethon.tl.patched.Message object at 0x000001DB3F6EDB10>
+2025-11-05 17:32:30,442 - __main__ - INFO - 📝 MESSAGE IGNORED: Non-text message (ID: 44328) - No text content
+2025-11-05 17:32:30,442 - __main__ - INFO - 🔍 MESSAGE HANDLER CALLED:
+2025-11-05 17:32:30,442 - __main__ - INFO -    Message ID: 44329
+2025-11-05 17:32:30,442 - __main__ - INFO -    From user: None
+2025-11-05 17:32:30,444 - __main__ - INFO -    Chat ID: PeerChannel(channel_id=1623437581)
+2025-11-05 17:32:30,444 - __main__ - INFO -    Has text: True
+2025-11-05 17:32:30,444 - __main__ - INFO -    Message type: <class 'telethon.tl.types.MessageMediaPhoto'>
+2025-11-05 17:32:30,444 - __main__ - WARNING -    ❌ No text content in message
+2025-11-05 17:32:30,444 - __main__ - INFO -    Message content: <telethon.tl.patched.Message object at 0x000001DB3F6EE590>
+2025-11-05 17:32:30,444 - __main__ - INFO - 📝 MESSAGE IGNORED: Non-text message (ID: 44329) - No text content
+2025-11-05 17:32:30,444 - __main__ - INFO - 🔍 MESSAGE HANDLER CALLED:
+2025-11-05 17:32:30,444 - __main__ - INFO -    Message ID: 44330
+2025-11-05 17:32:30,444 - __main__ - INFO -    From user: None
+2025-11-05 17:32:30,446 - __main__ - INFO -    Chat ID: PeerChannel(channel_id=1623437581)
+2025-11-05 17:32:30,446 - __main__ - INFO -    Has text: True
+2025-11-05 17:32:30,446 - __main__ - INFO -    Message type: <class 'telethon.tl.types.MessageMediaPhoto'>
+2025-11-05 17:32:30,446 - __main__ - WARNING -    ❌ No text content in message
+2025-11-05 17:32:30,446 - __main__ - INFO -    Message content: <telethon.tl.patched.Message object at 0x000001DB3F6EE710>
+2025-11-05 17:32:30,446 - __main__ - INFO - 📝 MESSAGE IGNORED: Non-text message (ID: 44330) - No text content
+2025-11-05 17:32:30,446 - __main__ - INFO - 🔍 MESSAGE HANDLER CALLED:
+2025-11-05 17:32:30,446 - __main__ - INFO -    Message ID: 44331
+2025-11-05 17:32:30,446 - __main__ - INFO -    From user: None
+2025-11-05 17:32:30,448 - __main__ - INFO -    Chat ID: PeerChannel(channel_id=1623437581)
+2025-11-05 17:32:30,448 - __main__ - INFO -    Has text: True
+2025-11-05 17:32:30,448 - __main__ - INFO -    Message type: <class 'telethon.tl.types.MessageMediaPhoto'>
+2025-11-05 17:32:30,448 - __main__ - WARNING -    ❌ No text content in message
+2025-11-05 17:32:30,448 - __main__ - INFO -    Message content: <telethon.tl.patched.Message object at 0x000001DB3F6D5DD0>
+2025-11-05 17:32:30,448 - __main__ - INFO - 📝 MESSAGE IGNORED: Non-text message (ID: 44331) - No text content
+2025-11-05 17:32:30,450 - __main__ - INFO - 🔍 MESSAGE HANDLER CALLED:
+2025-11-05 17:32:30,450 - __main__ - INFO -    Message ID: 44332
+2025-11-05 17:32:30,450 - __main__ - INFO -    From user: None
+2025-11-05 17:32:30,450 - __main__ - INFO -    Chat ID: PeerChannel(channel_id=1623437581)
+2025-11-05 17:32:30,450 - __main__ - INFO -    Has text: True
+2025-11-05 17:32:30,450 - __main__ - INFO -    Message type: <class 'telethon.tl.types.MessageMediaPhoto'>
+2025-11-05 17:32:30,452 - __main__ - WARNING -    ❌ No text content in message
+2025-11-05 17:32:30,452 - __main__ - INFO -    Message content: <telethon.tl.patched.Message object at 0x000001DB3F6EE310>
+2025-11-05 17:32:30,452 - __main__ - INFO - 📝 MESSAGE IGNORED: Non-text message (ID: 44332) - No text content
+2025-11-05 17:32:30,452 - __main__ - INFO - 🔍 MESSAGE HANDLER CALLED:
+2025-11-05 17:32:30,452 - __main__ - INFO -    Message ID: 44333
+2025-11-05 17:32:30,452 - __main__ - INFO -    From user: None
+2025-11-05 17:32:30,453 - __main__ - INFO -    Chat ID: PeerChannel(channel_id=1623437581)
+2025-11-05 17:32:30,454 - __main__ - INFO -    Has text: True
+2025-11-05 17:32:30,454 - __main__ - INFO -    Message type: <class 'telethon.tl.types.MessageMediaPhoto'>
+2025-11-05 17:32:30,454 - __main__ - INFO -    ✅ Message text found: 5th November 2025 (Batch 2)...
+2025-11-05 17:32:30,454 - __main__ - INFO -    🎯 CALLING process_trading_signal()
+2025-11-05 17:32:30,454 - __main__ - INFO - 🔇 Message ignored early (contains ignore words): '5th November 2025 (Batch 2)...'
+2025-11-05 17:33:41,515 - __main__ - INFO - 🔍 MESSAGE HANDLER CALLED:
+2025-11-05 17:33:41,517 - __main__ - INFO -    Message ID: 44334
+2025-11-05 17:33:41,517 - __main__ - INFO -    From user: None
+2025-11-05 17:33:41,517 - __main__ - INFO -    Chat ID: PeerChannel(channel_id=1623437581)
+2025-11-05 17:33:41,517 - __main__ - INFO -    Has text: True
+2025-11-05 17:33:41,517 - __main__ - INFO -    Message type: <class 'telethon.tl.types.MessageMediaPhoto'>
+2025-11-05 17:33:41,517 - __main__ - WARNING -    ❌ No text content in message
+2025-11-05 17:33:41,517 - __main__ - INFO -    Message content: <telethon.tl.patched.Message object at 0x000001DB3F6EF990>
+2025-11-05 17:33:41,517 - __main__ - INFO - 📝 MESSAGE IGNORED: Non-text message (ID: 44334) - No text content
+2025-11-05 17:33:41,519 - __main__ - INFO - 🔍 MESSAGE HANDLER CALLED:
+2025-11-05 17:33:41,519 - __main__ - INFO -    Message ID: 44335
+2025-11-05 17:33:41,519 - __main__ - INFO -    From user: None
+2025-11-05 17:33:41,519 - __main__ - INFO -    Chat ID: PeerChannel(channel_id=1623437581)
+2025-11-05 17:33:41,519 - __main__ - INFO -    Has text: True
+2025-11-05 17:33:41,519 - __main__ - INFO -    Message type: <class 'telethon.tl.types.MessageMediaPhoto'>
+2025-11-05 17:33:41,521 - __main__ - WARNING -    ❌ No text content in message
+2025-11-05 17:33:41,521 - __main__ - INFO -    Message content: <telethon.tl.patched.Message object at 0x000001DB3F6EFF10>
+2025-11-05 17:33:41,521 - __main__ - INFO - 📝 MESSAGE IGNORED: Non-text message (ID: 44335) - No text content
+2025-11-05 17:33:41,521 - __main__ - INFO - 🔍 MESSAGE HANDLER CALLED:
+2025-11-05 17:33:41,521 - __main__ - INFO -    Message ID: 44336
+2025-11-05 17:33:41,521 - __main__ - INFO -    From user: None
+2025-11-05 17:33:41,521 - __main__ - INFO -    Chat ID: PeerChannel(channel_id=1623437581)
+2025-11-05 17:33:41,521 - __main__ - INFO -    Has text: True
+2025-11-05 17:33:41,521 - __main__ - INFO -    Message type: <class 'telethon.tl.types.MessageMediaPhoto'>
+2025-11-05 17:33:41,523 - __main__ - WARNING -    ❌ No text content in message
+2025-11-05 17:33:41,523 - __main__ - INFO -    Message content: <telethon.tl.patched.Message object at 0x000001DB3F6EDD10>
+2025-11-05 17:33:41,523 - __main__ - INFO - 📝 MESSAGE IGNORED: Non-text message (ID: 44336) - No text content
+2025-11-05 17:33:41,523 - __main__ - INFO - 🔍 MESSAGE HANDLER CALLED:
+2025-11-05 17:33:41,523 - __main__ - INFO -    Message ID: 44337
+2025-11-05 17:33:41,523 - __main__ - INFO -    From user: None
+2025-11-05 17:33:41,525 - __main__ - INFO -    Chat ID: PeerChannel(channel_id=1623437581)
+2025-11-05 17:33:41,525 - __main__ - INFO -    Has text: True
+2025-11-05 17:33:41,525 - __main__ - INFO -    Message type: <class 'telethon.tl.types.MessageMediaPhoto'>
+2025-11-05 17:33:41,525 - __main__ - WARNING -    ❌ No text content in message
+2025-11-05 17:33:41,525 - __main__ - INFO -    Message content: <telethon.tl.patched.Message object at 0x000001DB3F6EC7D0>
+2025-11-05 17:33:41,525 - __main__ - INFO - 📝 MESSAGE IGNORED: Non-text message (ID: 44337) - No text content
+2025-11-05 17:33:41,527 - __main__ - INFO - 🔍 MESSAGE HANDLER CALLED:
+2025-11-05 17:33:41,527 - __main__ - INFO -    Message ID: 44338
+2025-11-05 17:33:41,527 - __main__ - INFO -    From user: None
+2025-11-05 17:33:41,527 - __main__ - INFO -    Chat ID: PeerChannel(channel_id=1623437581)
+2025-11-05 17:33:41,529 - __main__ - INFO -    Has text: True
+2025-11-05 17:33:41,529 - __main__ - INFO -    Message type: <class 'telethon.tl.types.MessageMediaPhoto'>
+2025-11-05 17:33:41,529 - __main__ - WARNING -    ❌ No text content in message
+2025-11-05 17:33:41,529 - __main__ - INFO -    Message content: <telethon.tl.patched.Message object at 0x000001DB3F6F4550>
+2025-11-05 17:33:41,529 - __main__ - INFO - 📝 MESSAGE IGNORED: Non-text message (ID: 44338) - No text content
+2025-11-05 17:33:41,529 - __main__ - INFO - 🔍 MESSAGE HANDLER CALLED:
+2025-11-05 17:33:41,529 - __main__ - INFO -    Message ID: 44339
+2025-11-05 17:33:41,529 - __main__ - INFO -    From user: None
+2025-11-05 17:33:41,531 - __main__ - INFO -    Chat ID: PeerChannel(channel_id=1623437581)
+2025-11-05 17:33:41,531 - __main__ - INFO -    Has text: True
+2025-11-05 17:33:41,531 - __main__ - INFO -    Message type: <class 'telethon.tl.types.MessageMediaPhoto'>
+2025-11-05 17:33:41,531 - __main__ - INFO -    ✅ Message text found: 5th November 2025 (Batch 3)...
+2025-11-05 17:33:41,531 - __main__ - INFO -    🎯 CALLING process_trading_signal()
+2025-11-05 17:33:41,531 - __main__ - INFO - 🔇 Message ignored early (contains ignore words): '5th November 2025 (Batch 3)...'
+2025-11-05 17:33:41,531 - __main__ - INFO - 🔍 MESSAGE HANDLER CALLED:
+2025-11-05 17:33:41,531 - __main__ - INFO -    Message ID: 44340
+2025-11-05 17:33:41,533 - __main__ - INFO -    From user: None
+2025-11-05 17:33:41,533 - __main__ - INFO -    Chat ID: PeerChannel(channel_id=1623437581)
+2025-11-05 17:33:41,533 - __main__ - INFO -    Has text: True
+2025-11-05 17:33:41,533 - __main__ - INFO -    Message type: <class 'telethon.tl.types.MessageMediaPhoto'>
+2025-11-05 17:33:41,533 - __main__ - WARNING -    ❌ No text content in message
+2025-11-05 17:33:41,533 - __main__ - INFO -    Message content: <telethon.tl.patched.Message object at 0x000001DB3F6EDC10>
+2025-11-05 17:33:41,533 - __main__ - INFO - 📝 MESSAGE IGNORED: Non-text message (ID: 44340) - No text content
+2025-11-05 17:33:41,533 - __main__ - INFO - 🔍 MESSAGE HANDLER CALLED:
+2025-11-05 17:33:41,535 - __main__ - INFO -    Message ID: 44341
+2025-11-05 17:33:41,535 - __main__ - INFO -    From user: None
+2025-11-05 17:33:41,535 - __main__ - INFO -    Chat ID: PeerChannel(channel_id=1623437581)
+2025-11-05 17:33:41,535 - __main__ - INFO -    Has text: True
+2025-11-05 17:33:41,535 - __main__ - INFO -    Message type: <class 'telethon.tl.types.MessageMediaPhoto'>
+2025-11-05 17:33:41,535 - __main__ - WARNING -    ❌ No text content in message
+2025-11-05 17:33:41,535 - __main__ - INFO -    Message content: <telethon.tl.patched.Message object at 0x000001DB3F6ED350>
+2025-11-05 17:33:41,535 - __main__ - INFO - 📝 MESSAGE IGNORED: Non-text message (ID: 44341) - No text content
+2025-11-05 17:33:41,535 - __main__ - INFO - 🔍 MESSAGE HANDLER CALLED:
+2025-11-05 17:33:41,537 - __main__ - INFO -    Message ID: 44342
+2025-11-05 17:33:41,537 - __main__ - INFO -    From user: None
+2025-11-05 17:33:41,537 - __main__ - INFO -    Chat ID: PeerChannel(channel_id=1623437581)
+2025-11-05 17:33:41,537 - __main__ - INFO -    Has text: True
+2025-11-05 17:33:41,537 - __main__ - INFO -    Message type: <class 'telethon.tl.types.MessageMediaPhoto'>
+2025-11-05 17:33:41,537 - __main__ - WARNING -    ❌ No text content in message
+2025-11-05 17:33:41,537 - __main__ - INFO -    Message content: <telethon.tl.patched.Message object at 0x000001DB3F6EF1D0>
+2025-11-05 17:33:41,537 - __main__ - INFO - 📝 MESSAGE IGNORED: Non-text message (ID: 44342) - No text content
+2025-11-05 17:33:41,539 - __main__ - INFO - 🔍 MESSAGE HANDLER CALLED:
+2025-11-05 17:33:41,539 - __main__ - INFO -    Message ID: 44343
+2025-11-05 17:33:41,539 - __main__ - INFO -    From user: None
+2025-11-05 17:33:41,539 - __main__ - INFO -    Chat ID: PeerChannel(channel_id=1623437581)
+2025-11-05 17:33:41,539 - __main__ - INFO -    Has text: True
+2025-11-05 17:33:41,539 - __main__ - INFO -    Message type: <class 'telethon.tl.types.MessageMediaPhoto'>
+2025-11-05 17:33:41,539 - __main__ - WARNING -    ❌ No text content in message
+2025-11-05 17:33:41,539 - __main__ - INFO -    Message content: <telethon.tl.patched.Message object at 0x000001DB3F6EFC90>
+2025-11-05 17:33:41,539 - __main__ - INFO - 📝 MESSAGE IGNORED: Non-text message (ID: 44343) - No text content
+2025-11-05 17:33:41,541 - __main__ - INFO - 🔍 MESSAGE HANDLER CALLED:
+2025-11-05 17:33:41,541 - __main__ - INFO -    Message ID: 44344
+2025-11-05 17:33:41,541 - __main__ - INFO -    From user: None
+2025-11-05 17:33:41,541 - __main__ - INFO -    Chat ID: PeerChannel(channel_id=1623437581)
+2025-11-05 17:33:41,542 - __main__ - INFO -    Has text: True
+2025-11-05 17:33:41,542 - __main__ - INFO -    Message type: <class 'telethon.tl.types.MessageMediaPhoto'>
+2025-11-05 17:33:41,543 - __main__ - INFO -    ✅ Message text found: 5th November 2025 (Batch 4)...
+2025-11-05 17:33:41,543 - __main__ - INFO -    🎯 CALLING process_trading_signal()
+2025-11-05 17:33:41,543 - __main__ - INFO - 🔇 Message ignored early (contains ignore words): '5th November 2025 (Batch 4)...'
+2025-11-05 17:33:41,543 - __main__ - INFO - 🔍 MESSAGE HANDLER CALLED:
+2025-11-05 17:33:41,543 - __main__ - INFO -    Message ID: 44345
+2025-11-05 17:33:41,545 - __main__ - INFO -    From user: None
+2025-11-05 17:33:41,545 - __main__ - INFO -    Chat ID: PeerChannel(channel_id=1623437581)
+2025-11-05 17:33:41,545 - __main__ - INFO -    Has text: True
+2025-11-05 17:33:41,545 - __main__ - INFO -    Message type: <class 'telethon.tl.types.MessageMediaPhoto'>
+2025-11-05 17:33:41,545 - __main__ - WARNING -    ❌ No text content in message
+2025-11-05 17:33:41,545 - __main__ - INFO -    Message content: <telethon.tl.patched.Message object at 0x000001DB3F6ED410>
+2025-11-05 17:33:41,545 - __main__ - INFO - 📝 MESSAGE IGNORED: Non-text message (ID: 44345) - No text content
+2025-11-05 17:34:00,426 - __main__ - INFO - 🔍 MESSAGE HANDLER CALLED:
+2025-11-05 17:34:00,427 - __main__ - INFO -    Message ID: 44346
+2025-11-05 17:34:00,428 - __main__ - INFO -    From user: None
+2025-11-05 17:34:00,428 - __main__ - INFO -    Chat ID: PeerChannel(channel_id=1623437581)
+2025-11-05 17:34:00,428 - __main__ - INFO -    Has text: True
+2025-11-05 17:34:00,428 - __main__ - INFO -    Message type: <class 'telethon.tl.types.MessageMediaPhoto'>
+2025-11-05 17:34:00,428 - __main__ - WARNING -    ❌ No text content in message
+2025-11-05 17:34:00,428 - __main__ - INFO -    Message content: <telethon.tl.patched.Message object at 0x000001DB3F6EF090>
+2025-11-05 17:34:00,429 - __main__ - INFO - 📝 MESSAGE IGNORED: Non-text message (ID: 44346) - No text content
+2025-11-05 17:34:00,430 - __main__ - INFO - 🔍 MESSAGE HANDLER CALLED:
+2025-11-05 17:34:00,430 - __main__ - INFO -    Message ID: 44347
+2025-11-05 17:34:00,430 - __main__ - INFO -    From user: None
+2025-11-05 17:34:00,430 - __main__ - INFO -    Chat ID: PeerChannel(channel_id=1623437581)
+2025-11-05 17:34:00,430 - __main__ - INFO -    Has text: True
+2025-11-05 17:34:00,430 - __main__ - INFO -    Message type: <class 'telethon.tl.types.MessageMediaPhoto'>
+2025-11-05 17:34:00,430 - __main__ - WARNING -    ❌ No text content in message
+2025-11-05 17:34:00,431 - __main__ - INFO -    Message content: <telethon.tl.patched.Message object at 0x000001DB3F6EFD90>
+2025-11-05 17:34:00,431 - __main__ - INFO - 📝 MESSAGE IGNORED: Non-text message (ID: 44347) - No text content
+2025-11-05 17:34:00,432 - __main__ - INFO - 🔍 MESSAGE HANDLER CALLED:
+2025-11-05 17:34:00,432 - __main__ - INFO -    Message ID: 44348
+2025-11-05 17:34:00,432 - __main__ - INFO -    From user: None
+2025-11-05 17:34:00,432 - __main__ - INFO -    Chat ID: PeerChannel(channel_id=1623437581)
+2025-11-05 17:34:00,432 - __main__ - INFO -    Has text: True
+2025-11-05 17:34:00,432 - __main__ - INFO -    Message type: <class 'telethon.tl.types.MessageMediaPhoto'>
+2025-11-05 17:34:00,433 - __main__ - WARNING -    ❌ No text content in message
+2025-11-05 17:34:00,433 - __main__ - INFO -    Message content: <telethon.tl.patched.Message object at 0x000001DB3F6EF950>
+2025-11-05 17:34:00,434 - __main__ - INFO - 📝 MESSAGE IGNORED: Non-text message (ID: 44348) - No text content
+2025-11-05 17:34:00,434 - __main__ - INFO - 🔍 MESSAGE HANDLER CALLED:
+2025-11-05 17:34:00,434 - __main__ - INFO -    Message ID: 44349
+2025-11-05 17:34:00,434 - __main__ - INFO -    From user: None
+2025-11-05 17:34:00,434 - __main__ - INFO -    Chat ID: PeerChannel(channel_id=1623437581)
+2025-11-05 17:34:00,435 - __main__ - INFO -    Has text: True
+2025-11-05 17:34:00,435 - __main__ - INFO -    Message type: <class 'telethon.tl.types.MessageMediaPhoto'>
+2025-11-05 17:34:00,435 - __main__ - WARNING -    ❌ No text content in message
+2025-11-05 17:34:00,435 - __main__ - INFO -    Message content: <telethon.tl.patched.Message object at 0x000001DB3F6BEB10>
+2025-11-05 17:34:00,435 - __main__ - INFO - 📝 MESSAGE IGNORED: Non-text message (ID: 44349) - No text content
+2025-11-05 17:34:00,435 - __main__ - INFO - 🔍 MESSAGE HANDLER CALLED:
+2025-11-05 17:34:00,435 - __main__ - INFO -    Message ID: 44350
+2025-11-05 17:34:00,437 - __main__ - INFO -    From user: None
+2025-11-05 17:34:00,437 - __main__ - INFO -    Chat ID: PeerChannel(channel_id=1623437581)
+2025-11-05 17:34:00,438 - __main__ - INFO -    Has text: True
+2025-11-05 17:34:00,438 - __main__ - INFO -    Message type: <class 'telethon.tl.types.MessageMediaPhoto'>
+2025-11-05 17:34:00,438 - __main__ - WARNING -    ❌ No text content in message
+2025-11-05 17:34:00,438 - __main__ - INFO -    Message content: <telethon.tl.patched.Message object at 0x000001DB3F6EE6D0>
+2025-11-05 17:34:00,438 - __main__ - INFO - 📝 MESSAGE IGNORED: Non-text message (ID: 44350) - No text content
+2025-11-05 17:34:00,438 - __main__ - INFO - 🔍 MESSAGE HANDLER CALLED:
+2025-11-05 17:34:00,439 - __main__ - INFO -    Message ID: 44351
+2025-11-05 17:34:00,439 - __main__ - INFO -    From user: None
+2025-11-05 17:34:00,440 - __main__ - INFO -    Chat ID: PeerChannel(channel_id=1623437581)
+2025-11-05 17:34:00,440 - __main__ - INFO -    Has text: True
+2025-11-05 17:34:00,440 - __main__ - INFO -    Message type: <class 'telethon.tl.types.MessageMediaPhoto'>
+2025-11-05 17:34:00,440 - __main__ - INFO -    ✅ Message text found: 5th November 2025 (Batch 5)...
+2025-11-05 17:34:00,440 - __main__ - INFO -    🎯 CALLING process_trading_signal()
+2025-11-05 17:34:00,440 - __main__ - INFO - 🔇 Message ignored early (contains ignore words): '5th November 2025 (Batch 5)...'
+2025-11-05 17:34:11,961 - __main__ - INFO - 🔍 MESSAGE HANDLER CALLED:
+2025-11-05 17:34:11,961 - __main__ - INFO -    Message ID: 44352
+2025-11-05 17:34:11,961 - __main__ - INFO -    From user: None
+2025-11-05 17:34:11,963 - __main__ - INFO -    Chat ID: PeerChannel(channel_id=1623437581)
+2025-11-05 17:34:11,963 - __main__ - INFO -    Has text: True
+2025-11-05 17:34:11,963 - __main__ - INFO -    Message type: <class 'telethon.tl.types.MessageMediaPhoto'>
+2025-11-05 17:34:11,963 - __main__ - WARNING -    ❌ No text content in message
+2025-11-05 17:34:11,963 - __main__ - INFO -    Message content: <telethon.tl.patched.Message object at 0x000001DB3F6EFDD0>
+2025-11-05 17:34:11,963 - __main__ - INFO - 📝 MESSAGE IGNORED: Non-text message (ID: 44352) - No text content
+2025-11-05 17:34:11,965 - __main__ - INFO - 🔍 MESSAGE HANDLER CALLED:
+2025-11-05 17:34:11,965 - __main__ - INFO -    Message ID: 44353
+2025-11-05 17:34:11,965 - __main__ - INFO -    From user: None
+2025-11-05 17:34:11,965 - __main__ - INFO -    Chat ID: PeerChannel(channel_id=1623437581)
+2025-11-05 17:34:11,965 - __main__ - INFO -    Has text: True
+2025-11-05 17:34:11,965 - __main__ - INFO -    Message type: <class 'telethon.tl.types.MessageMediaPhoto'>
+2025-11-05 17:34:11,965 - __main__ - WARNING -    ❌ No text content in message
+2025-11-05 17:34:11,967 - __main__ - INFO -    Message content: <telethon.tl.patched.Message object at 0x000001DB3F6EF090>
+2025-11-05 17:34:11,967 - __main__ - INFO - 📝 MESSAGE IGNORED: Non-text message (ID: 44353) - No text content
+2025-11-05 17:34:11,967 - __main__ - INFO - 🔍 MESSAGE HANDLER CALLED:
+2025-11-05 17:34:11,967 - __main__ - INFO -    Message ID: 44354
+2025-11-05 17:34:11,967 - __main__ - INFO -    From user: None
+2025-11-05 17:34:11,967 - __main__ - INFO -    Chat ID: PeerChannel(channel_id=1623437581)
+2025-11-05 17:34:11,967 - __main__ - INFO -    Has text: True
+2025-11-05 17:34:11,967 - __main__ - INFO -    Message type: <class 'telethon.tl.types.MessageMediaPhoto'>
+2025-11-05 17:34:11,969 - __main__ - WARNING -    ❌ No text content in message
+2025-11-05 17:34:11,969 - __main__ - INFO -    Message content: <telethon.tl.patched.Message object at 0x000001DB3F6EEF50>
+2025-11-05 17:34:11,969 - __main__ - INFO - 📝 MESSAGE IGNORED: Non-text message (ID: 44354) - No text content
+2025-11-05 17:34:11,971 - __main__ - INFO - 🔍 MESSAGE HANDLER CALLED:
+2025-11-05 17:34:11,971 - __main__ - INFO -    Message ID: 44355
+2025-11-05 17:34:11,971 - __main__ - INFO -    From user: None
+2025-11-05 17:34:11,971 - __main__ - INFO -    Chat ID: PeerChannel(channel_id=1623437581)
+2025-11-05 17:34:11,971 - __main__ - INFO -    Has text: True
+2025-11-05 17:34:11,971 - __main__ - INFO -    Message type: <class 'telethon.tl.types.MessageMediaPhoto'>
+2025-11-05 17:34:11,971 - __main__ - WARNING -    ❌ No text content in message
+2025-11-05 17:34:11,971 - __main__ - INFO -    Message content: <telethon.tl.patched.Message object at 0x000001DB3F6EF810>
+2025-11-05 17:34:11,971 - __main__ - INFO - 📝 MESSAGE IGNORED: Non-text message (ID: 44355) - No text content
+2025-11-05 17:34:11,973 - __main__ - INFO - 🔍 MESSAGE HANDLER CALLED:
+2025-11-05 17:34:11,973 - __main__ - INFO -    Message ID: 44356
+2025-11-05 17:34:11,973 - __main__ - INFO -    From user: None
+2025-11-05 17:34:11,973 - __main__ - INFO -    Chat ID: PeerChannel(channel_id=1623437581)
+2025-11-05 17:34:11,973 - __main__ - INFO -    Has text: True
+2025-11-05 17:34:11,973 - __main__ - INFO -    Message type: <class 'telethon.tl.types.MessageMediaPhoto'>
+2025-11-05 17:34:11,973 - __main__ - WARNING -    ❌ No text content in message
+2025-11-05 17:34:11,975 - __main__ - INFO -    Message content: <telethon.tl.patched.Message object at 0x000001DB3F6EF210>
+2025-11-05 17:34:11,975 - __main__ - INFO - 📝 MESSAGE IGNORED: Non-text message (ID: 44356) - No text content
+2025-11-05 17:34:11,975 - __main__ - INFO - 🔍 MESSAGE HANDLER CALLED:
+2025-11-05 17:34:11,975 - __main__ - INFO -    Message ID: 44357
+2025-11-05 17:34:11,975 - __main__ - INFO -    From user: None
+2025-11-05 17:34:11,975 - __main__ - INFO -    Chat ID: PeerChannel(channel_id=1623437581)
+2025-11-05 17:34:11,975 - __main__ - INFO -    Has text: True
+2025-11-05 17:34:11,975 - __main__ - INFO -    Message type: <class 'telethon.tl.types.MessageMediaPhoto'>
+2025-11-05 17:34:11,977 - __main__ - INFO -    ✅ Message text found: 5th November 2025 (Batch 6)...
+2025-11-05 17:34:11,977 - __main__ - INFO -    🎯 CALLING process_trading_signal()
+2025-11-05 17:34:11,977 - __main__ - INFO - 🔇 Message ignored early (contains ignore words): '5th November 2025 (Batch 6)...'
+2025-11-05 17:55:41,462 - telethon.client.updates - INFO - Got difference for account updates
+2025-11-05 17:55:41,622 - telethon.client.updates - INFO - Got difference for channel 1623437581 updates
+2025-11-05 19:40:41,729 - telethon.client.updates - INFO - Got difference for channel 2848189989 updates
+2025-11-05 23:03:43,038 - __main__ - INFO - 🔍 MESSAGE HANDLER CALLED:
+2025-11-05 23:03:43,040 - __main__ - INFO -    Message ID: 44358
+2025-11-05 23:03:43,040 - __main__ - INFO -    From user: None
+2025-11-05 23:03:43,040 - __main__ - INFO -    Chat ID: PeerChannel(channel_id=1623437581)
+2025-11-05 23:03:43,040 - __main__ - INFO -    Has text: True
+2025-11-05 23:03:43,042 - __main__ - INFO -    Message type: <class 'telethon.tl.types.MessageMediaPhoto'>
+2025-11-05 23:03:43,042 - __main__ - INFO -    ✅ Message text found: **4HR BTCUSD Analysis (6th Nov 2025)**
+
+BUY/SELL SCENARIOS:
+
+🟢BUYS:
+1) Retest the 4HR bullish FVG at...
+2025-11-05 23:03:43,042 - __main__ - INFO -    🎯 CALLING process_trading_signal()
+2025-11-05 23:03:43,042 - __main__ - INFO - 🔇 Message ignored early (contains ignore words): '**4HR BTCUSD Analysis (6th Nov...'
+2025-11-06 00:25:44,486 - telethon.client.updates - INFO - Got difference for account updates
+2025-11-06 01:00:43,488 - __main__ - INFO - 🔍 MESSAGE HANDLER CALLED:
+2025-11-06 01:00:43,488 - __main__ - INFO -    Message ID: 44359
+2025-11-06 01:00:43,488 - __main__ - INFO -    From user: None
+2025-11-06 01:00:43,490 - __main__ - INFO -    Chat ID: PeerChannel(channel_id=1623437581)
+2025-11-06 01:00:43,490 - __main__ - INFO -    Has text: True
+2025-11-06 01:00:43,490 - __main__ - INFO -    Message type: <class 'telethon.tl.types.MessageMediaPhoto'>
+2025-11-06 01:00:43,490 - __main__ - INFO -    ✅ Message text found: Ibrahim has been in…. Wait for it…..
+
+One month. In ONE singular month…. No, in his FIRST month, he’...
+2025-11-06 01:00:43,490 - __main__ - INFO -    🎯 CALLING process_trading_signal()
+2025-11-06 01:00:43,492 - __main__ - INFO - 🔍 PROCESSING MESSAGE:
+2025-11-06 01:00:43,492 - __main__ - INFO -    Raw message: 'Ibrahim has been in…. Wait for it…..\n\nOne month. In ONE singular month…. No, in his FIRST month, he’s made 8,518 USD. \n\nIf you guys are still out here only pulling 5,10,30 dollars a trade, text us. \n\nMembers are making thousands.'
+2025-11-06 01:00:43,492 - __main__ - INFO -    Message length: 229 characters
+2025-11-06 01:00:43,492 - __main__ - INFO -    🔍 Command Detection: BE=False, Partial=False, Close=False, TPHit=False, ExtendTP=False
+2025-11-06 01:00:43,492 - __main__ - INFO -    ✅ No existing trades found
+2025-11-06 01:00:43,494 - signal_parser - INFO - 🔍 PARSING SIGNAL:
+2025-11-06 01:00:43,494 - signal_parser - INFO -    Input: 'Ibrahim has been in…. Wait for it…..\n\nOne month. In ONE singular month…. No, in his FIRST month, he’s made 8,518 USD. \n\nIf you guys are still out here only pulling 5,10,30 dollars a trade, text us. \n\nMembers are making thousands.'
+2025-11-06 01:00:43,494 - signal_parser - INFO -    [OK] Symbol: XAUUSD.p (fixed)
+2025-11-06 01:00:43,494 - signal_parser - WARNING -    [X] No direction found (expected: 🔴 for SELL or 🟢 for BUY)
+2025-11-06 01:00:43,494 - __main__ - WARNING - ❌ NO SIGNAL PARSED - Message did not match trading signal pattern
+2025-11-06 01:00:43,494 - __main__ - INFO -    Expected pattern: [SYMBOL] BUY/SELL RANGE: X-Y SL: Z TP: W
+2025-11-06 01:00:43,496 - __main__ - INFO -    Received: Ibrahim has been in…. Wait for it…..
+
+One month. In ONE singular month…. No, in his FIRST month, he’s made 8,518 USD. 
+
+If you guys are still out here only pulling 5,10,30 dollars a trade, text us. 
+
+Members are making thousands.
+2025-11-06 01:00:43,496 - __main__ - INFO - 📝 MESSAGE IGNORED: 'Ibrahim has been in…. Wait for it…..
+
+One month. I...' - Invalid signal format
+2025-11-06 07:35:38,695 - __main__ - INFO - Starting Direct MT5 Telegram Monitor...
+2025-11-06 07:35:38,695 - __main__ - INFO - Strategy: multi_position_entry, V: 0.09
+2025-11-06 07:35:38,800 - mt5_client - INFO - Connected to MT5 VPS - Server: PUPrime-Demo, Account: 700010991
+2025-11-06 07:35:38,800 - mt5_client - INFO - Account info - Login: 700010991, Balance: 99950.98
+2025-11-06 07:35:38,800 - __main__ - INFO - 🔐 Telegram Authentication Configuration:
+2025-11-06 07:35:38,800 - __main__ - INFO -    API_ID: ✅ Set
+2025-11-06 07:35:38,800 - __main__ - INFO -    API_HASH: ✅ Set
+2025-11-06 07:35:38,802 - __main__ - INFO -    BOT_TOKEN: ❌ Missing
+2025-11-06 07:35:38,802 - __main__ - INFO -    STRING_SESSION: ✅ Set
+2025-11-06 07:35:38,802 - __main__ - INFO -    PHONE_NUMBER: ✅ Set
+2025-11-06 07:35:38,802 - __main__ - INFO - 🔑 Using StringSession for authentication...
+2025-11-06 07:35:38,802 - __main__ - INFO -    StringSession length: 353 characters
+2025-11-06 07:35:38,832 - __main__ - INFO - Connecting with StringSession...
+2025-11-06 07:35:38,833 - telethon.network.mtprotosender - INFO - Connecting to 149.154.167.92:443/TcpFull...
+2025-11-06 07:35:38,845 - telethon.network.mtprotosender - INFO - Connection to 149.154.167.92:443/TcpFull complete!
+2025-11-06 07:35:38,861 - telethon.network.mtprotosender - INFO - System clock is wrong, set time offset to 3600s
+2025-11-06 07:35:38,879 - telethon.network.mtprotostate - WARNING - Server resent the older message 7569512806445973505, ignoring
+2025-11-06 07:35:39,006 - __main__ - INFO - ✅ StringSession authentication successful!
+2025-11-06 07:35:39,052 - __main__ - INFO - Connected to group: 🚀 CallistoFx Premium Channel 🚀
+2025-11-06 07:35:39,052 - __main__ - INFO - Event handlers set up successfully
+2025-11-06 07:35:39,052 - __main__ - INFO - ✅ Monitor is running. Watching for trading signals...
+2025-11-06 07:35:39,081 - health_server - INFO - 🌐 Health check server started on port 8080
+2025-11-06 07:35:39,081 - health_server - INFO -    GET http://localhost:8080/health - Detailed status
+2025-11-06 07:35:39,081 - health_server - INFO -    GET http://localhost:8080/ - Simple status
+2025-11-06 07:35:42,500 - __main__ - INFO - 🔍 MESSAGE HANDLER CALLED:
+2025-11-06 07:35:42,500 - __main__ - INFO -    Message ID: 44407
+2025-11-06 07:35:42,500 - __main__ - INFO -    From user: None
+2025-11-06 07:35:42,501 - __main__ - INFO -    Chat ID: PeerChannel(channel_id=1623437581)
+2025-11-06 07:35:42,501 - __main__ - INFO -    Has text: True
+2025-11-06 07:35:42,501 - __main__ - INFO -    Message type: <class 'telethon.tl.types.MessageMediaDocument'>
+2025-11-06 07:35:42,501 - __main__ - INFO -    📹 VIDEO MESSAGE IGNORED - No text content to process
+2025-11-06 07:35:42,502 - __main__ - INFO -       Video mime type: video/mp4
+2025-11-06 07:35:42,502 - __main__ - INFO - 📝 MESSAGE IGNORED: Video message (ID: 44407) - No text content
+2025-11-06 07:40:27,554 - __main__ - INFO - Starting Direct MT5 Telegram Monitor...
+2025-11-06 07:40:27,555 - __main__ - INFO - Strategy: multi_position_entry, V: 0.09
+2025-11-06 07:40:27,571 - mt5_client - INFO - Connected to MT5 VPS - Server: PUPrime-Demo, Account: 700010991
+2025-11-06 07:40:27,572 - mt5_client - INFO - Account info - Login: 700010991, Balance: 99950.98
+2025-11-06 07:40:27,572 - __main__ - INFO - 🔐 Telegram Authentication Configuration:
+2025-11-06 07:40:27,572 - __main__ - INFO -    API_ID: ✅ Set
+2025-11-06 07:40:27,573 - __main__ - INFO -    API_HASH: ✅ Set
+2025-11-06 07:40:27,573 - __main__ - INFO -    BOT_TOKEN: ❌ Missing
+2025-11-06 07:40:27,573 - __main__ - INFO -    STRING_SESSION: ✅ Set
+2025-11-06 07:40:27,573 - __main__ - INFO -    PHONE_NUMBER: ✅ Set
+2025-11-06 07:40:27,574 - __main__ - INFO - 🔑 Using StringSession for authentication...
+2025-11-06 07:40:27,574 - __main__ - INFO -    StringSession length: 353 characters
+2025-11-06 07:40:27,616 - __main__ - INFO - Connecting with StringSession...
+2025-11-06 07:40:27,617 - telethon.network.mtprotosender - INFO - Connecting to 149.154.167.92:443/TcpFull...
+2025-11-06 07:40:27,631 - telethon.network.mtprotosender - INFO - Connection to 149.154.167.92:443/TcpFull complete!
+2025-11-06 07:40:27,647 - telethon.network.mtprotosender - INFO - System clock is wrong, set time offset to 3600s
+2025-11-06 07:40:27,792 - __main__ - INFO - ✅ StringSession authentication successful!
+2025-11-06 07:40:27,845 - __main__ - INFO - Connected to group: 🚀 CallistoFx Premium Channel 🚀
+2025-11-06 07:40:27,845 - __main__ - INFO - Event handlers set up successfully
+2025-11-06 07:40:27,845 - __main__ - INFO - ✅ Monitor is running. Watching for trading signals...
+2025-11-06 07:40:27,867 - health_server - INFO - 🌐 Health check server started on port 8080
+2025-11-06 07:40:27,867 - health_server - INFO -    GET http://localhost:8080/health - Detailed status
+2025-11-06 07:40:27,867 - health_server - INFO -    GET http://localhost:8080/ - Simple status
