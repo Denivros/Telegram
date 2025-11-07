@@ -114,7 +114,6 @@ class MT5TradingClient:
         
         # DEBUG: Log market information
         logger.info(f"🔍 DEBUGGING ORDER PLACEMENT:")
-        logger.info(f"   Symbol: {symbol}")
         logger.info(f"   Direction: {direction.upper()}")
         logger.info(f"   Signal Range: {range_start} - {range_end}")
         logger.info(f"   Current Market: Bid={prices['bid'] if prices else 'N/A'}, Ask={prices['ask'] if prices else 'N/A'}")
@@ -584,7 +583,6 @@ class MT5TradingClient:
             total_volume = sum([entry['volume'] for entry in multi_entries])
             
             logger.info(f"🎯 EXECUTING {entry_count} ENTRY ORDERS:")
-            logger.info(f"   Symbol: {symbol}")
             logger.info(f"   Direction: {direction.upper()}")
             logger.info(f"   Current Market: Bid={current_bid}, Ask={current_ask}")
             logger.info(f"   Total Volume: {total_volume}")
@@ -772,7 +770,6 @@ class MT5TradingClient:
             is_multi_position = len(unique_entries) > 1
             
             logger.info(f"🎯 EXECUTING MULTI-{'POSITION' if is_multi_position else 'TP'} ORDERS:")
-            logger.info(f"   Symbol: {symbol}")
             logger.info(f"   Direction: {direction.upper()}")
             if is_multi_position:
                 logger.info(f"   Entry Prices: {unique_entries}")

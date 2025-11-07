@@ -35,6 +35,8 @@ class BotHealthHandler(BaseHTTPRequestHandler):
         """Handle GET requests"""
         if self.path == '/health' or self.path == '/status':
             self.send_health_response()
+        elif self.path == '/alive':
+            self.send_alive_response()
         elif self.path.startswith('/log'):
             # Parse query parameters for line count and format
             lines = 40  # default
@@ -114,6 +116,41 @@ class BotHealthHandler(BaseHTTPRequestHandler):
             
         except Exception as e:
             error_response = json.dumps({
+                "status": "error", 
+                "message": str(e),
+                "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+            })
+            
+            self.send_response(500)
+            self.send_header('Content-type', 'application/json')
+            self.send_header('Content-length', str(len(error_response)))
+            self.end_headers()
+            self.wfile.write(error_response.encode())
+    
+    def send_alive_response(self):
+        """Send simple alive status - lightweight check"""
+        try:
+            # Just check if bot is running (minimal overhead)
+            bot_running = hasattr(self.bot_instance, 'running') and self.bot_instance.running if self.bot_instance else True
+            
+            # Simple alive response
+            alive_data = {
+                "alive": bot_running,
+                "status": "running" if bot_running else "stopped",
+                "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+            }
+            
+            response = json.dumps(alive_data)
+            
+            self.send_response(200)
+            self.send_header('Content-type', 'application/json')
+            self.send_header('Content-length', str(len(response)))
+            self.end_headers()
+            self.wfile.write(response.encode())
+            
+        except Exception as e:
+            error_response = json.dumps({
+                "alive": False,
                 "status": "error", 
                 "message": str(e),
                 "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
@@ -307,6 +344,7 @@ class BotHealthServer:
             
             logger.info(f"🌐 Health check server started on port {self.port}")
             logger.info(f"   GET http://localhost:{self.port}/health - Detailed status")
+            logger.info(f"   GET http://localhost:{self.port}/alive - Simple alive check")
             logger.info(f"   GET http://localhost:{self.port}/log - Last 40 log lines (JSON)")
             logger.info(f"   GET http://localhost:{self.port}/log?format=html - HTML log viewer")
             logger.info(f"   GET http://localhost:{self.port}/log?lines=N - Last N log lines")

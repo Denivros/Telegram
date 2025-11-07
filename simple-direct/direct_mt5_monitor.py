@@ -88,7 +88,7 @@ class TelegramMonitor:
                 type_name = order_type_names.get(order.type, f"TYPE_{order.type}")
                 logger.info(f"     Order {order.ticket}: {order.symbol} {type_name}")
                 logger.info(f"       Entry: {order.price_open}, Current: {order.price_current}, Distance: {distance:.5f}")
-                logger.info(f"       Volume: {order.volume_initial}, SL: {order.sl}, TP: {order.tp}")
+                logger.info(f"       V: {order.volume_initial}, SL: {order.sl}, TP: {order.tp}")
         else:
             logger.info(f"   📋 No pending orders")
         
@@ -117,7 +117,6 @@ class TelegramMonitor:
         
         # DEBUG: Log market information
         logger.info(f"🔍 DEBUGGING ORDER PLACEMENT:")
-        logger.info(f"   Symbol: {symbol}")
         logger.info(f"   Direction: {direction.upper()}")
         logger.info(f"   Signal Range: {range_start} - {range_end}")
         logger.info(f"   Current Market: Bid={prices['bid'] if prices else 'N/A'}, Ask={prices['ask'] if prices else 'N/A'}")
@@ -182,7 +181,7 @@ class TelegramMonitor:
             logger.info(f"      Range: {range_start} - {range_end} (span: {range_span})")
             logger.info(f"      Entry 1 (1/3): {entry_1}")
             logger.info(f"      Entry 2 (2/3): {entry_2}")
-            logger.info(f"      Volume each: 0.07")
+            logger.info(f"      V each: 0.07")
             
             # Return both entry points for dual execution
             entry_price = entry_1  # Primary entry for main logic
@@ -200,19 +199,19 @@ class TelegramMonitor:
             
             if direction == 'buy':
                 logger.info(f"      BUY Order: Begin(4x) → Mid(2x) → End(2x) LAST")
-                logger.info(f"      Entry 1: {entry_begin} - Volume: {2 * DEFAULT_VOLUME_MULTI}")
-                logger.info(f"      Entry 2: {entry_mid} - Volume: {4 * DEFAULT_VOLUME_MULTI}")
-                logger.info(f"      Entry 3: {entry_end} - Volume: {3 * DEFAULT_VOLUME_MULTI} ← LAST")
+                logger.info(f"      Entry 1: {entry_begin} - V: {2 * DEFAULT_VOLUME_MULTI}")
+                logger.info(f"      Entry 2: {entry_mid} - V: {4 * DEFAULT_VOLUME_MULTI}")
+                logger.info(f"      Entry 3: {entry_end} - V: {3 * DEFAULT_VOLUME_MULTI} ← LAST")
                 entry_price = entry_begin  # Primary entry for main logic
             else:
                 logger.info(f"      SELL Order: End(2x) → Mid(3x) → Begin(4x) LAST")
-                logger.info(f"      Entry 1: {entry_end} - Volume: {2 * DEFAULT_VOLUME_MULTI}")
-                logger.info(f"      Entry 2: {entry_mid} - Volume: {3 * DEFAULT_VOLUME_MULTI}")
-                logger.info(f"      Entry 3: {entry_begin} - Volume: {4 * DEFAULT_VOLUME_MULTI} ← LAST")
+                logger.info(f"      Entry 1: {entry_end} - V: {2 * DEFAULT_VOLUME_MULTI}")
+                logger.info(f"      Entry 2: {entry_mid} - V: {3 * DEFAULT_VOLUME_MULTI}")
+                logger.info(f"      Entry 3: {entry_begin} - V: {4 * DEFAULT_VOLUME_MULTI} ← LAST")
                 entry_price = entry_end  # Primary entry for main logic
-            
-            logger.info(f"      Total Volume: {9 * DEFAULT_VOLUME_MULTI}")
-            
+
+            logger.info(f"      Total V: {9 * DEFAULT_VOLUME_MULTI}")
+
         elif ENTRY_STRATEGY == 'multi_tp_entry':
             # Multi-TP strategy uses adaptive entry but with multiple TP levels
             if direction == 'buy':
@@ -255,8 +254,8 @@ class TelegramMonitor:
             logger.info(f"   📊 Will open {NUMBER_POSITIONS_MULTI} positions at fixed range points")
             logger.info(f"   📊 Range: {range_start} (START) - {range_middle} (MIDDLE) - {range_end} (END)")
             logger.info(f"   📊 Distribution: 4 at END ({range_end}) + 3 at MIDDLE ({range_middle}) + 2 at START ({range_start})")
-            logger.info(f"   📊 Volume per position: {POSITION_VOLUME_MULTI}")
-            logger.info(f"   📊 Total Volume: {NUMBER_POSITIONS_MULTI * POSITION_VOLUME_MULTI}")
+            logger.info(f"   📊 V per pos: {POSITION_VOLUME_MULTI}")
+            logger.info(f"   📊 Total V: {NUMBER_POSITIONS_MULTI * POSITION_VOLUME_MULTI}")
             logger.info(f"   📊 TP levels: 200, 400, 600, 800 pips per zone from entry")
             
         else:
@@ -507,7 +506,7 @@ class TelegramMonitor:
             
             # Use volume from signal, fallback to default if not provided
             volume = signal.get('volume', DEFAULT_VOLUME)
-            logger.info(f"   Volume: {volume}")
+            logger.info(f"   V: {volume}")
             
             # Prepare limit order request
             request = {
@@ -587,13 +586,12 @@ class TelegramMonitor:
             total_volume = sum([entry['volume'] for entry in multi_entries])
             
             logger.info(f"🎯 EXECUTING {entry_count} ENTRY ORDERS:")
-            logger.info(f"   Symbol: {symbol}")
             logger.info(f"   Direction: {direction.upper()}")
             logger.info(f"   Current Market: Bid={current_bid}, Ask={current_ask}")
-            logger.info(f"   Total Volume: {total_volume}")
+            logger.info(f"   Total V: {total_volume}")
             
             for i, entry in enumerate(multi_entries, 1):
-                logger.info(f"   Entry {i}/{entry_count}: {entry['price']} - Volume: {entry['volume']}")
+                logger.info(f"   Entry {i}/{entry_count}: {entry['price']} - V: {entry['volume']}")
             
             results = []
             successful_orders = 0
@@ -605,7 +603,7 @@ class TelegramMonitor:
                 
                 logger.info(f"\n🔄 PLACING ORDER {i}/{entry_count}:")
                 logger.info(f"   Entry Price: {entry_price}")
-                logger.info(f"   Volume: {volume}")
+                logger.info(f"   V: {volume}")
                 
                 # Get symbol info for pip calculation
                 symbol_info = mt5.symbol_info(symbol)
@@ -775,7 +773,6 @@ class TelegramMonitor:
             is_multi_position = len(unique_entries) > 1
             
             logger.info(f"🎯 EXECUTING MULTI-{'POSITION' if is_multi_position else 'TP'} ORDERS:")
-            logger.info(f"   Symbol: {symbol}")
             logger.info(f"   Direction: {direction.upper()}")
             if is_multi_position:
                 logger.info(f"   Entry Prices: {unique_entries}")
@@ -783,7 +780,7 @@ class TelegramMonitor:
                 logger.info(f"   Entry Price: {unique_entries[0]}")
             logger.info(f"   Current Market: Bid={current_bid}, Ask={current_ask}")
             logger.info(f"   Pip Value: {pip_value}")
-            logger.info(f"   Total Volume: {total_volume}")
+            logger.info(f"   Total V: {total_volume}")
             
             results = []
             successful_orders = 0
@@ -813,7 +810,7 @@ class TelegramMonitor:
                 logger.info(f"\n🔄 PLACING ORDER {i}/{entry_count}:")
                 logger.info(f"   Entry: {entry_price} ({position_zone})")
                 logger.info(f"   {tp_label}: {tp_price}")
-                logger.info(f"   Volume: {volume}")
+                logger.info(f"   V: {volume}")
                 
                 # Check if entry price is too close to market price (within ±$1)
                 market_price = current_ask if direction == 'buy' else current_bid
@@ -1101,7 +1098,10 @@ class TelegramMonitor:
         """Check if message is a break even command"""
         break_even_keywords = [
             'break even', 'breakeven', 'move sl to entry', 
-            'sl to entry', 'move stop to entry', 'sl be', 'sl to be', 'set slto be', 'set slto be & take partials now', 'sl to be and take partials here', 'sl to be& take partials'
+            'sl to entry', 'move stop to entry', 'sl be', 'sl to be', 
+            'set slto be', 'set slto be & take partials now',
+            'sl to be and take partials here', 'sl to be& take partials'
+            'take partials set sl to be now'
         ]
         
         message_lower = message_text.lower()
@@ -1143,8 +1143,7 @@ class TelegramMonitor:
                 # Check if SL is already at break even (with small tolerance for floating point comparison)
                 tolerance = 0.00001  # 1 pip tolerance
                 if abs(pos.sl - new_sl) <= tolerance:
-                    logger.info(f"   ⏭️  Position {pos.ticket} ALREADY at break even:")
-                    logger.info(f"      Symbol: {pos.symbol}")
+                    logger.info(f"   ⏭️  Position {pos.ticket} ALREADY at BE:")
                     logger.info(f"      Entry Price: {pos.price_open}")
                     logger.info(f"      Current SL: {pos.sl} (already at BE)")
                     logger.info(f"      ✅ Skipping - no change needed")
@@ -1191,7 +1190,6 @@ class TelegramMonitor:
                 }
                 
                 logger.info(f"   📝 Modifying Position {pos.ticket}:")
-                logger.info(f"      Symbol: {pos.symbol}")
                 logger.info(f"      Entry Price: {pos.price_open}")
                 logger.info(f"      Current SL: {pos.sl} → New SL: {new_sl}")
                 logger.info(f"      Current TP: {pos.tp} (unchanged)")
@@ -1243,17 +1241,61 @@ class TelegramMonitor:
         return False
     
     def is_position_closed_command(self, message_text: str) -> bool:
-        """Check if message is a position closed command"""
-        position_closed_keywords = [
-            'position closed', 'positions closed', 'close position', 'close positions',
-            'close all', 'close remaining', 'exit all', 'exit position', 'exit positions',
-            'close trade', 'close trades', 'position close', 'full close', 'close full'
+        """Check if message is a position closed command - Enhanced with emoji recognition"""
+        message_lower = message_text.lower()
+        
+        # 🔴 EMOJI-BASED DETECTION (High Priority) 🔴
+        # Red circles around text = Strong command signal
+        if '🔴' in message_text and 'position closed' in message_lower:
+            logger.info(f"   🔴 RED EMOJI + 'POSITION CLOSED' detected - STRONG COMMAND signal")
+            return True
+        
+        # Red circles with close-related terms
+        if '🔴' in message_text and any(term in message_lower for term in ['close', 'exit', 'closed']):
+            logger.info(f"   🔴 RED EMOJI + close terms detected - Command signal")
+            return True
+        
+        # 🟢 GREEN EMOJI EXCLUSION 🟢
+        # Green circles typically indicate status/commentary, not commands
+        if '🟢' in message_text and 'position closed' in message_lower:
+            logger.info(f"   🟢 GREEN EMOJI detected with 'position closed' - COMMENTARY, not command")
+            return False
+        
+        # DESCRIPTIVE PHRASES (Should NOT trigger close)
+        descriptive_phrases = [
+            'partials taken', 'profits taken', '% of the position closed',
+            'over 80%', 'over 90%', 'majority closed', 'let the remaining',
+            'let remaining', 'remaining run', 'let it run', 'already closed'
         ]
         
-        message_lower = message_text.lower()
+        for phrase in descriptive_phrases:
+            if phrase in message_lower:
+                logger.info(f"   📝 DESCRIPTIVE phrase detected: '{phrase}' - NOT a command")
+                return False
+        
+        # COMMAND KEYWORDS (Should trigger close)
+        position_closed_keywords = [
+            'close position', 'close positions', 'close all', 'close remaining',
+            'exit all', 'exit position', 'exit positions', 'close trade', 
+            'close trades', 'position close', 'full close', 'close full',
+            'close everything', 'exit everything'
+        ]
+        
         for keyword in position_closed_keywords:
-            if keyword.lower() in message_lower:
+            if keyword in message_lower:
+                logger.info(f"   💼 COMMAND keyword detected: '{keyword}'")
                 return True
+        
+        # SPECIAL CASE: "position closed" without context
+        if 'position closed' in message_lower:
+            # Check for ALL CAPS emphasis (indicates command)
+            if 'POSITION CLOSED' in message_text:
+                logger.info(f"   📢 ALL CAPS 'POSITION CLOSED' detected - Command emphasis")
+                return True
+            else:
+                logger.info(f"   📝 Lowercase 'position closed' without strong signals - Likely commentary")
+                return False
+        
         return False
     
     def is_partial_command(self, message_text: str) -> bool:
@@ -1359,7 +1401,7 @@ class TelegramMonitor:
             
             if result.retcode == mt5.TRADE_RETCODE_DONE:
                 logger.info(f"   ✅ Order {order.ticket} cancelled successfully")
-                logger.info(f"      Symbol: {order.symbol}, Type: {order.type}, Price: {order.price_open}, Volume: {order.volume_initial}")
+                logger.info(f"      Type: {order.type}, Price: {order.price_open}, V: {order.volume_initial}")
                 cancelled_count += 1
             else:
                 logger.error(f"   ❌ Failed to cancel order {order.ticket}: {result.retcode} - {result.comment}")
@@ -1439,10 +1481,9 @@ class TelegramMonitor:
                 }
                 
                 logger.info(f"   � Closing partial on Position {pos.ticket}:")
-                logger.info(f"      Symbol: {pos.symbol}")
-                logger.info(f"      Original Volume: {pos.volume}")
-                logger.info(f"      Closing Volume: {partials_vol}")
-                logger.info(f"      Remaining Volume: {pos.volume - partials_vol}")
+                logger.info(f"      Original V: {pos.volume}")
+                logger.info(f"      Closing V: {partials_vol}")
+                logger.info(f"      Remaining V: {pos.volume - partials_vol}")
                 
                 # Send partial close order
                 result = mt5.order_send(request)
@@ -1459,10 +1500,10 @@ class TelegramMonitor:
                     )
                     self.telegram_feedback.send_feedback(
                         f"💰 **PARTIAL PROFIT TAKEN (TP{tp_level})**\n\n"
-                        f"**Position:** {pos.ticket}\n"
+                        f"**Pos:** {pos.ticket}\n"
                         f"**TP Level:** TP{tp_level}\n"
                         f"**Pips Profit:** {pips_profit}\n"
-                        f"**Volume Closed:** {partials_vol}\n"
+                        f"**V Closed:** {partials_vol}\n"
                         f"**Deal ID:** {result.deal}\n"
                         f"**Time:** {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}",
                         {'action': 'partial_profit', 'position_id': pos.ticket, 'volume_closed': partials_vol, 'deal_id': result.deal, 'tp_level': tp_level, 'pips_profit': pips_profit}
@@ -1516,8 +1557,7 @@ class TelegramMonitor:
                     "tp": pos.tp,  # Keep existing TP
                 }
                 
-                logger.info(f"   📝 Moving Position {pos.ticket} to Break Even:")
-                logger.info(f"      Symbol: {pos.symbol}")
+                logger.info(f"   📝 Moving Pos {pos.ticket} to BE:")
                 logger.info(f"      Entry Price: {pos.price_open}")
                 logger.info(f"      Current SL: {pos.sl} → New SL: {new_sl} (Break Even)")
                 logger.info(f"      Current TP: {pos.tp} (unchanged)")
@@ -1586,9 +1626,8 @@ class TelegramMonitor:
                     "type_filling": mt5.ORDER_FILLING_IOC,  # Immediate or Cancel
                 }
                 
-                logger.info(f"   🔴 Closing Position {pos.ticket}:")
-                logger.info(f"      Symbol: {pos.symbol}")
-                logger.info(f"      Volume: {pos.volume} (FULL CLOSE)")
+                logger.info(f"   🔴 Closing P {pos.ticket}:")
+                logger.info(f"      V: {pos.volume} (FULL CLOSE)")
                 logger.info(f"      Entry Price: {pos.price_open}")
                 logger.info(f"      Current Price: {pos.price_current}")
                 logger.info(f"      Current Profit: ${pos.profit}")
@@ -1604,13 +1643,12 @@ class TelegramMonitor:
                     # Log to n8n and send Telegram notification
                     self.telegram_logger.send_log(
                         'position_closed',
-                        f"Position {pos.ticket} fully closed - Volume: {pos.volume}, Profit: ${pos.profit}, Deal: {result.deal}"
+                        f"Pos {pos.ticket} fully closed - V: {pos.volume}, Profit: ${pos.profit}, Deal: {result.deal}"
                     )
                     self.telegram_feedback.send_feedback(
                         f"🔴 **POSITION CLOSED**\n\n"
-                        f"**Position:** {pos.ticket}\n"
-                        f"**Symbol:** {pos.symbol}\n"
-                        f"**Volume Closed:** {pos.volume}\n"
+                        f"**Pos:** {pos.ticket}\n"
+                        f"**V Closed:** {pos.volume}\n"
                         f"**Entry Price:** {pos.price_open}\n"
                         f"**Exit Price:** {pos.price_current}\n"
                         f"**Profit:** ${pos.profit:.2f}\n"
@@ -1665,7 +1703,6 @@ class TelegramMonitor:
                 }
                 
                 logger.info(f"   📝 Extending TP for Position {pos.ticket}:")
-                logger.info(f"      Symbol: {pos.symbol}")
                 logger.info(f"      Current TP: {pos.tp} → New TP: {new_tp}")
                 logger.info(f"      Current SL: {pos.sl} (unchanged)")
                 
@@ -1684,7 +1721,6 @@ class TelegramMonitor:
                     self.telegram_feedback.send_feedback(
                         f"🎯 **TAKE PROFIT EXTENDED**\n\n"
                         f"**Position:** {pos.ticket}\n"
-                        f"**Symbol:** {pos.symbol}\n"
                         f"**Previous TP:** {pos.tp}\n"
                         f"**New TP:** {new_tp}\n"
                         f"**SL:** {pos.sl} (unchanged)\n"
@@ -1722,7 +1758,7 @@ class TelegramMonitor:
             has_be_command = self.is_break_even_command(message_text)
             has_partial_command = self.is_partial_command(message_text)
             has_position_closed_command = self.is_position_closed_command(message_text)
-            # has_tp_hit_command = self.is_tp_hit_command(message_text)
+            has_tp_hit_command = self.is_tp_hit_command(message_text)
             has_extend_tp_command = self.is_extend_tp_command(message_text)
             
             logger.info(f"   🔍 Command Detection: BE={has_be_command}, Partial={has_partial_command}, Close={has_position_closed_command}, TPHit={has_tp_hit_command}, ExtendTP={has_extend_tp_command}")
@@ -1734,15 +1770,16 @@ class TelegramMonitor:
                 
                 if has_partial_command:
                     logger.info(f"💰 PARTIAL PROFIT COMMAND DETECTED!")
-                    self.process_partial_profit(message_text)
+                    # self.process_partial_profit(message_text)
                 
                 if has_position_closed_command:
                     logger.info(f"🔴 POSITION CLOSED COMMAND DETECTED!")
-                    self.close_remaining_positions()
+                    self.close_remaining_positions()  # Now cancels orders by default
+                    self.cancel_all_pending_orders()
                 
                 if has_tp_hit_command:
                     logger.info(f"🎯 TP HIT COMMAND DETECTED!")
-                    self.cancel_all_pending_orders()
+                    # self.cancel_all_pending_orders()
                 
                 if has_extend_tp_command:
                     logger.info(f"🎯 EXTEND TP COMMAND DETECTED!")

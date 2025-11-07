@@ -81,8 +81,9 @@ class TradingSignalParser:
                 logger.warning(f"   [X] No SL (Stop Loss) found")
                 return None
             
-            # Extract TP - find number after "TP"
-            tp_match = re.search(r'TP\s*:?\s*(\d+(?:\.\d+)?)', message_text, re.IGNORECASE)
+            # Extract TP - find number after "TP" (handles multiple formats)
+            # Supports: "TP: 3988", "TP : /3988", "TP 3988", "TP:/3988" etc.
+            tp_match = re.search(r'TP\s*:?\s*/?(\d+(?:\.\d+)?)', message_text, re.IGNORECASE)
             if tp_match:
                 take_profit = float(tp_match.group(1))
                 logger.info(f"   [OK] Take Profit: {take_profit} (using first TP)")
