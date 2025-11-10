@@ -248,11 +248,11 @@ class MT5TradingClient:
             range_middle = range_start + ((range_end - range_start) / 2)
             
             logger.info(f"   📍 MULTI_POSITION_ENTRY Strategy ({direction.upper()}):")
-            logger.info(f"   📊 Will open {NUMBER_POSITIONS_MULTI} positions at fixed range points")
+            logger.info(f"   📊 Will open {NUMBER_POSITIONS_MULTI} positions with BOUNDARY-based distribution")
             logger.info(f"   📊 Range: {range_start} (START) - {range_middle} (MIDDLE) - {range_end} (END)")
-            logger.info(f"   📊 Distribution: 4 at END ({range_end}) + 3 at MIDDLE ({range_middle}) + 2 at START ({range_start})")
-            logger.info(f"   📊 Volume per position: {POSITION_VOLUME_MULTI}")
-            logger.info(f"   📊 Total Volume: {NUMBER_POSITIONS_MULTI * POSITION_VOLUME_MULTI}")
+            logger.info(f"   📊 Logic: 4 positions at boundary closest to price + 3 at MIDDLE + 2 at other boundary")
+            logger.info(f"   📊 Standard volume: {POSITION_VOLUME_MULTI}, First position at closest boundary: {2 * POSITION_VOLUME_MULTI} (DOUBLE)")
+            logger.info(f"   📊 Total Volume: {(NUMBER_POSITIONS_MULTI - 1) * POSITION_VOLUME_MULTI + (2 * POSITION_VOLUME_MULTI)}")
             logger.info(f"   📊 TP levels: 200, 400, 600, 800 pips per zone from entry")
             
         else:
@@ -313,57 +313,97 @@ class MT5TradingClient:
             range_span = range_end - range_start
             range_middle = range_start + (range_span / 2)
             
-            # Create positions at fixed levels (distribution depends on direction)
+            # Create positions at fixed levels (distribution depends on current price position)
             positions = []
             
-            if direction == 'buy':
-                # BUY: More positions at higher price (range_end) - 4,3,2 distribution
-                # 4 positions at range END
+            # Determine which range boundary (START or END) is closest to current price for 4-position placement
+            # MIDDLE is always gets 3 positions, only START vs END compete for the 4 positions
+            if current_price is None:
+                # Fallback to START if no current price
+                closest_to_price = 'start'
+                logger.info(f"   ⚠️  No current price available, defaulting 4 positions to START")
+            else:
+                # Calculate distances to START and END only (skip MIDDLE)
+                distance_to_start = abs(current_price - range_start)
+                distance_to_end = abs(current_price - range_end)
+                
+                # Find which boundary (START or END) is closest
+                if distance_to_start <= distance_to_end:
+                    closest_to_price = 'start'
+                else:
+                    closest_to_price = 'end'
+                
+                logger.info(f"   📍 BOUNDARY-BASED DISTRIBUTION LOGIC:")
+                logger.info(f"      Current Price: {current_price}")
+                logger.info(f"      Range: {range_start} (START) - {range_middle} (MIDDLE) - {range_end} (END)")
+                logger.info(f"      Distances: START={distance_to_start:.2f}, END={distance_to_end:.2f}")
+                logger.info(f"      ✅ 4 positions will be placed at {closest_to_price.upper()} (closest boundary to current price)")
+                logger.info(f"      📝 MIDDLE always gets 3 positions")
+            
+            # Always place 4 positions at the boundary (START or END) closest to current price
+            # MIDDLE always gets 3 positions, remaining boundary gets 2 positions
+            
+            if closest_to_price == 'start':
+                logger.info(f"      📊 Distribution: 4 at START (1 double volume) + 3 at MIDDLE + 2 at END")
+                
+                # 4 positions at range START (closest boundary to current price)
+                # First position gets double volume, others get standard volume
                 for i in range(4):
+                    volume = (2 * POSITION_VOLUME_MULTI) if i == 0 else POSITION_VOLUME_MULTI
                     positions.append({
-                        'price': range_end,
-                        'zone': 'end',
+                        'price': range_start,
+                        'zone': 'start',
+                        'volume': volume,
                         'position_number': i + 1
                     })
                 
-                # 3 positions at range MIDDLE  
+                # 3 positions at range MIDDLE (always gets 3)
                 for i in range(3):
                     positions.append({
                         'price': range_middle,
-                        'zone': 'middle', 
+                        'zone': 'middle',
+                        'volume': POSITION_VOLUME_MULTI,
                         'position_number': i + 5
                     })
                 
-                # 2 positions at range START
-                for i in range(2):
-                    positions.append({
-                        'price': range_start,
-                        'zone': 'start',
-                        'position_number': i + 8
-                    })
-            else:  # direction == 'sell'
-                # SELL: More positions at lower price (range_start) - 2,3,4 distribution
-                # 2 positions at range END
+                # 2 positions at range END (remaining boundary)
                 for i in range(2):
                     positions.append({
                         'price': range_end,
                         'zone': 'end',
-                        'position_number': i + 1
+                        'volume': POSITION_VOLUME_MULTI,
+                        'position_number': i + 8
                     })
+                    
+            else:  # closest_to_price == 'end'
+                logger.info(f"      📊 Distribution: 2 at START + 3 at MIDDLE + 4 at END (1 double volume)")
                 
-                # 3 positions at range MIDDLE  
-                for i in range(3):
-                    positions.append({
-                        'price': range_middle,
-                        'zone': 'middle', 
-                        'position_number': i + 3
-                    })
-                
-                # 4 positions at range START
-                for i in range(4):
+                # 2 positions at range START (remaining boundary)
+                for i in range(2):
                     positions.append({
                         'price': range_start,
                         'zone': 'start',
+                        'volume': POSITION_VOLUME_MULTI,
+                        'position_number': i + 1
+                    })
+                
+                # 3 positions at range MIDDLE (always gets 3)
+                for i in range(3):
+                    positions.append({
+                        'price': range_middle,
+                        'zone': 'middle',
+                        'volume': POSITION_VOLUME_MULTI,
+                        'position_number': i + 3
+                    })
+                
+                # 4 positions at range END (closest boundary to current price)
+                # First position gets double volume, others get standard volume
+                for i in range(4):
+                    volume = (2 * POSITION_VOLUME_MULTI) if i == 0 else POSITION_VOLUME_MULTI
+                    positions.append({
+                        'price': range_end,
+                        'zone': 'end',
+                        'volume': volume,
                         'position_number': i + 6
                     })
             
@@ -383,44 +423,47 @@ class MT5TradingClient:
             multi_entries = []
             for i, pos in enumerate(positions[:NUMBER_POSITIONS_MULTI]):
                 pos_price = pos['price']
+                pos_volume = pos['volume']  # Use volume from position (may be double for first position)
                 if symbol_info:
                     pos_price = round(pos_price, symbol_info.digits)
                
                 # Calculate grouped TP progression based on position zone and direction
                 if direction == 'buy':
-                    # BUY: 3 at END, 4 at MIDDLE, 2 at START
-                    if pos['zone'] == 'end':  # 3 positions: TP 200, 400, 600 pips
-                        zone_tp_levels = [200, 400, 600]
-                        zone_index = sum(1 for p in positions[:i] if p['zone'] == 'end')
-                    elif pos['zone'] == 'middle':  # 4 positions: TP 200, 400, 600, 800 pips
-                        zone_tp_levels = [200, 400, 600, 800]
-                        zone_index = sum(1 for p in positions[:i] if p['zone'] == 'middle')
-                    else:  # start - 2 positions: TP 200, 400 pips
-                        zone_tp_levels = [200, 400]
-                        zone_index = sum(1 for p in positions[:i] if p['zone'] == 'start')
-                    
-                    # DEBUG: Log TP assignment
-                    logger.info(f"      Position {i+1}: zone='{pos['zone']}', zone_index={zone_index}, tp_levels={zone_tp_levels}")
-                else:  # direction == 'sell'
-                    # SELL: 2 at END, 4 at MIDDLE, 3 at START
+                    # BUY: 2 at END, 3 at MIDDLE, 4 at START
                     if pos['zone'] == 'end':  # 2 positions: TP 200, 400 pips
                         zone_tp_levels = [200, 400]
                         zone_index = sum(1 for p in positions[:i] if p['zone'] == 'end')
-                    elif pos['zone'] == 'middle':  # 4 positions: TP 200, 400, 600, 800 pips
-                        zone_tp_levels = [200, 400, 600, 800]
-                        zone_index = sum(1 for p in positions[:i] if p['zone'] == 'middle')
-                    else:  # start - 3 positions: TP 200, 400, 600 pips
+                    elif pos['zone'] == 'middle':  # 3 positions: TP 200, 400, 600 pips
                         zone_tp_levels = [200, 400, 600]
+                        zone_index = sum(1 for p in positions[:i] if p['zone'] == 'middle')
+                    else:  # start - 4 positions: TP 200, 400, 600, 800 pips
+                        zone_tp_levels = [200, 400, 600, 800]
                         zone_index = sum(1 for p in positions[:i] if p['zone'] == 'start')
                     
                     # DEBUG: Log TP assignment
-                    logger.info(f"      Position {i+1}: zone='{pos['zone']}', zone_index={zone_index}, tp_levels={zone_tp_levels}")
+                    volume_label = "DOUBLE" if pos_volume == (2 * POSITION_VOLUME_MULTI) else "standard"
+                    logger.info(f"      Position {i+1}: zone='{pos['zone']}', zone_index={zone_index}, tp_levels={zone_tp_levels}, volume={pos_volume} ({volume_label})")
+                else:  # direction == 'sell'
+                    # SELL: 2 at END, 3 at MIDDLE, 4 at START
+                    if pos['zone'] == 'end':  # 2 positions: TP 200, 400 pips
+                        zone_tp_levels = [200, 400]
+                        zone_index = sum(1 for p in positions[:i] if p['zone'] == 'end')
+                    elif pos['zone'] == 'middle':  # 3 positions: TP 200, 400, 600 pips
+                        zone_tp_levels = [200, 400, 600]
+                        zone_index = sum(1 for p in positions[:i] if p['zone'] == 'middle')
+                    else:  # start - 4 positions: TP 200, 400, 600, 800 pips
+                        zone_tp_levels = [200, 400, 600, 800]
+                        zone_index = sum(1 for p in positions[:i] if p['zone'] == 'start')
+                    
+                    # DEBUG: Log TP assignment  
+                    volume_label = "DOUBLE" if pos_volume == (2 * POSITION_VOLUME_MULTI) else "standard"
+                    logger.info(f"      Position {i+1}: zone='{pos['zone']}', zone_index={zone_index}, tp_levels={zone_tp_levels}, volume={pos_volume} ({volume_label})")
                 
                 tp_pips = zone_tp_levels[zone_index] if zone_index < len(zone_tp_levels) else zone_tp_levels[-1]
                 
                 multi_entries.append({
                     'price': pos_price,
-                    'volume': POSITION_VOLUME_MULTI,
+                    'volume': pos_volume,  # Use actual position volume (may be double)
                     'tp_pips': tp_pips,  # Grouped TP: range_end(200,400,600,800), range_middle(200,400,600), range_start(200,400)
                     'tp_level': zone_index + 1,
                     'position_zone': pos['zone']
@@ -463,8 +506,8 @@ class MT5TradingClient:
                 elif len(multi_entries) == NUMBER_POSITIONS_MULTI and multi_entries[0].get('position_zone'):
                     logger.info(f"🎯 MULTI-POSITION ENTRY STRATEGY DETECTED!")
                     total_vol = sum(entry['volume'] for entry in multi_entries)
-                    logger.info(f"   Placing {NUMBER_POSITIONS_MULTI} orders distributed across range, total volume: {total_vol}")
-                    logger.info(f"   Position distribution: 4 close + 3 middle + 2 outer")
+                    logger.info(f"   Placing {NUMBER_POSITIONS_MULTI} orders with DYNAMIC distribution, total volume: {total_vol}")
+                    logger.info(f"   Distribution: Closer to current price gets more positions (4/3/2 pattern)")
                     return self._execute_multi_tp_trades(signal, multi_entries)  # Reuse multi-TP handler
                 else:
                     # Fallback for other multi-entry strategies

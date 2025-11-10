@@ -14,6 +14,15 @@ from config import *
 
 logger = logging.getLogger(__name__)
 
+# Import OVH for VPS management
+try:
+    import ovh
+    OVH_AVAILABLE = True
+except ImportError:
+    OVH_AVAILABLE = False
+    ovh = None
+    logger.warning("OVH library not available - restart functionality disabled")
+
 # Import MT5 for health checks
 try:
     import metatrader5 as mt5
@@ -37,6 +46,8 @@ class BotHealthHandler(BaseHTTPRequestHandler):
             self.send_health_response()
         elif self.path == '/alive':
             self.send_alive_response()
+        elif self.path == '/restart':
+            self.send_restart_response()
         elif self.path.startswith('/log'):
             # Parse query parameters for line count and format
             lines = 40  # default
@@ -61,6 +72,13 @@ class BotHealthHandler(BaseHTTPRequestHandler):
                 self.send_log_response(lines)
         elif self.path == '/':
             self.send_simple_response()
+        else:
+            self.send_error(404, "Not Found")
+    
+    def do_POST(self):
+        """Handle POST requests"""
+        if self.path == '/restart':
+            self.send_restart_response()
         else:
             self.send_error(404, "Not Found")
     
@@ -153,6 +171,92 @@ class BotHealthHandler(BaseHTTPRequestHandler):
                 "alive": False,
                 "status": "error", 
                 "message": str(e),
+                "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+            })
+            
+            self.send_response(500)
+            self.send_header('Content-type', 'application/json')
+            self.send_header('Content-length', str(len(error_response)))
+            self.end_headers()
+            self.wfile.write(error_response.encode())
+    
+    def send_restart_response(self):
+        """Restart VPS using OVH API"""
+        try:
+            if not OVH_AVAILABLE:
+                error_response = json.dumps({
+                    "status": "error",
+                    "message": "OVH library not available. Install with: pip install ovh",
+                    "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+                })
+                
+                self.send_response(500)
+                self.send_header('Content-type', 'application/json')
+                self.send_header('Content-length', str(len(error_response)))
+                self.end_headers()
+                self.wfile.write(error_response.encode())
+                return
+            
+            # Check if OVH credentials are configured (imported from config.py)
+            from config import OVH_ENDPOINT, OVH_APPLICATION_KEY, OVH_APPLICATION_SECRET, OVH_CONSUMER_KEY, OVH_SERVICE_NAME
+            
+            if not all([OVH_APPLICATION_KEY, OVH_APPLICATION_SECRET, OVH_CONSUMER_KEY, OVH_SERVICE_NAME]):
+                error_response = json.dumps({
+                    "status": "error",
+                    "message": "OVH credentials not configured. Set OVH_APPLICATION_KEY, OVH_APPLICATION_SECRET, OVH_CONSUMER_KEY, OVH_SERVICE_NAME environment variables",
+                    "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+                })
+                
+                self.send_response(500)
+                self.send_header('Content-type', 'application/json')
+                self.send_header('Content-length', str(len(error_response)))
+                self.end_headers()
+                self.wfile.write(error_response.encode())
+                return
+            
+            # Initialize OVH client
+            client = ovh.Client(
+                endpoint=OVH_ENDPOINT,
+                application_key=OVH_APPLICATION_KEY,
+                application_secret=OVH_APPLICATION_SECRET,
+                consumer_key=OVH_CONSUMER_KEY,
+            )
+            
+            # Get user info for verification
+            try:
+                user_info = client.get('/me')
+                logger.info(f"OVH API connected for user: {user_info.get('firstname', 'Unknown')}")
+            except Exception as e:
+                logger.error(f"OVH API authentication failed: {e}")
+                raise Exception(f"OVH authentication failed: {str(e)}")
+            
+            # Reboot VPS
+            logger.info(f"Initiating VPS reboot for service: {OVH_SERVICE_NAME}")
+            reboot_result = client.post(f'/vps/{OVH_SERVICE_NAME}/reboot')
+            
+            success_response = json.dumps({
+                "status": "success",
+                "message": f"VPS reboot initiated successfully for {OVH_SERVICE_NAME}",
+                "ovh_result": reboot_result,
+                "user": user_info.get('firstname', 'Unknown'),
+                "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+                "warning": "Bot will stop responding in ~30 seconds as VPS reboots"
+            })
+            
+            self.send_response(200)
+            self.send_header('Content-type', 'application/json')
+            self.send_header('Content-length', str(len(success_response)))
+            self.end_headers()
+            self.wfile.write(success_response.encode())
+            
+            logger.info(f"✅ VPS reboot initiated via OVH API")
+            
+        except Exception as e:
+            logger.error(f"Failed to restart VPS: {e}")
+            
+            error_response = json.dumps({
+                "status": "error",
+                "message": f"Failed to restart VPS: {str(e)}",
                 "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
             })
             
@@ -345,6 +449,7 @@ class BotHealthServer:
             logger.info(f"🌐 Health check server started on port {self.port}")
             logger.info(f"   GET http://localhost:{self.port}/health - Detailed status")
             logger.info(f"   GET http://localhost:{self.port}/alive - Simple alive check")
+            logger.info(f"   GET/POST http://localhost:{self.port}/restart - Restart VPS via OVH API")
             logger.info(f"   GET http://localhost:{self.port}/log - Last 40 log lines (JSON)")
             logger.info(f"   GET http://localhost:{self.port}/log?format=html - HTML log viewer")
             logger.info(f"   GET http://localhost:{self.port}/log?lines=N - Last N log lines")

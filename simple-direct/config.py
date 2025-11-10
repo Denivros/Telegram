@@ -99,6 +99,15 @@ IGNORE_WORDS = [
 ]
 
 # =============================================================================
+# OVH VPS MANAGEMENT CONFIGURATION
+# =============================================================================
+OVH_ENDPOINT = os.getenv('OVH_ENDPOINT', 'ovh-eu')
+OVH_APPLICATION_KEY = os.getenv('OVH_APPLICATION_KEY')
+OVH_APPLICATION_SECRET = os.getenv('OVH_APPLICATION_SECRET')
+OVH_CONSUMER_KEY = os.getenv('OVH_CONSUMER_KEY')
+OVH_SERVICE_NAME = os.getenv('OVH_SERVICE_NAME')  # Your VPS service name (e.g., 'vpsXXXXXX.ovh.net')
+
+# =============================================================================
 # HELPER FUNCTIONS
 # =============================================================================
 def get_partials_volume():

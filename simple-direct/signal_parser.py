@@ -62,15 +62,19 @@ class TradingSignalParser:
             # Try to find range by looking for patterns or take first two numbers
             range_match = re.search(r'(?:RANGE|:)\s*(\d+(?:\.\d+)?)\s*[-–~]\s*(\d+(?:\.\d+)?)', message_text, re.IGNORECASE)
             if range_match:
-                range_start = float(range_match.group(1))
-                range_end = float(range_match.group(2))
+                num1 = float(range_match.group(1))
+                num2 = float(range_match.group(2))
             else:
                 # Fallback: assume first two numbers are the range
-                range_start = float(range_numbers[0])
-                range_end = float(range_numbers[1])
+                num1 = float(range_numbers[0])
+                num2 = float(range_numbers[1])
+            
+            # Always sort range from high to low (range_start = higher value, range_end = lower value)
+            range_start = max(num1, num2)  # Higher value
+            range_end = min(num1, num2)    # Lower value
             
             logger.info(f"   [OK] Direction: {direction} (detected from emoji)")
-            logger.info(f"   [OK] Range: {range_start} - {range_end}")
+            logger.info(f"   [OK] Range: {range_start} - {range_end} (sorted high to low)")
             
             # Extract SL - find number after "SL"
             sl_match = re.search(r'SL\s*:?\s*(\d+(?:\.\d+)?)', message_text, re.IGNORECASE)
