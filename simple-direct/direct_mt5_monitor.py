@@ -127,50 +127,6 @@ class TelegramMonitor:
             entry_price = (range_start + range_end) / 2
             logger.info(f"   📍 MIDPOINT Strategy: Entry = {entry_price}")
             
-        elif ENTRY_STRATEGY == 'range_break':
-            entry_price = range_end if direction == 'buy' else range_start
-            logger.info(f"   📍 RANGE_BREAK Strategy: Entry = {entry_price} ({'range_end' if direction == 'buy' else 'range_start'})")
-            
-        elif ENTRY_STRATEGY == 'momentum':
-            entry_price = range_start if direction == 'buy' else range_end
-            logger.info(f"   📍 MOMENTUM Strategy: Entry = {entry_price} ({'range_start' if direction == 'buy' else 'range_end'})")
-            
-        elif ENTRY_STRATEGY == 'adaptive':
-            if current_price is None:
-                entry_price = (range_start + range_end) / 2
-                logger.info(f"   📍 ADAPTIVE Strategy (no price): Entry = {entry_price} (midpoint)")
-            else:
-                if direction == 'buy':
-                    if current_price > range_end:
-                        # Price is above range - set limit at range top for better entry
-                        entry_price = range_end
-                        logger.info(f"   📍 ADAPTIVE Strategy (BUY): Price {current_price} > range_end {range_end} → Entry = {entry_price}")
-                    elif current_price < range_start:
-                        # Price is below range - set limit slightly above current for quick fill
-                        symbol_info = mt5.symbol_info(symbol)
-                        pip_value = 10 ** (-symbol_info.digits) if symbol_info else 0.0001
-                        entry_price = current_price + (2 * pip_value)  # 2 pips above current
-                        logger.info(f"   📍 ADAPTIVE Strategy (BUY): Price {current_price} < range_start {range_start} → Entry = {entry_price} (+2 pips)")
-                    else:
-                        # Price is in range - set limit at current price
-                        entry_price = current_price
-                        logger.info(f"   📍 ADAPTIVE Strategy (BUY): Price {current_price} in range → Entry = {entry_price}")
-                else:  # sell
-                    if current_price < range_start:
-                        # Price is below range - set limit at range bottom for better entry
-                        entry_price = range_start
-                        logger.info(f"   📍 ADAPTIVE Strategy (SELL): Price {current_price} < range_start {range_start} → Entry = {entry_price}")
-                    elif current_price > range_end:
-                        # Price is above range - set limit slightly below current for quick fill
-                        symbol_info = mt5.symbol_info(symbol)
-                        pip_value = 10 ** (-symbol_info.digits) if symbol_info else 0.0001
-                        entry_price = current_price - (2 * pip_value)  # 2 pips below current
-                        logger.info(f"   📍 ADAPTIVE Strategy (SELL): Price {current_price} > range_end {range_end} → Entry = {entry_price} (-2 pips)")
-                    else:
-                        # Price is in range - set limit at current price
-                        entry_price = current_price
-                        logger.info(f"   📍 ADAPTIVE Strategy (SELL): Price {current_price} in range → Entry = {entry_price}")
-                        
         elif ENTRY_STRATEGY == 'dual_entry':
             # Calculate dual entry points at 1/3 and 2/3 of the range
             range_span = range_end - range_start
@@ -212,38 +168,6 @@ class TelegramMonitor:
 
             logger.info(f"      Total V: {9 * DEFAULT_VOLUME_MULTI}")
 
-        elif ENTRY_STRATEGY == 'multi_tp_entry':
-            # Multi-TP strategy uses adaptive entry but with multiple TP levels
-            if direction == 'buy':
-                if current_price < range_start:
-                    entry_price = range_start
-                    logger.info(f"   📍 MULTI_TP_ENTRY Strategy (BUY): Price {current_price} < range_start {range_start} → Entry = {entry_price}")
-                elif current_price > range_end:
-                    symbol_info = mt5.symbol_info(symbol)
-                    pip_value = 10 ** (-symbol_info.digits) if symbol_info else 0.0001
-                    entry_price = current_price + (2 * pip_value)
-                    logger.info(f"   📍 MULTI_TP_ENTRY Strategy (BUY): Price {current_price} > range_end {range_end} → Entry = {entry_price} (+2 pips)")
-                else:
-                    entry_price = current_price
-                    logger.info(f"   📍 MULTI_TP_ENTRY Strategy (BUY): Price {current_price} in range → Entry = {entry_price}")
-            else:  # sell
-                if current_price < range_start:
-                    entry_price = range_start
-                    logger.info(f"   📍 MULTI_TP_ENTRY Strategy (SELL): Price {current_price} < range_start {range_start} → Entry = {entry_price}")
-                elif current_price > range_end:
-                    symbol_info = mt5.symbol_info(symbol)
-                    pip_value = 10 ** (-symbol_info.digits) if symbol_info else 0.0001
-                    entry_price = current_price - (2 * pip_value)
-                    logger.info(f"   📍 MULTI_TP_ENTRY Strategy (SELL): Price {current_price} > range_end {range_end} → Entry = {entry_price} (-2 pips)")
-                else:
-                    entry_price = current_price
-                    logger.info(f"   📍 MULTI_TP_ENTRY Strategy (SELL): Price {current_price} in range → Entry = {entry_price}")
-            
-            logger.info(f"   📊 Will open 5 positions with TP levels: {MULTI_TP_PIPS} pips + Signal TP")
-            logger.info(f"   📊 Volumes: {MULTI_TP_VOLUMES}")
-            total_volume = sum(MULTI_TP_VOLUMES)
-            logger.info(f"   📊 Total Volume: {total_volume}")
-            
         elif ENTRY_STRATEGY == 'multi_position_entry':
             # Multi-Position strategy: Fixed entry points at range boundaries
             # 4 positions at range END, 3 at MIDDLE, 2 at START
@@ -989,8 +913,8 @@ class TelegramMonitor:
             ('TELEGRAM_GROUP_ID', GROUP_ID)
         ]
         
-        if not BOT_TOKEN and not PHONE_NUMBER:
-            logger.error("Missing authentication method: need either BOT_TOKEN or TELEGRAM_PHONE")
+        if not PHONE_NUMBER:
+            logger.error("Missing authentication method, need TELEGRAM_PHONE")
             return False
         
         missing_vars = [name for name, value in required_vars if not value]
@@ -1008,7 +932,6 @@ class TelegramMonitor:
             logger.info("🔐 Telegram Authentication Configuration:")
             logger.info(f"   API_ID: {'✅ Set' if API_ID else '❌ Missing'}")
             logger.info(f"   API_HASH: {'✅ Set' if API_HASH else '❌ Missing'}")
-            logger.info(f"   BOT_TOKEN: {'✅ Set' if BOT_TOKEN else '❌ Missing'}")
             logger.info(f"   STRING_SESSION: {'✅ Set' if STRING_SESSION else '❌ Missing'}")
             logger.info(f"   PHONE_NUMBER: {'✅ Set' if PHONE_NUMBER else '❌ Missing'}")
             
@@ -1036,11 +959,7 @@ class TelegramMonitor:
                     auto_reconnect=True
                 )
             
-            if BOT_TOKEN:
-                logger.info("Connecting to Telegram as bot...")
-                await self.client.start(bot_token=BOT_TOKEN)
-                logger.info("✅ Bot authentication successful!")
-            elif STRING_SESSION:
+            if STRING_SESSION:
                 logger.info("Connecting with StringSession...")
                 await self.client.start()
                 logger.info("✅ StringSession authentication successful!")
@@ -1149,37 +1068,6 @@ class TelegramMonitor:
                     logger.info(f"      ✅ Skipping - no change needed")
                     skipped_count += 1
                     continue
-                
-                # First, close BE_PARTIAL_VOLUME if position is large enough
-                if pos.volume > be_partial_vol:
-                    logger.info(f"   💰 Closing BE partial volume {be_partial_vol} on Position {pos.ticket}")
-                    
-                    partial_request = {
-                        "action": mt5.TRADE_ACTION_DEAL,
-                        "position": pos.ticket,
-                        "symbol": pos.symbol,
-                        "volume": be_partial_vol,
-                        "type": mt5.ORDER_TYPE_SELL if pos.type == 0 else mt5.ORDER_TYPE_BUY,  # Opposite of position
-                        "magic": MAGIC_NUMBER,
-                        "comment": f"BE partial close {be_partial_vol}",
-                        "type_filling": mt5.ORDER_FILLING_IOC,  # Immediate or Cancel
-                    }
-                    
-                    partial_result = mt5.order_send(partial_request)
-                    
-                    if partial_result.retcode == mt5.TRADE_RETCODE_DONE:
-                        logger.info(f"      ✅ BE partial close successful! Deal ID: {partial_result.deal}")
-                        partial_close_count += 1
-                        
-                        # Log partial close
-                        self.telegram_logger.send_log(
-                            'be_partial_close',
-                            f"BE partial close {be_partial_vol} on Position {pos.ticket}, Deal: {partial_result.deal}"
-                        )
-                    else:
-                        logger.error(f"      ❌ BE partial close failed: {partial_result.retcode} - {partial_result.comment}")
-                else:
-                    logger.info(f"   ⚠️  Position {pos.ticket} volume ({pos.volume}) too small for BE partial close ({be_partial_vol})")
                 
                 # Create SL modification request
                 request = {
