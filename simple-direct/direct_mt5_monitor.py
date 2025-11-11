@@ -179,6 +179,10 @@ class TelegramMonitor:
         else:
             logger.info(f"   📍 No open positions")
     
+    def get_current_price(self, symbol: str):
+        """Get current bid/ask prices using MT5TradingClient"""
+        return self.mt5_client.get_current_price(symbol)
+    
     def calculate_entry_price(self, signal: Dict[str, Any]) -> Dict[str, Any]:
         """Calculate entry price based on strategy - Always returns limit order type"""
         symbol = signal['symbol']
@@ -1321,6 +1325,27 @@ class TelegramMonitor:
                 
         return False
     
+    def is_move_sl_command(self, message_text: str) -> bool:
+        """Check if message is a move SL command"""
+        message_lower = message_text.lower()
+        
+        # Check for SL movement patterns with numbers
+        move_sl_patterns = [
+            r'sl\s+at\s+(\d+(?:\.\d+)?)',               # "SL at 4122"
+            r'move\s+sl\s+to\s+(\d+(?:\.\d+)?)',        # "MOVE SL TO 4122"
+            r'set\s+sl\s+to\s+(\d+(?:\.\d+)?)',         # "SET SL TO 4122"
+            r'sl\s+to\s+(\d+(?:\.\d+)?)',               # "SL TO 4122"
+            r'stop\s+loss\s+at\s+(\d+(?:\.\d+)?)',      # "STOP LOSS AT 4122"
+            r'move\s+stop\s+to\s+(\d+(?:\.\d+)?)',      # "MOVE STOP TO 4122"
+            r'new\s+sl\s*:?\s*(\d+(?:\.\d+)?)',         # "NEW SL: 4122"
+        ]
+        
+        for pattern in move_sl_patterns:
+            if re.search(pattern, message_lower):
+                return True
+                
+        return False
+    
     def is_tp_hit_command(self, message_text: str) -> bool:
         """Check if message indicates TP has been hit and all orders should be cancelled"""
         tp_hit_keywords = [
@@ -1704,6 +1729,94 @@ class TelegramMonitor:
         logger.info(f"   ✅ Successfully extended: {success_count}")
         logger.info(f"   ❌ Failed to extend: {total_positions - success_count}")
     
+    def move_sl_to_price(self, message_text: str):
+        """Move Stop Loss to specified price for all open positions"""
+        logger.info(f"🎯 MOVING STOP LOSS TO SPECIFIED PRICE:")
+        logger.info(f"   Message: {message_text}")
+        
+        # Extract SL price from message
+        message_lower = message_text.lower()
+        sl_price_match = re.search(r'sl\s+at\s+(\d+(?:\.\d+)?)', message_lower)
+        
+        if not sl_price_match:
+            # Try other patterns if "SL at" doesn't match
+            other_patterns = [
+                r'move\s+sl\s+to\s+(\d+(?:\.\d+)?)',
+                r'set\s+sl\s+to\s+(\d+(?:\.\d+)?)',
+                r'sl\s+to\s+(\d+(?:\.\d+)?)',
+                r'stop\s+loss\s+at\s+(\d+(?:\.\d+)?)',
+                r'move\s+stop\s+to\s+(\d+(?:\.\d+)?)',
+                r'new\s+sl\s*:?\s*(\d+(?:\.\d+)?)',
+            ]
+            
+            for pattern in other_patterns:
+                sl_price_match = re.search(pattern, message_lower)
+                if sl_price_match:
+                    break
+        
+        if not sl_price_match:
+            logger.error(f"   ❌ Could not extract SL price from message: {message_text}")
+            return
+        
+        new_sl = float(sl_price_match.group(1))
+        logger.info(f"   🎯 New SL Price: {new_sl}")
+        
+        # Get all open positions
+        positions = mt5.positions_get()
+        if not positions:
+            logger.info(f"   ❌ No open positions to modify")
+            return
+        
+        success_count = 0
+        for pos in positions:
+            try:
+                # Check if SL is already at the target price (with small tolerance)
+                tolerance = 0.00001  # 1 pip tolerance
+                if abs(pos.sl - new_sl) <= tolerance:
+                    logger.info(f"   ⏭️  Position {pos.ticket} ALREADY at target SL:")
+                    logger.info(f"      Current SL: {pos.sl}, Target SL: {new_sl}")
+                    logger.info(f"      ✅ Skipping - no change needed")
+                    continue
+                
+                # Create SL modification request
+                request = {
+                    "action": mt5.TRADE_ACTION_SLTP,
+                    "position": pos.ticket,
+                    "sl": new_sl,
+                    "tp": pos.tp,  # Keep existing TP
+                }
+                
+                logger.info(f"   📝 Modifying Position {pos.ticket}:")
+                logger.info(f"      Current SL: {pos.sl} → New SL: {new_sl}")
+                logger.info(f"      Current TP: {pos.tp} (unchanged)")
+                
+                # Send modification
+                result = mt5.order_send(request)
+                
+                if result.retcode == mt5.TRADE_RETCODE_DONE:
+                    logger.info(f"   ✅ Position {pos.ticket} SL moved to {new_sl}!")
+                    success_count += 1
+                    
+                    # Log to n8n and send Telegram notification
+                    self.telegram_logger.send_log(
+                        'sl_moved',
+                        f"Position {pos.ticket} SL moved to {new_sl}"
+                    )
+                    self.telegram_feedback.notify_sl_moved(pos.ticket, new_sl)
+                    
+                else:
+                    logger.error(f"   ❌ Failed to modify Position {pos.ticket}: {result.retcode} - {result.comment}")
+                    
+            except Exception as e:
+                logger.error(f"   ❌ Error modifying Position {pos.ticket}: {e}")
+        
+        # Summary log
+        total_positions = len(positions)
+        logger.info(f"🎯 MOVE SL COMPLETE:")
+        logger.info(f"   📊 Total positions: {total_positions}")
+        logger.info(f"   ✅ Successfully moved: {success_count}")
+        logger.info(f"   ❌ Failed to move: {total_positions - success_count}")
+    
     def process_trading_signal(self, message_text: str): 
         """Process and execute trading signal"""
         try:
@@ -1717,16 +1830,17 @@ class TelegramMonitor:
             logger.info(f"   Raw message: {repr(message_text)}")
             logger.info(f"   Message length: {len(message_text)} characters")
             
-            # Check for break even, partial, position closed, TP hit, and extend TP commands
+            # Check for break even, partial, position closed, TP hit, extend TP, and move SL commands
             has_be_command = self.is_break_even_command(message_text)
             has_partial_command = self.is_partial_command(message_text)
             has_position_closed_command = self.is_position_closed_command(message_text)
             has_tp_hit_command = self.is_tp_hit_command(message_text)
             has_extend_tp_command = self.is_extend_tp_command(message_text)
+            has_move_sl_command = self.is_move_sl_command(message_text)
             
-            logger.info(f"   🔍 Command Detection: BE={has_be_command}, Partial={has_partial_command}, Close={has_position_closed_command}, TPHit={has_tp_hit_command}, ExtendTP={has_extend_tp_command}")
+            logger.info(f"   🔍 Command Detection: BE={has_be_command}, Partial={has_partial_command}, Close={has_position_closed_command}, TPHit={has_tp_hit_command}, ExtendTP={has_extend_tp_command}, MoveSL={has_move_sl_command}")
             
-            if has_be_command or has_partial_command or has_position_closed_command or has_tp_hit_command or has_extend_tp_command:
+            if has_be_command or has_partial_command or has_position_closed_command or has_tp_hit_command or has_extend_tp_command or has_move_sl_command:
                 if has_be_command:
                     logger.info(f"🎯 BREAK EVEN COMMAND DETECTED!")
                     self.move_sl_to_break_even()
@@ -1747,6 +1861,10 @@ class TelegramMonitor:
                 if has_extend_tp_command:
                     logger.info(f"🎯 EXTEND TP COMMAND DETECTED!")
                     self.extend_take_profit(message_text)
+                
+                if has_move_sl_command:
+                    logger.info(f"🎯 MOVE SL COMMAND DETECTED!")
+                    self.move_sl_to_price(message_text)
                 
                 # If we processed any management commands, don't continue to new signal processing
                 return

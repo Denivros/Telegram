@@ -17197,3 +17197,16 @@ Partials taken, remaining tapped BE! Absolute beautiful SCALP!! This is how i...
 2025-11-11 14:34:28,082 - __main__ - INFO -    ❌ No open positions to close
 2025-11-11 14:34:28,082 - __main__ - INFO - 🚫 CANCELLING ALL PENDING ORDERS:
 2025-11-11 14:34:28,082 - __main__ - INFO -    ✅ No pending orders to cancel
+2025-11-11 15:07:44,600 - __main__ - INFO - 🔍 MESSAGE HANDLER CALLED:
+2025-11-11 15:07:44,602 - __main__ - INFO -    Message ID: 44778
+2025-11-11 15:07:44,602 - __main__ - INFO -    From user: None
+2025-11-11 15:07:44,603 - __main__ - INFO -    Chat ID: PeerChannel(channel_id=1623437581)
+2025-11-11 15:07:44,604 - __main__ - INFO -    Has text: True
+2025-11-11 15:07:44,604 - __main__ - INFO -    Message type: <class 'telethon.tl.types.MessageMediaDocument'>
+2025-11-11 15:07:44,604 - __main__ - INFO -    ✅ Message text found: **Trading summary 11th November 2025:**
+
+🟢(VIP)XAUUSD +90 Pips (TP 3)
+🟢(PREM)XAUUSD +67 Pips (TP 3)
+...
+2025-11-11 15:07:44,605 - __main__ - INFO -    🎯 CALLING process_trading_signal()
+2025-11-11 15:07:44,605 - __main__ - INFO - 🔇 Message ignored early (contains ignore words): '**Trading summary 11th Novembe...'

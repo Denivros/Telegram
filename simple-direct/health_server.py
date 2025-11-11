@@ -79,6 +79,14 @@ class BotHealthHandler(BaseHTTPRequestHandler):
         """Handle POST requests"""
         if self.path == '/restart':
             self.send_restart_response()
+        elif self.path == '/totalcancel':
+            self.send_totalcancel_response()
+        elif self.path == '/closeall':
+            self.send_closeall_response()
+        elif self.path == '/be':
+            self.send_be_response()
+        elif self.path == '/cancelorders':
+            self.send_cancelorders_response()
         else:
             self.send_error(404, "Not Found")
     
@@ -257,6 +265,232 @@ class BotHealthHandler(BaseHTTPRequestHandler):
             error_response = json.dumps({
                 "status": "error",
                 "message": f"Failed to restart VPS: {str(e)}",
+                "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+            })
+            
+            self.send_response(500)
+            self.send_header('Content-type', 'application/json')
+            self.send_header('Content-length', str(len(error_response)))
+            self.end_headers()
+            self.wfile.write(error_response.encode())
+    
+    def send_totalcancel_response(self):
+        """Close all positions and cancel all pending orders"""
+        try:
+            if not self.bot_instance:
+                error_response = json.dumps({
+                    "status": "error",
+                    "message": "Bot instance not available",
+                    "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+                })
+                
+                self.send_response(500)
+                self.send_header('Content-type', 'application/json')
+                self.send_header('Content-length', str(len(error_response)))
+                self.end_headers()
+                self.wfile.write(error_response.encode())
+                return
+            
+            logger.info("🚫 TOTAL CANCEL requested via API endpoint")
+            
+            # Close all remaining positions
+            logger.info("🔴 Closing all open positions...")
+            self.bot_instance.close_remaining_positions()
+            
+            # Cancel all pending orders  
+            logger.info("🚫 Cancelling all pending orders...")
+            cancel_result = self.bot_instance.cancel_all_pending_orders()
+            
+            # Prepare success response
+            success_response = json.dumps({
+                "status": "success",
+                "message": "All positions closed and orders cancelled successfully",
+                "actions_performed": [
+                    "Closed all open positions",
+                    "Cancelled all pending orders"
+                ],
+                "cancelled_orders": cancel_result.get('cancelled_count', 0),
+                "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+            })
+            
+            self.send_response(200)
+            self.send_header('Content-type', 'application/json')
+            self.send_header('Content-length', str(len(success_response)))
+            self.end_headers()
+            self.wfile.write(success_response.encode())
+            
+            logger.info(f"✅ Total cancel completed successfully via API")
+            
+        except Exception as e:
+            logger.error(f"Failed to execute total cancel: {e}")
+            
+            error_response = json.dumps({
+                "status": "error",
+                "message": f"Failed to execute total cancel: {str(e)}",
+                "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+            })
+            
+            self.send_response(500)
+            self.send_header('Content-type', 'application/json')
+            self.send_header('Content-length', str(len(error_response)))
+            self.end_headers()
+            self.wfile.write(error_response.encode())
+    
+    def send_closeall_response(self):
+        """Close all open positions"""
+        try:
+            if not self.bot_instance:
+                error_response = json.dumps({
+                    "status": "error",
+                    "message": "Bot instance not available",
+                    "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+                })
+                
+                self.send_response(500)
+                self.send_header('Content-type', 'application/json')
+                self.send_header('Content-length', str(len(error_response)))
+                self.end_headers()
+                self.wfile.write(error_response.encode())
+                return
+            
+            logger.info("🔴 CLOSE ALL POSITIONS requested via API endpoint")
+            
+            # Close all remaining positions
+            self.bot_instance.close_remaining_positions()
+            
+            # Prepare success response
+            success_response = json.dumps({
+                "status": "success",
+                "message": "All open positions closed successfully",
+                "action_performed": "Closed all open positions",
+                "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+            })
+            
+            self.send_response(200)
+            self.send_header('Content-type', 'application/json')
+            self.send_header('Content-length', str(len(success_response)))
+            self.end_headers()
+            self.wfile.write(success_response.encode())
+            
+            logger.info(f"✅ Close all positions completed successfully via API")
+            
+        except Exception as e:
+            logger.error(f"Failed to close all positions: {e}")
+            
+            error_response = json.dumps({
+                "status": "error",
+                "message": f"Failed to close all positions: {str(e)}",
+                "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+            })
+            
+            self.send_response(500)
+            self.send_header('Content-type', 'application/json')
+            self.send_header('Content-length', str(len(error_response)))
+            self.end_headers()
+            self.wfile.write(error_response.encode())
+    
+    def send_be_response(self):
+        """Move all positions to break even and cancel pending orders"""
+        try:
+            if not self.bot_instance:
+                error_response = json.dumps({
+                    "status": "error",
+                    "message": "Bot instance not available",
+                    "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+                })
+                
+                self.send_response(500)
+                self.send_header('Content-type', 'application/json')
+                self.send_header('Content-length', str(len(error_response)))
+                self.end_headers()
+                self.wfile.write(error_response.encode())
+                return
+            
+            logger.info("🎯 BREAK EVEN requested via API endpoint")
+            
+            # Move SL to break even (this also cancels pending orders automatically)
+            self.bot_instance.move_sl_to_break_even()
+            
+            # Prepare success response
+            success_response = json.dumps({
+                "status": "success",
+                "message": "All positions moved to break even and pending orders cancelled",
+                "actions_performed": [
+                    "Moved all stop losses to break even (entry price)",
+                    "Cancelled all pending orders"
+                ],
+                "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+            })
+            
+            self.send_response(200)
+            self.send_header('Content-type', 'application/json')
+            self.send_header('Content-length', str(len(success_response)))
+            self.end_headers()
+            self.wfile.write(success_response.encode())
+            
+            logger.info(f"✅ Break even completed successfully via API")
+            
+        except Exception as e:
+            logger.error(f"Failed to move to break even: {e}")
+            
+            error_response = json.dumps({
+                "status": "error",
+                "message": f"Failed to move to break even: {str(e)}",
+                "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+            })
+            
+            self.send_response(500)
+            self.send_header('Content-type', 'application/json')
+            self.send_header('Content-length', str(len(error_response)))
+            self.end_headers()
+            self.wfile.write(error_response.encode())
+    
+    def send_cancelorders_response(self):
+        """Cancel all pending orders"""
+        try:
+            if not self.bot_instance:
+                error_response = json.dumps({
+                    "status": "error",
+                    "message": "Bot instance not available",
+                    "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+                })
+                
+                self.send_response(500)
+                self.send_header('Content-type', 'application/json')
+                self.send_header('Content-length', str(len(error_response)))
+                self.end_headers()
+                self.wfile.write(error_response.encode())
+                return
+            
+            logger.info("🚫 CANCEL ORDERS requested via API endpoint")
+            
+            # Cancel all pending orders
+            cancel_result = self.bot_instance.cancel_all_pending_orders()
+            
+            # Prepare success response
+            success_response = json.dumps({
+                "status": "success",
+                "message": "All pending orders cancelled successfully",
+                "action_performed": "Cancelled all pending orders",
+                "cancelled_orders": cancel_result.get('cancelled_count', 0),
+                "failed_orders": cancel_result.get('failed_count', 0),
+                "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+            })
+            
+            self.send_response(200)
+            self.send_header('Content-type', 'application/json')
+            self.send_header('Content-length', str(len(success_response)))
+            self.end_headers()
+            self.wfile.write(success_response.encode())
+            
+            logger.info(f"✅ Cancel orders completed successfully via API")
+            
+        except Exception as e:
+            logger.error(f"Failed to cancel orders: {e}")
+            
+            error_response = json.dumps({
+                "status": "error",
+                "message": f"Failed to cancel orders: {str(e)}",
                 "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
             })
             
@@ -450,6 +684,10 @@ class BotHealthServer:
             logger.info(f"   GET http://localhost:{self.port}/health - Detailed status")
             logger.info(f"   GET http://localhost:{self.port}/alive - Simple alive check")
             logger.info(f"   GET/POST http://localhost:{self.port}/restart - Restart VPS via OVH API")
+            logger.info(f"   POST http://localhost:{self.port}/totalcancel - Close all positions & cancel orders")
+            logger.info(f"   POST http://localhost:{self.port}/closeall - Close all open positions")
+            logger.info(f"   POST http://localhost:{self.port}/be - Move to break even & cancel orders")
+            logger.info(f"   POST http://localhost:{self.port}/cancelorders - Cancel all pending orders")
             logger.info(f"   GET http://localhost:{self.port}/log - Last 40 log lines (JSON)")
             logger.info(f"   GET http://localhost:{self.port}/log?format=html - HTML log viewer")
             logger.info(f"   GET http://localhost:{self.port}/log?lines=N - Last N log lines")

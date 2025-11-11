@@ -245,3 +245,13 @@ class TelegramFeedback:
         message += f"**Time:** {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}"
         
         self.send_feedback(message, {'action': 'sl_break_even', 'position_id': position_id, 'break_even_price': break_even_price})
+    
+    def notify_sl_moved(self, position_id: int, new_sl_price: float):
+        """Send SL moved notification"""
+        message = f"🎯 **STOP LOSS MOVED**\n\n"
+        message += f"**Position:** {position_id}\n"
+        message += f"**New SL Price:** {new_sl_price}\n"
+        message += f"**Status:** Stop loss updated\n"
+        message += f"**Time:** {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}"
+        
+        self.send_feedback(message, {'action': 'sl_moved', 'position_id': position_id, 'new_sl_price': new_sl_price})
