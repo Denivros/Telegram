@@ -9,6 +9,7 @@ import asyncio
 import logging
 import os
 import re
+import requests
 import sys
 from datetime import datetime
 from typing import Dict, Any
@@ -41,6 +42,75 @@ except ImportError:
 
 # Configuration loaded from config.py
 
+# Custom logging handler to detect system clock errors and trigger restart
+class SystemClockErrorHandler(logging.Handler):
+    """Custom logging handler that triggers VPS restart on system clock errors"""
+    
+    def __init__(self):
+        super().__init__()
+        self.restart_triggered = False
+        
+    def emit(self, record):
+        """Check log record for system clock errors and trigger restart if needed"""
+        try:
+            # Check if this is a system clock error from Telethon
+            if (hasattr(record, 'name') and 
+                'telethon' in record.name.lower() and 
+                hasattr(record, 'getMessage')):
+                
+                message = record.getMessage().lower()
+                
+                # Check for system clock error patterns
+                clock_error_patterns = [
+                    'system clock is wrong',
+                    'set time offset',
+                    'clock error',
+                    'time synchronization'
+                ]
+                
+                if any(pattern in message for pattern in clock_error_patterns):
+                    if not self.restart_triggered:
+                        self.restart_triggered = True
+                        logger = logging.getLogger(__name__)
+                        logger.warning("🕐 SYSTEM CLOCK ERROR DETECTED!")
+                        logger.warning(f"   Error message: {record.getMessage()}")
+                        logger.warning("🔄 Triggering automatic VPS restart...")
+                        
+                        # Trigger restart in a separate thread to avoid blocking
+                        import threading
+                        threading.Thread(
+                            target=self._trigger_restart, 
+                            daemon=True
+                        ).start()
+                        
+        except Exception as e:
+            # Don't let logging errors crash the handler
+            pass
+    
+    def _trigger_restart(self):
+        """Trigger VPS restart via the same mechanism as /restart endpoint"""
+        try:
+            logger = logging.getLogger(__name__)
+            
+            # Use the health server's restart endpoint
+            restart_url = "http://localhost:8080/restart"
+            
+            logger.info(f"🔄 Sending restart request to {restart_url}")
+            
+            response = requests.post(restart_url, timeout=30)
+            
+            if response.status_code == 200:
+                result = response.json()
+                logger.info("✅ VPS restart initiated successfully!")
+                logger.info(f"   Response: {result.get('message', 'No message')}")
+            else:
+                logger.error(f"❌ Restart request failed: {response.status_code}")
+                logger.error(f"   Response: {response.text}")
+                
+        except Exception as e:
+            logger = logging.getLogger(__name__)
+            logger.error(f"❌ Failed to trigger automatic restart: {e}")
+
 # Set up logging
 logging.basicConfig(
     level=logging.INFO,
@@ -51,6 +121,11 @@ logging.basicConfig(
     ]
 )
 logger = logging.getLogger(__name__)
+
+# Add the system clock error handler to the root logger
+clock_handler = SystemClockErrorHandler()
+clock_handler.setLevel(logging.INFO)
+logging.getLogger().addHandler(clock_handler)
 
 
 # Health server classes moved to health_server.py
@@ -1815,6 +1890,11 @@ class TelegramMonitor:
         # Start health check server
         self.health_server.start()
         
+        # Log automatic restart configuration
+        logger.info("🔄 Automatic restart system active:")
+        logger.info("   - System clock errors will trigger VPS restart")
+        logger.info("   - Uses OVH API via health server /restart endpoint")
+        
         # Send single startup notification to Telegram
         self.telegram_feedback.notify_system_status('started', f"Strategy: {ENTRY_STRATEGY}, V: {DEFAULT_VOLUME}")
         
@@ -1826,9 +1906,24 @@ class TelegramMonitor:
             error_msg = f"Unexpected error: {e}"
             logger.error(error_msg)
             
-            # Check if it's a Telegram protocol error
+            # Check if it's a system clock error
             error_str = str(e).lower()
-            if any(keyword in error_str for keyword in ['constructor', 'tlobject', 'remaining bytes', 'protocol']):
+            if any(keyword in error_str for keyword in ['system clock', 'time offset', 'clock error', 'time synchronization']):
+                logger.error("🕐 SYSTEM CLOCK ERROR in main loop - triggering restart")
+                self.telegram_feedback.notify_error("system_clock_error", f"System clock error detected: {error_msg}. Restarting VPS automatically...")
+                
+                # Trigger restart
+                try:
+                    import threading
+                    threading.Thread(
+                        target=self._trigger_emergency_restart, 
+                        daemon=True
+                    ).start()
+                except Exception as restart_err:
+                    logger.error(f"Failed to trigger emergency restart: {restart_err}")
+                    
+            # Check if it's a Telegram protocol error
+            elif any(keyword in error_str for keyword in ['constructor', 'tlobject', 'remaining bytes', 'protocol']):
                 logger.error("🔧 Telegram protocol error detected - session may be corrupted")
                 logger.info("💡 Recommendation: Restart the bot to regenerate session")
                 
@@ -1856,6 +1951,29 @@ class TelegramMonitor:
         
         logger.info("Monitor stopped")
         return True
+    
+    def _trigger_emergency_restart(self):
+        """Emergency restart method for system clock errors"""
+        try:
+            logger.info("🚨 EMERGENCY RESTART - System clock error detected")
+            
+            # Use the health server's restart endpoint
+            restart_url = "http://localhost:8080/restart"
+            
+            logger.info(f"🔄 Sending emergency restart request to {restart_url}")
+            
+            response = requests.post(restart_url, timeout=30)
+            
+            if response.status_code == 200:
+                result = response.json()
+                logger.info("✅ Emergency VPS restart initiated successfully!")
+                logger.info(f"   Response: {result.get('message', 'No message')}")
+            else:
+                logger.error(f"❌ Emergency restart request failed: {response.status_code}")
+                logger.error(f"   Response: {response.text}")
+                
+        except Exception as e:
+            logger.error(f"❌ Failed to trigger emergency restart: {e}")
 
 
 async def main():
