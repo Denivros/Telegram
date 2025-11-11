@@ -124,50 +124,6 @@ class MT5TradingClient:
             entry_price = (range_start + range_end) / 2
             logger.info(f"   📍 MIDPOINT Strategy: Entry = {entry_price}")
             
-        elif ENTRY_STRATEGY == 'range_break':
-            entry_price = range_end if direction == 'buy' else range_start
-            logger.info(f"   📍 RANGE_BREAK Strategy: Entry = {entry_price} ({'range_end' if direction == 'buy' else 'range_start'})")
-            
-        elif ENTRY_STRATEGY == 'momentum':
-            entry_price = range_start if direction == 'buy' else range_end
-            logger.info(f"   📍 MOMENTUM Strategy: Entry = {entry_price} ({'range_start' if direction == 'buy' else 'range_end'})")
-            
-        elif ENTRY_STRATEGY == 'adaptive':
-            if current_price is None:
-                entry_price = (range_start + range_end) / 2
-                logger.info(f"   📍 ADAPTIVE Strategy (no price): Entry = {entry_price} (midpoint)")
-            else:
-                if direction == 'buy':
-                    if current_price > range_end:
-                        # Price is above range - set limit at range top for better entry
-                        entry_price = range_end
-                        logger.info(f"   📍 ADAPTIVE Strategy (BUY): Price {current_price} > range_end {range_end} → Entry = {entry_price}")
-                    elif current_price < range_start:
-                        # Price is below range - set limit slightly above current for quick fill
-                        symbol_info = mt5.symbol_info(symbol)
-                        pip_value = 10 ** (-symbol_info.digits) if symbol_info else 0.0001
-                        entry_price = current_price + (2 * pip_value)  # 2 pips above current
-                        logger.info(f"   📍 ADAPTIVE Strategy (BUY): Price {current_price} < range_start {range_start} → Entry = {entry_price} (+2 pips)")
-                    else:
-                        # Price is in range - set limit at current price
-                        entry_price = current_price
-                        logger.info(f"   📍 ADAPTIVE Strategy (BUY): Price {current_price} in range → Entry = {entry_price}")
-                else:  # sell
-                    if current_price < range_start:
-                        # Price is below range - set limit at range bottom for better entry
-                        entry_price = range_start
-                        logger.info(f"   📍 ADAPTIVE Strategy (SELL): Price {current_price} < range_start {range_start} → Entry = {entry_price}")
-                    elif current_price > range_end:
-                        # Price is above range - set limit slightly below current for quick fill
-                        symbol_info = mt5.symbol_info(symbol)
-                        pip_value = 10 ** (-symbol_info.digits) if symbol_info else 0.0001
-                        entry_price = current_price - (2 * pip_value)  # 2 pips below current
-                        logger.info(f"   📍 ADAPTIVE Strategy (SELL): Price {current_price} > range_end {range_end} → Entry = {entry_price} (-2 pips)")
-                    else:
-                        # Price is in range - set limit at current price
-                        entry_price = current_price
-                        logger.info(f"   📍 ADAPTIVE Strategy (SELL): Price {current_price} in range → Entry = {entry_price}")
-                        
         elif ENTRY_STRATEGY == 'dual_entry':
             # Calculate dual entry points at 1/3 and 2/3 of the range
             range_span = range_end - range_start
@@ -208,38 +164,6 @@ class MT5TradingClient:
                 entry_price = entry_end  # Primary entry for main logic
             
             logger.info(f"      Total Volume: {9 * DEFAULT_VOLUME_MULTI}")
-            
-        elif ENTRY_STRATEGY == 'multi_tp_entry':
-            # Multi-TP strategy uses adaptive entry but with multiple TP levels
-            if direction == 'buy':
-                if current_price < range_start:
-                    entry_price = range_start
-                    logger.info(f"   📍 MULTI_TP_ENTRY Strategy (BUY): Price {current_price} < range_start {range_start} → Entry = {entry_price}")
-                elif current_price > range_end:
-                    symbol_info = mt5.symbol_info(symbol)
-                    pip_value = 10 ** (-symbol_info.digits) if symbol_info else 0.0001
-                    entry_price = current_price + (2 * pip_value)
-                    logger.info(f"   📍 MULTI_TP_ENTRY Strategy (BUY): Price {current_price} > range_end {range_end} → Entry = {entry_price} (+2 pips)")
-                else:
-                    entry_price = current_price
-                    logger.info(f"   📍 MULTI_TP_ENTRY Strategy (BUY): Price {current_price} in range → Entry = {entry_price}")
-            else:  # sell
-                if current_price < range_start:
-                    entry_price = range_start
-                    logger.info(f"   📍 MULTI_TP_ENTRY Strategy (SELL): Price {current_price} < range_start {range_start} → Entry = {entry_price}")
-                elif current_price > range_end:
-                    symbol_info = mt5.symbol_info(symbol)
-                    pip_value = 10 ** (-symbol_info.digits) if symbol_info else 0.0001
-                    entry_price = current_price - (2 * pip_value)
-                    logger.info(f"   📍 MULTI_TP_ENTRY Strategy (SELL): Price {current_price} > range_end {range_end} → Entry = {entry_price} (-2 pips)")
-                else:
-                    entry_price = current_price
-                    logger.info(f"   📍 MULTI_TP_ENTRY Strategy (SELL): Price {current_price} in range → Entry = {entry_price}")
-            
-            logger.info(f"   📊 Will open 5 positions with TP levels: {MULTI_TP_PIPS} pips + Signal TP")
-            logger.info(f"   📊 Volumes: {MULTI_TP_VOLUMES}")
-            total_volume = sum(MULTI_TP_VOLUMES)
-            logger.info(f"   📊 Total Volume: {total_volume}")
             
         elif ENTRY_STRATEGY == 'multi_position_entry':
             # Multi-Position strategy: Fixed entry points at range boundaries
@@ -295,17 +219,6 @@ class MT5TradingClient:
                     {'price': entry_mid, 'volume': 4 * DEFAULT_VOLUME_MULTI},    # Second: 4x at mid
                     {'price': entry_begin, 'volume': 2 * DEFAULT_VOLUME_MULTI}   # LAST: 2x at begin (lowest)
                 ]
-        elif ENTRY_STRATEGY == 'multi_tp_entry':
-            # Multi-TP strategy: 5 positions with different TP levels
-            # All positions use same entry price but different TPs and volumes
-            multi_entries = []
-            for i, (tp_pips, volume) in enumerate(zip(MULTI_TP_PIPS + [None], MULTI_TP_VOLUMES), 1):
-                multi_entries.append({
-                    'price': entry_price,
-                    'volume': volume,
-                    'tp_pips': tp_pips,  # None for TP5 (uses signal TP)
-                    'tp_level': i  # TP1, TP2, TP3, TP4, TP5
-                })
         elif ENTRY_STRATEGY == 'multi_position_entry':
             # Multi-Position strategy: Fixed entry points at range boundaries
             # BUY: 4 at END, 3 at MIDDLE, 2 at START | SELL: 2 at END, 3 at MIDDLE, 4 at START

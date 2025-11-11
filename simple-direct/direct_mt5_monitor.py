@@ -1782,7 +1782,7 @@ class TelegramMonitor:
                        f"SL:{signal['stop_loss']} TP:{signal['take_profit']}")
             
             # Calculate entry
-            entry_data = self.mt5_client.calculate_entry_price(signal)
+            entry_data = self.calculate_entry_price(signal)
             
             # Log entry calculation
             entry_price_to_log = entry_data.get('entry_price', 'Multi-Position')
@@ -1794,7 +1794,7 @@ class TelegramMonitor:
                 logger.info(f"🎯 Multi-position strategy: Multiple entry points calculated")
             
             # Execute limit order
-            result = self.mt5_client.execute_trade(signal, entry_data)
+            result = self.execute_trade(signal, entry_data)
             
             # Log execution result and send Telegram feedback
             self.telegram_logger.log_trade_execution(signal, result)
