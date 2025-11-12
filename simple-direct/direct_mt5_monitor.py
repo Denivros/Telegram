@@ -221,32 +221,6 @@ class TelegramMonitor:
             # Return both entry points for dual execution
             entry_price = entry_1  # Primary entry for main logic
             
-        elif ENTRY_STRATEGY == 'triple_entry':
-            # Calculate triple entry points at begin, mid, and end of the range
-            range_span = range_end - range_start
-            entry_begin = range_start                         # Begin of range
-            entry_mid = range_start + (range_span / 2)       # Mid of range  
-            entry_end = range_end                             # End of range
-            
-            logger.info(f"   📍 TRIPLE_ENTRY Strategy ({direction.upper()}):")
-            logger.info(f"      Range: {range_start} - {range_end} (span: {range_span})")
-            logger.info(f"      Begin: {entry_begin} - Mid: {entry_mid} - End: {entry_end}")
-            
-            if direction == 'buy':
-                logger.info(f"      BUY Order: Begin(4x) → Mid(2x) → End(2x) LAST")
-                logger.info(f"      Entry 1: {entry_begin} - V: {2 * DEFAULT_VOLUME_MULTI}")
-                logger.info(f"      Entry 2: {entry_mid} - V: {4 * DEFAULT_VOLUME_MULTI}")
-                logger.info(f"      Entry 3: {entry_end} - V: {3 * DEFAULT_VOLUME_MULTI} ← LAST")
-                entry_price = entry_begin  # Primary entry for main logic
-            else:
-                logger.info(f"      SELL Order: End(2x) → Mid(3x) → Begin(4x) LAST")
-                logger.info(f"      Entry 1: {entry_end} - V: {2 * DEFAULT_VOLUME_MULTI}")
-                logger.info(f"      Entry 2: {entry_mid} - V: {3 * DEFAULT_VOLUME_MULTI}")
-                logger.info(f"      Entry 3: {entry_begin} - V: {4 * DEFAULT_VOLUME_MULTI} ← LAST")
-                entry_price = entry_end  # Primary entry for main logic
-
-            logger.info(f"      Total V: {9 * DEFAULT_VOLUME_MULTI}")
-
         elif ENTRY_STRATEGY == 'multi_position_entry':
             # Multi-Position strategy: Fixed entry points at range boundaries
             # 4 positions at range END, 3 at MIDDLE, 2 at START
@@ -270,7 +244,7 @@ class TelegramMonitor:
             digits = symbol_info.digits
             entry_price = round(entry_price, digits)
         
-        # Prepare multi-entry data for dual_entry and triple_entry strategies
+        # Prepare multi-entry data for dual_entry
         multi_entries = None
         if ENTRY_STRATEGY == 'dual_entry':
             range_span = range_end - range_start
@@ -280,38 +254,6 @@ class TelegramMonitor:
                 {'price': entry_1, 'volume': 0.07},
                 {'price': entry_2, 'volume': 0.07}
             ]
-        elif ENTRY_STRATEGY == 'triple_entry':
-            range_span = range_end - range_start
-            entry_begin = round(range_start, digits) if symbol_info else range_start                    # Begin of range
-            entry_mid = round(range_start + (range_span / 2), digits) if symbol_info else range_start + (range_span / 2)  # Mid of range
-            entry_end = round(range_end, digits) if symbol_info else range_end                        # End of range
-            
-            # Order entries based on direction - 2x volume always enters LAST
-            if direction == 'buy':
-                # BUY: Price moves up, so 2x volume enters at highest level (end) = LAST
-                multi_entries = [
-                    {'price': entry_begin, 'volume': 3 * DEFAULT_VOLUME_MULTI},  # First: 3x at begin (lowest)
-                    {'price': entry_mid, 'volume': 4 * DEFAULT_VOLUME_MULTI},    # Second: 4x at mid
-                    {'price': entry_end, 'volume': 2 * DEFAULT_VOLUME_MULTI}     # LAST: 2x at end (highest)
-                ]
-            else:  # sell
-                # SELL: Price moves down, so 2x volume enters at lowest level (begin) = LAST
-                multi_entries = [
-                    {'price': entry_end, 'volume': 3 * DEFAULT_VOLUME_MULTI},    # First: 3x at end (highest)
-                    {'price': entry_mid, 'volume': 4 * DEFAULT_VOLUME_MULTI},    # Second: 4x at mid
-                    {'price': entry_begin, 'volume': 2 * DEFAULT_VOLUME_MULTI}   # LAST: 2x at begin (lowest)
-                ]
-        elif ENTRY_STRATEGY == 'multi_tp_entry':
-            # Multi-TP strategy: 5 positions with different TP levels
-            # All positions use same entry price but different TPs and volumes
-            multi_entries = []
-            for i, (tp_pips, volume) in enumerate(zip(MULTI_TP_PIPS + [None], MULTI_TP_VOLUMES), 1):
-                multi_entries.append({
-                    'price': entry_price,
-                    'volume': volume,
-                    'tp_pips': tp_pips,  # None for TP5 (uses signal TP)
-                    'tp_level': i  # TP1, TP2, TP3, TP4, TP5
-                })
         elif ENTRY_STRATEGY == 'multi_position_entry':
             # Multi-Position strategy: Fixed entry points at range boundaries
             # BUY: 4 at END, 3 at MIDDLE, 2 at START | SELL: 2 at END, 3 at MIDDLE, 4 at START
@@ -394,29 +336,29 @@ class TelegramMonitor:
                
                 # Calculate grouped TP progression based on position zone and direction
                 if direction == 'buy':
-                    # BUY: 3 at END, 4 at MIDDLE, 2 at START
-                    if pos['zone'] == 'end':  # 3 positions: TP 200, 400, 600 pips
-                        zone_tp_levels = [200, 400, 600]
-                        zone_index = sum(1 for p in positions[:i] if p['zone'] == 'end')
-                    elif pos['zone'] == 'middle':  # 4 positions: TP 200, 400, 600, 800 pips
-                        zone_tp_levels = [200, 400, 600, 800]
-                        zone_index = sum(1 for p in positions[:i] if p['zone'] == 'middle')
-                    else:  # start - 2 positions: TP 200, 400 pips
+                    # BUY: 2 at END, 3 at MIDDLE, 4 at START
+                    if pos['zone'] == 'end':  # 2 positions: TP 200, 400 pips
                         zone_tp_levels = [200, 400]
+                        zone_index = sum(1 for p in positions[:i] if p['zone'] == 'end')
+                    elif pos['zone'] == 'middle':  # 3 positions: TP 200, 400, 600 pips
+                        zone_tp_levels = [200, 400, 600]
+                        zone_index = sum(1 for p in positions[:i] if p['zone'] == 'middle')
+                    else:  # start - 4 positions: TP 200, 400, 600, 800 pips
+                        zone_tp_levels = [200, 400, 600, 800]
                         zone_index = sum(1 for p in positions[:i] if p['zone'] == 'start')
                     
                     # DEBUG: Log TP assignment
                     logger.info(f"      Position {i+1}: zone='{pos['zone']}', zone_index={zone_index}, tp_levels={zone_tp_levels}")
                 else:  # direction == 'sell'
-                    # SELL: 2 at END, 4 at MIDDLE, 3 at START
+                    # SELL: 2 at END, 3 at MIDDLE, 4 at START
                     if pos['zone'] == 'end':  # 2 positions: TP 200, 400 pips
                         zone_tp_levels = [200, 400]
                         zone_index = sum(1 for p in positions[:i] if p['zone'] == 'end')
-                    elif pos['zone'] == 'middle':  # 4 positions: TP 200, 400, 600, 800 pips
-                        zone_tp_levels = [200, 400, 600, 800]
-                        zone_index = sum(1 for p in positions[:i] if p['zone'] == 'middle')
-                    else:  # start - 3 positions: TP 200, 400, 600 pips
+                    elif pos['zone'] == 'middle':  # 3 positions: TP 200, 400, 600 pips
                         zone_tp_levels = [200, 400, 600]
+                        zone_index = sum(1 for p in positions[:i] if p['zone'] == 'middle')
+                    else:  # start - 4 positions: TP 200, 400, 600, 800 pips
+                        zone_tp_levels = [200, 400, 600, 800]
                         zone_index = sum(1 for p in positions[:i] if p['zone'] == 'start')
                     
                     # DEBUG: Log TP assignment
@@ -427,7 +369,7 @@ class TelegramMonitor:
                 multi_entries.append({
                     'price': pos_price,
                     'volume': POSITION_VOLUME_MULTI,
-                    'tp_pips': tp_pips,  # Grouped TP: range_end(200,400,600,800), range_middle(200,400,600), range_start(200,400)
+                    'tp_pips': tp_pips,  # Grouped TP: range_end(200,400), range_middle(200,400,600), range_start(200,400,600,800)
                     'tp_level': zone_index + 1,
                     'position_zone': pos['zone']
                 })
