@@ -166,11 +166,10 @@ class TelegramFeedback:
     def notify_signal_received(self, signal: Dict[str, Any]):
         """Send notification when new signal is received"""
         message = f"📊 **NEW SIGNAL DETECTED**\n\n"
-        message += f"**Symbol:** {signal['symbol']}\n"
         message += f"**Direction:** {signal['direction'].upper()}\n"
         message += f"**Range:** {signal['range_start']} - {signal['range_end']}\n"
-        message += f"**Stop Loss:** {signal['stop_loss']}\n"
-        message += f"**Take Profit:** {signal['take_profit']}\n"
+        message += f"**SL:** {signal['stop_loss']}\n"
+        message += f"**TP:** {signal['take_profit']}\n"
         message += f"**Time:** {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}"
         
         self.send_feedback(message, signal)
@@ -179,12 +178,11 @@ class TelegramFeedback:
         """Send notification when limit order is placed"""
         if result.get('success'):
             message = f"✅ **LIMIT ORDER PLACED SUCCESSFULLY**\n\n"
-            message += f"**Symbol:** {signal['symbol']}\n"
             message += f"**Direction:** {signal['direction'].upper()}\n"
             message += f"**Limit Price:** {result['entry_price']}\n"
             message += f"**Volume:** {result['volume']}\n"
-            message += f"**Stop Loss:** {signal['stop_loss']}\n"
-            message += f"**Take Profit:** {signal['take_profit']}\n"
+            message += f"**SL:** {signal['stop_loss']}\n"
+            message += f"**TP:** {signal['take_profit']}\n"
             message += f"**Order Type:** LIMIT (Pending)\n"
             
             if 'order_id' in result:
@@ -196,7 +194,6 @@ class TelegramFeedback:
             message += f"💡 *Order will execute when market reaches limit price*"
         else:
             message = f"❌ **LIMIT ORDER PLACEMENT FAILED**\n\n"
-            message += f"**Symbol:** {signal['symbol']}\n"
             message += f"**Direction:** {signal['direction'].upper()}\n"
             message += f"**Attempted Limit Price:** {result.get('entry_price', 'N/A')}\n"
             message += f"**Error:** {result.get('error', 'Unknown error')}\n"
