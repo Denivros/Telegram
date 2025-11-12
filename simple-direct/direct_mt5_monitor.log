@@ -19658,3 +19658,12 @@ TP : 4105/4090...
 2025-11-12 14:11:01,502 - telethon.client.updates - INFO - Got difference for channel 2848189989 updates
 2025-11-12 14:15:37,854 - telethon.client.updates - INFO - Got difference for channel 2848189989 updates
 2025-11-12 14:16:32,603 - telethon.client.updates - INFO - Got difference for channel 2848189989 updates
+2025-11-12 15:07:37,710 - __main__ - INFO - 🔍 MESSAGE HANDLER CALLED:
+2025-11-12 15:07:37,718 - __main__ - INFO -    Message ID: 44894
+2025-11-12 15:07:37,719 - __main__ - INFO -    From user: None
+2025-11-12 15:07:37,719 - __main__ - INFO -    Chat ID: PeerChannel(channel_id=1623437581)
+2025-11-12 15:07:37,720 - __main__ - INFO -    Has text: True
+2025-11-12 15:07:37,720 - __main__ - INFO -    Message type: <class 'telethon.tl.types.MessageMediaDocument'>
+2025-11-12 15:07:37,721 - __main__ - INFO -    📹 VIDEO MESSAGE IGNORED - No text content to process
+2025-11-12 15:07:37,722 - __main__ - INFO -       Video mime type: video/mp4
+2025-11-12 15:07:37,722 - __main__ - INFO - 📝 MESSAGE IGNORED: Video message (ID: 44894) - No text content

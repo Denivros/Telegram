@@ -139,32 +139,6 @@ class MT5TradingClient:
             # Return both entry points for dual execution
             entry_price = entry_1  # Primary entry for main logic
             
-        elif ENTRY_STRATEGY == 'triple_entry':
-            # Calculate triple entry points at begin, mid, and end of the range
-            range_span = range_end - range_start
-            entry_begin = range_start                         # Begin of range
-            entry_mid = range_start + (range_span / 2)       # Mid of range  
-            entry_end = range_end                             # End of range
-            
-            logger.info(f"   📍 TRIPLE_ENTRY Strategy ({direction.upper()}):")
-            logger.info(f"      Range: {range_start} - {range_end} (span: {range_span})")
-            logger.info(f"      Begin: {entry_begin} - Mid: {entry_mid} - End: {entry_end}")
-            
-            if direction == 'buy':
-                logger.info(f"      BUY Order: Begin(4x) → Mid(2x) → End(2x) LAST")
-                logger.info(f"      Entry 1: {entry_begin} - Volume: {2 * DEFAULT_VOLUME_MULTI}")
-                logger.info(f"      Entry 2: {entry_mid} - Volume: {4 * DEFAULT_VOLUME_MULTI}")
-                logger.info(f"      Entry 3: {entry_end} - Volume: {3 * DEFAULT_VOLUME_MULTI} ← LAST")
-                entry_price = entry_begin  # Primary entry for main logic
-            else:
-                logger.info(f"      SELL Order: End(2x) → Mid(3x) → Begin(4x) LAST")
-                logger.info(f"      Entry 1: {entry_end} - Volume: {2 * DEFAULT_VOLUME_MULTI}")
-                logger.info(f"      Entry 2: {entry_mid} - Volume: {3 * DEFAULT_VOLUME_MULTI}")
-                logger.info(f"      Entry 3: {entry_begin} - Volume: {4 * DEFAULT_VOLUME_MULTI} ← LAST")
-                entry_price = entry_end  # Primary entry for main logic
-            
-            logger.info(f"      Total Volume: {9 * DEFAULT_VOLUME_MULTI}")
-            
         elif ENTRY_STRATEGY == 'multi_position_entry':
             # Multi-Position strategy: Fixed entry points at range boundaries
             # 4 positions at range END, 3 at MIDDLE, 2 at START
@@ -188,7 +162,7 @@ class MT5TradingClient:
             digits = symbol_info.digits
             entry_price = round(entry_price, digits)
         
-        # Prepare multi-entry data for dual_entry and triple_entry strategies
+        # Prepare multi-entry data for dual_entry strategies
         multi_entries = None
         if ENTRY_STRATEGY == 'dual_entry':
             range_span = range_end - range_start
@@ -198,27 +172,6 @@ class MT5TradingClient:
                 {'price': entry_1, 'volume': 0.07},
                 {'price': entry_2, 'volume': 0.07}
             ]
-        elif ENTRY_STRATEGY == 'triple_entry':
-            range_span = range_end - range_start
-            entry_begin = round(range_start, digits) if symbol_info else range_start                    # Begin of range
-            entry_mid = round(range_start + (range_span / 2), digits) if symbol_info else range_start + (range_span / 2)  # Mid of range
-            entry_end = round(range_end, digits) if symbol_info else range_end                        # End of range
-            
-            # Order entries based on direction - 2x volume always enters LAST
-            if direction == 'buy':
-                # BUY: Price moves up, so 2x volume enters at highest level (end) = LAST
-                multi_entries = [
-                    {'price': entry_begin, 'volume': 3 * DEFAULT_VOLUME_MULTI},  # First: 3x at begin (lowest)
-                    {'price': entry_mid, 'volume': 4 * DEFAULT_VOLUME_MULTI},    # Second: 4x at mid
-                    {'price': entry_end, 'volume': 2 * DEFAULT_VOLUME_MULTI}     # LAST: 2x at end (highest)
-                ]
-            else:  # sell
-                # SELL: Price moves down, so 2x volume enters at lowest level (begin) = LAST
-                multi_entries = [
-                    {'price': entry_end, 'volume': 3 * DEFAULT_VOLUME_MULTI},    # First: 3x at end (highest)
-                    {'price': entry_mid, 'volume': 4 * DEFAULT_VOLUME_MULTI},    # Second: 4x at mid
-                    {'price': entry_begin, 'volume': 2 * DEFAULT_VOLUME_MULTI}   # LAST: 2x at begin (lowest)
-                ]
         elif ENTRY_STRATEGY == 'multi_position_entry':
             # Multi-Position strategy: Fixed entry points at range boundaries
             # BUY: 4 at END, 3 at MIDDLE, 2 at START | SELL: 2 at END, 3 at MIDDLE, 4 at START
@@ -391,130 +344,7 @@ class MT5TradingClient:
             'range_end': range_end,
             'multi_entries': multi_entries  # None for single, [{'price': x, 'volume': y}, ...] for multi-entry
         }
-    
-    def execute_trade(self, signal: Dict[str, Any], entry_data: Dict[str, Any]) -> Dict[str, Any]:
-        """Execute the trading signal - Handle both single and dual entry strategies"""
-        try:
-            symbol = signal['symbol']
-            direction = signal['direction']
-            entry_price = entry_data['entry_price']
-            
-            # Check if this is a multi-entry strategy (dual, triple, or multi-tp)
-            multi_entries = entry_data.get('multi_entries')
-            if multi_entries:
-                if len(multi_entries) == 2:
-                    logger.info(f"🎯 DUAL ENTRY STRATEGY DETECTED!")
-                    logger.info(f"   Placing TWO orders with 0.07 volume each")
-                    return self._execute_multi_trades(signal, multi_entries)
-                elif len(multi_entries) == 3:
-                    logger.info(f"🎯 TRIPLE ENTRY STRATEGY DETECTED!")
-                    total_vol = sum(entry['volume'] for entry in multi_entries)
-                    logger.info(f"   Placing THREE orders with total volume: {total_vol}")
-                    return self._execute_multi_trades(signal, multi_entries)
-                elif len(multi_entries) == 5 and multi_entries[0].get('tp_pips') is not None and not multi_entries[0].get('position_zone'):
-                    logger.info(f"🎯 MULTI-TP ENTRY STRATEGY DETECTED!")
-                    total_vol = sum(entry['volume'] for entry in multi_entries)
-                    logger.info(f"   Placing FIVE orders with different TP levels, total volume: {total_vol}")
-                    return self._execute_multi_tp_trades(signal, multi_entries)
-                elif len(multi_entries) == NUMBER_POSITIONS_MULTI and multi_entries[0].get('position_zone'):
-                    logger.info(f"🎯 MULTI-POSITION ENTRY STRATEGY DETECTED!")
-                    total_vol = sum(entry['volume'] for entry in multi_entries)
-                    logger.info(f"   Placing {NUMBER_POSITIONS_MULTI} orders with DYNAMIC distribution, total volume: {total_vol}")
-                    logger.info(f"   Distribution: Closer to current price gets more positions (4/3/2 pattern)")
-                    return self._execute_multi_tp_trades(signal, multi_entries)  # Reuse multi-TP handler
-                else:
-                    # Fallback for other multi-entry strategies
-                    return self._execute_multi_trades(signal, multi_entries)
-            
-            # Single entry logic
-            # Get current market price for comparison
-            tick = mt5.symbol_info_tick(symbol)
-            if not tick:
-                return {
-                    'success': False,
-                    'error': f"Could not get market price for {symbol}",
-                    'entry_price': entry_price,
-                    'volume': DEFAULT_VOLUME
-                }
-            
-            current_ask = tick.ask
-            current_bid = tick.bid
-            
-            # DEBUG: Show current market vs entry price
-            logger.info(f"🔍 ORDER TYPE DETERMINATION:")
-            logger.info(f"   Current Market: Bid={current_bid}, Ask={current_ask}")
-            logger.info(f"   Entry Price: {entry_price}")
-            logger.info(f"   Direction: {direction.upper()}")
-            
-            # Use LIMIT orders at the calculated entry price
-            if direction == 'buy':
-                order_type_mt5 = mt5.ORDER_TYPE_BUY_LIMIT
-                logger.info(f"   ✅ BUY LIMIT order at {entry_price}")
-            else:  # sell
-                order_type_mt5 = mt5.ORDER_TYPE_SELL_LIMIT
-                logger.info(f"   ✅ SELL LIMIT order at {entry_price}")
 
-            logger.info(f"   💡 Order will trigger when market reaches {entry_price}")
-            logger.info(f"   💡 Take Profit (TP): {signal['take_profit']}, Stop Loss (SL): {signal['stop_loss']}")
-            
-            # Use volume from signal, fallback to default if not provided
-            volume = signal.get('volume', DEFAULT_VOLUME)
-            logger.info(f"   Volume: {volume}")
-            
-            # Prepare limit order request
-            request = {
-                "action": mt5.TRADE_ACTION_PENDING,
-                "symbol": symbol,
-                "volume": volume,
-                "type": order_type_mt5,
-                "price": entry_price,  # Always use the calculated entry price
-                "sl": signal['stop_loss'],
-                "tp": signal['take_profit'],
-                "magic": MAGIC_NUMBER,
-                "comment": f"TG Limit {ENTRY_STRATEGY}",
-                "type_time": mt5.ORDER_TIME_GTC,  # Good Till Cancelled
-                "type_filling": mt5.ORDER_FILLING_RETURN,  # Return execution for limit orders
-            }
-            
-            # Send order (no stoplimit needed for simple LIMIT orders)
-            result = mt5.order_send(request)
-            
-            if result.retcode != mt5.TRADE_RETCODE_DONE:
-                return {
-                    'success': False,
-                    'error': f"Order failed: {result.retcode} - {result.comment}",
-                    'entry_price': entry_price,
-                    'volume': DEFAULT_VOLUME
-                }
-            
-            # DEBUG: Log order placement result
-            logger.info(f"✅ ORDER PLACED SUCCESSFULLY:")
-            logger.info(f"   Order ID: {result.order}")
-            logger.info(f"   Deal ID: {result.deal}")
-            logger.info(f"   Return Code: {result.retcode}")
-            logger.info(f"   Comment: {result.comment}")
-            
-            # Check order status immediately after placement
-            self.check_order_status()
-            
-            return {
-                'success': True,
-                'order': result.order,
-                'deal': result.deal,
-                'entry_price': entry_price,
-                'volume': DEFAULT_VOLUME,
-                'retcode': result.retcode,
-                'comment': result.comment
-            }
-            
-        except Exception as e:
-            return {
-                'success': False,
-                'error': f"Exception: {str(e)}",
-                'entry_price': entry_data.get('entry_price', 0),
-                'volume': DEFAULT_VOLUME
-            }
-    
     def _execute_multi_trades(self, signal: Dict[str, Any], multi_entries: list) -> Dict[str, Any]:
         """Execute multi-entry trades (dual or triple) with flexible volumes"""
         try:
@@ -653,7 +483,7 @@ class MT5TradingClient:
                 return {
                     'success': True,
                     'multi_entry': True,
-                    'entry_type': 'triple' if entry_count == 3 else 'dual',
+                    'entry_type': 'dual',
                     'orders_placed': successful_orders,
                     'total_volume': total_volume,
                     'entry_prices': entry_prices,
@@ -664,7 +494,7 @@ class MT5TradingClient:
                 return {
                     'success': True,
                     'multi_entry': True,
-                    'entry_type': 'triple' if entry_count == 3 else 'dual',
+                    'entry_type': 'dual',
                     'orders_placed': successful_orders,
                     'total_volume': sum([r['volume'] for r in results if r.get('success', False)]),
                     'entry_prices': entry_prices,
@@ -676,7 +506,7 @@ class MT5TradingClient:
                 return {
                     'success': False,
                     'multi_entry': True,
-                    'entry_type': 'triple' if entry_count == 3 else 'dual',
+                    'entry_type': 'dual',
                     'orders_placed': 0,
                     'total_volume': 0,
                     'entry_prices': entry_prices,

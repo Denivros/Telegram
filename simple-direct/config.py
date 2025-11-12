@@ -36,7 +36,7 @@ BE_PARTIAL_VOLUME = float(os.getenv('BE_PARTIAL_VOLUME', '0.01'))  # Volume to c
 BE_PARTIAL_VOLUME_MULTI = float(os.getenv('BE_PARTIAL_VOLUME_MULTI', '0.01'))  # Volume to close when moving to BE (multi-entry)
 PARTIALS_VOLUME = float(os.getenv('PARTIALS_VOLUME', '0.02'))      # Volume to close for partial profits (single entry)
 PARTIALS_VOLUME_MULTI = float(os.getenv('PARTIALS_VOLUME_MULTI', '0.01'))      # Volume to close for partial profits (multi-entry)
-ENTRY_STRATEGY = os.getenv('ENTRY_STRATEGY', 'adaptive')  # adaptive, midpoint, range_break, momentum, dual_entry, triple_entry, multi_tp_entry, multi_position_entry
+ENTRY_STRATEGY = os.getenv('ENTRY_STRATEGY', 'adaptive')  # adaptive, midpoint, range_break, momentum, dual_entry, multi_tp_entry, multi_position_entry
 MAGIC_NUMBER = int(os.getenv('MAGIC_NUMBER', '123456'))
 
 # Multi-TP Strategy Configuration
@@ -113,12 +113,12 @@ OVH_SERVICE_NAME = os.getenv('OVH_SERVICE_NAME')  # Your VPS service name (e.g.,
 # =============================================================================
 def get_partials_volume():
     """Get partial profit volume based on current strategy"""
-    if ENTRY_STRATEGY in ['dual_entry', 'triple_entry', 'multi_tp_entry', 'multi_position_entry']:
+    if ENTRY_STRATEGY in ['dual_entry', 'multi_tp_entry', 'multi_position_entry']:
         return PARTIALS_VOLUME_MULTI
     return PARTIALS_VOLUME
 
 def get_be_partial_volume():
     """Get break-even partial volume based on current strategy"""
-    if ENTRY_STRATEGY in ['dual_entry', 'triple_entry', 'multi_tp_entry', 'multi_position_entry']:
+    if ENTRY_STRATEGY in ['dual_entry', 'multi_tp_entry', 'multi_position_entry']:
         return BE_PARTIAL_VOLUME_MULTI
     return BE_PARTIAL_VOLUME
