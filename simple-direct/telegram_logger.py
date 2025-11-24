@@ -176,11 +176,19 @@ class TelegramFeedback:
     
     def notify_trade_executed(self, signal: Dict[str, Any], result: Dict[str, Any]):
         """Send notification when limit order is placed"""
-        if result.get('success'):
+        if result['success']:
             message = f"✅ **LIMIT ORDER PLACED SUCCESSFULLY**\n\n"
             message += f"**Direction:** {signal['direction'].upper()}\n"
-            message += f"**Limit Price:** {result['entry_price']}\n"
-            message += f"**Volume:** {result['volume']}\n"
+            
+            # Handle both single entry_price and multi entry_prices
+            if 'entry_price' in result:
+                message += f"**Limit Price:** {result['entry_price']}\n"
+                message += f"**Volume:** {result['volume']}\n"
+            elif 'entry_prices' in result:
+                message += f"**Multi-Position:** {len(result['entry_prices'])} orders at {result['entry_prices']}\n"
+                message += f"**Total Volume:** {result.get('total_volume', 'N/A')}\n"
+            else:
+                message += f"**Volume:** {result.get('volume', 'N/A')}\n"
             message += f"**SL:** {signal['stop_loss']}\n"
             message += f"**TP:** {signal['take_profit']}\n"
             message += f"**Order Type:** LIMIT (Pending)\n"

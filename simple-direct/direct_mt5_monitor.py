@@ -11,6 +11,7 @@ import os
 import re
 import requests
 import sys
+import time
 from datetime import datetime
 from typing import Dict, Any
 
@@ -48,6 +49,7 @@ class SystemClockErrorHandler(logging.Handler):
     
     def __init__(self):
         super().__init__()
+        self.start_time = time.time()  # Track when handler was created
         self.restart_triggered = False
         
     def emit(self, record):
@@ -69,6 +71,17 @@ class SystemClockErrorHandler(logging.Handler):
                 ]
                 
                 if any(pattern in message for pattern in clock_error_patterns):
+                    current_time = time.time()
+                    
+                    # Ignore clock errors during startup (first 60 seconds)
+                    if current_time - self.start_time < 60:
+                        logger = logging.getLogger(__name__)
+                        logger.warning("🕐 SYSTEM CLOCK ERROR DETECTED (startup) - ignoring during grace period")
+                        logger.warning(f"   Error message: {record.getMessage()}")
+                        logger.warning(f"   Grace period: {60 - (current_time - self.start_time):.0f}s remaining")
+                        return
+                    
+                    # Only trigger restart once after startup period
                     if not self.restart_triggered:
                         self.restart_triggered = True
                         logger = logging.getLogger(__name__)
@@ -216,7 +229,7 @@ class TelegramMonitor:
             logger.info(f"      Range: {range_start} - {range_end} (span: {range_span})")
             logger.info(f"      Entry 1 (1/3): {entry_1}")
             logger.info(f"      Entry 2 (2/3): {entry_2}")
-            logger.info(f"      V each: 0.07")
+            logger.info(f"      Volume each: 0.07")
             
             # Return both entry points for dual execution
             entry_price = entry_1  # Primary entry for main logic
@@ -228,11 +241,11 @@ class TelegramMonitor:
             range_middle = range_start + ((range_end - range_start) / 2)
             
             logger.info(f"   📍 MULTI_POSITION_ENTRY Strategy ({direction.upper()}):")
-            logger.info(f"   📊 Will open {NUMBER_POSITIONS_MULTI} positions at fixed range points")
+            logger.info(f"   📊 Will open {NUMBER_POSITIONS_MULTI} positions with BOUNDARY-based distribution")
             logger.info(f"   📊 Range: {range_start} (START) - {range_middle} (MIDDLE) - {range_end} (END)")
-            logger.info(f"   📊 Distribution: 4 at END ({range_end}) + 3 at MIDDLE ({range_middle}) + 2 at START ({range_start})")
-            logger.info(f"   📊 V per pos: {POSITION_VOLUME_MULTI}")
-            logger.info(f"   📊 Total V: {NUMBER_POSITIONS_MULTI * POSITION_VOLUME_MULTI}")
+            logger.info(f"   📊 Logic: 4 positions at boundary closest to price + 3 at MIDDLE + 2 at other boundary")
+            logger.info(f"   📊 Standard volume: {POSITION_VOLUME_MULTI}, First position at closest boundary: {2 * POSITION_VOLUME_MULTI} (DOUBLE)")
+            logger.info(f"   📊 Total Volume: {(NUMBER_POSITIONS_MULTI - 1) * POSITION_VOLUME_MULTI + (2 * POSITION_VOLUME_MULTI)}")
             logger.info(f"   📊 TP levels: 200, 400, 600, 800 pips per zone from entry")
             
         else:
@@ -244,7 +257,7 @@ class TelegramMonitor:
             digits = symbol_info.digits
             entry_price = round(entry_price, digits)
         
-        # Prepare multi-entry data for dual_entry
+        # Prepare multi-entry data for dual_entry strategies
         multi_entries = None
         if ENTRY_STRATEGY == 'dual_entry':
             range_span = range_end - range_start
@@ -261,118 +274,68 @@ class TelegramMonitor:
             range_span = range_end - range_start
             range_middle = range_start + (range_span / 2)
             
-            # Create positions at fixed levels (distribution depends on direction)
-            positions = []
+            # Simple approach: Create array of positions with price, volume, and TP
+            # Determine which boundary is closest to current price
+            if current_price is None:
+                closest_to_price = 'start'
+                logger.info(f"   ⚠️  No current price available, defaulting 4 positions to START")
+            else:
+                distance_to_start = abs(current_price - range_start)
+                distance_to_end = abs(current_price - range_end)
+                closest_to_price = 'start' if distance_to_start <= distance_to_end else 'end'
+                
+                logger.info(f"   📍 BOUNDARY-BASED DISTRIBUTION:")
+                logger.info(f"      Current Price: {current_price}")
+                logger.info(f"      Range: {range_start} (START) - {range_middle} (MIDDLE) - {range_end} (END)")
+                logger.info(f"      Distances: START={distance_to_start:.2f}, END={distance_to_end:.2f}")
+                logger.info(f"      ✅ 4 positions will be placed at {closest_to_price.upper()} (closest to price)")
             
-            if direction == 'buy':
-                # BUY: More positions at higher price (range_end) - 4,3,2 distribution
-                # 4 positions at range END
-                for i in range(4):
-                    positions.append({
-                        'price': range_end,
-                        'zone': 'end',
-                        'position_number': i + 1
-                    })
-                
-                # 3 positions at range MIDDLE  
-                for i in range(3):
-                    positions.append({
-                        'price': range_middle,
-                        'zone': 'middle', 
-                        'position_number': i + 5
-                    })
-                
-                # 2 positions at range START
-                for i in range(2):
-                    positions.append({
-                        'price': range_start,
-                        'zone': 'start',
-                        'position_number': i + 8
-                    })
-            else:  # direction == 'sell'
-                # SELL: More positions at lower price (range_start) - 2,3,4 distribution
-                # 2 positions at range END
-                for i in range(2):
-                    positions.append({
-                        'price': range_end,
-                        'zone': 'end',
-                        'position_number': i + 1
-                    })
-                
-                # 3 positions at range MIDDLE  
-                for i in range(3):
-                    positions.append({
-                        'price': range_middle,
-                        'zone': 'middle', 
-                        'position_number': i + 3
-                    })
-                
-                # 4 positions at range START
-                for i in range(4):
-                    positions.append({
-                        'price': range_start,
-                        'zone': 'start',
-                        'position_number': i + 6
-                    })
+            # Create multi_entries directly with correct volumes
+            multi_entries = []
+            
+            if closest_to_price == 'start':
+                logger.info(f"      📊 Distribution: 4 at START (first 2 double volume) + 3 at MIDDLE + 1 at END")
+                # 4 positions at START (closest to price) - first 2 get double volume
+                multi_entries.extend([
+                    {'price': round(range_start, symbol_info.digits) if symbol_info else range_start, 'volume': 0.02, 'tp_pips': 200, 'tp_level': 1, 'position_zone': 'start'},
+                    {'price': round(range_start, symbol_info.digits) if symbol_info else range_start, 'volume': 0.02, 'tp_pips': 400, 'tp_level': 2, 'position_zone': 'start'},
+                    {'price': round(range_start, symbol_info.digits) if symbol_info else range_start, 'volume': 0.01, 'tp_pips': 600, 'tp_level': 3, 'position_zone': 'start'},
+                    {'price': round(range_start, symbol_info.digits) if symbol_info else range_start, 'volume': 0.01, 'tp_pips': 800, 'tp_level': 4, 'position_zone': 'start'},
+                ])
+                # 3 positions at MIDDLE
+                multi_entries.extend([
+                    {'price': round(range_middle, symbol_info.digits) if symbol_info else range_middle, 'volume': 0.01, 'tp_pips': 200, 'tp_level': 5, 'position_zone': 'middle'},
+                    {'price': round(range_middle, symbol_info.digits) if symbol_info else range_middle, 'volume': 0.01, 'tp_pips': 400, 'tp_level': 6, 'position_zone': 'middle'},
+                    {'price': round(range_middle, symbol_info.digits) if symbol_info else range_middle, 'volume': 0.01, 'tp_pips': 600, 'tp_level': 7, 'position_zone': 'middle'},
+                ])
+                # 1 position at END
+                multi_entries.append({'price': round(range_end, symbol_info.digits) if symbol_info else range_end, 'volume': 0.01, 'tp_pips': 200, 'tp_level': 8, 'position_zone': 'end'})
+            else:  # closest_to_price == 'end'
+                logger.info(f"      📊 Distribution: 1 at START + 3 at MIDDLE + 4 at END (first 2 double volume)")
+                # 1 position at START
+                multi_entries.append({'price': round(range_start, symbol_info.digits) if symbol_info else range_start, 'volume': 0.01, 'tp_pips': 200, 'tp_level': 1, 'position_zone': 'start'})
+                # 3 positions at MIDDLE
+                multi_entries.extend([
+                    {'price': round(range_middle, symbol_info.digits) if symbol_info else range_middle, 'volume': 0.01, 'tp_pips': 200, 'tp_level': 2, 'position_zone': 'middle'},
+                    {'price': round(range_middle, symbol_info.digits) if symbol_info else range_middle, 'volume': 0.01, 'tp_pips': 400, 'tp_level': 3, 'position_zone': 'middle'},
+                    {'price': round(range_middle, symbol_info.digits) if symbol_info else range_middle, 'volume': 0.01, 'tp_pips': 600, 'tp_level': 4, 'position_zone': 'middle'},
+                ])
+                # 4 positions at END (closest to price) - first 2 get double volume
+                multi_entries.extend([
+                    {'price': round(range_end, symbol_info.digits) if symbol_info else range_end, 'volume': 0.02, 'tp_pips': 200, 'tp_level': 5, 'position_zone': 'end'},
+                    {'price': round(range_end, symbol_info.digits) if symbol_info else range_end, 'volume': 0.02, 'tp_pips': 400, 'tp_level': 6, 'position_zone': 'end'},
+                    {'price': round(range_end, symbol_info.digits) if symbol_info else range_end, 'volume': 0.01, 'tp_pips': 600, 'tp_level': 7, 'position_zone': 'end'},
+                    {'price': round(range_end, symbol_info.digits) if symbol_info else range_end, 'volume': 0.01, 'tp_pips': 800, 'tp_level': 8, 'position_zone': 'end'},
+                ])
             
             # Set entry_price as range middle for multi-position strategy (representative value)
             entry_price = range_middle
             
-            # DEBUG: Log position distribution before processing
-            logger.info(f"   🔍 DEBUG Position Distribution:")
-            logger.info(f"      Total positions created: {len(positions)}")
-            logger.info(f"      NUMBER_POSITIONS_MULTI: {NUMBER_POSITIONS_MULTI}")
-            zone_counts = {}
-            for p in positions:
-                zone_counts[p['zone']] = zone_counts.get(p['zone'], 0) + 1
-            logger.info(f"      Zone distribution: {zone_counts}")
-            
-            # Create multi_entries with grouped TPs (200, 400, 600, 800 pips per zone)
-            multi_entries = []
-            for i, pos in enumerate(positions[:NUMBER_POSITIONS_MULTI]):
-                pos_price = pos['price']
-                if symbol_info:
-                    pos_price = round(pos_price, symbol_info.digits)
-               
-                # Calculate grouped TP progression based on position zone and direction
-                if direction == 'buy':
-                    # BUY: 2 at END, 3 at MIDDLE, 4 at START
-                    if pos['zone'] == 'end':  # 2 positions: TP 200, 400 pips
-                        zone_tp_levels = [200, 400]
-                        zone_index = sum(1 for p in positions[:i] if p['zone'] == 'end')
-                    elif pos['zone'] == 'middle':  # 3 positions: TP 200, 400, 600 pips
-                        zone_tp_levels = [200, 400, 600]
-                        zone_index = sum(1 for p in positions[:i] if p['zone'] == 'middle')
-                    else:  # start - 4 positions: TP 200, 400, 600, 800 pips
-                        zone_tp_levels = [200, 400, 600, 800]
-                        zone_index = sum(1 for p in positions[:i] if p['zone'] == 'start')
-                    
-                    # DEBUG: Log TP assignment
-                    logger.info(f"      Position {i+1}: zone='{pos['zone']}', zone_index={zone_index}, tp_levels={zone_tp_levels}")
-                else:  # direction == 'sell'
-                    # SELL: 2 at END, 3 at MIDDLE, 4 at START
-                    if pos['zone'] == 'end':  # 2 positions: TP 200, 400 pips
-                        zone_tp_levels = [200, 400]
-                        zone_index = sum(1 for p in positions[:i] if p['zone'] == 'end')
-                    elif pos['zone'] == 'middle':  # 3 positions: TP 200, 400, 600 pips
-                        zone_tp_levels = [200, 400, 600]
-                        zone_index = sum(1 for p in positions[:i] if p['zone'] == 'middle')
-                    else:  # start - 4 positions: TP 200, 400, 600, 800 pips
-                        zone_tp_levels = [200, 400, 600, 800]
-                        zone_index = sum(1 for p in positions[:i] if p['zone'] == 'start')
-                    
-                    # DEBUG: Log TP assignment
-                    logger.info(f"      Position {i+1}: zone='{pos['zone']}', zone_index={zone_index}, tp_levels={zone_tp_levels}")
-                
-                tp_pips = zone_tp_levels[zone_index] if zone_index < len(zone_tp_levels) else zone_tp_levels[-1]
-                
-                multi_entries.append({
-                    'price': pos_price,
-                    'volume': POSITION_VOLUME_MULTI,
-                    'tp_pips': tp_pips,  # Grouped TP: range_end(200,400), range_middle(200,400,600), range_start(200,400,600,800)
-                    'tp_level': zone_index + 1,
-                    'position_zone': pos['zone']
-                })
+            # Log final configuration
+            logger.info(f"   📊 FINAL POSITION CONFIGURATION:")
+            for i, entry in enumerate(multi_entries[:NUMBER_POSITIONS_MULTI], 1):
+                volume_label = "DOUBLE" if entry['volume'] == 0.02 else "standard"
+                logger.info(f"      Position {i}: {entry['position_zone'].upper()} @ {entry['price']}, Vol: {entry['volume']} ({volume_label}), TP: {entry['tp_pips']} pips")
         
         return {
             'entry_price': entry_price,
@@ -383,13 +346,13 @@ class TelegramMonitor:
             'range_end': range_end,
             'multi_entries': multi_entries  # None for single, [{'price': x, 'volume': y}, ...] for multi-entry
         }
-    
+
     def execute_trade(self, signal: Dict[str, Any], entry_data: Dict[str, Any]) -> Dict[str, Any]:
         """Execute the trading signal - Handle both single and dual entry strategies"""
         try:
             symbol = signal['symbol']
             direction = signal['direction']
-            entry_price = entry_data['entry_price']
+            entry_price = entry_data.get('entry_price', 0)
             
             # Check if this is a multi-entry strategy (dual or multi-position) - delegate to MT5TradingClient
             multi_entries = entry_data.get('multi_entries')
@@ -460,6 +423,14 @@ class TelegramMonitor:
             
             # Send order (no stoplimit needed for simple LIMIT orders)
             result = mt5.order_send(request)
+            
+            if result is None:
+                return {
+                    'success': False,
+                    'error': "MT5 connection failed - order_send returned None",
+                    'entry_price': entry_price,
+                    'volume': DEFAULT_VOLUME
+                }
             
             if result.retcode != mt5.TRADE_RETCODE_DONE:
                 return {
@@ -644,7 +615,7 @@ class TelegramMonitor:
             'sl to entry', 'move stop to entry', 'sl be', 'sl to be', 
             'set slto be', 'set slto be & take partials now',
             'sl to be and take partials here', 'sl to be& take partials'
-            'take partials set sl to be now'
+            'take partials set sl to be now', 'set sl to be take partials'
         ]
         
         message_lower = message_text.lower()
@@ -654,11 +625,9 @@ class TelegramMonitor:
         return False
     
     def move_sl_to_break_even(self):
-        """Move Stop Loss to break even (entry price) and close strategy-aware BE partial volume for all open positions"""
-        be_partial_vol = get_be_partial_volume()
+        """Move Stop Loss to break even (entry price) for all open positions"""
         logger.info(f"🎯 MOVING STOP LOSS TO BREAK EVEN:")
         logger.info(f"   Strategy: {ENTRY_STRATEGY}")
-        logger.info(f"   BE partial volume to close: {be_partial_vol}")
         
         # Cancel all pending orders when moving to break even
         logger.info(f"🚫 Cancelling pending orders (SL to BE triggered)")
@@ -680,15 +649,49 @@ class TelegramMonitor:
         
         for pos in positions:
             try:
-                # Use entry price as break even
-                new_sl = pos.price_open
+                # Check if position is in profit or loss
+                current_profit = pos.profit
+                is_in_loss = current_profit < 0
                 
-                # Check if SL is already at break even (with small tolerance for floating point comparison)
+                # Get symbol info for pip calculation
+                symbol_info = mt5.symbol_info(pos.symbol)
+                if symbol_info:
+                    pip_value = 10 ** (-symbol_info.digits + (1 if symbol_info.digits == 5 or symbol_info.digits == 3 else 0))
+                else:
+                    pip_value = 0.0001  # Default for most pairs
+                
+                if is_in_loss:
+                    # Position is in loss - move SL to current price - 500 pips
+                    current_price = pos.price_current
+                    pips_offset = 500 * pip_value
+                    
+                    if pos.type == 0:  # BUY position
+                        new_sl = current_price - pips_offset
+                    else:  # SELL position  
+                        new_sl = current_price + pips_offset
+                        
+                    # Round to symbol digits
+                    if symbol_info:
+                        new_sl = round(new_sl, symbol_info.digits)
+                    
+                    logger.info(f"   📉 Position {pos.ticket} IN LOSS (${current_profit:.2f}):")
+                    logger.info(f"      Using LOSS PROTECTION: Current Price - 500 pips")
+                    logger.info(f"      Current Price: {current_price}")
+                    logger.info(f"      500 Pip Offset: {pips_offset}")
+                    logger.info(f"      New SL: {new_sl} (500 pips below/above current)")
+                else:
+                    # Position is in profit - use entry price as break even
+                    new_sl = pos.price_open
+                    logger.info(f"   📈 Position {pos.ticket} IN PROFIT (${current_profit:.2f}):")
+                    logger.info(f"      Using STANDARD BE: Entry Price")
+                    logger.info(f"      Entry Price: {pos.price_open}")
+                
+                # Check if SL is already at target (with small tolerance for floating point comparison)
                 tolerance = 0.00001  # 1 pip tolerance
                 if abs(pos.sl - new_sl) <= tolerance:
-                    logger.info(f"   ⏭️  Position {pos.ticket} ALREADY at BE:")
-                    logger.info(f"      Entry Price: {pos.price_open}")
-                    logger.info(f"      Current SL: {pos.sl} (already at BE)")
+                    logger.info(f"   ⏭️  Position {pos.ticket} ALREADY at target SL:")
+                    logger.info(f"      Current SL: {pos.sl}")
+                    logger.info(f"      Target SL: {new_sl}")
                     logger.info(f"      ✅ Skipping - no change needed")
                     skipped_count += 1
                     continue
@@ -703,11 +706,18 @@ class TelegramMonitor:
                 
                 logger.info(f"   📝 Modifying Position {pos.ticket}:")
                 logger.info(f"      Entry Price: {pos.price_open}")
+                logger.info(f"      Current Price: {pos.price_current}")
+                logger.info(f"      Current Profit: ${current_profit:.2f}")
                 logger.info(f"      Current SL: {pos.sl} → New SL: {new_sl}")
                 logger.info(f"      Current TP: {pos.tp} (unchanged)")
+                logger.info(f"      Strategy: {'LOSS PROTECTION (-500 pips)' if is_in_loss else 'BREAK EVEN (Entry)'}")
                 
                 # Send modification
                 result = mt5.order_send(request)
+                
+                if result is None:
+                    logger.error(f"   ❌ Failed to modify Position {pos.ticket}: mt5.order_send() returned None")
+                    continue
                 
                 if result.retcode == mt5.TRADE_RETCODE_DONE:
                     logger.info(f"   ✅ Position {pos.ticket} SL moved to break even!")
@@ -932,7 +942,10 @@ class TelegramMonitor:
             
             result = mt5.order_send(cancel_request)
             
-            if result.retcode == mt5.TRADE_RETCODE_DONE:
+            if result is None:
+                logger.error(f"   ❌ Failed to cancel order {order.ticket}: mt5.order_send() returned None (connection issue?)")
+                failed_count += 1
+            elif result.retcode == mt5.TRADE_RETCODE_DONE:
                 logger.info(f"   ✅ Order {order.ticket} cancelled successfully")
                 logger.info(f"      Type: {order.type}, Price: {order.price_open}, V: {order.volume_initial}")
                 cancelled_count += 1

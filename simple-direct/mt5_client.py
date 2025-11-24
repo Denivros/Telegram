@@ -101,250 +101,6 @@ class MT5TradingClient:
         else:
             logger.info(f"   📍 No open positions")
     
-    def calculate_entry_price(self, signal: Dict[str, Any]) -> Dict[str, Any]:
-        """Calculate entry price based on strategy - Always returns limit order type"""
-        symbol = signal['symbol']
-        direction = signal['direction']
-        range_start = signal['range_start']
-        range_end = signal['range_end']
-        
-        # Get current price
-        prices = self.get_current_price(symbol)
-        current_price = prices['ask'] if direction == 'buy' else prices['bid'] if prices else None
-        
-        # DEBUG: Log market information
-        logger.info(f"🔍 DEBUGGING ORDER PLACEMENT:")
-        logger.info(f"   Direction: {direction.upper()}")
-        logger.info(f"   Signal Range: {range_start} - {range_end}")
-        logger.info(f"   Current Market: Bid={prices['bid'] if prices else 'N/A'}, Ask={prices['ask'] if prices else 'N/A'}")
-        logger.info(f"   Reference Price ({direction}): {current_price}")
-        logger.info(f"   Strategy: {ENTRY_STRATEGY}")
-        
-        if ENTRY_STRATEGY == 'midpoint':
-            entry_price = (range_start + range_end) / 2
-            logger.info(f"   📍 MIDPOINT Strategy: Entry = {entry_price}")
-            
-        elif ENTRY_STRATEGY == 'dual_entry':
-            # Calculate dual entry points at 1/3 and 2/3 of the range
-            range_span = range_end - range_start
-            entry_1 = range_start + (range_span / 3)  # 1/3 point
-            entry_2 = range_start + (2 * range_span / 3)  # 2/3 point
-            
-            logger.info(f"   📍 DUAL_ENTRY Strategy:")
-            logger.info(f"      Range: {range_start} - {range_end} (span: {range_span})")
-            logger.info(f"      Entry 1 (1/3): {entry_1}")
-            logger.info(f"      Entry 2 (2/3): {entry_2}")
-            logger.info(f"      Volume each: 0.07")
-            
-            # Return both entry points for dual execution
-            entry_price = entry_1  # Primary entry for main logic
-            
-        elif ENTRY_STRATEGY == 'multi_position_entry':
-            # Multi-Position strategy: Fixed entry points at range boundaries
-            # 4 positions at range END, 3 at MIDDLE, 2 at START
-            entry_price = current_price  # Use current price as reference
-            range_middle = range_start + ((range_end - range_start) / 2)
-            
-            logger.info(f"   📍 MULTI_POSITION_ENTRY Strategy ({direction.upper()}):")
-            logger.info(f"   📊 Will open {NUMBER_POSITIONS_MULTI} positions with BOUNDARY-based distribution")
-            logger.info(f"   📊 Range: {range_start} (START) - {range_middle} (MIDDLE) - {range_end} (END)")
-            logger.info(f"   📊 Logic: 4 positions at boundary closest to price + 3 at MIDDLE + 2 at other boundary")
-            logger.info(f"   📊 Standard volume: {POSITION_VOLUME_MULTI}, First position at closest boundary: {2 * POSITION_VOLUME_MULTI} (DOUBLE)")
-            logger.info(f"   📊 Total Volume: {(NUMBER_POSITIONS_MULTI - 1) * POSITION_VOLUME_MULTI + (2 * POSITION_VOLUME_MULTI)}")
-            logger.info(f"   📊 TP levels: 200, 400, 600, 800 pips per zone from entry")
-            
-        else:
-            entry_price = (range_start + range_end) / 2
-        
-        # Get symbol info for normalization and prepare dual entry data if needed
-        symbol_info = mt5.symbol_info(symbol)
-        if symbol_info:
-            digits = symbol_info.digits
-            entry_price = round(entry_price, digits)
-        
-        # Prepare multi-entry data for dual_entry strategies
-        multi_entries = None
-        if ENTRY_STRATEGY == 'dual_entry':
-            range_span = range_end - range_start
-            entry_1 = round(range_start + (range_span / 3), digits) if symbol_info else range_start + (range_span / 3)
-            entry_2 = round(range_start + (2 * range_span / 3), digits) if symbol_info else range_start + (2 * range_span / 3)
-            multi_entries = [
-                {'price': entry_1, 'volume': 0.07},
-                {'price': entry_2, 'volume': 0.07}
-            ]
-        elif ENTRY_STRATEGY == 'multi_position_entry':
-            # Multi-Position strategy: Fixed entry points at range boundaries
-            # BUY: 4 at END, 3 at MIDDLE, 2 at START | SELL: 2 at END, 3 at MIDDLE, 4 at START
-            # Each with TP starting from 200, 400, 600, 800 pips per zone
-            range_span = range_end - range_start
-            range_middle = range_start + (range_span / 2)
-            
-            # Create positions at fixed levels (distribution depends on current price position)
-            positions = []
-            
-            # Determine which range boundary (START or END) is closest to current price for 4-position placement
-            # MIDDLE is always gets 3 positions, only START vs END compete for the 4 positions
-            if current_price is None:
-                # Fallback to START if no current price
-                closest_to_price = 'start'
-                logger.info(f"   ⚠️  No current price available, defaulting 4 positions to START")
-            else:
-                # Calculate distances to START and END only (skip MIDDLE)
-                distance_to_start = abs(current_price - range_start)
-                distance_to_end = abs(current_price - range_end)
-                
-                # Find which boundary (START or END) is closest
-                if distance_to_start <= distance_to_end:
-                    closest_to_price = 'start'
-                else:
-                    closest_to_price = 'end'
-                
-                logger.info(f"   📍 BOUNDARY-BASED DISTRIBUTION LOGIC:")
-                logger.info(f"      Current Price: {current_price}")
-                logger.info(f"      Range: {range_start} (START) - {range_middle} (MIDDLE) - {range_end} (END)")
-                logger.info(f"      Distances: START={distance_to_start:.2f}, END={distance_to_end:.2f}")
-                logger.info(f"      ✅ 4 positions will be placed at {closest_to_price.upper()} (closest boundary to current price)")
-                logger.info(f"      📝 MIDDLE always gets 3 positions")
-            
-            # Always place 4 positions at the boundary (START or END) closest to current price
-            # MIDDLE always gets 3 positions, remaining boundary gets 2 positions
-            
-            if closest_to_price == 'start':
-                logger.info(f"      📊 Distribution: 4 at START (1 double volume) + 3 at MIDDLE + 2 at END")
-                
-                # 4 positions at range START (closest boundary to current price)
-                # First position gets double volume, others get standard volume
-                for i in range(4):
-                    volume = (2 * POSITION_VOLUME_MULTI) if i == 0 else POSITION_VOLUME_MULTI
-                    positions.append({
-                        'price': range_start,
-                        'zone': 'start',
-                        'volume': volume,
-                        'position_number': i + 1
-                    })
-                
-                # 3 positions at range MIDDLE (always gets 3)
-                for i in range(3):
-                    positions.append({
-                        'price': range_middle,
-                        'zone': 'middle',
-                        'volume': POSITION_VOLUME_MULTI,
-                        'position_number': i + 5
-                    })
-                
-                # 2 positions at range END (remaining boundary)
-                for i in range(2):
-                    positions.append({
-                        'price': range_end,
-                        'zone': 'end',
-                        'volume': POSITION_VOLUME_MULTI,
-                        'position_number': i + 8
-                    })
-                    
-            else:  # closest_to_price == 'end'
-                logger.info(f"      📊 Distribution: 2 at START + 3 at MIDDLE + 4 at END (1 double volume)")
-                
-                # 2 positions at range START (remaining boundary)
-                for i in range(2):
-                    positions.append({
-                        'price': range_start,
-                        'zone': 'start',
-                        'volume': POSITION_VOLUME_MULTI,
-                        'position_number': i + 1
-                    })
-                
-                # 3 positions at range MIDDLE (always gets 3)
-                for i in range(3):
-                    positions.append({
-                        'price': range_middle,
-                        'zone': 'middle',
-                        'volume': POSITION_VOLUME_MULTI,
-                        'position_number': i + 3
-                    })
-                
-                # 4 positions at range END (closest boundary to current price)
-                # First position gets double volume, others get standard volume
-                for i in range(4):
-                    volume = (2 * POSITION_VOLUME_MULTI) if i == 0 else POSITION_VOLUME_MULTI
-                    positions.append({
-                        'price': range_end,
-                        'zone': 'end',
-                        'volume': volume,
-                        'position_number': i + 6
-                    })
-            
-            # Set entry_price as range middle for multi-position strategy (representative value)
-            entry_price = range_middle
-            
-            # DEBUG: Log position distribution before processing
-            logger.info(f"   🔍 DEBUG Position Distribution:")
-            logger.info(f"      Total positions created: {len(positions)}")
-            logger.info(f"      NUMBER_POSITIONS_MULTI: {NUMBER_POSITIONS_MULTI}")
-            zone_counts = {}
-            for p in positions:
-                zone_counts[p['zone']] = zone_counts.get(p['zone'], 0) + 1
-            logger.info(f"      Zone distribution: {zone_counts}")
-            
-            # Create multi_entries with grouped TPs (200, 400, 600, 800 pips per zone)
-            multi_entries = []
-            for i, pos in enumerate(positions[:NUMBER_POSITIONS_MULTI]):
-                pos_price = pos['price']
-                pos_volume = pos['volume']  # Use volume from position (may be double for first position)
-                if symbol_info:
-                    pos_price = round(pos_price, symbol_info.digits)
-               
-                # Calculate grouped TP progression based on position zone and direction
-                if direction == 'buy':
-                    # BUY: 2 at END, 3 at MIDDLE, 4 at START
-                    if pos['zone'] == 'end':  # 2 positions: TP 200, 400 pips
-                        zone_tp_levels = [200, 400]
-                        zone_index = sum(1 for p in positions[:i] if p['zone'] == 'end')
-                    elif pos['zone'] == 'middle':  # 3 positions: TP 200, 400, 600 pips
-                        zone_tp_levels = [200, 400, 600]
-                        zone_index = sum(1 for p in positions[:i] if p['zone'] == 'middle')
-                    else:  # start - 4 positions: TP 200, 400, 600, 800 pips
-                        zone_tp_levels = [200, 400, 600, 800]
-                        zone_index = sum(1 for p in positions[:i] if p['zone'] == 'start')
-                    
-                    # DEBUG: Log TP assignment
-                    volume_label = "DOUBLE" if pos_volume == (2 * POSITION_VOLUME_MULTI) else "standard"
-                    logger.info(f"      Position {i+1}: zone='{pos['zone']}', zone_index={zone_index}, tp_levels={zone_tp_levels}, volume={pos_volume} ({volume_label})")
-                else:  # direction == 'sell'
-                    # SELL: 2 at END, 3 at MIDDLE, 4 at START
-                    if pos['zone'] == 'end':  # 2 positions: TP 200, 400 pips
-                        zone_tp_levels = [200, 400]
-                        zone_index = sum(1 for p in positions[:i] if p['zone'] == 'end')
-                    elif pos['zone'] == 'middle':  # 3 positions: TP 200, 400, 600 pips
-                        zone_tp_levels = [200, 400, 600]
-                        zone_index = sum(1 for p in positions[:i] if p['zone'] == 'middle')
-                    else:  # start - 4 positions: TP 200, 400, 600, 800 pips
-                        zone_tp_levels = [200, 400, 600, 800]
-                        zone_index = sum(1 for p in positions[:i] if p['zone'] == 'start')
-                    
-                    # DEBUG: Log TP assignment  
-                    volume_label = "DOUBLE" if pos_volume == (2 * POSITION_VOLUME_MULTI) else "standard"
-                    logger.info(f"      Position {i+1}: zone='{pos['zone']}', zone_index={zone_index}, tp_levels={zone_tp_levels}, volume={pos_volume} ({volume_label})")
-                
-                tp_pips = zone_tp_levels[zone_index] if zone_index < len(zone_tp_levels) else zone_tp_levels[-1]
-                
-                multi_entries.append({
-                    'price': pos_price,
-                    'volume': pos_volume,  # Use actual position volume (may be double)
-                    'tp_pips': tp_pips,  # Grouped TP: range_end(200,400,600,800), range_middle(200,400,600), range_start(200,400)
-                    'tp_level': zone_index + 1,
-                    'position_zone': pos['zone']
-                })
-        
-        return {
-            'entry_price': entry_price,
-            'order_type': 'limit',  # Always limit orders now
-            'current_price': current_price,
-            'strategy_used': ENTRY_STRATEGY,
-            'range_start': range_start,
-            'range_end': range_end,
-            'multi_entries': multi_entries  # None for single, [{'price': x, 'volume': y}, ...] for multi-entry
-        }
-
     def _execute_multi_trades(self, signal: Dict[str, Any], multi_entries: list) -> Dict[str, Any]:
         """Execute multi-entry trades (dual or triple) with flexible volumes"""
         try:
@@ -424,13 +180,25 @@ class MT5TradingClient:
                     }
                     logger.info(f"   ✅ {direction.upper()} MARKET order {i} (was limit at {entry_price})")
                 else:
-                    # Normal limit order
+                    # Determine correct order type based on price relationship
                     if direction == 'buy':
-                        order_type_mt5 = mt5.ORDER_TYPE_BUY_LIMIT
-                        logger.info(f"   ✅ BUY LIMIT order {i} at {entry_price}")
+                        if entry_price < current_ask:
+                            # Buy below market = BUY LIMIT
+                            order_type_mt5 = mt5.ORDER_TYPE_BUY_LIMIT
+                            logger.info(f"   ✅ BUY LIMIT order {i} at {entry_price} (below market {current_ask})")
+                        else:
+                            # Buy above market = BUY STOP
+                            order_type_mt5 = mt5.ORDER_TYPE_BUY_STOP
+                            logger.info(f"   ✅ BUY STOP order {i} at {entry_price} (above market {current_ask})")
                     else:  # sell
-                        order_type_mt5 = mt5.ORDER_TYPE_SELL_LIMIT
-                        logger.info(f"   ✅ SELL LIMIT order {i} at {entry_price}")
+                        if entry_price > current_bid:
+                            # Sell above market = SELL LIMIT
+                            order_type_mt5 = mt5.ORDER_TYPE_SELL_LIMIT
+                            logger.info(f"   ✅ SELL LIMIT order {i} at {entry_price} (above market {current_bid})")
+                        else:
+                            # Sell below market = SELL STOP
+                            order_type_mt5 = mt5.ORDER_TYPE_SELL_STOP
+                            logger.info(f"   ✅ SELL STOP order {i} at {entry_price} (below market {current_bid})")
                     
                     # Limit order request
                     request = {
@@ -447,10 +215,29 @@ class MT5TradingClient:
                         "type_filling": mt5.ORDER_FILLING_RETURN,
                     }
                 
+                # Debug: Log the complete request before sending
+                logger.info(f"   🔍 DEBUG - Order request details:")
+                logger.info(f"      Symbol: {symbol}")
+                logger.info(f"      Type: {order_type_mt5} ({'MARKET' if request['action'] == mt5.TRADE_ACTION_DEAL else 'LIMIT'})")
+                logger.info(f"      Entry Price: {entry_price}")
+                logger.info(f"      TP Price: {signal['take_profit']}")
+                logger.info(f"      SL Price: {signal['stop_loss']}")
+                logger.info(f"      Volume: {volume}")
+                logger.info(f"      Current Bid: {current_bid}, Ask: {current_ask}")
+                
                 # Send order
                 result = mt5.order_send(request)
-                
-                if result.retcode == mt5.TRADE_RETCODE_DONE:
+                logger.info(f"   📤 Order send result: {result}")
+                    
+                if result is None:
+                    logger.error(f"   ❌ Order {i} failed: mt5.order_send() returned None (connection issue?)")
+                    results.append({
+                        'entry_price': entry_price,
+                        'volume': volume,
+                        'error': "MT5 connection failed - order_send returned None",
+                        'success': False
+                    })
+                elif result.retcode == mt5.TRADE_RETCODE_DONE:
                     logger.info(f"   ✅ Order {i} placed successfully!")
                     logger.info(f"      Order ID: {result.order}")
                     logger.info(f"      Deal ID: {result.deal}")
@@ -463,6 +250,7 @@ class MT5TradingClient:
                         'success': True
                     })
                 else:
+                    # result is not None but failed - safe to access retcode/comment
                     logger.error(f"   ❌ Order {i} failed: {result.retcode} - {result.comment}")
                     results.append({
                         'entry_price': entry_price,
@@ -486,6 +274,7 @@ class MT5TradingClient:
                     'entry_type': 'dual',
                     'orders_placed': successful_orders,
                     'total_volume': total_volume,
+                    'volume': total_volume,  # For backward compatibility
                     'entry_prices': entry_prices,
                     'results': results
                 }
@@ -495,6 +284,7 @@ class MT5TradingClient:
                     'success': True,
                     'multi_entry': True,
                     'entry_type': 'dual',
+                    'entry_price': entry_prices[0] if entry_prices else 0,
                     'orders_placed': successful_orders,
                     'total_volume': sum([r['volume'] for r in results if r.get('success', False)]),
                     'entry_prices': entry_prices,
@@ -605,6 +395,18 @@ class MT5TradingClient:
                     logger.warning(f"   ⚠️  Entry price {entry_price} too close to market {market_price} (distance: {price_distance:.5f})")
                     logger.info(f"   🔄 Converting to MARKET order for immediate execution")
                     
+                    # RECALCULATE TP based on MARKET PRICE instead of range entry price
+                    if tp_pips is not None:
+                        if direction == 'buy':
+                            market_tp_price = market_price + (tp_pips * pip_value)
+                        else:  # sell
+                            market_tp_price = market_price - (tp_pips * pip_value)
+                        market_tp_price = round(market_tp_price, symbol_info.digits)
+                        logger.info(f"   🎯 TP RECALCULATED for MARKET order:")
+                        logger.info(f"      Original TP (from range): {tp_price} (based on {entry_price})")
+                        logger.info(f"      New TP (from market): {market_tp_price} (based on {market_price})")
+                        tp_price = market_tp_price
+                    
                     if direction == 'buy':
                         order_type_mt5 = mt5.ORDER_TYPE_BUY
                     else:  # sell
@@ -617,20 +419,32 @@ class MT5TradingClient:
                         "volume": volume,
                         "type": order_type_mt5,
                         "sl": signal['stop_loss'],
-                        "tp": tp_price,
+                        "tp": tp_price,  # Now uses market-based TP calculation
                         "magic": MAGIC_NUMBER,
                         "comment": f"TG Market {tp_level}/5 {tp_pips if tp_pips else 'Signal'}p",
                         "type_filling": mt5.ORDER_FILLING_IOC,
                     }
                     logger.info(f"   ✅ {direction.upper()} MARKET order {i} (was limit at {entry_price})")
                 else:
-                    # Normal limit order
+                    # Determine correct order type based on price relationship
                     if direction == 'buy':
-                        order_type_mt5 = mt5.ORDER_TYPE_BUY_LIMIT
-                        logger.info(f"   ✅ BUY LIMIT order {i} at {entry_price}")
+                        if entry_price < current_ask:
+                            # Buy below market = BUY LIMIT
+                            order_type_mt5 = mt5.ORDER_TYPE_BUY_LIMIT
+                            logger.info(f"   ✅ BUY LIMIT order {i} at {entry_price} (below market {current_ask})")
+                        else:
+                            # Buy above market = BUY STOP
+                            order_type_mt5 = mt5.ORDER_TYPE_BUY_STOP
+                            logger.info(f"   ✅ BUY STOP order {i} at {entry_price} (above market {current_ask})")
                     else:  # sell
-                        order_type_mt5 = mt5.ORDER_TYPE_SELL_LIMIT
-                        logger.info(f"   ✅ SELL LIMIT order {i} at {entry_price}")
+                        if entry_price > current_bid:
+                            # Sell above market = SELL LIMIT
+                            order_type_mt5 = mt5.ORDER_TYPE_SELL_LIMIT
+                            logger.info(f"   ✅ SELL LIMIT order {i} at {entry_price} (above market {current_bid})")
+                        else:
+                            # Sell below market = SELL STOP
+                            order_type_mt5 = mt5.ORDER_TYPE_SELL_STOP
+                            logger.info(f"   ✅ SELL STOP order {i} at {entry_price} (below market {current_bid})")
                     
                     # Limit order request
                     request = {
@@ -650,7 +464,18 @@ class MT5TradingClient:
                 # Send order
                 result = mt5.order_send(request)
                 
-                if result.retcode == mt5.TRADE_RETCODE_DONE:
+                if result is None:
+                    logger.error(f"   ❌ {tp_label} order failed: mt5.order_send() returned None (connection issue?)")
+                    results.append({
+                        'entry_price': entry_price,
+                        'tp_price': tp_price,
+                        'tp_pips': tp_pips,
+                        'tp_level': tp_level,
+                        'volume': volume,
+                        'error': "MT5 connection failed - order_send returned None",
+                        'success': False
+                    })
+                elif result.retcode == mt5.TRADE_RETCODE_DONE:
                     logger.info(f"   ✅ {tp_label} order placed successfully!")
                     logger.info(f"      Order ID: {result.order}")
                     logger.info(f"      Deal ID: {result.deal}")
@@ -666,6 +491,7 @@ class MT5TradingClient:
                         'success': True
                     })
                 else:
+                    # result is not None but failed - safe to access retcode/comment
                     logger.error(f"   ❌ {tp_label} order failed: {result.retcode} - {result.comment}")
                     results.append({
                         'entry_price': entry_price,
@@ -691,6 +517,7 @@ class MT5TradingClient:
                     'multi_position': is_multi_position,
                     'orders_placed': successful_orders,
                     'total_volume': total_volume,
+                    'volume': total_volume,  # For backward compatibility
                     'entry_prices': unique_entries,
                     'tp_levels': [f"TP{r['tp_level']}" for r in results if r.get('success', False)],
                     'results': results
@@ -701,6 +528,7 @@ class MT5TradingClient:
                     'success': True,
                     'multi_tp': True,
                     'multi_position': is_multi_position,
+                    'entry_price': entry_prices[0] if entry_prices else 0,
                     'orders_placed': successful_orders,
                     'total_volume': sum([r['volume'] for r in results if r.get('success', False)]),
                     'entry_prices': entry_prices,
